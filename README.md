@@ -61,7 +61,7 @@ Precise **binaural & monaural beat generator** for brainwave entrainment experim
 ### 📚 NeuralDeck
 Offline document-to-flashcard system using local AI models.  
 
-### 📅 NobetWizard
+### 📅 NöbetWizard
 Streamlit-based duty roster optimizer for fair and exportable scheduling.
 
 ---
