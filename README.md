@@ -1,60 +1,105 @@
-# Aegean — AI & Cognitive Tools Developer
+# Aegean - AI & Cognitive Tools Developer
 
-Hello! I’m **Aegean**, a Python developer building **AI-powered tools, cognitive enhancements, and practical productivity utilities** — especially ones that work well locally and with extensible architecture.
+Hi, I’m **Aegean** - building modular AI systems, cognitive tooling, and local-first intelligence infrastructure.
 
-This profile and infrastructure project are dedicated to **NeuroCore & cognition-oriented development**.
+My works sits at the intersection of :
 
----
-
-## 🚀 What Is NeuroCore?
-
-**NeuroCore** is a modular, extensible interface for connecting to language models and cognitive systems. It’s designed to enable:
-
-- Integration of **local and remote AI modules**
-- Construction of **cognitive applications**
-- Flexible use across **Python, CLI, and web tools**
-
-It aims to be **open-source infrastructure** for building human-centric AI ecosystems.
+- Cognitive architecture  
+- Agentic AI Frameworks  
+- Modular Tool Ecosystems  
+- Self-Experimentation & Optimization Systems  
+- Experimental Biological Hypothesis Modeling  
 
 ---
 
-## ⭐ Featured Projects
+# 🧠 NeuroCore
 
-Here are some highlighted projects from this profile:
+**NeuroCore** is my primary long-term project.
 
-### 🧠 NeuralBeat  
-A **binaural & monaural beat generator** for precise brainwave entrainment and neuro-acoustic experimentation.
+It is a **modular cognitive framework** designed to:
 
-### 🗂 NeuralDeck  
-Turn documents (PDFs, Word, etc.) into **offline flashcards** using local AI — a great tool for learning and memorization.
+- Connect to local and remote LLMs,
+- Execute tool-based reasoning,
+- Orchestrate agentic flows,
+- Support memory systems (including structured belief control),
+- Enable visual cognitive programming (future direction).
 
-### 📊 N1-Engine  
-A local-first Python platform focused on **N=1 self-experiment analysis** and rigorous personal metrics.
+### Vision
 
-### ⚙️ NeuroCore  
-The core modular system for interacting with **local/remote language models** and building cognitive interfaces.
+To build:
 
-### 📅 NöbetWizard  
-An automated **duty roster generator** built with Streamlit that creates fair schedules and supports export options.
+> A flexible sandbox for designing intelligence workflows.
 
----
-
-## 🎯 Core Philosophy
-
-I focus on tools that help people:
-
-- **Use AI locally** – minimal reliance on cloud services  
-- **Optimize cognition and workflow**  
-- **Automate routine tasks intelligently**  
-- **Encourage transparency and extensibility**
+Think:
+- n8n for cognition  
+- LangChain without chaos  
+- A programmable brain architecture  
 
 ---
 
-## 🔗 Connect with Me
+# 🧩 Active Projects
 
-- **X (Twitter):** https://twitter.com/aegean_E  
-- **Alt X (Twitter):** https://twitter.com/_aegean_
+### 🧠 NeuroCore Framework
+Modular agentic framework with tool library, flow control, memory layers, and extensible architecture.
+
+Future roadmap:
+
+- Multi-agent orchestration
+- Plugin marketplace
+
+### 🔁 N1-Engine
+A local-first system for **N=1 experimentation** and self-quantification.
+
+Designed for:
+- Metabolic tracking
+- Hormonal optimization modeling
+- Experimental protocol logging
+
+### 🎧 NeuralBeat
+Precise **binaural & monaural beat generator** for brainwave entrainment experimentation.
+
+### 📚 NeuralDeck
+Offline document-to-flashcard system using local AI models.  
+
+### 📅 NobetWizard
+Streamlit-based duty roster optimizer for fair and exportable scheduling.
 
 ---
 
-Thanks for visiting — always building, learning, and sharing!
+# 🧬 Research & Intellectual Themes
+
+Some domains I actively explore:
+
+- Obesity Hypothesis Modeling,
+- GLP-1 / Incretin Regulation Systems,
+- LLM Memory Integrity & Belief Falsification,
+- Consciousness Engineering Concepts.
+
+I treat biology, cognition, and computation as interoperable systems.
+
+---
+
+# ⚖️ Philosophy
+
+- Local-First > API Dependency  
+- Modular > Monolithic  
+- Structured Cognition > Prompt Chaos  
+
+---
+
+# 📊 GitHub Stats
+
+![Aegean's GitHub Stats](https://github-readme-stats.vercel.app/api?username=Aegean-E&show_icons=true&theme=radical)
+
+---
+
+# 🔗 Connect
+
+- X : https://twitter.com/Aegean_E
+
+---
+
+
+**Status :**  
+
+Building NeuroCore into a serious cognitive framework.
