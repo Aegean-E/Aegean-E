@@ -1,59 +1,60 @@
-# 👋 Hi, I'm Aegean.
+# Aegean — AI & Cognitive Tools Developer
 
-I'm a Python developer building **AI-powered tools, cognitive enhancements, and productivity utilities** — with a practical, local-first focus.
+Hello! I’m **Aegean**, a Python developer building **AI-powered tools, cognitive enhancements, and practical productivity utilities** — especially ones that work well locally and with extensible architecture.
 
-## 🧠 Core Focus — **NeuroCore & Cognition-Oriented Development**
-
-At the heart of this profile is **NeuroCore** — a modular, extensible interface for interacting with language models and cognitive tools.
-
-NeuroCore is designed to:
-- Orchestrate **local and remote AI modules**  
-- Empower developers to build **cognitive applications**  
-- Support flexible integration with Python, CLI, and web interfaces
-
-It’s **open-source infrastructure** — intended as a foundation for AI ecosystems that favor transparency, extensibility, and autonomy.
+This profile and infrastructure project are dedicated to **NeuroCore & cognition-oriented development**.
 
 ---
 
-## 🚀 Featured Projects
+## 🚀 What Is NeuroCore?
 
-### 🔊 NeuralBeat  
-Open-source **binaural & monaural beat generator** for precise brainwave entrainment and neuro-acoustic experimentation.
+**NeuroCore** is a modular, extensible interface for connecting to language models and cognitive systems. It’s designed to enable:
 
-### 📚 NeuralDeck  
-Turn any document (PDF, Word, etc.) into **offline flashcards** with local AI — ideal for learning.
+- Integration of **local and remote AI modules**
+- Construction of **cognitive applications**
+- Flexible use across **Python, CLI, and web tools**
 
-### 🧠 N1-Engine  
-A local-first Python platform for **rigorous N=1 self-experimentation analysis**.
-
-### 🤖 NeuroCore  
-Modular and extensible **UI for interacting with local/remote language models**.
-
-### 📆 NobetWizard  
-Automated **duty roster generator** built with Streamlit — creates fair schedules with export support.
-
-_(Pinned projects shown on my profile)_  
+It aims to be **open-source infrastructure** for building human-centric AI ecosystems.
 
 ---
 
-## 💡 What I Build
+## ⭐ Featured Projects
+
+Here are some highlighted projects from this profile:
+
+### 🧠 NeuralBeat  
+A **binaural & monaural beat generator** for precise brainwave entrainment and neuro-acoustic experimentation.
+
+### 🗂 NeuralDeck  
+Turn documents (PDFs, Word, etc.) into **offline flashcards** using local AI — a great tool for learning and memorization.
+
+### 📊 N1-Engine  
+A local-first Python platform focused on **N=1 self-experiment analysis** and rigorous personal metrics.
+
+### ⚙️ NeuroCore  
+The core modular system for interacting with **local/remote language models** and building cognitive interfaces.
+
+### 📅 NöbetWizard  
+An automated **duty roster generator** built with Streamlit that creates fair schedules and supports export options.
+
+---
+
+## 🎯 Core Philosophy
 
 I focus on tools that help people:
-- Harness AI **locally**, without cloud dependencies.  
-- Explore **neuro-tech and cognitive optimization**.  
-- Automate workflows and create practical utilities.
+
+- **Use AI locally** – minimal reliance on cloud services  
+- **Optimize cognition and workflow**  
+- **Automate routine tasks intelligently**  
+- **Encourage transparency and extensibility**
 
 ---
 
-## 📊 Stats
+## 🔗 Connect with Me
 
-![Aegean's GitHub Stats](https://github-readme-stats.vercel.app/api?username=Aegean-E&show_icons=true&theme=radical)
+- **X (Twitter):** https://twitter.com/aegean_E  
+- **Alt X (Twitter):** https://twitter.com/_aegean_
 
 ---
 
-## 🤝 Connect
-
-- X (Twitter): [@aegean_E](https://twitter.com/aegean_E)  
-- X (Alt): [@_aegean_](https://twitter.com/_aegean_)  
-
-> Always building, learning, and sharing — thanks for stopping by! 🚀
+Thanks for visiting — always building, learning, and sharing!
