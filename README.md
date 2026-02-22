@@ -1,4 +1,4 @@
-# 👋 Hi, I'm Aegean (Aegean-E)
+# 👋 Hi, I'm Aegean.
 
 I'm a Python developer building **AI-powered tools, cognitive enhancements, and productivity utilities** — with a practical, local-first focus.
 
