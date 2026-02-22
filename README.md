@@ -2,6 +2,17 @@
 
 I'm a Python developer building **AI-powered tools, cognitive enhancements, and productivity utilities** — with a practical, local-first focus.
 
+## 🧠 Core Focus — **NeuroCore & Cognition-Oriented Development**
+
+At the heart of this profile is **NeuroCore** — a modular, extensible interface for interacting with language models and cognitive tools.
+
+NeuroCore is designed to:
+- Orchestrate **local and remote AI modules**  
+- Empower developers to build **cognitive applications**  
+- Support flexible integration with Python, CLI, and web interfaces
+
+It’s **open-source infrastructure** — intended as a foundation for AI ecosystems that favor transparency, extensibility, and autonomy.
+
 ---
 
 ## 🚀 Featured Projects
