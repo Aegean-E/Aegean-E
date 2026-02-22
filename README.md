@@ -87,9 +87,22 @@ I treat biology, cognition, and computation as interoperable systems.
 
 ---
 
-# 📊 GitHub Stats
+# 🛠 Stack
 
-![Aegean's GitHub Stats](https://github-readme-stats.vercel.app/api?username=Aegean-E&show_icons=true&theme=radical)
+### Core Engineering
+- Python  
+- PyCharm  
+- FastAPI  
+- Streamlit  
+
+### AI Runtime Layer
+- LM Studio (local LLM execution)  
+- Gemini API integration  
+
+### Architecture
+- Modular Tool Systems  
+- Flow-Based Execution  
+- Tool-Augmented Reasoning  
 
 ---
 
@@ -100,6 +113,4 @@ I treat biology, cognition, and computation as interoperable systems.
 ---
 
 
-**Status :**  
-
-Building NeuroCore into a serious cognitive framework.
+**Status :**  Building NeuroCore into a serious cognitive framework.
