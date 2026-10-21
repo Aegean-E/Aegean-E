@@ -1,14 +1,10 @@
-# Aegean - AI & Cognitive Tools Developer
+# Aegean
 
-Hi, I’m **Aegean** - building modular AI systems, cognitive tooling, and local-first intelligence infrastructure.
+Hi, I'm **Aegean** — I build local-first AI systems, zero-dependency Python tools, and the occasional game. Based in Türkiye. I treat biology, cognition, and computation as interoperable systems.
 
-My works sits at the intersection of :
-
-- Cognitive architecture  
-- Agentic AI Frameworks  
-- Modular Tool Ecosystems  
-- Self-Experimentation & Optimization Systems  
-- Experimental Biological Hypothesis Modeling  
+- 🔭 Currently building **[NeuroCore](https://github.com/Aegean-E/NeuroCore)** — a self-hosted, modular AI agent framework (workflows, long-term memory, RAG, plugins).
+- 🧭 Also maintaining **[AIKit](https://github.com/Aegean-E/AIKit)** — universal AI coding principles and power-loss disruption recovery for autonomous agents.
+- 🧪 Long-running side quest: N=1 self-experimentation and self-quantification.
 
 ---
 
@@ -20,109 +16,62 @@ My works sits at the intersection of :
     <img src="https://github-readme-streak-stats.herokuapp.com?user=Aegean-E&theme=shadow-blue&hide_border=true&date_format=M%20j%5B%2C%20Y%5D" width="45%" alt="@Aegean-E's github-readme-streak-stats">
   </a>
 </p>
-<br/>
 
 ---
 
-# 🧠 NeuroCore
+# 🧩 Selected Work
 
-**NeuroCore** is my primary long-term project.
+### AI & Agents
+- **[NeuroCore](https://github.com/Aegean-E/NeuroCore)** — self-hosted modular agent framework: tool library, flow control, memory layers, plugin architecture
+- **[AIKit](https://github.com/Aegean-E/AIKit)** — AI coding principles, cross-IDE governance, disruption recovery
+- **[lacon](https://github.com/Aegean-E/lacon)** — an AI that thinks in as few letters as possible, recursively; no network, no API keys
+- **[NoMoreClutter](https://github.com/Aegean-E/NoMoreClutter)** — local-LLM file organizer that renames files meaningfully
 
-It is a **modular cognitive framework** designed to:
+### Brain & Body
+- **[NeuralBeat](https://github.com/Aegean-E/NeuralBeat)** — binaural, monaural & isochronic beat generator for entrainment experiments
+- **[NeuroOptic](https://github.com/Aegean-E/NeuroOptic)** — research-grade visual oscillator for brainwave entrainment
+- **[NeuralDeck](https://github.com/Aegean-E/NeuralDeck)** — offline document-to-Anki flashcards, local models only
+- **[N1-Engine](https://github.com/Aegean-E/N1-Engine)** — local-first N=1 self-experimentation platform
 
-- Connect to local and remote LLMs,
-- Execute tool-based reasoning,
-- Orchestrate agentic flows,
-- Support memory systems (including structured belief control),
-- Enable visual cognitive programming (future direction).
+### Zero-Dependency Tools
+- **[pebble](https://github.com/Aegean-E/pebble)** — a tiny scripting language: lexer, parser, evaluator, REPL
+- **[tally](https://github.com/Aegean-E/tally)** — terminal expense ledger in one readable JSON file
+- **[chronos](https://github.com/Aegean-E/chronos)** — deep-work session orchestrator with interruption logs
+- **[primordia](https://github.com/Aegean-E/primordia)** — evolution sandbox: genomes, speciation, fossil record
 
-### Vision
+### Games
+- **[voidfarer](https://github.com/Aegean-E/voidfarer)** — autonomous deep-space fleet & procedural galaxy simulator
+- **[cyberpulse](https://github.com/Aegean-E/cyberpulse)** — retro-cyberpunk terminal hacking sim
+- **[MemoryReconstruction](https://github.com/Aegean-E/MemoryReconstruction)** — action-roguelike metroidvania about rebuilding lost memories
 
-To build:
-
-> A flexible sandbox for designing intelligence workflows.
-
-Think:
-- n8n for cognition  
-- LangChain without chaos  
-- A programmable brain architecture  
-
----
-
-# 🧩 Active Projects
-
-### 🧠 NeuroCore Framework
-Modular agentic framework with tool library, flow control, memory layers, and extensible architecture.
-
-Future roadmap:
-
-- Multi-agent orchestration
-- Plugin marketplace
-
-### 🔁 N1-Engine
-A local-first system for **N=1 experimentation** and self-quantification.
-
-Designed for:
-- Metabolic tracking
-- Hormonal optimization modeling
-- Experimental protocol logging
-
-### 🎧 NeuralBeat
-Precise **binaural & monaural beat generator** for brainwave entrainment experimentation.
-
-### 📚 NeuralDeck
-Offline document-to-flashcard system using local AI models.  
-
-### 📅 NöbetWizard
-Streamlit-based duty roster optimizer for fair and exportable scheduling.
+### Everyday Utilities
+- **[NöbetWizard](https://github.com/Aegean-E/NobetWizard)** — fair duty-roster generator with hard constraints (EN/TR)
+- **[NeurologyClinicTemplates-TR](https://github.com/Aegean-E/NeurologyClinicTemplates-TR)** — Turkish neurology clinic documentation templates
 
 ---
 
-# 🧬 Research & Intellectual Themes
+# 🧬 What I Explore
 
-Some domains I actively explore:
-
-- Obesity Hypothesis Modeling,
-- GLP-1 / Incretin Regulation Systems,
-- LLM Memory Integrity & Belief Falsification,
-- Consciousness Engineering Concepts.
-
-I treat biology, cognition, and computation as interoperable systems.
+N=1 experiment design, metabolic & hormonal modeling, LLM memory integrity and belief falsification — anything where a system can be measured, modeled, and improved.
 
 ---
 
-# ⚖️ Philosophy
+# ⚖️ How I Build
 
-- Local-First > API Dependency  
-- Modular > Monolithic  
-- Structured Cognition > Prompt Chaos  
+- Local-first > API dependency
+- Zero dependencies when possible
+- Modular > monolithic
+- Structured cognition > prompt chaos
+- AGPL-3.0 by default
 
 ---
 
 # 🛠 Stack
 
-### Core Engineering
-- Python  
-- PyCharm  
-- FastAPI  
-- Streamlit  
-
-### AI Runtime Layer
-- LM Studio (local LLM execution)  
-- Gemini API integration  
-
-### Architecture
-- Modular Tool Systems  
-- Flow-Based Execution  
-- Tool-Augmented Reasoning  
+**Python** · FastAPI · Streamlit · PyCharm · LM Studio for local inference · Gemini API when remote helps · TypeScript when the game demands it
 
 ---
 
 # 🔗 Connect
 
-- X : https://twitter.com/Aegean_E
-
----
-
-
-**Status :**  Building NeuroCore into a serious cognitive framework.
+- X : [@Aegean_E](https://twitter.com/Aegean_E)
