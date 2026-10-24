@@ -1,5 +1,7 @@
 # Aegean
 
+[![AIKit Integrated](https://img.shields.io/badge/AIKit-integrated-6f42c1)](https://github.com/Aegean-E/AIKit)
+
 Hi, I'm **Aegean** — I build local-first AI systems, zero-dependency Python tools, and the occasional game. Based in Türkiye. I treat biology, cognition, and computation as interoperable systems.
 
 - 🔭 Currently building **[NeuroCore](https://github.com/Aegean-E/NeuroCore)** — a self-hosted, modular AI agent framework (workflows, long-term memory, RAG, plugins).
