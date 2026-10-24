@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "name": "aegean-e",
+  "test_command": "python -m unittest discover -s tests",
+  "topics": [
+    "aikit"
+  ],
+  "gates": {},
+  "ui_required": false,
+  "created": "2026-10-25"
+}
