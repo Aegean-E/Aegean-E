@@ -157,6 +157,7 @@ Aegean-E/
 ├── .github/
 │   └── FUNDING.yml          <- Sponsorship configuration
 ├── .gitignore               <- Project git and AIKit transient state exclusions
+├── COMMERCIAL.md
 ├── .aikit/                  <- Project memory: project.json, guidelines, decisions, ledger
 └── tests/                   <- Content and link integrity regression tests
 ```
