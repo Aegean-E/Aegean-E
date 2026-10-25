@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "name": "aegean-e",
+  "name": "aegeanworks",
   "test_command": "python -m unittest discover -s tests",
   "topics": [
     "aikit"
