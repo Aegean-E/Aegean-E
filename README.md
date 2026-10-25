@@ -3,18 +3,19 @@
 </p>
 
 <p align="center">
+  <a href="https://aegeanworks.github.io/AegeanWorks/"><img src="https://img.shields.io/badge/website-live-22D3EE?style=flat-square&labelColor=0B1220" alt="Website"></a>
   <a href="https://github.com/AegeanWorks/AIKit"><img src="https://img.shields.io/badge/AIKit-integrated-6F42C1?style=flat-square&labelColor=0B1220" alt="AIKit integrated"></a>
   <a href="COMMERCIAL.md"><img src="https://img.shields.io/badge/licensing-AGPL%20%2B%20commercial-22D3EE?style=flat-square&labelColor=0B1220" alt="Licensing"></a>
   <a href="https://github.com/AegeanWorks?tab=repositories"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2FAegeanWorks&query=public_repos&label=public%20repos&color=8B5CF6&style=flat-square&labelColor=0B1220" alt="Public repositories"></a>
 </p>
 
-<h3 align="center">Building modular intelligence that can think, remember, and explain itself.</h3>
+<h3 align="center">We build software that thinks, remembers, and explains itself.</h3>
 
 ---
 
-## What I build
+## What we build
 
-AegeanWorks is a small, independent lab for **local-first AI systems**, **cognitive architecture**, and **computational research**. The work favors small composable parts, inspectable state, and software that still works when the network does not.
+AegeanWorks is an independent software studio working on **local-first AI systems**, **cognitive architecture**, and **computational research**. The work favours small composable parts, inspectable state, and software that still works when the network does not.
 
 | Area | What it means in practice |
 |---|---|
@@ -154,6 +155,7 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 
 ## Connect
 
+- **Website** — [aegeanworks.github.io/AegeanWorks](https://aegeanworks.github.io/AegeanWorks/)
 - **GitHub** — [@AegeanWorks](https://github.com/AegeanWorks)
 - **X** — [@Aegean_E](https://twitter.com/Aegean_E)
 - **Commercial licensing** — [aegean-licensing@proton.me](mailto:aegean-licensing@proton.me)
@@ -180,6 +182,7 @@ AegeanWorks/
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── assets/
 │   └── banner.svg           <- Profile banner
+├── docs/                    <- Static GitHub Pages site (HTML, CSS, JS)
 ├── .github/
 │   └── FUNDING.yml          <- Sponsorship configuration
 ├── .aikit/
