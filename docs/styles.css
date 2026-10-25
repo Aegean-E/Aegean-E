@@ -1012,9 +1012,9 @@ h1 .grad {
 }
 
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .hero-visual { min-height: 0; }
-  .orbit { width: min(78%, 380px); }
+  .orbit { width: min(92%, 440px); }
   .hero-stats { margin-top: 34px; }
   .strip-inner { grid-template-columns: minmax(0, 1fr); }
   .strip-item { border-left: 0; padding: 16px 0; border-top: 1px solid var(--line); }
