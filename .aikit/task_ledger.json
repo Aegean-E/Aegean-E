@@ -2,13 +2,14 @@
   "version": 1,
   "active_task": {
     "task_id": "site-v1",
-    "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
-    "updated_at": 1792971566.3914714,
+    "last_phase": "phase 5",
+    "active_phase": 5,
+    "status": "completed",
+    "updated_at": 1792971636.015441,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1792971636.2279963
   },
   "checkpoints": [
     {
@@ -151,6 +152,27 @@
       "status": "in_progress",
       "timestamp": 1792971566.3914714,
       "timestamp_str": "2026-10-26 02:39:26",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v1",
+      "phase": "phase 5",
+      "phase_num": 5,
+      "description": "[4/4] Deployed docs/ to GitHub Pages at aegeanworks.github.io/AegeanWorks; build status built; live HTML, CSS, JS, favicon, OG image verified 200",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1792971636.015441,
+      "timestamp_str": "2026-10-26 02:40:36",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v1",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v1' completed successfully.",
+      "status": "completed",
+      "timestamp": 1792971636.2279978,
+      "timestamp_str": "2026-10-26 02:40:36",
       "agent": "kilo"
     }
   ]
