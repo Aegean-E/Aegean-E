@@ -330,6 +330,26 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn(".orbit .node text { font-size: 14px; }", css)
         self.assertIn("max-height: calc(100vh - 72px);", css)
 
+    def test_mobile_menu_is_opaque_and_single_github_entry(self):
+        html = read_site()
+        primary = re.search(r'<nav class="site-nav".*?</nav>', html, re.S).group(0)
+        footer = re.search(
+            r'<nav class="footer-col" aria-label="Site">.*?</nav>', html, re.S
+        ).group(0)
+        self.assertEqual(primary.count('class="nav-github"'), 1)
+        self.assertEqual(footer.count('class="nav-github"'), 0)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("background: #05080f;", css)
+        self.assertIn("box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);", css)
+        self.assertIn(".orbit { width: min(100%, 440px); }", css)
+
+    def test_license_identifiers_do_not_break_at_hyphens(self):
+        html = read_site()
+        self.assertIn('<span class="nw">ACL-1.0</span>', html)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".nw { white-space: nowrap; }", css)
+        self.assertIn('<span class="nw">ACL-1.0</span>', html)
+
     def test_orbit_animation_is_centred(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn(".orbit-nodes", css)

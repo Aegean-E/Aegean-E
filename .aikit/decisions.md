@@ -51,3 +51,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: The site had only an SVG favicon, and a manifest without installable raster icons would be incomplete. The orbit labels also rendered at roughly 7.5 CSS pixels on a 390px screen.
 - **Decision**: Generate 180, 192 and 512px PNG icons from the favicon, publish `site.webmanifest` with local icons and an `/AegeanWorks/` scope, link the manifest and icons, and raise the orbit label font to 14px under 640px. Add a `vh` fallback before `dvh` for older browsers.
 - **Consequences**: The site is installable with proper icons, mobile labels are legible, and tests assert icon dimensions, manifest entries and the mobile rule.
+
+### ADR-008: Opaque mobile menu and a single GitHub entry
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: A visual review found two defects. The open mobile menu used `rgba(5, 8, 15, 0.98)`, which let the hero headline show through; and an earlier automated edit removed the mobile GitHub link from the primary navigation while leaving a duplicate in the footer's Site column.
+- **Decision**: Make the mobile panel fully opaque with a drop shadow, keep exactly one `.nav-github` entry and assert its location in tests, widen the phone diagram to the full column, and prevent license identifiers such as ACL-1.0 from splitting at a hyphen.
+- **Consequences**: The menu reads as a surface rather than a tint, the footer matches its five-link sitemap, and legal identifiers stay intact when wrapping.

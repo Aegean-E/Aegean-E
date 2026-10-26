@@ -1,44 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v4",
-    "last_phase": "phase 5",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793000457.3325472,
+    "task_id": "site-v5",
+    "last_phase": "phase 4",
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793004384.193842,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": [],
-    "completed_at": 1793000457.5387557
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "site-v1",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Plan: static responsive company site in docs/ plus a company-voice profile rewrite",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792968855.7971551,
-      "timestamp_str": "2026-10-26 01:54:15",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "AegeanWorks has no web presence beyond GitHub; the profile also speaks as one person while the brand now presents as a company.",
-        "benefits": "A fast zero-dependency Pages site that presents the studio and its 33 public projects, warm company copy, and no build step.",
-        "risks": "contract: GitHub Pages serves docs/ from main; dependency: none, no external fonts or CDNs; concurrency: single agent; state: new docs/ tree and README tree update",
-        "mitigation": "Keep all assets local, respect reduced motion, verify contrast, screenshot desktop and mobile, and rerun the four AIKit gates"
-      }
-    },
-    {
-      "task_id": "site-v1",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v1' completed successfully.",
-      "status": "completed",
-      "timestamp": 1792968867.026561,
-      "timestamp_str": "2026-10-26 01:54:27",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v1",
       "phase": "phase 2",
@@ -255,6 +227,34 @@
       "status": "completed",
       "timestamp": 1793000457.538757,
       "timestamp_str": "2026-10-26 10:40:57",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v5",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Plan: fix visual defects found in screenshot review (menu translucency, footer duplicate link, license token wrapping) and re-verify visually",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793004383.6811168,
+      "timestamp_str": "2026-10-26 11:46:23",
+      "agent": "kilo",
+      "impact_assessment": {
+        "why": "A real visual pass found two user-visible defects that geometry tests could not catch.",
+        "benefits": "Opaque menu surface, correct sitemap, unbroken license identifiers, and a larger phone diagram.",
+        "risks": "contract: nav-github location; dependency: none; concurrency: single agent; state: no new files",
+        "mitigation": "Assert the duplicate removal and menu opacity in tests, then re-capture desktop, tablet, mobile and menu states"
+      }
+    },
+    {
+      "task_id": "site-v5",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/3] Menu opaque, footer duplicate removed and primary link restored, license tokens no-wrap, phone orbit widened; checklists: passed (31 tests, 4/4 gates, Nu 0, CLS 0)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793004384.193842,
+      "timestamp_str": "2026-10-26 11:46:24",
       "agent": "kilo"
     }
   ]
