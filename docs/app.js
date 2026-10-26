@@ -89,6 +89,7 @@
     });
   });
 
+  root.classList.remove("script-failed");
   root.classList.add("js");
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

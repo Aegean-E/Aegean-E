@@ -1,38 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v5",
-    "last_phase": "phase 5",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793008540.1634862,
+    "task_id": "site-v6",
+    "last_phase": "phase 4",
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793012981.2053301,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": [],
-    "completed_at": 1793008540.359192
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "site-v1",
-      "phase": "phase 5",
-      "phase_num": 5,
-      "description": "[4/4] Deployed docs/ to GitHub Pages at aegeanworks.github.io/AegeanWorks; build status built; live HTML, CSS, JS, favicon, OG image verified 200",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792971636.015441,
-      "timestamp_str": "2026-10-26 02:40:36",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v1",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v1' completed successfully.",
-      "status": "completed",
-      "timestamp": 1792971636.2279978,
-      "timestamp_str": "2026-10-26 02:40:36",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v2",
       "phase": "phase 2",
@@ -249,6 +227,34 @@
       "status": "completed",
       "timestamp": 1793008540.359193,
       "timestamp_str": "2026-10-26 12:55:40",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v6",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Plan: add a script-failure watchdog, make the no-JS nav sticky, fix the ambiguous AL monogram; verify with blocked-script and no-JS screenshots",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793012980.9705026,
+      "timestamp_str": "2026-10-26 14:09:40",
+      "agent": "kilo",
+      "impact_assessment": {
+        "why": "A blocked app.js left the mobile menu permanently open with no close control.",
+        "benefits": "A missing script now degrades to a compact inline nav, not an overlay.",
+        "risks": "contract: JS/CSS fallback coupling; dependency: none; concurrency: single agent; state: inline watchdog",
+        "mitigation": "Test blocked script at 3.2s, no-JS, CLS and Nu; keep all four gates green"
+      }
+    },
+    {
+      "task_id": "site-v6",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/3] Watchdog fallback, sticky noscript nav, AL monogram; app.js clears the fallback class; checklists: passed (34 tests, 4/4 gates, Nu 0, CLS 0; blocked/no-JS screenshots verified)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793012981.2053301,
+      "timestamp_str": "2026-10-26 14:09:41",
       "agent": "kilo"
     }
   ]

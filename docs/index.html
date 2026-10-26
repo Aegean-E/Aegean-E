@@ -81,18 +81,17 @@
       <span>GitHub</span>
     </a>
   </div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Primary">
+      <a href="#studio">Studio</a>
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
+      <a href="#licensing">Licensing</a>
+      <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+  </noscript>
 </header>
-
-<noscript>
-  <nav class="noscript-nav" aria-label="Primary">
-    <a href="#studio">Studio</a>
-    <a href="#work">Work</a>
-    <a href="#projects">Projects</a>
-    <a href="#research">Research</a>
-    <a href="#licensing">Licensing</a>
-    <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
-  </nav>
-</noscript>
 
 <main id="main" tabindex="-1">
 
@@ -398,7 +397,7 @@
         </a>
 
         <a class="project reveal" data-cat="ai" href="https://github.com/AegeanWorks/aegean-licensing" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
-          <span class="project-mark mark-ai" aria-hidden="true">Al</span>
+          <span class="project-mark mark-ai" aria-hidden="true">AL</span>
           <h3>aegean-licensing</h3>
           <p>Dual-licensing framework and certificate verification tooling for the portfolio.</p>
           <span class="project-tags"><span class="tag">Licensing</span><span class="tag">Tooling</span></span>
@@ -737,5 +736,14 @@
   </div>
 </footer>
 
+
+<script>
+  window.setTimeout(function () {
+    var root = document.documentElement;
+    if (!root.classList.contains("js")) {
+      root.classList.add("script-failed");
+    }
+  }, 2500);
+</script>
 </body>
 </html>

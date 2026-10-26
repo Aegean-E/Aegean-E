@@ -365,6 +365,21 @@ class ProfileIntegrityTests(unittest.TestCase):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn(".nw { white-space: nowrap; }", css)
 
+    def test_site_recovers_when_app_js_fails(self):
+        html = read_site()
+        self.assertIn("script-failed", html)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".script-failed .site-nav {", css)
+        self.assertIn(".script-failed .nav-toggle { display: none; }", css)
+
+    def test_noscript_nav_is_inside_the_sticky_header(self):
+        html = read_site()
+        header_start = html.index("<header")
+        header_end = html.index("</header>")
+        nav = html.index('class="noscript-nav"')
+        self.assertLess(header_start, nav)
+        self.assertLess(nav, header_end)
+
     def test_orbit_animation_is_centred(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn(".orbit-nodes", css)

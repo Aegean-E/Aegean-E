@@ -65,3 +65,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: An independent review pointed out that AGL-1.1 and ASL-1.1 appeared on the site without any route to their text, that the README named only AL-1.1 and ACL-1.0, and that the open menu still looked like part of the hero because the page behind it stayed at full brightness.
 - **Decision**: Link each personal-use tier to its canonical file in `aegean-licensing`, restate the three-tier family and catalog in the README, and add a `body.nav-open::after` scrim below the header while the mobile menu is open.
 - **Consequences**: Every license named on the site resolves to an authoritative text, the profile and site describe the same family, and the menu reads as a separate surface.
+
+### ADR-010: Fail safe when the script never arrives
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: With `app.js` blocked, the fail-open menu stayed fixed and permanently open because nothing could close it, and the no-JS navigation sat outside the sticky header. A visual review also found the `Al` monogram for aegean-licensing read as `AI`.
+- **Decision**: Move the `<noscript>` navigation inside the header so it stays sticky, add a small inline watchdog that marks the document `script-failed` after 2.5 seconds if `.js` never appears, and style that state as a compact wrapped nav row with no toggle. `app.js` clears the fallback class as soon as it runs. Rename the monogram to `AL`.
+- **Consequences**: A missing or blocked script still leaves a normal, readable navigation bar instead of a permanent overlay, and the no-JS bar sticks with the header. Both fallbacks are tested and visually verified.

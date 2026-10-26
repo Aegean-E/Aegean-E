@@ -1126,6 +1126,38 @@ h1 .grad {
   .header-cta { display: none; }
   .site-nav .nav-github { display: block; }
   .noscript-nav { display: flex; }
+  .script-failed .header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 72px;
+    padding-block: 10px;
+  }
+  .script-failed .site-nav {
+    position: static;
+    flex-basis: 100%;
+    order: 3;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin: 0;
+    padding: 8px 0 2px;
+    max-height: none;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .script-failed .site-nav a {
+    width: auto;
+    padding: 4px 0;
+    border: 0;
+    font-size: 0.84rem;
+  }
+  .script-failed .nav-toggle { display: none; }
+  .script-failed .site-nav .nav-github { display: block; }
   .header-inner { gap: 14px; }
 }
 
