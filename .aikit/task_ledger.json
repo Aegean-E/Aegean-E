@@ -1,77 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v7",
+    "task_id": "site-v8",
     "last_phase": "phase 5",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793020846.0668013,
-    "owner": "kilo",
-    "started_by": "kilo",
+    "updated_at": 1793031666.797603,
+    "owner": "kilo:main",
+    "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793020846.6612012
+    "completed_at": 1793031675.8584676
   },
   "checkpoints": [
-    {
-      "task_id": "site-v3",
-      "phase": "phase 5",
-      "phase_num": 5,
-      "description": "[3/4] Pushed 77ffe24; Pages built; live Lighthouse 100/100/100/100 with CLS 0, FCP/LCP 1.2s; custom 404, robots, sitemap and OG verified",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792998999.590204,
-      "timestamp_str": "2026-10-26 10:16:39",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v3",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v3' completed successfully.",
-      "status": "completed",
-      "timestamp": 1792998999.7915864,
-      "timestamp_str": "2026-10-26 10:16:39",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v4",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/3] Plan: make the mobile menu and reveals fail open when app.js fails, and verify CLS with PerformanceObserver",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792999721.1856723,
-      "timestamp_str": "2026-10-26 10:28:41",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "A missing or broken app.js would have left mobile users with a dead toggle and hidden content, even though the no-JS path worked.",
-        "benefits": "Navigation and content survive a script failure; CLS measured at 0 across 390, 768, 1200 and 1440.",
-        "risks": "contract: CSS/JS coupling; dependency: none; concurrency: unrelated agents' background processes; state: nav visibility gated on .js",
-        "mitigation": "Test four script states, measure real CLS and reduced motion in Chromium, and keep Nu and the four gates green"
-      }
-    },
-    {
-      "task_id": "site-v4",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/3] Nav is visible until .js is added and the toggle is .js-only; reduced-motion selector fixed; checklists: passed (26 tests, 4/4 gates, Nu 0, CLS 0 at four widths)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792999721.464183,
-      "timestamp_str": "2026-10-26 10:28:41",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v4",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/3] Fail-open nav plus installable manifest, 180/192/512 icons and 14px mobile orbit labels; checklists: passed (29 tests, 4/4 gates, Nu 0, CLS 0 at 390/768/1200/1440)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793000346.2613091,
-      "timestamp_str": "2026-10-26 10:39:06",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v4",
       "phase": "phase 5",
@@ -250,6 +190,78 @@
       "timestamp": 1793020846.6612043,
       "timestamp_str": "2026-10-26 16:20:46",
       "agent": "kilo"
+    },
+    {
+      "task_id": "site-v8",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/4] Verify the last five pushes, fix the menu click-through, sharpen licensing and count copy, add manifest identity and a CI test gate",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793030663.3765833,
+      "timestamp_str": "2026-10-26 19:04:23",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "Visual and behavioural review of the last five pushes found a real menu defect: taps on the dimmed scrim activate the hero CTA underneath; keyboard focus can also leave the open menu. The site also overstates that all commercial use needs ACL-1.0 while most published repositories still carry AGPL-3.0, and it calls 33 project repositories simply 'repositories'.",
+        "benefits": "Taps on the scrim close the menu instead of navigating; background content is inert while the menu is open; licensing copy matches the AGPL-to-Aegean transition; manifest carries a stable identity; CI runs the regression suite on every push.",
+        "risks": "contract: no public URL or asset path changes; dependency: none, stdlib and GitHub Actions only; concurrency: inert is toggled only by setNav; state: no ledger or certificate schema changes; visual: scrim opacity changes slightly.",
+        "mitigation": "Cover every change with regression tests, re-run Playwright at 1440/834/390/320 with JS blocked and enabled, run aikit.py check, and verify the live page after push."
+      }
+    },
+    {
+      "task_id": "site-v8",
+      "phase": "phase 3",
+      "phase_num": 3,
+      "description": "[2/4] Make the open menu a modal surface: scrim absorbs taps, background inert; sharpen licensing and count copy with regression tests",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793030892.0258317,
+      "timestamp_str": "2026-10-26 19:08:12",
+      "agent": "kilo:main",
+      "handoff": {
+        "state": "copy and menu fixes implemented",
+        "next": "add the CI workflow, manifest identity and ADRs, then run full gates and visual checks",
+        "evidence": "38 tests pass, Playwright hit-test at 390x844 returns BODY and keeps the URL when the scrim is tapped"
+      }
+    },
+    {
+      "task_id": "site-v8",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[3/4] Add CI workflow, manifest identity, focus trap and ADRs; gates pass. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793031458.5688756,
+      "timestamp_str": "2026-10-26 19:17:38",
+      "agent": "kilo:main",
+      "handoff": {
+        "next": "commit the batch and push, then verify the live page and the Actions run",
+        "evidence": "40 tests, 4/4 gates, Playwright 390x844 shows inert background, contained Tab order and a tap-dismissing scrim"
+      }
+    },
+    {
+      "task_id": "site-v8",
+      "phase": "phase 5",
+      "phase_num": 5,
+      "description": "[4/4] Verified the fix batch alone: 40 tests and 4/4 gates pass; committing the site work, then closing the task",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793031666.797603,
+      "timestamp_str": "2026-10-26 19:21:06",
+      "agent": "kilo:main",
+      "handoff": {
+        "next": "close the task and push the batch, then confirm the Actions run and the live page"
+      }
+    },
+    {
+      "task_id": "site-v8",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v8' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793031675.8584688,
+      "timestamp_str": "2026-10-26 19:21:15",
+      "agent": "kilo:main"
     }
   ]
 }
