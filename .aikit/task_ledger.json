@@ -2,13 +2,14 @@
   "version": 1,
   "active_task": {
     "task_id": "site-v2",
-    "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
-    "updated_at": 1792994756.1230404,
+    "last_phase": "phase 5",
+    "active_phase": 5,
+    "status": "completed",
+    "updated_at": 1792994903.6997845,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1792994913.409843
   },
   "checkpoints": [
     {
@@ -200,6 +201,27 @@
       "status": "in_progress",
       "timestamp": 1792994756.1230404,
       "timestamp_str": "2026-10-26 09:05:56",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v2",
+      "phase": "phase 5",
+      "phase_num": 5,
+      "description": "[3/4] Pushed eade761; Pages build eade761 built; live index/CSS/robots/sitemap/OG verified; license links 200; repo homepage and topics set",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1792994903.6997845,
+      "timestamp_str": "2026-10-26 09:08:23",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v2",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v2' completed successfully.",
+      "status": "completed",
+      "timestamp": 1792994913.4098442,
+      "timestamp_str": "2026-10-26 09:08:33",
       "agent": "kilo"
     }
   ]
