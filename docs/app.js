@@ -1,6 +1,10 @@
 (function () {
   "use strict";
 
+  var root = document.documentElement;
+  root.classList.remove("no-js");
+  root.classList.add("js");
+
   var header = document.querySelector(".site-header");
   var navToggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");
@@ -28,12 +32,19 @@
   }
 
   document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") setNav(false);
+    if (event.key === "Escape" && header && header.dataset.open === "true") {
+      setNav(false);
+      if (navToggle) navToggle.focus();
+    }
   });
 
   document.addEventListener("click", function (event) {
     if (!header || header.dataset.open !== "true") return;
     if (!event.target.closest(".site-header")) setNav(false);
+  });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 780) setNav(false);
   });
 
   var lastScroll = 0;

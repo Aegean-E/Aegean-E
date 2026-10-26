@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://aegeanworks.github.io/AegeanWorks/"><img src="https://img.shields.io/badge/website-live-22D3EE?style=flat-square&labelColor=0B1220" alt="Website"></a>
   <a href="https://github.com/AegeanWorks/AIKit"><img src="https://img.shields.io/badge/AIKit-integrated-6F42C1?style=flat-square&labelColor=0B1220" alt="AIKit integrated"></a>
-  <a href="COMMERCIAL.md"><img src="https://img.shields.io/badge/licensing-AGPL%20%2B%20commercial-22D3EE?style=flat-square&labelColor=0B1220" alt="Licensing"></a>
+  <a href="COMMERCIAL.md"><img src="https://img.shields.io/badge/licensing-AL--1.1%20%2B%20ACL--1.0-22D3EE?style=flat-square&labelColor=0B1220" alt="Licensing"></a>
   <a href="https://github.com/AegeanWorks?tab=repositories"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2FAegeanWorks&query=public_repos&label=public%20repos&color=8B5CF6&style=flat-square&labelColor=0B1220" alt="Public repositories"></a>
 </p>
 
@@ -15,7 +15,7 @@
 
 ## What we build
 
-AegeanWorks is an independent software studio working on **local-first AI systems**, **cognitive architecture**, and **computational research**. The work favours small composable parts, inspectable state, and software that still works when the network does not.
+AegeanWorks is an independent software studio working on **local-first AI systems**, **cognitive architecture**, and **computational research**. The work favors small composable parts, inspectable state, and software that still works when the network does not.
 
 | Area | What it means in practice |
 |---|---|
@@ -47,7 +47,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 Every repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories).
 
 <details>
-<summary><b>Cognitive AI &amp; agent infrastructure</b></summary>
+<summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
 
 | Project | Description |
 |---|---|
@@ -61,7 +61,7 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 </details>
 
 <details>
-<summary><b>Research &amp; simulation</b></summary>
+<summary><b>Research &amp; Simulation</b></summary>
 
 | Project | Description |
 |---|---|
@@ -75,7 +75,7 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 </details>
 
 <details>
-<summary><b>Health, neuro &amp; personal tools</b></summary>
+<summary><b>Health, Neuro &amp; Personal Tools</b></summary>
 
 | Project | Description |
 |---|---|
@@ -89,7 +89,7 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 </details>
 
 <details>
-<summary><b>Developer tools &amp; utilities</b></summary>
+<summary><b>Developer Tools &amp; Utilities</b></summary>
 
 | Project | Description |
 |---|---|
@@ -105,7 +105,7 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 </details>
 
 <details>
-<summary><b>Games &amp; playable experiments</b></summary>
+<summary><b>Games &amp; Playable Experiments</b></summary>
 
 | Project | Description |
 |---|---|
@@ -153,6 +153,12 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 
 ---
 
+## 📜 License
+
+Free for personal use under the Aegean License 1.1 (AL-1.1); see [LICENSE](LICENSE). Any commercial use needs the Aegean Commercial License 1.0 (ACL-1.0); see [COMMERCIAL.md](COMMERCIAL.md).
+
+---
+
 ## Connect
 
 - **Website** — [aegeanworks.github.io/AegeanWorks](https://aegeanworks.github.io/AegeanWorks/)
@@ -178,7 +184,8 @@ python -m unittest discover -s tests
 ```text
 AegeanWorks/
 ├── README.md                <- Profile and public project atlas
-├── COMMERCIAL.md            <- Dual-licensing terms
+├── LICENSE                  <- Aegean License 1.1 (AL-1.1): free personal use
+├── COMMERCIAL.md            <- Licensing tiers and ACL-1.0 commercial terms
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── assets/
 │   └── banner.svg           <- Profile banner
@@ -194,3 +201,5 @@ AegeanWorks/
 └── tests/
     └── test_profile.py      <- Content and link integrity tests
 ```
+
+

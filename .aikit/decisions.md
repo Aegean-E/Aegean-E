@@ -23,3 +23,17 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: AegeanWorks had no web presence outside GitHub, and the profile spoke as a single developer while the brand now presents as a studio. GitHub Pages on a public repository can serve any static file tree without a build step.
 - **Decision**: Publish the site from `main` / `docs` with `.nojekyll`, plain HTML, CSS, and one small JavaScript file. Keep every asset local (no fonts, CDNs, trackers, or analytics), generate `og.png` from a local source page, and mark outbound links with `hygiene: allow` comments because the hygiene gate treats every absolute URL in a static asset as a third-party load.
 - **Consequences**: The site is deployable by branch and folder alone, loads with no third-party requests, presents all 33 public repositories, and the profile and site share one visual identity. Outbound-link markers are deliberate and named.
+
+### ADR-004: Adopt the Aegean License 1.1 family
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: AIKit moved its seeded and pinned licenses from AL/AGL/ASL 1.0 to 1.1 and kept 1.0 recognised as legacy (AIKit ADR-221). The profile repository had no `LICENSE` at all and `COMMERCIAL.md` described an invented "AWCL" that no Aegean project uses.
+- **Decision**: Seed the repository through `python aikit.py license AegeanWorks --set software`, which writes the canonical AL-1.1 text and the README License section, and replace `COMMERCIAL.md` with the canonical ACL-1.0 terms. State the family on the site: AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, ACL-1.0 for commercial use. Keep the historical note that published AGPL-3.0 versions retain that grant.
+- **Consequences**: The repository now carries a real, pinned license consistent with every other Aegean project, and the profile, site, tests and commercial terms agree. No AWCL text remains.
+
+### ADR-005: Centre the hero mark and orbit the labels
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: The hero diagram's wave mark began at x=226 and ended at x=272, so its centre was 249 while the containing square was centred at 260 — the logo read as visibly shifted. The rotating dashed ring used `transform-origin: 260px 260px`, which CSS resolves against the element's own box, so the ring orbited off-centre.
+- **Decision**: Centre the three wave paths on the square (237 to 283), move the four capability labels into an `.orbit-nodes` group that rotates about the SVG view box centre, and counter-rotate each label with `transform-box: fill-box` so the text stays upright. Animate slowly (72s per revolution) and stop entirely under `prefers-reduced-motion`.
+- **Consequences**: The mark is mathematically centred, the ring stays concentric, and the labels circle the core without becoming unreadable. Tests assert the geometry and the transform-box contract.

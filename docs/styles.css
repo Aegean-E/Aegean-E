@@ -13,7 +13,7 @@
   --line-2: rgba(148, 163, 184, 0.22);
   --text: #e9eefb;
   --muted: #9aa8c0;
-  --dim: #6d7c96;
+  --dim: #7f8ea8;
   --cyan: #67e8f9;
   --teal: #22d3ee;
   --violet: #a78bfa;
@@ -45,6 +45,10 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+section[id] {
+  scroll-margin-top: 88px;
 }
 
 body::before {
@@ -176,6 +180,8 @@ a { color: inherit; text-decoration: none; }
 .site-nav a:hover::after { right: 0; }
 
 .header-cta { margin-left: 0; }
+
+.site-nav .nav-github { display: none; }
 
 .nav-toggle {
   display: none;
@@ -370,8 +376,19 @@ h1 .grad {
   overflow: visible;
 }
 .spin-ring {
-  transform-origin: 260px 260px;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
   animation: spin 70s linear infinite;
+}
+.orbit-nodes {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spin 72s linear infinite;
+}
+.orbit-nodes .node {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: spin-reverse 72s linear infinite;
 }
 .node rect { filter: drop-shadow(0 6px 18px rgba(2, 8, 20, 0.7)); }
 .core { filter: drop-shadow(0 12px 34px rgba(34, 211, 238, 0.18)); }
@@ -401,6 +418,7 @@ h1 .grad {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin-reverse { to { transform: rotate(-360deg); } }
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
   70% { box-shadow: 0 0 0 9px rgba(74, 222, 128, 0); }
@@ -804,7 +822,7 @@ h1 .grad {
   gap: 6px;
   margin-top: auto;
 }
-.project-tags i {
+.project-tags .tag {
   font-style: normal;
   padding: 3px 8px;
   border-radius: 5px;
@@ -996,12 +1014,15 @@ h1 .grad {
 /* ---------- Reveal ---------- */
 
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
-.reveal.in { opacity: 1; transform: none; }
-.no-js .reveal { opacity: 1; transform: none; }
+.js .reveal.in { opacity: 1; transform: none; }
 
 /* ---------- Responsive ---------- */
 
@@ -1039,6 +1060,8 @@ h1 .grad {
     gap: 0;
     margin: 0;
     padding: 10px 20px 20px;
+    max-height: calc(100dvh - 72px);
+    overflow-y: auto;
     background: rgba(5, 8, 15, 0.98);
     border-bottom: 1px solid var(--line);
     transform: translateY(-12px);
@@ -1060,6 +1083,7 @@ h1 .grad {
   }
   .nav-toggle { display: block; }
   .header-cta { display: none; }
+  .site-nav .nav-github { display: block; }
   .header-inner { gap: 14px; }
   .no-js .nav-toggle { display: none; }
   .no-js .site-nav {

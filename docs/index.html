@@ -1,11 +1,10 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" class="no-js">
-<script>document.documentElement.classList.remove('no-js');</script>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AegeanWorks — local-first AI systems, cognitive tooling and research</title>
-<meta name="description" content="AegeanWorks is an independent software studio building local-first AI systems, cognitive tooling, and computational research. 33 public projects, AGPL-3.0 and commercial licensing.">
+<meta name="description" content="AegeanWorks is an independent software studio building local-first AI systems, cognitive tooling, and computational research. 33 public projects, source-available personal licenses and commercial terms.">
 <meta name="theme-color" content="#04060c">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -18,6 +17,8 @@
 <meta property="og:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow outbound link, not a loaded dependency -->
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AegeanWorks — software that thinks, remembers and explains itself">
+<meta name="author" content="AegeanWorks">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Aegean_E">
 <meta name="twitter:title" content="AegeanWorks — local-first AI systems">
@@ -64,6 +65,7 @@
       <a href="#projects">Projects</a>
       <a href="#research">Research</a>
       <a href="#licensing">Licensing</a>
+      <a class="nav-github" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
     </nav>
 
     <a class="btn btn-ghost header-cta" href="https://github.com/AegeanWorks" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
@@ -90,8 +92,8 @@
         </div>
         <dl class="hero-stats">
           <div><dt>Public projects</dt><dd>33</dd></div>
-          <div><dt>Research domains</dt><dd>6</dd></div>
-          <div><dt>Core runtime deps</dt><dd>0</dd></div>
+          <div><dt>Research threads</dt><dd>5</dd></div>
+          <div><dt>Disciplines</dt><dd>5</dd></div>
         </dl>
       </div>
 
@@ -122,40 +124,48 @@
             <circle class="spin-ring" cx="260" cy="260" r="122" stroke-width="1" stroke-dasharray="2 8" opacity="0.7"/>
           </g>
 
-          <g stroke="url(#ringGrad)" stroke-width="1">
-            <path d="M260 114v-18M260 406v18M114 260h-18M406 260h18"/>
-          </g>
-          <g fill="#67e8f9" opacity="0.75">
-            <circle cx="260" cy="114" r="2.6"/>
-            <circle cx="260" cy="406" r="2.6" opacity="0.7"/>
-            <circle cx="114" cy="260" r="2.6" opacity="0.7"/>
-            <circle cx="406" cy="260" r="2.6"/>
+          <g class="orbit-nodes" fill="none">
+            <g transform="translate(260 60)">
+              <path d="M0 13V54" stroke="url(#ringGrad)" stroke-width="1"/>
+              <circle cx="0" cy="54" r="2.6" fill="#67e8f9" opacity="0.8"/>
+              <g class="node">
+                <rect x="-39" y="-13" width="78" height="26" rx="13" fill="#0b1220" stroke="rgba(103,232,249,0.32)"/>
+                <text x="0" y="4" text-anchor="middle" fill="#bfe9f5" font-size="12" font-family="ui-monospace, monospace" letter-spacing="1.3">MEMORY</text>
+              </g>
+            </g>
+            <g transform="translate(460 260)">
+              <path d="M-54 0h20" stroke="url(#ringGrad)" stroke-width="1"/>
+              <circle cx="-54" cy="0" r="2.6" fill="#a78bfa" opacity="0.8"/>
+              <g class="node">
+                <rect x="-34" y="-13" width="68" height="26" rx="13" fill="#0b1220" stroke="rgba(167,139,250,0.32)"/>
+                <text x="0" y="4" text-anchor="middle" fill="#d7cbfa" font-size="12" font-family="ui-monospace, monospace" letter-spacing="1.3">TOOLS</text>
+              </g>
+            </g>
+            <g transform="translate(260 460)">
+              <path d="M0-54v41" stroke="url(#ringGrad)" stroke-width="1"/>
+              <circle cx="0" cy="-54" r="2.6" fill="#67e8f9" opacity="0.8"/>
+              <g class="node">
+                <rect x="-48" y="-13" width="96" height="26" rx="13" fill="#0b1220" stroke="rgba(103,232,249,0.32)"/>
+                <text x="0" y="4" text-anchor="middle" fill="#bfe9f5" font-size="12" font-family="ui-monospace, monospace" letter-spacing="1.3">WORKFLOWS</text>
+              </g>
+            </g>
+            <g transform="translate(60 260)">
+              <path d="M54 0H37" stroke="url(#ringGrad)" stroke-width="1"/>
+              <circle cx="54" cy="0" r="2.6" fill="#f472b6" opacity="0.8"/>
+              <g class="node">
+                <rect x="-37" y="-13" width="74" height="26" rx="13" fill="#0b1220" stroke="rgba(244,114,182,0.3)"/>
+                <text x="0" y="4" text-anchor="middle" fill="#f6c9e4" font-size="12" font-family="ui-monospace, monospace" letter-spacing="1.3">POLICY</text>
+              </g>
+            </g>
           </g>
 
           <g class="core">
             <rect x="206" y="206" width="108" height="108" rx="26" fill="#070d17" stroke="url(#coreStroke)" stroke-width="1.5"/>
             <g fill="none" stroke="url(#coreStroke)" stroke-linecap="round" stroke-width="2.1">
-              <path d="M226 250c7-6 15 6 23 0s15 6 23 0"/>
-              <path d="M226 261c7-6 15 6 23 0s15 6 23 0" stroke-opacity="0.8"/>
-              <path d="M226 272c7-6 15 6 23 0s15 6 23 0" stroke-opacity="0.55"/>
+              <path d="M237 249c7-6 15 6 23 0s15 6 23 0"/>
+              <path d="M237 260c7-6 15 6 23 0s15 6 23 0" stroke-opacity="0.8"/>
+              <path d="M237 271c7-6 15 6 23 0s15 6 23 0" stroke-opacity="0.55"/>
             </g>
-          </g>
-
-          <g class="node">
-            <rect x="221" y="51" width="78" height="26" rx="13" fill="#0b1220" stroke="rgba(103,232,249,0.32)"/>
-            <text x="260" y="68" text-anchor="middle" fill="#bfe9f5" font-size="10.5" font-family="ui-monospace, monospace" letter-spacing="1.5">MEMORY</text>
-          </g>
-          <g class="node">
-            <rect x="422" y="247" width="68" height="26" rx="13" fill="#0b1220" stroke="rgba(167,139,250,0.32)"/>
-            <text x="456" y="264" text-anchor="middle" fill="#d7cbfa" font-size="10.5" font-family="ui-monospace, monospace" letter-spacing="1.5">TOOLS</text>
-          </g>
-          <g class="node">
-            <rect x="212" y="443" width="96" height="26" rx="13" fill="#0b1220" stroke="rgba(103,232,249,0.32)"/>
-            <text x="260" y="460" text-anchor="middle" fill="#bfe9f5" font-size="10.5" font-family="ui-monospace, monospace" letter-spacing="1.5">WORKFLOWS</text>
-          </g>
-          <g class="node">
-            <rect x="27" y="247" width="74" height="26" rx="13" fill="#0b1220" stroke="rgba(244,114,182,0.3)"/>
-            <text x="64" y="264" text-anchor="middle" fill="#f6c9e4" font-size="10.5" font-family="ui-monospace, monospace" letter-spacing="1.5">POLICY</text>
           </g>
         </svg>
         <div class="hero-chip">
@@ -170,7 +180,7 @@
     <div class="wrap strip-inner">
       <div class="strip-item"><span class="strip-label">Discipline</span><span class="strip-value">Cognitive systems &amp; agent infrastructure</span></div>
       <div class="strip-item"><span class="strip-label">Distribution</span><span class="strip-value">Self-hosted, local-first, offline-capable</span></div>
-      <div class="strip-item"><span class="strip-label">Licensing</span><span class="strip-value">AGPL-3.0 with a commercial waiver</span></div>
+      <div class="strip-item"><span class="strip-label">Licensing</span><span class="strip-value">AL-1.1 personal use, ACL-1.0 commercial</span></div>
     </div>
   </section>
 
@@ -322,14 +332,14 @@
 
       <div class="filters" role="group" aria-label="Filter projects">
         <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All <span>33</span></button>
-        <button class="chip" type="button" data-filter="ai" aria-pressed="false">AI &amp; agents <span>6</span></button>
+        <button class="chip" type="button" data-filter="ai" aria-pressed="false">AI &amp; Agents <span>6</span></button>
         <button class="chip" type="button" data-filter="research" aria-pressed="false">Research <span>6</span></button>
-        <button class="chip" type="button" data-filter="health" aria-pressed="false">Health &amp; neuro <span>6</span></button>
-        <button class="chip" type="button" data-filter="tools" aria-pressed="false">Developer tools <span>8</span></button>
-        <button class="chip" type="button" data-filter="play" aria-pressed="false">Games <span>7</span></button>
+        <button class="chip" type="button" data-filter="health" aria-pressed="false">Health &amp; Neuro <span>6</span></button>
+        <button class="chip" type="button" data-filter="tools" aria-pressed="false">Developer Tools <span>8</span></button>
+        <button class="chip" type="button" data-filter="play" aria-pressed="false">Games &amp; Experiments <span>7</span></button>
       </div>
 
-      <p class="filter-status" role="status" aria-live="polite"></p>
+      <p class="filter-status" role="status" aria-live="polite">Showing all 33 public projects.</p>
 
       <div class="project-grid" id="project-grid">
 
@@ -337,231 +347,231 @@
           <span class="project-mark mark-ai" aria-hidden="true">Nc</span>
           <h3>NeuroCore</h3>
           <p>Modular agent framework with workflows, long-term memory, retrieval, and plugins.</p>
-          <span class="project-tags"><i>Agents</i><i>Python</i></span>
+          <span class="project-tags"><span class="tag">Agents</span><span class="tag">Python</span></span>
         </a>
 
         <a class="project reveal" data-cat="ai" href="https://github.com/AegeanWorks/AIKit" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-ai" aria-hidden="true">Ak</span>
           <h3>AIKit</h3>
           <p>Governance, delivery gates, and disruption recovery for AI coding agents.</p>
-          <span class="project-tags"><i>Governance</i><i>Stdlib</i></span>
+          <span class="project-tags"><span class="tag">Governance</span><span class="tag">Stdlib</span></span>
         </a>
 
         <a class="project reveal" data-cat="ai" href="https://github.com/AegeanWorks/lacon" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-ai" aria-hidden="true">Lc</span>
           <h3>lacon</h3>
           <p>An AI that thinks in as few letters as possible, recursively over a long context.</p>
-          <span class="project-tags"><i>Compression</i><i>LLM</i></span>
+          <span class="project-tags"><span class="tag">Compression</span><span class="tag">LLM</span></span>
         </a>
 
         <a class="project reveal" data-cat="ai" href="https://github.com/AegeanWorks/lattice" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-ai" aria-hidden="true">Lt</span>
           <h3>lattice</h3>
           <p>Provenance-first knowledge graph for humans and agents, backed by SQLite.</p>
-          <span class="project-tags"><i>Knowledge</i><i>SQLite</i></span>
+          <span class="project-tags"><span class="tag">Knowledge</span><span class="tag">SQLite</span></span>
         </a>
 
         <a class="project reveal" data-cat="ai" href="https://github.com/AegeanWorks/assay" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-ai" aria-hidden="true">As</span>
           <h3>assay</h3>
           <p>Tamper-evident audit evidence with hash-chained ledgers and offline packs.</p>
-          <span class="project-tags"><i>Audit</i><i>Local-first</i></span>
+          <span class="project-tags"><span class="tag">Audit</span><span class="tag">Local-first</span></span>
         </a>
 
         <a class="project reveal" data-cat="ai" href="https://github.com/AegeanWorks/aegean-licensing" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-ai" aria-hidden="true">Al</span>
           <h3>aegean-licensing</h3>
           <p>Dual-licensing framework and certificate verification tooling for the portfolio.</p>
-          <span class="project-tags"><i>Licensing</i><i>Tooling</i></span>
+          <span class="project-tags"><span class="tag">Licensing</span><span class="tag">Tooling</span></span>
         </a>
 
         <a class="project reveal" data-cat="research" href="https://github.com/AegeanWorks/N1-Engine" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-research" aria-hidden="true">N1</span>
           <h3>N1-Engine</h3>
           <p>Local-first, privacy-focused platform for personal N=1 experimentation.</p>
-          <span class="project-tags"><i>N=1</i><i>Privacy</i></span>
+          <span class="project-tags"><span class="tag">N=1</span><span class="tag">Privacy</span></span>
         </a>
 
         <a class="project reveal" data-cat="research" href="https://github.com/AegeanWorks/fluid-universe" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-research" aria-hidden="true">Fu</span>
           <h3>fluid-universe</h3>
           <p>Falsification-first code testing a Z3 circulant origin of the Koide relation.</p>
-          <span class="project-tags"><i>Physics</i><i>Falsification</i></span>
+          <span class="project-tags"><span class="tag">Physics</span><span class="tag">Falsification</span></span>
         </a>
 
         <a class="project reveal" data-cat="research" href="https://github.com/AegeanWorks/PNN" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-research" aria-hidden="true">Pn</span>
           <h3>PNN</h3>
           <p>Perineuronal-net softening and restored insulin signalling in obesity.</p>
-          <span class="project-tags"><i>Biology</i><i>Hypothesis</i></span>
+          <span class="project-tags"><span class="tag">Biology</span><span class="tag">Hypothesis</span></span>
         </a>
 
         <a class="project reveal" data-cat="research" href="https://github.com/AegeanWorks/primordia" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-research" aria-hidden="true">Pr</span>
           <h3>primordia</h3>
           <p>Zero-dependency evolution sandbox with exact replay from a seed.</p>
-          <span class="project-tags"><i>Simulation</i><i>Zero-dep</i></span>
+          <span class="project-tags"><span class="tag">Simulation</span><span class="tag">Zero-dep</span></span>
         </a>
 
         <a class="project reveal" data-cat="research" href="https://github.com/AegeanWorks/orrery" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-research" aria-hidden="true">Or</span>
           <h3>orrery</h3>
           <p>Terminal N-body sandbox with a symplectic integrator and live diagnostics.</p>
-          <span class="project-tags"><i>Physics</i><i>Terminal</i></span>
+          <span class="project-tags"><span class="tag">Physics</span><span class="tag">Terminal</span></span>
         </a>
 
         <a class="project reveal" data-cat="research" href="https://github.com/AegeanWorks/NeurologyClinicTemplates-TR" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-research" aria-hidden="true">Ne</span>
           <h3>NeurologyClinicTemplates-TR</h3>
           <p>Standardised Turkish neurology anamnesis templates for clinical practice.</p>
-          <span class="project-tags"><i>Clinical</i><i>Templates</i></span>
+          <span class="project-tags"><span class="tag">Clinical</span><span class="tag">Templates</span></span>
         </a>
 
         <a class="project reveal" data-cat="health" href="https://github.com/AegeanWorks/NeuralBeat" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-health" aria-hidden="true">Nb</span>
           <h3>NeuralBeat</h3>
           <p>Precise binaural, monaural, and isochronic tone generator for desktop.</p>
-          <span class="project-tags"><i>Audio</i><i>Neuro</i></span>
+          <span class="project-tags"><span class="tag">Audio</span><span class="tag">Neuro</span></span>
         </a>
 
         <a class="project reveal" data-cat="health" href="https://github.com/AegeanWorks/NeuroOptic" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-health" aria-hidden="true">No</span>
           <h3>NeuroOptic</h3>
           <p>Research-grade visual oscillator for 1–120 Hz brainwave entrainment.</p>
-          <span class="project-tags"><i>Visual</i><i>Safety</i></span>
+          <span class="project-tags"><span class="tag">Visual</span><span class="tag">Safety</span></span>
         </a>
 
         <a class="project reveal" data-cat="health" href="https://github.com/AegeanWorks/NeuralDeck" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-health" aria-hidden="true">Nd</span>
           <h3>NeuralDeck</h3>
           <p>Offline document-to-flashcard desktop app driven by local models.</p>
-          <span class="project-tags"><i>Study</i><i>Offline</i></span>
+          <span class="project-tags"><span class="tag">Study</span><span class="tag">Offline</span></span>
         </a>
 
         <a class="project reveal" data-cat="health" href="https://github.com/AegeanWorks/NobetWizard" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-health" aria-hidden="true">Nw</span>
           <h3>NobetWizard</h3>
           <p>Fair, exportable duty-roster optimiser built with Streamlit.</p>
-          <span class="project-tags"><i>Scheduling</i><i>Streamlit</i></span>
+          <span class="project-tags"><span class="tag">Scheduling</span><span class="tag">Streamlit</span></span>
         </a>
 
         <a class="project reveal" data-cat="health" href="https://github.com/AegeanWorks/mnemo" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-health" aria-hidden="true">Mn</span>
           <h3>mnemo</h3>
           <p>Dependency-free spaced-repetition flashcard CLI using SM-2.</p>
-          <span class="project-tags"><i>Memory</i><i>CLI</i></span>
+          <span class="project-tags"><span class="tag">Memory</span><span class="tag">CLI</span></span>
         </a>
 
         <a class="project reveal" data-cat="health" href="https://github.com/AegeanWorks/NoMoreClutter" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-health" aria-hidden="true">Nm</span>
           <h3>NoMoreClutter</h3>
           <p>AI-assisted desktop organiser that sorts files by meaning, not extension.</p>
-          <span class="project-tags"><i>Desktop</i><i>LLM</i></span>
+          <span class="project-tags"><span class="tag">Desktop</span><span class="tag">LLM</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/chronos" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Ch</span>
           <h3>chronos</h3>
           <p>Local-first focus and session orchestrator for deep work.</p>
-          <span class="project-tags"><i>Focus</i><i>Local-first</i></span>
+          <span class="project-tags"><span class="tag">Focus</span><span class="tag">Local-first</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/gauge" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Ga</span>
           <h3>gauge</h3>
           <p>Zero-dependency terminal ruler that draws sparklines, bars, and box plots.</p>
-          <span class="project-tags"><i>Terminal</i><i>Zero-dep</i></span>
+          <span class="project-tags"><span class="tag">Terminal</span><span class="tag">Zero-dep</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/tally" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Ta</span>
           <h3>tally</h3>
           <p>Dependency-free expense ledger stored in one readable JSON file.</p>
-          <span class="project-tags"><i>Finance</i><i>CLI</i></span>
+          <span class="project-tags"><span class="tag">Finance</span><span class="tag">CLI</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/tempo" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Te</span>
           <h3>tempo</h3>
           <p>Local focus timer with one process, one page, and no network calls.</p>
-          <span class="project-tags"><i>Focus</i><i>Offline</i></span>
+          <span class="project-tags"><span class="tag">Focus</span><span class="tag">Offline</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/pebble" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Pb</span>
           <h3>pebble</h3>
           <p>Tiny dependency-free scripting language with a tree-walking evaluator.</p>
-          <span class="project-tags"><i>Language</i><i>AIKit</i></span>
+          <span class="project-tags"><span class="tag">Language</span><span class="tag">AIKit</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/photo-harbor" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Ph</span>
           <h3>photo-harbor</h3>
           <p>Self-hosted Windows photo server fed by iPhone Shortcuts over local Wi-Fi.</p>
-          <span class="project-tags"><i>Self-hosted</i><i>Gallery</i></span>
+          <span class="project-tags"><span class="tag">Self-hosted</span><span class="tag">Gallery</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/muse" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Mu</span>
           <h3>muse</h3>
           <p>Prompt-driven music generation with an automated listener that scores fit.</p>
-          <span class="project-tags"><i>Audio</i><i>Evaluation</i></span>
+          <span class="project-tags"><span class="tag">Audio</span><span class="tag">Evaluation</span></span>
         </a>
 
         <a class="project reveal" data-cat="tools" href="https://github.com/AegeanWorks/ui-sandbox" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-tools" aria-hidden="true">Ui</span>
           <h3>ui-sandbox</h3>
           <p>Minimal React and Vite surface for exercising AIKit's bounded UI guard.</p>
-          <span class="project-tags"><i>React</i><i>Testing</i></span>
+          <span class="project-tags"><span class="tag">React</span><span class="tag">Testing</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/aldervale" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Ad</span>
           <h3>aldervale</h3>
           <p>2.5D medieval RPG rendered entirely in tiny ASCII cells.</p>
-          <span class="project-tags"><i>RPG</i><i>ASCII</i></span>
+          <span class="project-tags"><span class="tag">RPG</span><span class="tag">ASCII</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/MemoryReconstruction" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Mr</span>
           <h3>MemoryReconstruction</h3>
           <p>Action-roguelike metroidvania about rebuilding a fragmented world.</p>
-          <span class="project-tags"><i>Metroidvania</i><i>Roguelike</i></span>
+          <span class="project-tags"><span class="tag">Metroidvania</span><span class="tag">Roguelike</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/crypt-crawler" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Cc</span>
           <h3>crypt-crawler</h3>
           <p>Tactical turn-based web dungeon crawler with procedural levels.</p>
-          <span class="project-tags"><i>Tactical</i><i>Web</i></span>
+          <span class="project-tags"><span class="tag">Tactical</span><span class="tag">Web</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/cyberpulse" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Cy</span>
           <h3>cyberpulse</h3>
           <p>Retro-cyberpunk terminal hacking simulation built on risk and psychology.</p>
-          <span class="project-tags"><i>Hacking</i><i>Terminal</i></span>
+          <span class="project-tags"><span class="tag">Hacking</span><span class="tag">Terminal</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/fold" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Fo</span>
           <h3>fold</h3>
           <p>Local 4x4 tile-merge game with no dependencies and no account.</p>
-          <span class="project-tags"><i>Puzzle</i><i>Local</i></span>
+          <span class="project-tags"><span class="tag">Puzzle</span><span class="tag">Local</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/prism-relay" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Pr</span>
           <h3>prism-relay</h3>
           <p>Neon light-routing puzzle with mirrors, prisms, and six handcrafted chambers.</p>
-          <span class="project-tags"><i>Puzzle</i><i>Light</i></span>
+          <span class="project-tags"><span class="tag">Puzzle</span><span class="tag">Light</span></span>
         </a>
 
         <a class="project reveal" data-cat="play" href="https://github.com/AegeanWorks/voidfarer" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
           <span class="project-mark mark-play" aria-hidden="true">Vf</span>
           <h3>voidfarer</h3>
           <p>Autonomous deep-space fleet and procedural galaxy cockpit simulator.</p>
-          <span class="project-tags"><i>Space</i><i>Procedural</i></span>
+          <span class="project-tags"><span class="tag">Space</span><span class="tag">Procedural</span></span>
         </a>
 
       </div>
@@ -615,38 +625,38 @@
     <div class="wrap">
       <header class="section-head">
         <p class="eyebrow">05 — Licensing</p>
-        <h2>Open by default. Commercial when it needs to be.</h2>
-        <p class="section-lede">Every AegeanWorks repository is dual-licensed. Use it under AGPL-3.0, or take a commercial license that waives copyleft for closed-source products and hosted services.</p>
+        <h2>Free for personal work. Licensed for everything else.</h2>
+        <p class="section-lede">AegeanWorks projects are source-available. Personal, non-commercial use is free under the license for each domain; any commercial or organisational use needs the Aegean Commercial License 1.0 (ACL-1.0), evidenced by a certificate.</p>
       </header>
 
       <div class="license-grid">
         <article class="license-card reveal">
-          <span class="license-tier">Community</span>
-          <h3>GNU AGPL-3.0</h3>
-          <p class="license-price">Free, forever</p>
+          <span class="license-tier">Personal &amp; Research</span>
+          <h3>AL-1.1 · AGL-1.1 · ASL-1.1</h3>
+          <p class="license-price">Free for personal, non-commercial use</p>
           <ul>
-            <li>Inspect, run, modify, and self-host</li>
-            <li>Commercial use permitted</li>
-            <li>Network use requires source disclosure</li>
-            <li>Community support through issues</li>
+            <li>Software and tools: Aegean License 1.1</li>
+            <li>Games: Aegean Game License 1.1, DRM-free</li>
+            <li>Research: Aegean Science License 1.1</li>
+            <li>Read, modify, and self-host your copy</li>
           </ul>
-          <a class="btn btn-ghost" href="https://github.com/AegeanWorks?tab=repositories" target="_blank" rel="noopener">Browse repositories</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+          <a class="btn btn-ghost" href="https://github.com/AegeanWorks/AegeanWorks/blob/main/LICENSE" target="_blank" rel="noopener">Read the license</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
         </article>
 
         <article class="license-card license-card-accent reveal">
           <span class="license-tier">Commercial</span>
-          <h3>AegeanWorks Commercial License</h3>
-          <p class="license-price">Negotiated per project</p>
+          <h3>Aegean Commercial License 1.0</h3>
+          <p class="license-price">Quoted per project</p>
           <ul>
-            <li>Copyleft and source disclosure waived</li>
-            <li>Closed-source SaaS and client delivery</li>
-            <li>Perpetual rights to covered versions</li>
-            <li>Single project, portfolio, or OEM terms</li>
+            <li>Closed-source products, SaaS and client work</li>
+            <li>One project, the whole portfolio, or OEM</li>
+            <li>28-day non-production evaluation included</li>
+            <li>Certificates verifiable in a public register</li>
           </ul>
           <a class="btn btn-primary" href="mailto:aegean-licensing@proton.me?subject=Commercial%20license%20inquiry">Request a quote</a>
         </article>
       </div>
-      <p class="license-note">Full terms are published in <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">COMMERCIAL.md <span aria-hidden="true">↗</span></a>. Licenses grant copyright permissions only; no trademark or support rights are included.</p> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <p class="license-note">Full terms are published in <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">COMMERCIAL.md <span aria-hidden="true">↗</span></a>. Licenses grant copyright permissions only; names, logos and creative assets are separate. Versions already published under GNU AGPL-3.0 keep that grant.</p> <!-- hygiene: allow outbound link, not a loaded dependency -->
     </div>
   </section>
 
@@ -684,6 +694,7 @@
       <a href="#projects">Projects</a>
       <a href="#research">Research</a>
       <a href="#licensing">Licensing</a>
+      <a class="nav-github" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
     </nav>
 
     <nav class="footer-col" aria-label="Contact">
@@ -696,7 +707,8 @@
     <div class="footer-col">
       <h2>Legal</h2>
       <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">Commercial terms</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
-      <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener">AGPL-3.0</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md" target="_blank" rel="noopener">License catalog</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/LICENSE" target="_blank" rel="noopener">AL-1.1</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
       <a href="https://github.com/AegeanWorks/AegeanWorks" target="_blank" rel="noopener">Source</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
     </div>
   </div>
