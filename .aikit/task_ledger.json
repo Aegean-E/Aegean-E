@@ -1,15 +1,14 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v2",
-    "last_phase": "phase 5",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1792994903.6997845,
+    "task_id": "site-v3",
+    "last_phase": "phase 4",
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1792998774.8933003,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": [],
-    "completed_at": 1792994913.409843
+    "continuations": []
   },
   "checkpoints": [
     {
@@ -222,6 +221,34 @@
       "status": "completed",
       "timestamp": 1792994913.4098442,
       "timestamp_str": "2026-10-26 09:08:33",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v3",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/4] Plan: remove the no-JS nav reflow, finish a11y/SEO gaps, verify with Lighthouse and Nu",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1792998774.4046085,
+      "timestamp_str": "2026-10-26 10:12:54",
+      "agent": "kilo",
+      "impact_assessment": {
+        "why": "Lighthouse reported CLS 0.163 from the no-js nav bootstrap, the hero status chip was hidden from assistive tech, and no-JS users had no navigation.",
+        "benefits": "CLS 0 with Lighthouse 100 across all categories, a working no-JS menu, complete social metadata, and valid HTML.",
+        "risks": "contract: README tree and gates; dependency: none; concurrency: AIKit workspace under active edits; state: adds noscript markup and CSS",
+        "mitigation": "Verify JS-on/off at 390 and 1200, re-run Nu and Lighthouse, and keep the four gates green"
+      }
+    },
+    {
+      "task_id": "site-v3",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/4] Removed no-js bootstrap, added noscript nav, exposed the status chip, added scroll lock, focus target, social metadata and 404 description; checklists: passed (tests 25/25, hygiene, guidelines, secrets; Lighthouse 100/100/100/100, CLS 0; Nu 0 messages)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1792998774.8933003,
+      "timestamp_str": "2026-10-26 10:12:54",
       "agent": "kilo"
     }
   ]

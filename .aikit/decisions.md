@@ -37,3 +37,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: The hero diagram's wave mark began at x=226 and ended at x=272, so its centre was 249 while the containing square was centred at 260 — the logo read as visibly shifted. The rotating dashed ring used `transform-origin: 260px 260px`, which CSS resolves against the element's own box, so the ring orbited off-centre.
 - **Decision**: Centre the three wave paths on the square (237 to 283), move the four capability labels into an `.orbit-nodes` group that rotates about the SVG view box centre, and counter-rotate each label with `transform-box: fill-box` so the text stays upright. Animate slowly (72s per revolution) and stop entirely under `prefers-reduced-motion`.
 - **Consequences**: The mark is mathematically centred, the ring stays concentric, and the labels circle the core without becoming unreadable. Tests assert the geometry and the transform-box contract.
+
+### ADR-006: Remove the no-JS reflow and keep a no-JS navigation
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: Lighthouse measured CLS 0.163 on mobile. The cause was the `no-js` bootstrap: the header rendered a static navigation row before `app.js` removed the class and switched the menu to a fixed hidden panel, shifting the whole page. The fallback also existed only for the brief pre-script state, not for a failed script.
+- **Decision**: Drop the `no-js` class entirely, gate reveal animations on a `.js` class added by `app.js`, and provide a real `<noscript>` navigation bar with a head-level style that hides the inert toggle. Keep the diagram decorative with `aria-hidden` on the SVG only so the “Local runtime” chip stays readable, lock body scroll while the mobile menu is open, give `main` `tabindex="-1"` for skip-link focus, and wrap the observer in a fallback that reveals everything on failure.
+- **Consequences**: CLS falls to 0 and Lighthouse scores 100 across performance, accessibility, best practices and SEO locally. With JavaScript disabled or blocked, the page still exposes navigation, and no content depends on script success.

@@ -189,7 +189,7 @@ AegeanWorks/
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── assets/
 │   └── banner.svg           <- Profile banner
-├── docs/                    <- Static GitHub Pages site (HTML, CSS, JS)
+├── docs/                    <- Static GitHub Pages site and its assets
 ├── .github/
 │   └── FUNDING.yml          <- Sponsorship configuration
 ├── .aikit/

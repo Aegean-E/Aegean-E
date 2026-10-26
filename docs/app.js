@@ -2,7 +2,6 @@
   "use strict";
 
   var root = document.documentElement;
-  root.classList.remove("no-js");
   root.classList.add("js");
 
   var header = document.querySelector(".site-header");
@@ -17,6 +16,7 @@
     header.dataset.open = open ? "true" : "false";
     navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.classList.toggle("nav-open", open);
   }
 
   if (navToggle) {
@@ -96,14 +96,18 @@
   if (reduceMotion || !("IntersectionObserver" in window)) {
     revealables.forEach(function (el) { el.classList.add("in"); });
   } else {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("in");
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    revealables.forEach(function (el) { observer.observe(el); });
+    try {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+      revealables.forEach(function (el) { observer.observe(el); });
+    } catch (error) {
+      revealables.forEach(function (el) { el.classList.add("in"); });
+    }
   }
 
   var cards = Array.prototype.slice.call(document.querySelectorAll(".work-card"));

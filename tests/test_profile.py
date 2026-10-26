@@ -3,6 +3,7 @@
 import json
 import re
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -208,6 +209,67 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('class="skip"', html)
         self.assertIn('aria-live="polite"', html)
         self.assertIn('role="status"', html)
+        self.assertIn('<main id="main" tabindex="-1">', html)
+
+    def test_site_works_without_javascript(self):
+        html = read_site()
+        self.assertNotIn('class="no-js"', html)
+        self.assertIn('<noscript>', html)
+        self.assertIn('class="noscript-nav"', html)
+        self.assertIn('.nav-toggle{display:none!important}', html)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".noscript-nav {\n  display: none;", css)
+        self.assertIn(".noscript-nav { display: flex; }", css)
+
+    def test_hero_chip_is_exposed_to_assistive_tech(self):
+        html = read_site()
+        self.assertIn('<div class="hero-visual">', html)
+        self.assertIn('<svg class="orbit" viewBox="0 0 520 520" aria-hidden="true">', html)
+        self.assertIn("Local runtime", html)
+
+    def test_social_metadata_is_complete(self):
+        html = read_site()
+        for token in (
+            'property="og:image:type" content="image/png"',
+            'property="og:locale" content="en_US"',
+            'name="twitter:image:alt"',
+            'name="twitter:creator" content="@Aegean_E"',
+            'property="og:image:alt"',
+            'name="twitter:card"',
+            'name="robots" content="index,follow,max-image-preview:large"',
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, html)
+
+    def test_anchor_navigation_clears_the_sticky_header(self):
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("scroll-margin-top: 88px", css)
+        self.assertIn("body.nav-open { overflow: hidden; }", css)
+        self.assertIn("#main:focus { outline: none; }", css)
+
+    def test_discovery_files(self):
+        docs = ROOT / "docs"
+        robots = (docs / "robots.txt").read_text(encoding="utf-8")
+        self.assertIn("User-agent: *", robots)
+        self.assertIn(
+            "Sitemap: https://aegeanworks.github.io/AegeanWorks/sitemap.xml", robots
+        )
+        sitemap = (docs / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertIn("<loc>https://aegeanworks.github.io/AegeanWorks/</loc>", sitemap)
+        self.assertIsNotNone(ET.fromstring(sitemap))
+
+    def test_social_image_has_the_expected_dimensions(self):
+        png = (ROOT / "docs" / "og.png").read_bytes()
+        self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+        width = int.from_bytes(png[16:20], "big")
+        height = int.from_bytes(png[20:24], "big")
+        self.assertEqual((width, height), (1200, 630))
+
+    def test_not_found_page_is_noindexed(self):
+        page = (ROOT / "docs" / "404.html").read_text(encoding="utf-8")
+        self.assertIn('name="robots" content="noindex"', page)
+        self.assertIn('href="/AegeanWorks/"', page)
+        self.assertIn('name="description"', page)
 
     def test_orbit_animation_is_centred(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
