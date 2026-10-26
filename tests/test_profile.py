@@ -202,6 +202,20 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertNotIn("GNU AGPL-3.0</h3>", html)
         self.assertNotIn("AGPL-3.0 with a commercial waiver", html)
 
+    def test_licensing_copy_names_the_agpl_transition(self):
+        html = read_site()
+        self.assertIn("Current releases use the Aegean family", html)
+        self.assertIn("including its commercial permissions", html)
+        readme = read_readme()
+        self.assertIn("Current releases are free for personal use", readme)
+        self.assertIn("including its commercial permissions", readme)
+
+    def test_project_count_names_project_repositories(self):
+        html = read_site()
+        self.assertIn("Thirty-three project repositories, all public.", html)
+        self.assertNotIn("Thirty-three repositories, all public.", html)
+        self.assertIn("Every project repository below is public.", read_readme())
+
     def test_site_license_tiers_link_to_canonical_texts(self):
         html = read_site()
         for name in ("AL-1.1.md", "AGL-1.1.md", "ASL-1.1.md"):
@@ -315,6 +329,10 @@ class ProfileIntegrityTests(unittest.TestCase):
         )
         self.assertEqual(manifest["name"], "AegeanWorks")
         self.assertEqual(manifest["start_url"], "/AegeanWorks/")
+        self.assertEqual(manifest["id"], "/AegeanWorks/")
+        self.assertEqual(manifest["lang"], "en")
+        self.assertEqual(manifest["dir"], "ltr")
+        self.assertIn("productivity", manifest["categories"])
         self.assertEqual(manifest["display"], "standalone")
         sources = {icon["src"] for icon in manifest["icons"]}
         for expected in ("favicon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
@@ -361,9 +379,31 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("body.nav-open::after", css)
         self.assertIn(".orbit { width: min(100%, 440px); }", css)
 
+    def test_mobile_scrim_absorbs_taps(self):
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        block = css.split("body.nav-open::after {")[1].split("}")[0]
+        self.assertIn("z-index: 40;", block)
+        self.assertIn("pointer-events: auto;", block)
+        self.assertNotIn("pointer-events: none;", block)
+
+    def test_open_menu_makes_the_page_behind_inert(self):
+        script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('document.querySelectorAll("main, .site-footer")', script)
+        self.assertIn("region.inert = inert;", script)
+        self.assertIn("setBackgroundInert(open);", script)
+
+    def test_open_menu_contains_keyboard_focus(self):
+        script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("function menuFocusables()", script)
+        self.assertIn("header.contains(active)", script)
+        self.assertIn('event.key !== "Tab"', script)
+
     def test_license_identifiers_do_not_break_at_hyphens(self):
         html = read_site()
         self.assertIn('<span class="nw">ACL-1.0</span>', html)
+        for identifier in ("AL-1.1", "AGL-1.1", "ASL-1.1"):
+            with self.subTest(identifier=identifier):
+                self.assertIn(f'<span class="nw">{identifier}</span>', html)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn(".nw { white-space: nowrap; }", css)
 
@@ -413,6 +453,15 @@ class ProfileIntegrityTests(unittest.TestCase):
 
         project_json = json.loads((aikit_dir / "project.json").read_text(encoding="utf-8"))
         self.assertEqual(project_json.get("name"), "aegeanworks")
+
+    def test_ci_workflow_runs_the_suite(self):
+        workflow = ROOT / ".github" / "workflows" / "tests.yml"
+        self.assertTrue(workflow.is_file())
+        text = workflow.read_text(encoding="utf-8")
+        self.assertIn("branches: [main]", text)
+        self.assertIn("python -m unittest discover -s tests", text)
+        self.assertIn("permissions:", text)
+        self.assertIn("contents: read", text)
 
 
 if __name__ == "__main__":

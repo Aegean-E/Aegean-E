@@ -7,8 +7,25 @@
   var navToggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");
   var year = document.getElementById("year");
+  var background = Array.prototype.slice.call(
+    document.querySelectorAll("main, .site-footer")
+  );
 
   if (year) year.textContent = String(new Date().getFullYear());
+
+  function setBackgroundInert(inert) {
+    background.forEach(function (region) {
+      region.inert = inert;
+    });
+  }
+
+  function menuFocusables() {
+    return Array.prototype.slice.call(
+      header.querySelectorAll('a[href], button:not([disabled])')
+    ).filter(function (element) {
+      return element.getClientRects().length > 0;
+    });
+  }
 
   function setNav(open) {
     if (!header || !navToggle) return;
@@ -16,6 +33,7 @@
     navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     document.body.classList.toggle("nav-open", open);
+    setBackgroundInert(open);
   }
 
   if (navToggle) {
@@ -31,9 +49,24 @@
   }
 
   document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape" && header && header.dataset.open === "true") {
+    if (!header || header.dataset.open !== "true") return;
+    if (event.key === "Escape") {
       setNav(false);
       if (navToggle) navToggle.focus();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    var focusables = menuFocusables();
+    if (!focusables.length) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    var active = document.activeElement;
+    if (event.shiftKey && (active === first || !header.contains(active))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (active === last || !header.contains(active))) {
+      event.preventDefault();
+      first.focus();
     }
   });
 

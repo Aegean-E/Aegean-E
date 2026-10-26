@@ -1121,8 +1121,8 @@ h1 .grad {
     position: fixed;
     inset: 0;
     z-index: 40;
-    background: rgba(2, 4, 8, 0.58);
-    pointer-events: none;
+    background: rgba(2, 4, 8, 0.68);
+    pointer-events: auto;
   }
   .js .nav-toggle { display: block; }
   .header-cta { display: none; }

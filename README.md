@@ -44,7 +44,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories).
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories).
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -155,7 +155,7 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 
 ## License
 
-Personal use is free under a license per domain: AL-1.1 for software, AGL-1.1 for games, and ASL-1.1 for research. Any commercial use needs the Aegean Commercial License 1.0 (ACL-1.0); see [COMMERCIAL.md](COMMERCIAL.md). The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md).
+Current releases are free for personal use under a license per domain: AL-1.1 for software, AGL-1.1 for games, and ASL-1.1 for research. Commercial use of those releases needs the Aegean Commercial License 1.0 (ACL-1.0); see [COMMERCIAL.md](COMMERCIAL.md). Versions already published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md).
 
 ---
 
@@ -179,6 +179,8 @@ Personal use is free under a license per domain: AL-1.1 for software, AGL-1.1 fo
 python -m unittest discover -s tests
 ```
 
+The same suite runs in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`).
+
 ### What's Inside
 
 ```text
@@ -191,7 +193,8 @@ AegeanWorks/
 │   └── banner.svg           <- Profile banner
 ├── docs/                    <- Static GitHub Pages site and its assets
 ├── .github/
-│   └── FUNDING.yml          <- Sponsorship configuration
+│   ├── FUNDING.yml          <- Sponsorship configuration
+│   └── workflows/tests.yml  <- CI regression gate on every push
 ├── .aikit/
 │   ├── project.json         <- Project identity and test command
 │   ├── guidelines.md        <- Project-only rules

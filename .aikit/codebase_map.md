@@ -9,8 +9,8 @@
 - **Total Python Modules**: `1`
 - **Total Classes**: `1`
 - **Total Top-Level Functions**: `2`
-- **Total Class Methods**: `34`
-- **Total Source Lines**: `419`
+- **Total Class Methods**: `40`
+- **Total Source Lines**: `468`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `419` lines (`16815` bytes)
+**Size**: `468` lines (`19331` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -36,6 +36,8 @@
   - Method `.test_site_lists_every_public_repository_once()`
   - Method `.test_site_filter_counts_match_cards()`
   - Method `.test_site_licensing_copy_is_current()`
+  - Method `.test_licensing_copy_names_the_agpl_transition()`
+  - Method `.test_project_count_names_project_repositories()`
   - Method `.test_site_license_tiers_link_to_canonical_texts()`
   - Method `.test_external_links_are_safe()`
   - Method `.test_site_accessibility_basics()`
@@ -51,12 +53,16 @@
   - Method `.test_icon_dimensions()`
   - Method `.test_mobile_orbit_labels_are_large_enough()`
   - Method `.test_mobile_menu_is_opaque_and_single_github_entry()`
+  - Method `.test_mobile_scrim_absorbs_taps()`
+  - Method `.test_open_menu_makes_the_page_behind_inert()`
+  - Method `.test_open_menu_contains_keyboard_focus()`
   - Method `.test_license_identifiers_do_not_break_at_hyphens()`
   - Method `.test_site_recovers_when_app_js_fails()`
   - Method `.test_noscript_nav_is_inside_the_sticky_header()`
   - Method `.test_orbit_animation_is_centred()`
   - Method `.test_hero_mark_is_centred_in_its_square()`
   - Method `.test_aikit_memory_intact()`
+  - Method `.test_ci_workflow_runs_the_suite()`
 
 **Functions:**
 - `def read_readme()`

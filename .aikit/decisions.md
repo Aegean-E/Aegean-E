@@ -79,3 +79,31 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: Visual review showed orphaned heading lines ("…studio / thinks.", "…to / be answered.") and the social card's meta row sat on top of the decorative wave strokes.
 - **Decision**: Apply `text-wrap: balance` to section headings and `text-wrap: pretty` to ledes, and move the OG waves lower and lighter so the metadata row reads cleanly.
 - **Consequences**: Headings wrap into even lines at every width, paragraphs avoid single-word last lines, and the social card has a clean footer band without changing its content.
+
+### ADR-012: Make the open mobile menu a modal surface
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: A behavioural review of the last five pushes measured the open menu at 390x844. The scrim had `pointer-events: none`, so a hit test at (120, 500) returned the hero's "Explore the projects" button; tapping the dimmed area navigated to `#projects` instead of dismissing the menu. Tab also reached the page beneath the panel.
+- **Decision**: Let the scrim absorb pointer input (`pointer-events: auto`, opacity 0.68), mark `main` and `.site-footer` as `inert` while the menu is open, and wrap Tab and Shift+Tab within the header's visible controls so focus cannot reach the page beneath. `setNav` clears the inert state on every close path. Tests assert the scrim and inert contracts.
+- **Consequences**: A tap anywhere outside the header now dismisses the menu without activating the page beneath, and keyboard focus stays inside the brand, toggle and menu links until the menu closes. Browsers without `inert` still get pointer dismissal because the scrim captures the tap; the menu never changes the URL.
+
+### ADR-013: Name the AGPL transition and the repository count precisely
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: The site claimed that any commercial or organisational use needs ACL-1.0, but most published repositories still carry AGPL-3.0 on GitHub, and AGPL already permits commercial use. The site also called 33 project repositories simply "repositories", while the GitHub API reports 34 public repositories including this profile repository.
+- **Decision**: Qualify the claim to "current releases" under the Aegean family, state that versions already published under GNU AGPL-3.0 keep that grant including its commercial permissions, change the strip to "Aegean 1.1", and say "project repositories" on both the site and the README. Tests pin the new wording.
+- **Consequences**: The umbrella page is true for both current Aegean releases and historical AGPL releases, and it distinguishes the 33 project repositories from the profile repository visitors are reading.
+
+### ADR-014: Gate the profile in GitHub Actions
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: The regression suite was only run locally, so a broken link count, asset path or fallback contract could reach `main` unnoticed.
+- **Decision**: Add `.github/workflows/tests.yml` for pushes to `main`, pull requests and manual runs; use Python 3.12, `unittest`, read-only `contents` permission and concurrency cancellation. A test asserts the workflow still runs the canonical command.
+- **Consequences**: Every change gets a status check without adding a runtime dependency, while the local command remains the canonical gate.
+
+### ADR-015: Give the manifest a stable identity
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: The web manifest declared a name, scope and icons but no `id`, language, direction or categories. Installers derive identity from `start_url` when `id` is absent, so a future URL change could create a second installed app.
+- **Decision**: Declare `id` as `/AegeanWorks/`, `lang` as `en`, `dir` as `ltr` and categories `productivity`, `education`, `utilities`; assert them in the manifest test.
+- **Consequences**: Installed copies keep a stable identity and expose language metadata, with no new asset or runtime dependency.
