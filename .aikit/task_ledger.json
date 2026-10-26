@@ -2,36 +2,16 @@
   "version": 1,
   "active_task": {
     "task_id": "site-v4",
-    "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
-    "updated_at": 1793000346.2613091,
+    "last_phase": "phase 5",
+    "active_phase": 5,
+    "status": "completed",
+    "updated_at": 1793000457.3325472,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1793000457.5387557
   },
   "checkpoints": [
-    {
-      "task_id": "profile-rebrand-v1",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/3] Built banner, README atlas, rebrand and tests; checklists: passed (test, hygiene, guidelines, secrets 4/4; 7 project tests; 34 README links live)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792968585.8172328,
-      "timestamp_str": "2026-10-26 01:49:45",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "profile-rebrand-v1",
-      "phase": "superseded",
-      "phase_num": 4,
-      "description": "Superseded by 'site-v1' without --complete or --reset",
-      "status": "superseded",
-      "timestamp": 1792968855.7971551,
-      "timestamp_str": "2026-10-26 01:54:15",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v1",
       "phase": "phase 2",
@@ -254,6 +234,27 @@
       "status": "in_progress",
       "timestamp": 1793000346.2613091,
       "timestamp_str": "2026-10-26 10:39:06",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v4",
+      "phase": "phase 5",
+      "phase_num": 5,
+      "description": "[3/3] Pushed 6f1c65b; Pages built; manifest served as application/manifest+json, all icons 200, live Nu 0 messages, CLS 0",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793000457.3325472,
+      "timestamp_str": "2026-10-26 10:40:57",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v4",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v4' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793000457.538757,
+      "timestamp_str": "2026-10-26 10:40:57",
       "agent": "kilo"
     }
   ]
