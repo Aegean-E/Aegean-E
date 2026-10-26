@@ -2,43 +2,16 @@
   "version": 1,
   "active_task": {
     "task_id": "site-v7",
-    "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
-    "updated_at": 1793020688.6315157,
+    "last_phase": "phase 5",
+    "active_phase": 5,
+    "status": "completed",
+    "updated_at": 1793020846.0668013,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1793020846.6612012
   },
   "checkpoints": [
-    {
-      "task_id": "site-v3",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Plan: remove the no-JS nav reflow, finish a11y/SEO gaps, verify with Lighthouse and Nu",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792998774.4046085,
-      "timestamp_str": "2026-10-26 10:12:54",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "Lighthouse reported CLS 0.163 from the no-js nav bootstrap, the hero status chip was hidden from assistive tech, and no-JS users had no navigation.",
-        "benefits": "CLS 0 with Lighthouse 100 across all categories, a working no-JS menu, complete social metadata, and valid HTML.",
-        "risks": "contract: README tree and gates; dependency: none; concurrency: AIKit workspace under active edits; state: adds noscript markup and CSS",
-        "mitigation": "Verify JS-on/off at 390 and 1200, re-run Nu and Lighthouse, and keep the four gates green"
-      }
-    },
-    {
-      "task_id": "site-v3",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/4] Removed no-js bootstrap, added noscript nav, exposed the status chip, added scroll lock, focus target, social metadata and 404 description; checklists: passed (tests 25/25, hygiene, guidelines, secrets; Lighthouse 100/100/100/100, CLS 0; Nu 0 messages)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792998774.8933003,
-      "timestamp_str": "2026-10-26 10:12:54",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v3",
       "phase": "phase 5",
@@ -255,6 +228,27 @@
       "status": "in_progress",
       "timestamp": 1793020688.6315157,
       "timestamp_str": "2026-10-26 16:18:08",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v7",
+      "phase": "phase 5",
+      "phase_num": 5,
+      "description": "[3/3] Pushed 049dcc7; Pages built; live Lighthouse 99-100 with CLS 0; balanced wrapping live",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793020846.0668013,
+      "timestamp_str": "2026-10-26 16:20:46",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v7",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v7' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793020846.6612043,
+      "timestamp_str": "2026-10-26 16:20:46",
       "agent": "kilo"
     }
   ]
