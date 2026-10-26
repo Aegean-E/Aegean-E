@@ -125,6 +125,12 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertTrue(linked)
         self.assertTrue(linked.issubset(PUBLIC_REPOS), linked - PUBLIC_REPOS)
 
+    def test_readme_atlas_lists_every_public_repository(self):
+        linked = set(
+            re.findall(r"https://github\.com/AegeanWorks/([A-Za-z0-9._-]+)", read_readme())
+        )
+        self.assertEqual(linked, PUBLIC_REPOS)
+
     def test_license_matches_the_aikit_family(self):
         license_path = ROOT / "LICENSE"
         self.assertTrue(license_path.is_file())
@@ -291,6 +297,33 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, html)
 
+    def test_structured_data_describes_the_organization(self):
+        html = read_site()
+        match = re.search(
+            r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>', html, re.S
+        )
+        self.assertIsNotNone(match)
+        data = json.loads(match.group(1))
+        self.assertEqual(data["@context"], "https://schema.org")
+        nodes = {node["@type"]: node for node in data["@graph"]}
+        organization = nodes["Organization"]
+        website = nodes["WebSite"]
+        self.assertEqual(organization["name"], "AegeanWorks")
+        self.assertEqual(organization["url"], "https://aegeanworks.github.io/AegeanWorks/")
+        self.assertIn("https://github.com/AegeanWorks", organization["sameAs"])
+        self.assertEqual(website["publisher"]["@id"], organization["@id"])
+        self.assertEqual(website["inLanguage"], "en")
+
+    def test_filter_chips_control_the_project_grid(self):
+        html = read_site()
+        chips = re.findall(r'<button class="chip[^"]*"[^>]*>', html)
+        self.assertEqual(len(chips), 6)
+        for chip in chips:
+            with self.subTest(chip=chip[:80]):
+                self.assertIn('aria-controls="project-grid"', chip)
+                self.assertIn('aria-pressed="', chip)
+        self.assertIn('<div class="project-grid" id="project-grid">', html)
+
     def test_anchor_navigation_clears_the_sticky_header(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn("scroll-margin-top: 88px", css)
@@ -397,6 +430,12 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("function menuFocusables()", script)
         self.assertIn("header.contains(active)", script)
         self.assertIn('event.key !== "Tab"', script)
+
+    def test_header_links_close_the_open_menu(self):
+        script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        header_block = script.split("if (header) {")[1].split("}")[0]
+        self.assertIn('event.target.closest("a")', header_block)
+        self.assertIn("setNav(false);", header_block)
 
     def test_license_identifiers_do_not_break_at_hyphens(self):
         html = read_site()

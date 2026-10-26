@@ -48,6 +48,12 @@
     });
   }
 
+  if (header) {
+    header.addEventListener("click", function (event) {
+      if (event.target.closest("a")) setNav(false);
+    });
+  }
+
   document.addEventListener("keydown", function (event) {
     if (!header || header.dataset.open !== "true") return;
     if (event.key === "Escape") {

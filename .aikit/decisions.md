@@ -99,7 +99,7 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Status**: Accepted
 - **Context**: The regression suite was only run locally, so a broken link count, asset path or fallback contract could reach `main` unnoticed.
 - **Decision**: Add `.github/workflows/tests.yml` for pushes to `main`, pull requests and manual runs; use Python 3.12, `unittest`, read-only `contents` permission and concurrency cancellation. A test asserts the workflow still runs the canonical command.
-- **Consequences**: Every change gets a status check without adding a runtime dependency, while the local command remains the canonical gate.
+- **Consequences**: Every change gets a status check without adding a runtime dependency, while the local command remains the canonical gate. The first run on `main` was refused before any step started — the account-level message was "The job was not started because your account is locked due to a billing issue" — so a red `tests` check on this repository means the account is blocked, not that the suite failed; the same message appears on the studio's other repositories.
 
 ### ADR-015: Give the manifest a stable identity
 - **Date**: 2026-10-26
@@ -107,3 +107,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: The web manifest declared a name, scope and icons but no `id`, language, direction or categories. Installers derive identity from `start_url` when `id` is absent, so a future URL change could create a second installed app.
 - **Decision**: Declare `id` as `/AegeanWorks/`, `lang` as `en`, `dir` as `ltr` and categories `productivity`, `education`, `utilities`; assert them in the manifest test.
 - **Consequences**: Installed copies keep a stable identity and expose language metadata, with no new asset or runtime dependency.
+
+### ADR-016: Describe the studio in structured data and label the filters
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: Search engines had Open Graph and Twitter metadata but no machine-readable description of the studio, its canonical URL, social profiles or publisher relationship. The filter chips changed the visible project grid without telling assistive technology which region they control, and the "Read the license" button led only to AL-1.1 while its card covers three licenses.
+- **Decision**: Publish an `Organization` and `WebSite` JSON-LD graph with absolute URLs, the GitHub and X profiles, and the contact address; add `aria-controls="project-grid"` to every chip; and point the personal-tier button at the license catalog as "Compare the licenses". Tests parse the JSON-LD, check every chip, and check the canonical tier links.
+- **Consequences**: Crawlers can identify the studio and its publisher relationship without guessing from HTML, the filter buttons announce their target region, and the button under a three-license card leads to the comparison instead of a single text.

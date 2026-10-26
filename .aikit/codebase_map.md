@@ -9,8 +9,8 @@
 - **Total Python Modules**: `1`
 - **Total Classes**: `1`
 - **Total Top-Level Functions**: `2`
-- **Total Class Methods**: `40`
-- **Total Source Lines**: `468`
+- **Total Class Methods**: `44`
+- **Total Source Lines**: `507`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `468` lines (`19331` bytes)
+**Size**: `507` lines (`21215` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -30,6 +30,7 @@
   - Method `.test_banner_asset_present()`
   - Method `.test_funding_configuration()`
   - Method `.test_only_public_repositories_are_linked()`
+  - Method `.test_readme_atlas_lists_every_public_repository()`
   - Method `.test_license_matches_the_aikit_family()`
   - Method `.test_site_entry_points_exist()`
   - Method `.test_site_is_self_contained()`
@@ -45,6 +46,8 @@
   - Method `.test_site_degrades_open_when_the_script_fails()`
   - Method `.test_hero_chip_is_exposed_to_assistive_tech()`
   - Method `.test_social_metadata_is_complete()`
+  - Method `.test_structured_data_describes_the_organization()`
+  - Method `.test_filter_chips_control_the_project_grid()`
   - Method `.test_anchor_navigation_clears_the_sticky_header()`
   - Method `.test_discovery_files()`
   - Method `.test_social_image_has_the_expected_dimensions()`
@@ -56,6 +59,7 @@
   - Method `.test_mobile_scrim_absorbs_taps()`
   - Method `.test_open_menu_makes_the_page_behind_inert()`
   - Method `.test_open_menu_contains_keyboard_focus()`
+  - Method `.test_header_links_close_the_open_menu()`
   - Method `.test_license_identifiers_do_not_break_at_hyphens()`
   - Method `.test_site_recovers_when_app_js_fails()`
   - Method `.test_noscript_nav_is_inside_the_sticky_header()`
