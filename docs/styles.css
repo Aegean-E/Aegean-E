@@ -1075,6 +1075,7 @@ h1 .grad {
     gap: 0;
     margin: 0;
     padding: 10px 20px 20px;
+    max-height: calc(100vh - 72px);
     max-height: calc(100dvh - 72px);
     overflow-y: auto;
     background: rgba(5, 8, 15, 0.98);
@@ -1117,6 +1118,7 @@ h1 .grad {
   .hero-stats dd { font-size: 1.4rem; }
   .hero-stats dt { font-size: 0.6rem; letter-spacing: 0.06em; }
   .hero-chip { margin-top: 4px; }
+  .orbit .node text { font-size: 14px; }
   .project-grid { grid-template-columns: minmax(0, 1fr); }
   .cap-grid { grid-template-columns: minmax(0, 1fr); }
   .section { padding: 56px 0; }

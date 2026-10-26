@@ -153,6 +153,10 @@ class ProfileIntegrityTests(unittest.TestCase):
             "404.html",
             "robots.txt",
             "sitemap.xml",
+            "site.webmanifest",
+            "apple-touch-icon.png",
+            "icon-192.png",
+            "icon-512.png",
             ".nojekyll",
             "og.png",
         ):
@@ -287,6 +291,44 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('name="robots" content="noindex"', page)
         self.assertIn('href="/AegeanWorks/"', page)
         self.assertIn('name="description"', page)
+
+    def test_web_app_manifest(self):
+        manifest = json.loads(
+            (ROOT / "docs" / "site.webmanifest").read_text(encoding="utf-8")
+        )
+        self.assertEqual(manifest["name"], "AegeanWorks")
+        self.assertEqual(manifest["start_url"], "/AegeanWorks/")
+        self.assertEqual(manifest["display"], "standalone")
+        sources = {icon["src"] for icon in manifest["icons"]}
+        for expected in ("favicon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, sources)
+        for icon in manifest["icons"]:
+            with self.subTest(icon=icon["src"]):
+                self.assertTrue((ROOT / "docs" / icon["src"]).is_file())
+
+        html = read_site()
+        self.assertIn('rel="manifest" href="site.webmanifest"', html)
+        self.assertIn('rel="apple-touch-icon" sizes="180x180"', html)
+        self.assertIn('sizes="192x192" href="icon-192.png"', html)
+
+    def test_icon_dimensions(self):
+        for name, expected in (
+            ("apple-touch-icon.png", (180, 180)),
+            ("icon-192.png", (192, 192)),
+            ("icon-512.png", (512, 512)),
+        ):
+            with self.subTest(icon=name):
+                png = (ROOT / "docs" / name).read_bytes()
+                self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+                width = int.from_bytes(png[16:20], "big")
+                height = int.from_bytes(png[20:24], "big")
+                self.assertEqual((width, height), expected)
+
+    def test_mobile_orbit_labels_are_large_enough(self):
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".orbit .node text { font-size: 14px; }", css)
+        self.assertIn("max-height: calc(100vh - 72px);", css)
 
     def test_orbit_animation_is_centred(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
