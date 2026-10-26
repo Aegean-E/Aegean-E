@@ -194,7 +194,8 @@ AegeanWorks/
 ├── docs/                    <- Static GitHub Pages site and its assets
 ├── .github/
 │   ├── FUNDING.yml          <- Sponsorship configuration
-│   └── workflows/tests.yml  <- CI regression gate on every push
+│   └── workflows/
+│       └── tests.yml        <- CI regression gate on every push
 ├── .aikit/
 │   ├── project.json         <- Project identity and test command
 │   ├── guidelines.md        <- Project-only rules
