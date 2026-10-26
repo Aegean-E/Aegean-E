@@ -282,6 +282,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("scroll-margin-top: 88px", css)
         self.assertIn("body.nav-open { overflow: hidden; }", css)
         self.assertIn("#main:focus { outline: none; }", css)
+        self.assertIn("text-wrap: balance;", css)
+        self.assertIn("text-wrap: pretty;", css)
 
     def test_discovery_files(self):
         docs = ROOT / "docs"

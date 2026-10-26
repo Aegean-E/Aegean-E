@@ -72,3 +72,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: With `app.js` blocked, the fail-open menu stayed fixed and permanently open because nothing could close it, and the no-JS navigation sat outside the sticky header. A visual review also found the `Al` monogram for aegean-licensing read as `AI`.
 - **Decision**: Move the `<noscript>` navigation inside the header so it stays sticky, add a small inline watchdog that marks the document `script-failed` after 2.5 seconds if `.js` never appears, and style that state as a compact wrapped nav row with no toggle. `app.js` clears the fallback class as soon as it runs. Rename the monogram to `AL`.
 - **Consequences**: A missing or blocked script still leaves a normal, readable navigation bar instead of a permanent overlay, and the no-JS bar sticks with the header. Both fallbacks are tested and visually verified.
+
+### ADR-011: Balance section headings and clear the social card
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: Visual review showed orphaned heading lines ("…studio / thinks.", "…to / be answered.") and the social card's meta row sat on top of the decorative wave strokes.
+- **Decision**: Apply `text-wrap: balance` to section headings and `text-wrap: pretty` to ledes, and move the OG waves lower and lighter so the metadata row reads cleanly.
+- **Consequences**: Headings wrap into even lines at every width, paragraphs avoid single-word last lines, and the social card has a clean footer band without changing its content.

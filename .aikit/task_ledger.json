@@ -1,38 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v6",
-    "last_phase": "phase 5",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793013210.1377728,
+    "task_id": "site-v7",
+    "last_phase": "phase 4",
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793020688.6315157,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": [],
-    "completed_at": 1793013210.351411
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "site-v2",
-      "phase": "phase 5",
-      "phase_num": 5,
-      "description": "[3/4] Pushed eade761; Pages build eade761 built; live index/CSS/robots/sitemap/OG verified; license links 200; repo homepage and topics set",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792994903.6997845,
-      "timestamp_str": "2026-10-26 09:08:23",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v2",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v2' completed successfully.",
-      "status": "completed",
-      "timestamp": 1792994913.4098442,
-      "timestamp_str": "2026-10-26 09:08:33",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v3",
       "phase": "phase 2",
@@ -249,6 +227,34 @@
       "status": "completed",
       "timestamp": 1793013210.3514128,
       "timestamp_str": "2026-10-26 14:13:30",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v7",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Plan: balance section headings, pretty-wrap ledes, refine OG wave placement; verify README, focus and reduced-motion states visually",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793020688.0399537,
+      "timestamp_str": "2026-10-26 16:18:08",
+      "agent": "kilo",
+      "impact_assessment": {
+        "why": "Visual review found orphaned heading lines and OG metadata sitting on decorative waves.",
+        "benefits": "Even heading lines at every width and a cleaner social card; focus and reduced-motion states verified.",
+        "risks": "contract: CSS text-wrap support is progressive; dependency: none; concurrency: single agent; state: regenerated og.png",
+        "mitigation": "Keep fallbacks identical, assert the CSS in tests, and re-run Nu, CLS and Lighthouse"
+      }
+    },
+    {
+      "task_id": "site-v7",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/3] Balanced headings, pretty ledes, OG waves moved; checklists: passed (34 tests, 4/4 gates, Nu 0, CLS 0)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793020688.6315157,
+      "timestamp_str": "2026-10-26 16:18:08",
       "agent": "kilo"
     }
   ]
