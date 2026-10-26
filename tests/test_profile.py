@@ -139,8 +139,11 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertNotIn("AegeanWorks Commercial License (AWCL)", commercial)
 
         readme = read_readme()
-        self.assertIn("Aegean License 1.1 (AL-1.1)", readme)
+        self.assertIn("AL-1.1 for software", readme)
+        self.assertIn("AGL-1.1 for games", readme)
+        self.assertIn("ASL-1.1 for research", readme)
         self.assertIn("Aegean Commercial License 1.0 (ACL-1.0)", readme)
+        self.assertIn("licenses/CATALOG.md", readme)
         self.assertNotIn("badge/licensing-AGPL", readme)
 
     def test_site_entry_points_exist(self):
@@ -198,6 +201,18 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("Aegean Commercial License 1.0", html)
         self.assertNotIn("GNU AGPL-3.0</h3>", html)
         self.assertNotIn("AGPL-3.0 with a commercial waiver", html)
+
+    def test_site_license_tiers_link_to_canonical_texts(self):
+        html = read_site()
+        for name in ("AL-1.1.md", "AGL-1.1.md", "ASL-1.1.md"):
+            with self.subTest(name=name):
+                self.assertIn(
+                    "https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/"
+                    + name,
+                    html,
+                )
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".license-card li a {", css)
 
     def test_external_links_are_safe(self):
         html = read_site()
@@ -341,6 +356,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn("background: #05080f;", css)
         self.assertIn("box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);", css)
+        self.assertIn("body.nav-open::after", css)
         self.assertIn(".orbit { width: min(100%, 440px); }", css)
 
     def test_license_identifiers_do_not_break_at_hyphens(self):
@@ -348,7 +364,6 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('<span class="nw">ACL-1.0</span>', html)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn(".nw { white-space: nowrap; }", css)
-        self.assertIn('<span class="nw">ACL-1.0</span>', html)
 
     def test_orbit_animation_is_centred(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")

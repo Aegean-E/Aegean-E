@@ -5,29 +5,12 @@
     "last_phase": "phase 4",
     "active_phase": 4,
     "status": "in_progress",
-    "updated_at": 1793004384.193842,
+    "updated_at": 1793008317.5985615,
     "owner": "kilo",
     "started_by": "kilo",
     "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "site-v1",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Plan: static responsive company site in docs/ plus a company-voice profile rewrite",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792968882.5204818,
-      "timestamp_str": "2026-10-26 01:54:42",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "AegeanWorks has no web presence beyond GitHub; the profile also speaks as one person while the brand now presents as a company.",
-        "benefits": "A fast zero-dependency Pages site that presents the studio and its 33 public projects, warm company copy, and no build step.",
-        "risks": "contract: GitHub Pages serves docs/ from main; dependency: none, no external fonts or CDNs; concurrency: single agent; state: new docs/ tree and README tree update",
-        "mitigation": "Keep all assets local, respect reduced motion, verify contrast, screenshot desktop and mobile, and rerun the four AIKit gates"
-      }
-    },
     {
       "task_id": "site-v1",
       "phase": "phase 4",
@@ -255,6 +238,17 @@
       "status": "in_progress",
       "timestamp": 1793004384.193842,
       "timestamp_str": "2026-10-26 11:46:24",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v5",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/3] Review fixes: tier links to canonical texts, README tier family + catalog, menu scrim; checklists: passed (32 tests, 4/4 gates, Nu 0, CLS 0)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793008317.5985615,
+      "timestamp_str": "2026-10-26 12:51:57",
       "agent": "kilo"
     }
   ]

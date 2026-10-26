@@ -961,6 +961,14 @@ h1 .grad {
   border-bottom: 1.5px solid var(--cyan);
   transform: rotate(-45deg);
 }
+.license-card li a {
+  color: #c9d6e8;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+.license-card li a:hover {
+  color: var(--cyan);
+  border-bottom-color: var(--cyan);
+}
 .license-card .btn { margin-top: auto; align-self: flex-start; }
 .license-note {
   max-width: 60rem;
@@ -1106,6 +1114,14 @@ h1 .grad {
     visibility: visible;
   }
   body.nav-open { overflow: hidden; }
+  body.nav-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(2, 4, 8, 0.58);
+    pointer-events: none;
+  }
   .js .nav-toggle { display: block; }
   .header-cta { display: none; }
   .site-nav .nav-github { display: block; }

@@ -58,3 +58,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: A visual review found two defects. The open mobile menu used `rgba(5, 8, 15, 0.98)`, which let the hero headline show through; and an earlier automated edit removed the mobile GitHub link from the primary navigation while leaving a duplicate in the footer's Site column.
 - **Decision**: Make the mobile panel fully opaque with a drop shadow, keep exactly one `.nav-github` entry and assert its location in tests, widen the phone diagram to the full column, and prevent license identifiers such as ACL-1.0 from splitting at a hyphen.
 - **Consequences**: The menu reads as a surface rather than a tint, the footer matches its five-link sitemap, and legal identifiers stay intact when wrapping.
+
+### ADR-009: Link license tiers and dim the page behind the menu
+- **Date**: 2026-10-26
+- **Status**: Accepted
+- **Context**: An independent review pointed out that AGL-1.1 and ASL-1.1 appeared on the site without any route to their text, that the README named only AL-1.1 and ACL-1.0, and that the open menu still looked like part of the hero because the page behind it stayed at full brightness.
+- **Decision**: Link each personal-use tier to its canonical file in `aegean-licensing`, restate the three-tier family and catalog in the README, and add a `body.nav-open::after` scrim below the header while the mobile menu is open.
+- **Consequences**: Every license named on the site resolves to an authoritative text, the profile and site describe the same family, and the menu reads as a separate surface.

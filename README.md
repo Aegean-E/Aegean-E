@@ -153,9 +153,9 @@ Every repository below is public. Browse the full set on [GitHub](https://github
 
 ---
 
-## 📜 License
+## License
 
-Free for personal use under the Aegean License 1.1 (AL-1.1); see [LICENSE](LICENSE). Any commercial use needs the Aegean Commercial License 1.0 (ACL-1.0); see [COMMERCIAL.md](COMMERCIAL.md).
+Personal use is free under a license per domain: AL-1.1 for software, AGL-1.1 for games, and ASL-1.1 for research. Any commercial use needs the Aegean Commercial License 1.0 (ACL-1.0); see [COMMERCIAL.md](COMMERCIAL.md). The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md).
 
 ---
 
