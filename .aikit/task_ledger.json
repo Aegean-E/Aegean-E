@@ -2,43 +2,16 @@
   "version": 1,
   "active_task": {
     "task_id": "site-v6",
-    "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
-    "updated_at": 1793012981.2053301,
+    "last_phase": "phase 5",
+    "active_phase": 5,
+    "status": "completed",
+    "updated_at": 1793013210.1377728,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1793013210.351411
   },
   "checkpoints": [
-    {
-      "task_id": "site-v2",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Plan: recenter hero mark, orbit labels, adopt AL-1.1/ACL-1.0 licensing, fix casing and audit site gaps",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792994662.9638877,
-      "timestamp_str": "2026-10-26 09:04:22",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "The hero mark sat 11px off-centre and the rotating ring used a broken transform origin; AIKit moved to license 1.1; category labels mixed casing.",
-        "benefits": "A symmetric animated hero, canonical licensing across profile and site, and a documented audit of accessibility, responsive and SEO gaps.",
-        "risks": "contract: AIKit license 1.1 and README gate; dependency: none; concurrency: AIKit workspace changed by another agent; state: new LICENSE, robots and sitemap",
-        "mitigation": "Seed the license through aikit, verify geometry through DOM measurements, and rerun all four gates before committing"
-      }
-    },
-    {
-      "task_id": "site-v2",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/4] Centred wave mark, added orbiting upright labels, adopted AL-1.1/ACL-1.0, fixed Title Case and audited a11y/SEO/responsive gaps; checklists: passed (tests 18/18, hygiene, guidelines, secrets)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792994756.1230404,
-      "timestamp_str": "2026-10-26 09:05:56",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v2",
       "phase": "phase 5",
@@ -255,6 +228,27 @@
       "status": "in_progress",
       "timestamp": 1793012981.2053301,
       "timestamp_str": "2026-10-26 14:09:41",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v6",
+      "phase": "phase 5",
+      "phase_num": 5,
+      "description": "[3/3] Pushed d9db897; Pages built; live Lighthouse 100/100/100/100, CLS 0; blocked-script nav 77px, no-JS header 152px, no overflow",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793013210.1377728,
+      "timestamp_str": "2026-10-26 14:13:30",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v6",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v6' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793013210.3514128,
+      "timestamp_str": "2026-10-26 14:13:30",
       "agent": "kilo"
     }
   ]
