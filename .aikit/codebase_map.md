@@ -9,8 +9,8 @@
 - **Total Python Modules**: `1`
 - **Total Classes**: `1`
 - **Total Top-Level Functions**: `2`
-- **Total Class Methods**: `25`
-- **Total Source Lines**: `308`
+- **Total Class Methods**: `26`
+- **Total Source Lines**: `325`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `308` lines (`11549` bytes)
+**Size**: `325` lines (`12438` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -39,6 +39,7 @@
   - Method `.test_external_links_are_safe()`
   - Method `.test_site_accessibility_basics()`
   - Method `.test_site_works_without_javascript()`
+  - Method `.test_site_degrades_open_when_the_script_fails()`
   - Method `.test_hero_chip_is_exposed_to_assistive_tech()`
   - Method `.test_social_metadata_is_complete()`
   - Method `.test_anchor_navigation_clears_the_sticky_header()`

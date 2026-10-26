@@ -220,6 +220,23 @@ class ProfileIntegrityTests(unittest.TestCase):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
         self.assertIn(".noscript-nav {\n  display: none;", css)
         self.assertIn(".noscript-nav { display: flex; }", css)
+        self.assertIn(".js .site-nav {", css)
+        self.assertIn(".js .nav-toggle { display: block; }", css)
+        self.assertIn(".js .reveal {", css)
+
+    def test_site_degrades_open_when_the_script_fails(self):
+        script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('root.classList.add("js")', script)
+        self.assertLess(
+            script.index('root.classList.add("js")'),
+            script.index('var reduceMotion'),
+            "the js class must be added only after navigation and filtering setup",
+        )
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("  .js .site-nav {", css)
+        self.assertIn("  .js .site-header[data-open=\"true\"] .site-nav {", css)
+        reduced = css.split("@media (prefers-reduced-motion: reduce)")[1]
+        self.assertIn(".js .reveal", reduced)
 
     def test_hero_chip_is_exposed_to_assistive_tech(self):
         html = read_site()

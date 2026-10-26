@@ -1079,10 +1079,15 @@ h1 .grad {
     overflow-y: auto;
     background: rgba(5, 8, 15, 0.98);
     border-bottom: 1px solid var(--line);
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), visibility 0.22s;
+  }
+  .js .site-nav {
     transform: translateY(-12px);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), visibility 0.22s;
   }
   .site-nav a {
     width: 100%;
@@ -1091,13 +1096,13 @@ h1 .grad {
     font-size: 0.95rem;
   }
   .site-nav a:last-child { border-bottom: 0; }
-  .site-header[data-open="true"] .site-nav {
+  .js .site-header[data-open="true"] .site-nav {
     transform: none;
     opacity: 1;
     visibility: visible;
   }
   body.nav-open { overflow: hidden; }
-  .nav-toggle { display: block; }
+  .js .nav-toggle { display: block; }
   .header-cta { display: none; }
   .site-nav .nav-github { display: block; }
   .noscript-nav { display: flex; }
@@ -1134,5 +1139,6 @@ h1 .grad {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal,
+  .js .reveal { opacity: 1; transform: none; }
 }

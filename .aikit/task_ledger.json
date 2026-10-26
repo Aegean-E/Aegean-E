@@ -1,38 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v3",
-    "last_phase": "phase 5",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1792998999.590204,
+    "task_id": "site-v4",
+    "last_phase": "phase 4",
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1792999721.464183,
     "owner": "kilo",
     "started_by": "kilo",
-    "continuations": [],
-    "completed_at": 1792998999.791585
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "profile-readme-integration-v1",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/3] Integrated AIKit memory, tests, cold-start docs, and passed Phase 4 verification gates (checklists: passed)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1792877029.2050564,
-      "timestamp_str": "2026-10-25 00:23:49",
-      "agent": "antigravity:f25c3fb6"
-    },
-    {
-      "task_id": "profile-readme-integration-v1",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'profile-readme-integration-v1' completed successfully.",
-      "status": "completed",
-      "timestamp": 1792877047.7035832,
-      "timestamp_str": "2026-10-25 00:24:07",
-      "agent": "antigravity:f25c3fb6"
-    },
     {
       "task_id": "profile-rebrand-v1",
       "phase": "phase 2",
@@ -254,6 +232,34 @@
       "status": "completed",
       "timestamp": 1792998999.7915864,
       "timestamp_str": "2026-10-26 10:16:39",
+      "agent": "kilo"
+    },
+    {
+      "task_id": "site-v4",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Plan: make the mobile menu and reveals fail open when app.js fails, and verify CLS with PerformanceObserver",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1792999721.1856723,
+      "timestamp_str": "2026-10-26 10:28:41",
+      "agent": "kilo",
+      "impact_assessment": {
+        "why": "A missing or broken app.js would have left mobile users with a dead toggle and hidden content, even though the no-JS path worked.",
+        "benefits": "Navigation and content survive a script failure; CLS measured at 0 across 390, 768, 1200 and 1440.",
+        "risks": "contract: CSS/JS coupling; dependency: none; concurrency: unrelated agents' background processes; state: nav visibility gated on .js",
+        "mitigation": "Test four script states, measure real CLS and reduced motion in Chromium, and keep Nu and the four gates green"
+      }
+    },
+    {
+      "task_id": "site-v4",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/3] Nav is visible until .js is added and the toggle is .js-only; reduced-motion selector fixed; checklists: passed (26 tests, 4/4 gates, Nu 0, CLS 0 at four widths)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1792999721.464183,
+      "timestamp_str": "2026-10-26 10:28:41",
       "agent": "kilo"
     }
   ]

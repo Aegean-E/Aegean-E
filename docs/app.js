@@ -2,7 +2,6 @@
   "use strict";
 
   var root = document.documentElement;
-  root.classList.add("js");
 
   var header = document.querySelector(".site-header");
   var navToggle = document.querySelector(".nav-toggle");
@@ -89,6 +88,8 @@
       applyFilter(chip.dataset.filter || "all");
     });
   });
+
+  root.classList.add("js");
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var revealables = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
