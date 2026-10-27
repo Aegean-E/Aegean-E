@@ -1,58 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v15",
+    "task_id": "site-v16",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793115143.379789,
+    "updated_at": 1793115854.1345983,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793115259.2064579
+    "completed_at": 1793115932.8876696
   },
   "checkpoints": [
-    {
-      "task_id": "site-v9",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Implemented and verified: header links close the menu, CTA points at the catalog, chips expose aria-controls, JSON-LD describes the studio, README atlas completeness is asserted. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793033199.3402672,
-      "timestamp_str": "2026-10-26 19:46:39",
-      "agent": "kilo:main",
-      "handoff": {
-        "next": "commit and push, then verify the live page and the Actions status"
-      }
-    },
-    {
-      "task_id": "site-v9",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v9' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793033519.1167502,
-      "timestamp_str": "2026-10-26 19:51:59",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v10",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Print legibility: reveal all content and keep the dark palette when the page is printed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793049576.8290572,
-      "timestamp_str": "2026-10-27 00:19:36",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "Reveal elements start at opacity 0 and the dark palette prints as light text on a white sheet when browsers drop backgrounds, so a printed licensing section or portfolio could be blank.",
-        "benefits": "Printed and PDF copies include every revealed section, keep the intended contrast and drop the sticky header, filters and decorative layers.",
-        "risks": "contract: no screen rendering changes; dependency: none; concurrency: none; state: no persisted state changes; policy: print colors are forced exact for legibility",
-        "mitigation": "Test the print media query, verify computed opacity is 1, produce a PDF, and re-run the full gates."
-      }
-    },
     {
       "task_id": "site-v10",
       "phase": "phase 4",
@@ -283,6 +242,47 @@
       "status": "completed",
       "timestamp": 1793115259.206459,
       "timestamp_str": "2026-10-27 18:34:19",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v16",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Make the selected-work heading independent of the number of live public repositories",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793115833.771296,
+      "timestamp_str": "2026-10-27 18:43:53",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "The live atlas hides a featured card when its repository is no longer public; the heading still said 'Four systems', which would become false.",
+        "benefits": "The featured section stays correct whether four, three or more systems are public.",
+        "risks": "contract: text-only change; dependency: none; concurrency: none; state: none; policy: none",
+        "mitigation": "Update the heading and re-run the content tests and live checks."
+      }
+    },
+    {
+      "task_id": "site-v16",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Heading is count-free; 71 Python tests, 52 atlas assertions and 48 verifier assertions pass. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793115854.1345983,
+      "timestamp_str": "2026-10-27 18:44:14",
+      "agent": "kilo:main",
+      "handoff": {
+        "next": "commit, close and push, then verify the live page"
+      }
+    },
+    {
+      "task_id": "site-v16",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v16' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793115932.8876712,
+      "timestamp_str": "2026-10-27 18:45:32",
       "agent": "kilo:main"
     }
   ]
