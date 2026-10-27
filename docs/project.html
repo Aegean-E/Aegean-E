@@ -115,6 +115,10 @@
         <a class="back-link" href="index.html#projects">← All projects</a>
         <header class="project-detail-head">
           <p class="eyebrow">Project dossier</p>
+          <div class="project-detail-brand">
+            <span class="project-detail-mark" id="project-logo-fallback" aria-hidden="true"></span>
+            <img class="project-detail-logo" id="project-logo" alt="" width="72" height="72" loading="lazy" decoding="async" hidden>
+          </div>
           <h1 id="project-title">Project</h1>
           <p class="project-detail-lede" id="project-description"></p>
           <dl class="project-detail-facts">
@@ -132,6 +136,14 @@
             <a class="btn btn-ghost" id="readme-link" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">README on GitHub <!-- hygiene: allow outbound link, not a loaded dependency --></a>
           </div>
         </header>
+
+        <section class="project-gallery" id="project-gallery" aria-labelledby="gallery-title" hidden>
+          <div class="gallery-head">
+            <h2 id="gallery-title">Screenshots</h2>
+            <p class="gallery-note" id="gallery-note"></p>
+          </div>
+          <div class="gallery-grid" id="gallery-grid"></div>
+        </section>
 
         <section class="readme-card" aria-labelledby="readme-title">
           <h2 id="readme-title">README excerpt</h2>

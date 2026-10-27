@@ -102,10 +102,21 @@
   var searchInput = document.getElementById("project-search");
   var sortSelect = document.getElementById("project-sort");
   var clearButton = document.getElementById("clear-filters");
+  var topicContainer = document.getElementById("topic-filters");
   var CATEGORY_VALUES = ["ai", "research", "health", "tools", "play"];
   var SORT_VALUES = ["curated", "recent", "name"];
+  var TOPIC_LIMIT = 12;
+  var BOILERPLATE_TOPICS = {
+    aikit: true,
+    python: true,
+    "source-available": true,
+    "local-first": true,
+    "drm-free": true,
+    "zero-dependencies": true,
+  };
   var state = { q: "", topic: "", cat: "all", sort: "curated" };
   var curatedOrder = new Map();
+  var topicChips = [];
   var focusSearch = false;
 
   function projects() {
@@ -195,6 +206,68 @@
     });
   }
 
+  function updateTopicChips() {
+    topicChips.forEach(function (chip) {
+      var active = (chip.dataset.topic || "") === state.topic;
+      chip.classList.toggle("is-active", active);
+      chip.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
+  function makeTopicChip(value, label) {
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "topic-chip";
+    button.dataset.topic = value;
+    button.setAttribute("aria-pressed", "false");
+    button.textContent = label;
+    topicContainer.appendChild(button);
+  }
+
+  // Counts only rank the chips; they are not printed, so the shelf stays quiet.
+  function buildTopicChips() {
+    if (!topicContainer) return;
+    var counts = new Map();
+    var total = projects().length;
+    projects().forEach(function (card) {
+      var topics = new Set(
+        (card.dataset.topics || "").toLowerCase().split(",").map(function (topic) {
+          return topic.trim();
+        }).filter(Boolean)
+      );
+      topics.forEach(function (topic) {
+        counts.set(topic, (counts.get(topic) || 0) + 1);
+      });
+    });
+    var topics = Array.from(counts.entries()).filter(function (entry) {
+      return (
+        (!BOILERPLATE_TOPICS[entry[0]] && entry[1] < total) ||
+        entry[0] === state.topic
+      );
+    });
+    topics.sort(function (left, right) {
+      if (left[1] !== right[1]) return right[1] - left[1];
+      return left[0].localeCompare(right[0]);
+    });
+    var visible = topics.slice(0, TOPIC_LIMIT);
+    if (state.topic && !visible.some(function (entry) { return entry[0] === state.topic; })) {
+      var active = topics.find(function (entry) { return entry[0] === state.topic; });
+      if (active) visible.push(active);
+    }
+    topicContainer.replaceChildren();
+    makeTopicChip("", "All topics");
+    visible.forEach(function (entry) {
+      makeTopicChip(entry[0], entry[0]);
+    });
+    if (state.topic && !counts.has(state.topic)) {
+      makeTopicChip(state.topic, state.topic);
+    }
+    topicChips = Array.prototype.slice.call(
+      topicContainer.querySelectorAll(".topic-chip")
+    );
+    updateTopicChips();
+  }
+
   function writeStateToUrl() {
     try {
       var params = new URLSearchParams(window.location.search);
@@ -254,6 +327,7 @@
       }
     });
     updateDisciplineChips();
+    updateTopicChips();
     if (status) {
       status.textContent = !hasNarrowing()
         ? "Showing all " + shown + " public projects."
@@ -273,12 +347,14 @@
     if (searchInput) searchInput.value = "";
     if (sortSelect) sortSelect.value = "curated";
     updateDisciplineChips();
+    updateTopicChips();
     applyView();
   }
 
   window.addEventListener("atlas:changed", function (event) {
     updateProjectCounts(event.detail);
     recordCuratedOrder();
+    buildTopicChips();
     applyView();
   });
 
@@ -288,6 +364,16 @@
       applyView();
     });
   });
+
+  if (topicContainer) {
+    topicContainer.addEventListener("click", function (event) {
+      var chip = event.target.closest(".topic-chip");
+      if (!chip) return;
+      var value = chip.dataset.topic || "";
+      state.topic = value === state.topic ? "" : value;
+      applyView();
+    });
+  }
 
   if (searchInput) {
     searchInput.addEventListener("input", function () {
@@ -334,6 +420,7 @@
   // initial truth. This never reveals every card at once when no filters are active.
   recordCuratedOrder();
   readStateFromUrl();
+  buildTopicChips();
   updateProjectCounts();
   applyView();
   if (focusSearch && searchInput) searchInput.focus();

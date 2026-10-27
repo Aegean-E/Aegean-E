@@ -1,10 +1,17 @@
 import {
   licenseLabel,
+  monogram,
   normalizeRepo,
   relativeAge,
   visibleTopics,
 } from "./atlas-core.js";
-import { findRepo, readmeToBlocks, validRepoName } from "./project-core.js";
+import {
+  findRepo,
+  normalizeMedia,
+  readmeToBlocks,
+  screenshotMeta,
+  validRepoName,
+} from "./project-core.js";
 
 const params = new URLSearchParams(window.location.search);
 const requested = (params.get("repo") || "").trim();
@@ -15,6 +22,11 @@ const detailEl = document.getElementById("project-detail");
 const readmeEl = document.getElementById("readme-content");
 const readmeStatus = document.getElementById("readme-status");
 const readmeLink = document.getElementById("readme-link");
+const logoEl = document.getElementById("project-logo");
+const logoFallback = document.getElementById("project-logo-fallback");
+const galleryEl = document.getElementById("project-gallery");
+const galleryGrid = document.getElementById("gallery-grid");
+const galleryNote = document.getElementById("gallery-note");
 
 function setText(id, value) {
   const element = document.getElementById(id);
@@ -64,6 +76,95 @@ async function lookupRepository() {
   return fetchJson("https://api.github.com/repos/AegeanWorks/" + encodeURIComponent(requested));
 }
 
+async function fetchOptionalJson(url) {
+  try {
+    const response = await window.fetch(url, {
+      credentials: "omit",
+      referrerPolicy: "no-referrer",
+    });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (error) {
+    return null;
+  }
+}
+
+async function loadMedia(repo) {
+  const raw = await fetchOptionalJson(
+    "media/" + encodeURIComponent(repo.name) + ".json"
+  );
+  const media = normalizeMedia(raw, repo.name);
+  if (media.logo) {
+    if (logoEl) {
+      logoEl.src = media.logo.src;
+      logoEl.alt = media.logo.alt || repo.name + " logo";
+      logoEl.hidden = false;
+    }
+    if (logoFallback) logoFallback.hidden = true;
+  }
+  if (!media.screenshots.length) return;
+  renderGallery(repo, media.screenshots);
+}
+
+function renderGallery(repo, shots) {
+  if (!galleryEl || !galleryGrid) return;
+  galleryGrid.replaceChildren();
+  shots.forEach(function (shot) {
+    const figure = document.createElement("figure");
+    figure.className = "gallery-item";
+    const link = document.createElement("a");
+    link.href = shot.src;
+    link.target = "_blank";
+    link.rel = "noopener";
+    const image = document.createElement("img");
+    image.src = shot.src;
+    image.alt = shot.alt;
+    image.loading = "lazy";
+    image.decoding = "async";
+    if (shot.width && shot.height) {
+      image.width = shot.width;
+      image.height = shot.height;
+    }
+    link.appendChild(image);
+    figure.appendChild(link);
+    if (shot.caption || shot.commit || shot.taken_at) {
+      const caption = document.createElement("figcaption");
+      if (shot.caption) {
+        const title = document.createElement("span");
+        title.className = "gallery-caption";
+        title.textContent = shot.caption;
+        caption.appendChild(title);
+      }
+      const meta = document.createElement("span");
+      meta.className = "gallery-meta";
+      meta.textContent = screenshotMeta(shot);
+      if (shot.commit) {
+        const source = document.createElement("a");
+        source.href =
+          // hygiene: allow canonical commit link, not a loaded dependency
+          "https://github.com/AegeanWorks/" +
+          encodeURIComponent(repo.name) +
+          "/commit/" +
+          shot.commit;
+        source.target = "_blank";
+        source.rel = "noopener";
+        source.textContent = "commit " + shot.commit;
+        meta.replaceChildren(source);
+        const rest = screenshotMeta({ ...shot, commit: "" });
+        if (rest) meta.append(" \u00b7 " + rest);
+      }
+      caption.appendChild(meta);
+      figure.appendChild(caption);
+    }
+    galleryGrid.appendChild(figure);
+  });
+  if (galleryNote) {
+    galleryNote.textContent =
+      shots.length === 1 ? "1 capture" : shots.length + " captures";
+  }
+  galleryEl.hidden = false;
+}
+
 async function fetchReadme(name) {
   // hygiene: allow canonical README lookup, not a loaded third-party resource
   const data = await fetchJson("https://api.github.com/repos/AegeanWorks/" + encodeURIComponent(name) + "/readme");
@@ -89,6 +190,7 @@ function render(repo) {
   document.title = repo.name + " — AegeanWorks";
   const description = repo.description || "A public project from the AegeanWorks studio.";
   setText("project-title", repo.name);
+  if (logoFallback) logoFallback.textContent = monogram(repo.name);
   setText("project-description", description);
   setText("project-language", repo.language || "Unknown");
   setText("project-license", licenseLabel(repo.license));
@@ -193,7 +295,7 @@ async function boot() {
     const raw = await lookupRepository();
     const repo = normalizeRepo(raw);
     render(repo);
-    await loadReadme(repo);
+    await Promise.all([loadReadme(repo), loadMedia(repo)]);
   } catch (error) {
     // hygiene: allow outbound fallback link, not a loaded dependency
     const github = "https://github.com/AegeanWorks/" + encodeURIComponent(requested);

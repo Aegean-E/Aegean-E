@@ -197,6 +197,11 @@ class ProfileIntegrityTests(unittest.TestCase):
             'id="project-topics"',
             'id="readme-content"',
             'id="readme-status"',
+            'id="project-logo"',
+            'id="project-logo-fallback"',
+            'id="project-gallery"',
+            'id="gallery-grid"',
+            'id="gallery-note"',
             "project.js",
         ):
             with self.subTest(token=token):
@@ -214,6 +219,9 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('from "./project-core.js"', script)
         self.assertIn('from "./atlas-core.js"', script)
         self.assertIn('fetchJson("atlas-snapshot.json")', script)
+        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json"', script)
+        self.assertIn("normalizeMedia", script)
+        self.assertIn("/commit/", script)
         self.assertIn("/readme", script)
         for token in ("textContent", "replaceChildren"):
             self.assertIn(token, script)
@@ -224,6 +232,19 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("export function readmeToBlocks", core)
         self.assertIn("export function findRepo", core)
         self.assertIn("export function validRepoName", core)
+
+    def test_dossier_media_manifest_is_documented(self):
+        docs = (ROOT / "docs" / "media" / "README.md").read_text(encoding="utf-8")
+        for token in ("schema", "repo", "logo", "screenshots", "commit", "taken_at", "viewport"):
+            with self.subTest(token=token):
+                self.assertIn(token, docs)
+        self.assertIn("media/<Name>.json", docs)
+        page = (ROOT / "docs" / "project.html").read_text(encoding="utf-8")
+        self.assertIn("img-src 'self' data:", page)
+        script = (ROOT / "docs" / "project.js").read_text(encoding="utf-8")
+        for token in ("await Promise.all([loadReadme(repo), loadMedia(repo)])", "hidden = false"):
+            with self.subTest(token=token):
+                self.assertIn(token, script)
 
     def test_site_is_self_contained(self):
         html = read_site()
@@ -399,7 +420,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         for value in ("curated", "recent", "name"):
             self.assertIn(f'<option value="{value}">', html)
         self.assertIn('id="clear-filters"', html)
-        self.assertNotIn('id="topic-filters"', html)
+        self.assertIn('id="topic-filters"', html)
+        self.assertIn('aria-label="Filter by topic"', html)
         self.assertIn("Search projects, topics, languages", html)
         app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         for token in (
@@ -411,13 +433,14 @@ class ProfileIntegrityTests(unittest.TestCase):
             'params.get("sort")',
             "dataset.pushedAt",
             "card.dataset.topics",
+            "function buildTopicChips",
             "aria-pressed",
             'event.key !== "/"',
         ):
             with self.subTest(token=token):
                 self.assertIn(token, app)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
-        for token in (".project-toolbar", ".search-key", ".visually-hidden"):
+        for token in (".project-toolbar", ".filters-sep", ".topic-chip.is-active", ".visually-hidden"):
             with self.subTest(token=token):
                 self.assertIn(token, css)
 

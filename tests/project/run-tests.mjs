@@ -1,8 +1,13 @@
 import assert from "node:assert/strict";
 
 import {
+  commitRef,
   findRepo,
+  mediaPath,
+  normalizeMedia,
   readmeToBlocks,
+  screenshotMeta,
+  takenAt,
   validRepoName,
 } from "../../docs/project-core.js";
 
@@ -93,4 +98,62 @@ equal(codeOnly.blocks[0].text, "unclosed", "unclosed code text");
 equal(readmeToBlocks("").blocks, [], "empty README");
 equal(readmeToBlocks("---\nonly front matter\n---").blocks, [], "front matter only");
 
+
+equal(mediaPath("media/AIKit/logo.svg"), "media/AIKit/logo.svg", "relative media path");
+equal(mediaPath("https://evil.example/x.png"), "", "absolute media URL rejected");
+equal(mediaPath("media/../secret.png"), "", "traversal rejected");
+equal(mediaPath("media//double.png"), "", "double slash rejected");
+equal(mediaPath("img/logo.svg"), "", "path outside media rejected");
+equal(mediaPath(42), "", "non-string media path rejected");
+
+equal(commitRef("3EC859E9"), "3ec859e", "commit shortened and lower-cased");
+equal(commitRef("main"), "", "branch name is not a commit");
+equal(commitRef("abc"), "", "short commit rejected");
+equal(takenAt("2026-10-27"), "2026-10-27", "date accepted");
+equal(takenAt("2026-02-31"), "", "impossible date rejected");
+equal(takenAt("27-10-2026"), "", "wrong date shape rejected");
+
+const media = normalizeMedia(
+  {
+    schema: 1,
+    repo: "AIKit",
+    logo: { src: "media/AIKit/logo.svg", alt: "AIKit logo" },
+    screenshots: [
+      {
+        src: "media/AIKit/dashboard.png",
+        caption: "Ledger view",
+        commit: "3ec859e9",
+        taken_at: "2026-10-27",
+        viewport: "1440x900",
+        width: 1440,
+        height: 900,
+      },
+      { src: "media/AIKit/bare.png", alt: "Bare capture" },
+      { src: "https://evil.example/x.png", alt: "remote" },
+      { src: "media/AIKit/no-alt.png" },
+    ],
+  },
+  "aikit"
+);
+equal(media.logo.src, "media/AIKit/logo.svg", "logo kept");
+equal(media.logo.alt, "AIKit logo", "logo alt kept");
+equal(media.screenshots.length, 2, "unsafe and unnamed captures dropped");
+equal(media.screenshots[0].alt, "Ledger view", "caption supplies alt");
+equal(media.screenshots[0].commit, "3ec859e", "commit normalized");
+equal(media.screenshots[0].width, 1440, "width kept");
+equal(media.screenshots[1].commit, "", "missing commit stays empty");
+equal(screenshotMeta(media.screenshots[0]), "commit 3ec859e \u00b7 2026-10-27 \u00b7 1440x900", "capture meta");
+equal(screenshotMeta(media.screenshots[1]), "", "bare capture has no meta");
+
+equal(normalizeMedia({ schema: 2, screenshots: [] }, "AIKit").screenshots.length, 0, "unknown schema ignored");
+equal(normalizeMedia({ schema: 1, repo: "Other", screenshots: [] }, "AIKit").screenshots.length, 0, "repo mismatch ignored");
+equal(normalizeMedia(null, "AIKit").logo, null, "missing manifest tolerated");
+
+const many = normalizeMedia(
+  { schema: 1, screenshots: Array.from({ length: 20 }, (_, index) => ({ src: "media/A/xx" + index + ".png", alt: "shot" })) },
+  "AIKit"
+);
+equal(many.screenshots.length, 12, "screenshot cap");
+
 console.log(`ok ${assertions} project-page assertions`);
+

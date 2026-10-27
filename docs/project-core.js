@@ -157,3 +157,91 @@ export function readmeToBlocks(markdown, { maxChars = 7000, maxLines = 160 } = {
     truncated: limited.length < lines.length,
   };
 }
+
+/* Media manifests: docs/media/<Repo>.json.
+ * Every capture names the commit and date it was taken, so a screenshot never
+ * silently outlives the code it claims to show. Paths are relative to docs/.
+ */
+export const MEDIA_SCHEMA = 1;
+export const MAX_SCREENSHOTS = 12;
+const MEDIA_PATH = /^media\/[A-Za-z0-9._/-]{1,160}$/;
+const COMMIT = /^[0-9a-f]{7,40}$/i;
+const TAKEN_AT = /^\d{4}-\d{2}-\d{2}$/;
+const VIEWPORT = /^\d{2,5}x\d{2,5}$/;
+
+export function mediaPath(value) {
+  if (typeof value !== "string") return "";
+  const path = value.trim();
+  if (!MEDIA_PATH.test(path) || path.includes("..") || path.includes("//")) return "";
+  return path;
+}
+
+export function commitRef(value) {
+  if (typeof value !== "string") return "";
+  const ref = value.trim();
+  return COMMIT.test(ref) ? ref.slice(0, 7).toLowerCase() : "";
+}
+
+export function takenAt(value) {
+  if (typeof value !== "string") return "";
+  const date = value.trim().slice(0, 10);
+  if (!TAKEN_AT.test(date)) return "";
+  const parsed = new Date(date + "T00:00:00Z");
+  return Number.isNaN(parsed.getTime()) || date !== parsed.toISOString().slice(0, 10)
+    ? ""
+    : date;
+}
+
+function text(value, limit = 240) {
+  return typeof value === "string" ? value.trim().slice(0, limit) : "";
+}
+
+function normalizeLogo(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  const src = mediaPath(raw.src);
+  if (!src) return null;
+  return { src, alt: text(raw.alt) };
+}
+
+function normalizeScreenshot(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  const src = mediaPath(raw.src);
+  if (!src) return null;
+  const caption = text(raw.caption);
+  const alt = text(raw.alt) || caption;
+  if (!alt) return null;
+  const viewport = VIEWPORT.test(text(raw.viewport, 16)) ? text(raw.viewport, 16) : "";
+  const width = Number(raw.width);
+  const height = Number(raw.height);
+  return {
+    src,
+    alt,
+    caption,
+    commit: commitRef(raw.commit),
+    taken_at: takenAt(raw.taken_at),
+    viewport,
+    width: Number.isInteger(width) && width > 0 && width <= 8000 ? width : 0,
+    height: Number.isInteger(height) && height > 0 && height <= 8000 ? height : 0,
+  };
+}
+
+export function normalizeMedia(raw, repoName) {
+  const empty = { logo: null, screenshots: [] };
+  if (!raw || typeof raw !== "object" || raw.schema !== MEDIA_SCHEMA) return empty;
+  if (!validRepoName(repoName)) return empty;
+  if (typeof raw.repo === "string" && raw.repo.trim().toLowerCase() !== repoName.trim().toLowerCase()) {
+    return empty;
+  }
+  const screenshots = (Array.isArray(raw.screenshots) ? raw.screenshots : [])
+    .map(normalizeScreenshot)
+    .filter(Boolean)
+    .slice(0, MAX_SCREENSHOTS);
+  return { logo: normalizeLogo(raw.logo), screenshots };
+}
+
+export function screenshotMeta(shot) {
+  if (!shot || typeof shot !== "object") return "";
+  return [shot.commit ? "commit " + shot.commit : "", shot.taken_at, shot.viewport]
+    .filter(Boolean)
+    .join(" \u00b7 ");
+}
