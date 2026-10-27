@@ -1,55 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v11",
+    "task_id": "site-v12",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793080267.0333,
+    "updated_at": 1793088569.9318354,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793080286.730111
+    "completed_at": 1793088680.8976605
   },
   "checkpoints": [
-    {
-      "task_id": "site-v6",
-      "phase": "phase 5",
-      "phase_num": 5,
-      "description": "[3/3] Pushed d9db897; Pages built; live Lighthouse 100/100/100/100, CLS 0; blocked-script nav 77px, no-JS header 152px, no overflow",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793013210.1377728,
-      "timestamp_str": "2026-10-26 14:13:30",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v6",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v6' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793013210.3514128,
-      "timestamp_str": "2026-10-26 14:13:30",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v7",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/3] Plan: balance section headings, pretty-wrap ledes, refine OG wave placement; verify README, focus and reduced-motion states visually",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793020688.0399537,
-      "timestamp_str": "2026-10-26 16:18:08",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "Visual review found orphaned heading lines and OG metadata sitting on decorative waves.",
-        "benefits": "Even heading lines at every width and a cleaner social card; focus and reduced-motion states verified.",
-        "risks": "contract: CSS text-wrap support is progressive; dependency: none; concurrency: single agent; state: regenerated og.png",
-        "mitigation": "Keep fallbacks identical, assert the CSS in tests, and re-run Nu, CLS and Lighthouse"
-      }
-    },
     {
       "task_id": "site-v7",
       "phase": "phase 4",
@@ -275,6 +237,48 @@
       "status": "completed",
       "timestamp": 1793080286.730112,
       "timestamp_str": "2026-10-27 08:51:26",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v12",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/4] Add a public browser verifier for format-2 certificates and sync the GitHub titles, topics and descriptions",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793081417.491492,
+      "timestamp_str": "2026-10-27 09:10:17",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "The owner wants a license-verification surface on the public site and the newly updated GitHub repository metadata reflected in the portfolio. The audit must prove that publishing a verifier cannot expose signing material or permit a forged certificate.",
+        "benefits": "Visitors can check a certificate against the canonical public register without sending it anywhere; every project card and README entry uses the updated GitHub title, topic tags and description; the verifier follows ACL-1.0 Section 6 instead of inventing a second trust model.",
+        "risks": "contract: new verify.html URL, no existing URL changes; dependency: browser Web Crypto only, Node only for tests; concurrency: no shared state; state: no certificate, register or key changes; security: untrusted certificate JSON must never be rendered as HTML or checked with a key",
+        "mitigation": "Fetch only the canonical register and frozen terms over HTTPS, require a register entry, use textContent and size limits, add Node parity tests against a Python-generated conformance vector, and scan the site for signing material."
+      }
+    },
+    {
+      "task_id": "site-v12",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[4/4] Public verifier, fail-closed form, metadata sync, CI Node gate, ADRs and tests are in place; 64 Python tests, 39 Node assertions and 4/4 gates pass. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793088569.9318354,
+      "timestamp_str": "2026-10-27 11:09:29",
+      "agent": "kilo:main",
+      "handoff": {
+        "state": "end-to-end issue/valid/tampered/revoke passes with zero non-GET requests, axe reports no WCAG violations, and the GitHub metadata snapshot matches the API",
+        "next": "commit, close the task and push, then verify the live verify page against the real register"
+      }
+    },
+    {
+      "task_id": "site-v12",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v12' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793088680.8976614,
+      "timestamp_str": "2026-10-27 11:11:20",
       "agent": "kilo:main"
     }
   ]
