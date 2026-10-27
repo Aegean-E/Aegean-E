@@ -3,29 +3,15 @@
   "active_task": {
     "task_id": "site-v17",
     "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
+    "active_phase": 5,
+    "status": "completed",
     "updated_at": 1793129023.5452297,
     "owner": "kilo:main",
     "started_by": "kilo:main",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1793129103.0266035
   },
   "checkpoints": [
-    {
-      "task_id": "site-v12",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[4/4] Public verifier, fail-closed form, metadata sync, CI Node gate, ADRs and tests are in place; 64 Python tests, 39 Node assertions and 4/4 gates pass. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793088569.9318354,
-      "timestamp_str": "2026-10-27 11:09:29",
-      "agent": "kilo:main",
-      "handoff": {
-        "state": "end-to-end issue/valid/tampered/revoke passes with zero non-GET requests, axe reports no WCAG violations, and the GitHub metadata snapshot matches the API",
-        "next": "commit, close the task and push, then verify the live verify page against the real register"
-      }
-    },
     {
       "task_id": "site-v12",
       "phase": "completed",
@@ -272,6 +258,16 @@
       "status": "in_progress",
       "timestamp": 1793129023.5452297,
       "timestamp_str": "2026-10-27 22:23:43",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v17' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793129103.026605,
+      "timestamp_str": "2026-10-27 22:25:03",
       "agent": "kilo:main"
     }
   ]
