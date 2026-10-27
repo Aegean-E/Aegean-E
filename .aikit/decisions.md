@@ -121,3 +121,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: Every `.reveal` element starts at `opacity: 0` and only becomes visible after `IntersectionObserver` fires. A printed page or PDF built before or without those observations can therefore omit sections. The dark palette also prints poorly when a browser drops background colours: light text lands on white paper. A print-media check found 48 unrevealed blocks before the print rules settled.
 - **Decision**: Add an `@media print` block that forces `.reveal` visible with no transition, sets `print-color-adjust: exact` so the dark palette and contrast survive, and removes the sticky header, filters, decorative grid, aurora, toggle and skip link. A regression test pins the rules and a PDF render verifies zero hidden blocks.
 - **Consequences**: Printing or exporting to PDF keeps every section and the intended contrast without the interactive chrome; screen rendering is unchanged.
+
+### ADR-018: Qualify the license family per repository and release
+- **Date**: 2026-10-27
+- **Status**: Accepted
+- **Context**: The umbrella copy said current releases use the Aegean family, but a GitHub API check found AGPL-3.0 on most repositories, Apache-2.0 on N1-Engine, MIT on NeurologyClinicTemplates-TR, and no LICENSE file at all on PNN. The blanket claim was therefore false for several public repositories.
+- **Decision**: State that AegeanWorks publishes source-available and open-source projects; name AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research and ACL-1.0 for commercial use; name GNU AGPL-3.0, Apache-2.0 and MIT as observed alternatives; and say that each repository's LICENSE governs. Retitle the section "Free for personal work. Commercial terms where they apply." and keep the historical AGPL grant note. Tests pin both the site and README wording.
+- **Consequences**: The licensing section is true for every public repository, including unlicensed and OSI-licensed outliers; the heading no longer implies that every commercial use needs a paid license; no per-repository license or certificate changes.

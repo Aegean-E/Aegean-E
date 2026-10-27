@@ -155,7 +155,7 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 ## License
 
-Current releases are free for personal use under a license per domain: AL-1.1 for software, AGL-1.1 for games, and ASL-1.1 for research. Commercial use of those releases needs the Aegean Commercial License 1.0 (ACL-1.0); see [COMMERCIAL.md](COMMERCIAL.md). Versions already published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md).
+AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md).
 
 ---
 

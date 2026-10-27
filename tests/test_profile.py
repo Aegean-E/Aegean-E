@@ -210,10 +210,13 @@ class ProfileIntegrityTests(unittest.TestCase):
 
     def test_licensing_copy_names_the_agpl_transition(self):
         html = read_site()
-        self.assertIn("Current releases use the Aegean family", html)
+        self.assertIn("publishes source-available and open-source projects", html)
+        self.assertIn("each repository's LICENSE governs", html)
         self.assertIn("including its commercial permissions", html)
+        self.assertIn("Commercial terms where they apply.", html)
         readme = read_readme()
-        self.assertIn("Current releases are free for personal use", readme)
+        self.assertIn("publishes source-available and open-source projects", readme)
+        self.assertIn("each repository's LICENSE governs", readme)
         self.assertIn("including its commercial permissions", readme)
 
     def test_project_count_names_project_repositories(self):
