@@ -142,11 +142,11 @@ const cached = parseCache(cache, 2000, 5000);
 equal(cached.repos[0].name, "Cached", "cache roundtrip");
 equal(parseCache(cache, 9000, 5000), null, "expired cache ignored");
 const bumped = JSON.parse(cache);
-bumped.version = 2;
+bumped.version = 3;
 equal(parseCache(JSON.stringify(bumped), 2000, 5000), null, "cache version checked");
 equal(parseCache("not json", 2000, 5000), null, "bad cache ignored");
-equal(JSON.parse(cache).version, 1, "cache version stored");
-equal(CACHE_KEY, "aegean:atlas:v1", "cache key");
+equal(JSON.parse(cache).version, 2, "cache version stored");
+equal(CACHE_KEY, "aegean:atlas:v2", "cache key");
 
 const counted = countCards([
   { cat: "ai" },

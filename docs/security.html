@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Security — AegeanWorks</title>
+<meta name="description" content="Security model, scope and vulnerability reporting for the AegeanWorks site and license verifier.">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#04060c">
+<link rel="canonical" href="https://aegeanworks.github.io/AegeanWorks/security.html"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AegeanWorks">
+<meta property="og:title" content="Security — AegeanWorks">
+<meta property="og:description" content="Security model, scope and vulnerability reporting for the AegeanWorks site and license verifier.">
+<meta property="og:url" content="https://aegeanworks.github.io/AegeanWorks/security.html"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<meta property="og:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<meta property="og:image:alt" content="AegeanWorks — software that thinks, remembers and explains itself">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Aegean_E">
+<meta name="twitter:creator" content="@Aegean_E">
+<meta name="twitter:title" content="Security — AegeanWorks">
+<meta name="twitter:description" content="Security model, scope and vulnerability reporting for the AegeanWorks site and license verifier.">
+<meta name="twitter:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="styles.css">
+<noscript><style>@media (max-width:780px){.nav-toggle{display:none!important}.site-nav{display:none!important}}</style></noscript>
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page-grid" aria-hidden="true"></div>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="AegeanWorks home">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#67e8f9"/><stop offset="0.55" stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/>
+          </linearGradient>
+          <clipPath id="markClip"><circle cx="24" cy="24" r="15.5"/></clipPath>
+        </defs>
+        <circle cx="24" cy="24" r="22.5" fill="none" stroke="url(#markGrad)" stroke-opacity="0.35" stroke-width="1.2"/>
+        <g clip-path="url(#markClip)" fill="none" stroke="url(#markGrad)" stroke-linecap="round">
+          <path d="M6 18c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9"/>
+          <path d="M6 24c6-4 12 4 18 0s12 4 18 0" stroke-width="2.4" stroke-opacity="0.9"/>
+          <path d="M6 30c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9" stroke-opacity="0.7"/>
+        </g>
+      </svg>
+      <span class="brand-word">Aegean<span>Works</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span><span></span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify</a>
+      <a class="nav-github" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+    <a class="btn btn-ghost header-cta" href="https://github.com/AegeanWorks" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      <span>GitHub</span>
+    </a>
+  </div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Primary">
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify</a>
+      <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+  </noscript>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="section trust-section">
+    <div class="wrap trust-wrap">
+      <p class="eyebrow">verification</p>
+      <h1 class="trust-title">Security and disclosure</h1>
+      <p class="section-lede">How the verifier works, what it can prove, and how to report a problem.</p>
+      
+<div class="trust-card">
+  <h2>The public security model</h2>
+  <p>The website verifies certificates against the public register in <a href="https://github.com/AegeanWorks/Aegean-Licensing" target="_blank" rel="noopener">Aegean-Licensing</a>. <!-- hygiene: allow outbound link, not a loaded dependency --> The register is the public proof of issuance. A certificate digest proves only that its own contents are consistent; anyone can recompute one. A certificate is evidence of a grant only when its id and digest appear in the register as valid.</p>
+  <p>The issuer's HMAC signing key is never published, never sent to the browser and never accepted by the verifier. The private signature check lives only in AegeanWorks' operations tooling. A forged certificate cannot pass the register check without a matching entry in the public repository.</p>
+</div>
+
+<div class="trust-card">
+  <h2>What this site does to reduce risk</h2>
+  <ul class="trust-list">
+    <li>Certificates are read in the browser and are never uploaded. There is no certificate POST endpoint.</li>
+    <li>The verifier fetches the canonical register, terms registry and cited agreement over HTTPS from the Aegean-Licensing repository.</li>
+    <li>Untrusted certificate and README values are rendered as text, never as HTML.</li>
+    <li>Links are rebuilt from validated repository names; the atlas does not execute API-provided markup.</li>
+    <li>Every page sends a Content Security Policy. Scripts are self-hosted or pinned by SHA-256; forms, objects and base URLs are disabled.</li>
+    <li>The published verification order, canonicalization and conformance vector are in <a href="https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/VERIFICATION.md" target="_blank" rel="noopener">licenses/VERIFICATION.md</a>. <!-- hygiene: allow outbound link, not a loaded dependency --></li>
+  </ul>
+</div>
+
+<div class="trust-card">
+  <h2>Scope and limits</h2>
+  <p>In scope: the static site, its browser verifier, the project atlas, the project dossiers, the public verification specification and the public register publishing flow.</p>
+  <p>Out of scope: GitHub infrastructure, GitHub account security, email security, social engineering, and denial-of-service through third-party rate limits. The register's integrity rests on the access controls of the GitHub repository; a change to a register entry is visible in the repository history.</p>
+</div>
+
+<div class="trust-card">
+  <h2>Report a vulnerability</h2>
+  <p>Email <a href="mailto:aegean-licensing@proton.me?subject=Security%20report">aegean-licensing@proton.me</a> with the affected URL or repository, a concise description, reproduction steps and the impact you believe is possible. Do not include real license keys, private keys or personal data. Please allow 90 days before public disclosure so a fix can ship.</p>
+  <p>There is no bug bounty. Reports are acknowledged on a best-effort basis. The supported version is the current <code>main</code> branch of the website repository.</p>
+  <p class="trust-meta">Canonical disclosure metadata: <a href=".well-known/security.txt">/.well-known/security.txt</a>.</p>
+</div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" aria-label="AegeanWorks home">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="markGradFoot" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#67e8f9"/><stop offset="0.55" stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/>
+            </linearGradient>
+            <clipPath id="markClipFoot"><circle cx="24" cy="24" r="15.5"/></clipPath>
+          </defs>
+          <circle cx="24" cy="24" r="22.5" fill="none" stroke="url(#markGradFoot)" stroke-opacity="0.35" stroke-width="1.2"/>
+          <g clip-path="url(#markClipFoot)" fill="none" stroke="url(#markGradFoot)" stroke-linecap="round">
+            <path d="M6 18c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9"/>
+            <path d="M6 24c6-4 12 4 18 0s12 4 18 0" stroke-width="2.4" stroke-opacity="0.9"/>
+            <path d="M6 30c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9" stroke-opacity="0.7"/>
+          </g>
+        </svg>
+        <span class="brand-word">Aegean<span>Works</span></span>
+      </a>
+      <p>An independent studio building local-first AI systems, cognitive tooling, and computational research.</p>
+    </div>
+    <nav class="footer-col" aria-label="Site">
+      <h2>Site</h2>
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Selected work</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify a license</a>
+    </nav>
+    <nav class="footer-col" aria-label="Contact">
+      <h2>Contact</h2>
+      <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://twitter.com/Aegean_E" target="_blank" rel="noopener">X / Twitter</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="mailto:aegean-licensing@proton.me">aegean-licensing@proton.me</a>
+    </nav>
+    <div class="footer-col">
+      <h2>Legal</h2>
+      <a href="security.html">Security</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="accessibility.html">Accessibility</a>
+      <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">Commercial terms</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/LICENSE" target="_blank" rel="noopener">AL-1.1</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© <span id="year">2026</span> AegeanWorks. All rights reserved.</p>
+    <p class="footer-built">Built as static HTML, CSS, and a little JavaScript. No trackers, no external fonts.</p>
+  </div>
+</footer>
+</body>
+</html>

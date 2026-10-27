@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Accessibility — AegeanWorks</title>
+<meta name="description" content="AegeanWorks accessibility commitment, implemented measures, known limitations and feedback.">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#04060c">
+<link rel="canonical" href="https://aegeanworks.github.io/AegeanWorks/accessibility.html"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AegeanWorks">
+<meta property="og:title" content="Accessibility — AegeanWorks">
+<meta property="og:description" content="AegeanWorks accessibility commitment, implemented measures, known limitations and feedback.">
+<meta property="og:url" content="https://aegeanworks.github.io/AegeanWorks/accessibility.html"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<meta property="og:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<meta property="og:image:alt" content="AegeanWorks — software that thinks, remembers and explains itself">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Aegean_E">
+<meta name="twitter:creator" content="@Aegean_E">
+<meta name="twitter:title" content="Accessibility — AegeanWorks">
+<meta name="twitter:description" content="AegeanWorks accessibility commitment, implemented measures, known limitations and feedback.">
+<meta name="twitter:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="styles.css">
+<noscript><style>@media (max-width:780px){.nav-toggle{display:none!important}.site-nav{display:none!important}}</style></noscript>
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page-grid" aria-hidden="true"></div>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="AegeanWorks home">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#67e8f9"/><stop offset="0.55" stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/>
+          </linearGradient>
+          <clipPath id="markClip"><circle cx="24" cy="24" r="15.5"/></clipPath>
+        </defs>
+        <circle cx="24" cy="24" r="22.5" fill="none" stroke="url(#markGrad)" stroke-opacity="0.35" stroke-width="1.2"/>
+        <g clip-path="url(#markClip)" fill="none" stroke="url(#markGrad)" stroke-linecap="round">
+          <path d="M6 18c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9"/>
+          <path d="M6 24c6-4 12 4 18 0s12 4 18 0" stroke-width="2.4" stroke-opacity="0.9"/>
+          <path d="M6 30c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9" stroke-opacity="0.7"/>
+        </g>
+      </svg>
+      <span class="brand-word">Aegean<span>Works</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span><span></span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify</a>
+      <a class="nav-github" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+    <a class="btn btn-ghost header-cta" href="https://github.com/AegeanWorks" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      <span>GitHub</span>
+    </a>
+  </div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Primary">
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify</a>
+      <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+  </noscript>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="section trust-section">
+    <div class="wrap trust-wrap">
+      <p class="eyebrow">accessibility</p>
+      <h1 class="trust-title">Accessibility</h1>
+      <p class="section-lede">What works, what is limited, and how to report a barrier.</p>
+      
+<div class="trust-card">
+  <h2>Commitment</h2>
+  <p>AegeanWorks aims to meet WCAG 2.2 Level AA on the public site. The static pages are tested with keyboard navigation and an automated axe-core audit at desktop and mobile widths.</p>
+</div>
+
+<div class="trust-card">
+  <h2>What is in place</h2>
+  <ul class="trust-list">
+    <li>Semantic landmarks, one main heading per page, a visible skip link and a logical heading order.</li>
+    <li>Keyboard-operable navigation, filters, topic chips, project dossiers and the verifier form.</li>
+    <li>Visible focus indicators, a focus-contained mobile menu, Escape to close, and inert background content while the menu is open.</li>
+    <li>Reduced-motion support: reveal transitions and the orbit are disabled or effectively frozen when the viewer asks for less motion.</li>
+    <li>Text alternatives for decorative SVG, labelled form controls and announced verification results.</li>
+    <li>No color-only status: verification results use words, not only badge colours.</li>
+    <li>The home, verifier and dossier pages had zero WCAG A/AA axe violations at the last review.</li>
+  </ul>
+</div>
+
+<div class="trust-card">
+  <h2>Known limitations</h2>
+  <p>Project README excerpts are simplified to headings, paragraphs, lists, quotes and code and may omit images, tables and inline links. The original README on GitHub remains the complete source.</p>
+  <p>Third-party GitHub availability and rate limits can make the live atlas fall back to the built-in snapshot or make a README excerpt unavailable. The static atlas remains usable without JavaScript.</p>
+</div>
+
+<div class="trust-card">
+  <h2>Feedback</h2>
+  <p>If something is hard to use or blocks an assistive technology, email <a href="mailto:aegean-licensing@proton.me?subject=Accessibility%20feedback">aegean-licensing@proton.me</a> with the page, the assistive technology and what happened. Accessibility is reviewed with each material site change.</p>
+  <p class="trust-meta">Last reviewed: 27 October 2026.</p>
+</div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="index.html" aria-label="AegeanWorks home">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="markGradFoot" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#67e8f9"/><stop offset="0.55" stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/>
+            </linearGradient>
+            <clipPath id="markClipFoot"><circle cx="24" cy="24" r="15.5"/></clipPath>
+          </defs>
+          <circle cx="24" cy="24" r="22.5" fill="none" stroke="url(#markGradFoot)" stroke-opacity="0.35" stroke-width="1.2"/>
+          <g clip-path="url(#markClipFoot)" fill="none" stroke="url(#markGradFoot)" stroke-linecap="round">
+            <path d="M6 18c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9"/>
+            <path d="M6 24c6-4 12 4 18 0s12 4 18 0" stroke-width="2.4" stroke-opacity="0.9"/>
+            <path d="M6 30c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9" stroke-opacity="0.7"/>
+          </g>
+        </svg>
+        <span class="brand-word">Aegean<span>Works</span></span>
+      </a>
+      <p>An independent studio building local-first AI systems, cognitive tooling, and computational research.</p>
+    </div>
+    <nav class="footer-col" aria-label="Site">
+      <h2>Site</h2>
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Selected work</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify a license</a>
+    </nav>
+    <nav class="footer-col" aria-label="Contact">
+      <h2>Contact</h2>
+      <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://twitter.com/Aegean_E" target="_blank" rel="noopener">X / Twitter</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="mailto:aegean-licensing@proton.me">aegean-licensing@proton.me</a>
+    </nav>
+    <div class="footer-col">
+      <h2>Legal</h2>
+      <a href="security.html">Security</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="accessibility.html">Accessibility</a>
+      <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">Commercial terms</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/LICENSE" target="_blank" rel="noopener">AL-1.1</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© <span id="year">2026</span> AegeanWorks. All rights reserved.</p>
+    <p class="footer-built">Built as static HTML, CSS, and a little JavaScript. No trackers, no external fonts.</p>
+  </div>
+</footer>
+</body>
+</html>

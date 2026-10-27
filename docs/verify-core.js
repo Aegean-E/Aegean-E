@@ -271,6 +271,17 @@ export function resolveTerms(terms, licenseType) {
   return entry;
 }
 
+export function validCertificateId(value) {
+  return typeof value === "string" && /^[A-Za-z0-9._:-]{1,128}$/.test(value.trim());
+}
+
+export function lookupRegister(register, certificateId) {
+  if (!(register instanceof Map)) return null;
+  const id = String(certificateId || "").trim();
+  if (!validCertificateId(id)) return null;
+  return register.get(id) || null;
+}
+
 function isIsoDate(value) {
   if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
   const [year, month, day] = value.split("-").map(Number);

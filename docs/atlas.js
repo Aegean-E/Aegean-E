@@ -3,6 +3,7 @@ import {
   CATEGORY_ORDER,
   AtlasFetchError,
   countCards,
+  factsText,
   fetchAllRepos,
   inferCategory,
   monogram,
@@ -56,11 +57,25 @@ function setText(element, value) {
 
 function updateCard(element, repo) {
   element.dataset.repoId = String(repo.id);
+  element.dataset.repoUrl = repo.html_url;
   element.dataset.topics = repo.topics.join(",");
-  const link = repo.html_url;
-  if (element.getAttribute("href") !== link) element.setAttribute("href", link);
+  element.dataset.language = repo.language;
+  element.dataset.license = repo.license;
+  element.dataset.pushedAt = repo.pushed_at;
+  if (element.getAttribute("href") !== repo.project_url) {
+    element.setAttribute("href", repo.project_url);
+  }
   setText(element.querySelector("h3"), repo.name);
   setText(element.querySelector("p"), repo.description || "No description yet.");
+  let facts = element.querySelector(".project-facts");
+  if (!facts) {
+    facts = document.createElement("span");
+    facts.className = "project-facts";
+    const tags = element.querySelector(".project-tags");
+    if (tags) element.insertBefore(facts, tags);
+    else element.appendChild(facts);
+  }
+  setText(facts, factsText(repo));
   const tags = element.querySelector(".project-tags");
   if (tags) {
     const desired = visibleTopics(repo);
@@ -84,10 +99,10 @@ function createCard(repo) {
   anchor.className = "project";
   anchor.dataset.cat = category;
   anchor.dataset.repoId = String(repo.id);
+  anchor.dataset.repoUrl = repo.html_url;
   anchor.dataset.topics = repo.topics.join(",");
-  anchor.href = repo.html_url;
-  anchor.target = "_blank";
-  anchor.rel = "noopener";
+  anchor.setAttribute("href", repo.project_url);
+  anchor.setAttribute("rel", "noopener");
 
   const mark = document.createElement("span");
   mark.className = "project-mark mark-" + category;
@@ -102,6 +117,11 @@ function createCard(repo) {
   const description = document.createElement("p");
   description.textContent = repo.description || "No description yet.";
   anchor.appendChild(description);
+
+  const facts = document.createElement("span");
+  facts.className = "project-facts";
+  facts.textContent = factsText(repo);
+  anchor.appendChild(facts);
 
   const tags = document.createElement("span");
   tags.className = "project-tags";

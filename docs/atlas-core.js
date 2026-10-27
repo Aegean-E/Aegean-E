@@ -4,8 +4,8 @@
 
 /* hygiene: allow canonical public API fetch, not a loaded third-party resource */
 export const API_ROOT = "https://api.github.com/users/AegeanWorks/repos";
-export const CACHE_KEY = "aegean:atlas:v1";
-export const CACHE_VERSION = 1;
+export const CACHE_KEY = "aegean:atlas:v2";
+export const CACHE_VERSION = 2;
 export const CACHE_TTL_MS = 10 * 60 * 1000;
 export const MAX_PAGES = 5;
 export const CATEGORY_ORDER = ["ai", "research", "health", "tools", "play"];
@@ -46,16 +46,74 @@ export function normalizeRepo(raw) {
   const topics = Array.isArray(raw.topics)
     ? raw.topics.filter((topic) => typeof topic === "string" && topic.trim()).map((topic) => topic.trim())
     : [];
+  const license =
+    typeof raw.license === "string"
+      ? raw.license.trim()
+      : raw.license && typeof raw.license === "object" && typeof raw.license.spdx_id === "string"
+        ? raw.license.spdx_id.trim()
+        : "";
+  const pushedAt =
+    typeof raw.pushed_at === "string" && Number.isFinite(Date.parse(raw.pushed_at))
+      ? raw.pushed_at
+      : "";
+  const homepage = safeUrl(raw.homepage);
+  const defaultBranch =
+    typeof raw.default_branch === "string" && /^[A-Za-z0-9._/-]{1,100}$/.test(raw.default_branch)
+      ? raw.default_branch
+      : "main";
   return {
     id,
     name,
     description: typeof raw.description === "string" ? raw.description.trim() : "",
     topics: Array.from(new Set(topics)),
-    language: typeof raw.language === "string" ? raw.language : "",
+    language: typeof raw.language === "string" ? raw.language.trim() : "",
+    license,
+    pushed_at: pushedAt,
+    homepage,
+    default_branch: defaultBranch,
     archived: raw.archived === true,
     // hygiene: allow outbound link, not a loaded dependency
     html_url: "https://github.com/AegeanWorks/" + encodeURIComponent(name),
+    project_url: "project.html?repo=" + encodeURIComponent(name),
   };
+}
+
+function safeUrl(value) {
+  if (typeof value !== "string" || value.length > 500) return "";
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+  } catch (error) {
+    return "";
+  }
+}
+
+export function licenseLabel(license) {
+  if (!license) return "No license";
+  if (license === "NOASSERTION") return "Custom license";
+  return license;
+}
+
+export function relativeAge(pushedAt, now = Date.now()) {
+  const timestamp = Date.parse(pushedAt);
+  if (!Number.isFinite(timestamp)) return "";
+  const days = Math.floor((now - timestamp) / 86400000);
+  if (days <= 0) return "today";
+  if (days === 1) return "yesterday";
+  if (days < 30) return days + " days ago";
+  if (days < 365) {
+    const months = Math.floor(days / 30);
+    return months + (months === 1 ? " month ago" : " months ago");
+  }
+  const years = Math.floor(days / 365);
+  return years + (years === 1 ? " year ago" : " years ago");
+}
+
+export function factsText(repo, now = Date.now()) {
+  const facts = [repo.language || "Unknown language", licenseLabel(repo.license)];
+  const age = relativeAge(repo.pushed_at, now);
+  if (age) facts.push("Updated " + age);
+  return facts.join(" · ");
 }
 
 export function selectRepos(rawRepos) {

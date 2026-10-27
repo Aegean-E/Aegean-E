@@ -1,0 +1,204 @@
+import {
+  licenseLabel,
+  normalizeRepo,
+  relativeAge,
+  visibleTopics,
+} from "./atlas-core.js";
+import { findRepo, readmeToBlocks, validRepoName } from "./project-core.js";
+
+const params = new URLSearchParams(window.location.search);
+const requested = (params.get("repo") || "").trim();
+const statusEl = document.getElementById("project-status");
+const errorEl = document.getElementById("project-error");
+const errorText = document.getElementById("project-error-text");
+const detailEl = document.getElementById("project-detail");
+const readmeEl = document.getElementById("readme-content");
+const readmeStatus = document.getElementById("readme-status");
+const readmeLink = document.getElementById("readme-link");
+
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
+function fail(message, githubUrl) {
+  if (detailEl) detailEl.hidden = true;
+  if (errorEl) errorEl.hidden = false;
+  if (errorText) {
+    errorText.textContent = message;
+    if (githubUrl) {
+      const link = document.createElement("a");
+      link.href = githubUrl;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = "Open it on GitHub instead.";
+      errorText.append(" ", link);
+    }
+  }
+  if (statusEl) statusEl.textContent = message;
+  document.title = "Project not found — AegeanWorks";
+}
+
+async function fetchJson(url) {
+  const response = await window.fetch(url, {
+    credentials: "omit",
+    referrerPolicy: "no-referrer",
+    cache: "no-store",
+  });
+  if (response.status === 403 || response.status === 429) {
+    throw new Error("GitHub rate limit reached. Try again later.");
+  }
+  if (!response.ok) throw new Error("GitHub returned HTTP " + response.status + ".");
+  return response.json();
+}
+
+async function lookupRepository() {
+  try {
+    const snapshot = await fetchJson("atlas-snapshot.json");
+    const found = findRepo(snapshot.repositories, requested);
+    if (found) return found;
+  } catch (error) {
+    /* fall through to the live API */
+  }
+  // hygiene: allow canonical repository lookup, not a loaded third-party resource
+  return fetchJson("https://api.github.com/repos/AegeanWorks/" + encodeURIComponent(requested));
+}
+
+async function fetchReadme(name) {
+  // hygiene: allow canonical README lookup, not a loaded third-party resource
+  const data = await fetchJson("https://api.github.com/repos/AegeanWorks/" + encodeURIComponent(name) + "/readme");
+  if (typeof data.content !== "string") throw new Error("README payload is missing content.");
+  const binary = window.atob(data.content.replace(/\s+/g, ""));
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return new TextDecoder("utf-8").decode(bytes);
+}
+
+function appendTopic(repo, topic) {
+  const container = document.getElementById("project-topics");
+  if (!container) return;
+  const link = document.createElement("a");
+  link.className = "project-topic";
+  link.href = "index.html?topic=" + encodeURIComponent(topic) + "#projects";
+  link.textContent = topic;
+  container.appendChild(link);
+}
+
+function render(repo) {
+  if (statusEl) statusEl.hidden = true;
+  if (detailEl) detailEl.hidden = false;
+  document.title = repo.name + " — AegeanWorks";
+  const description = repo.description || "A public project from the AegeanWorks studio.";
+  setText("project-title", repo.name);
+  setText("project-description", description);
+  setText("project-language", repo.language || "Unknown");
+  setText("project-license", licenseLabel(repo.license));
+  setText("project-pushed", relativeAge(repo.pushed_at) || "Unknown");
+  setText("project-branch", repo.default_branch || "main");
+  const pushed = document.getElementById("project-pushed");
+  if (pushed) pushed.title = repo.pushed_at || "";
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.setAttribute("content", repo.name + " — " + description);
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) {
+    // hygiene: allow canonical page URL metadata, not a loaded resource
+    canonical.href = "https://aegeanworks.github.io/AegeanWorks/project.html?repo=" + encodeURIComponent(repo.name);
+  }
+  const repoLink = document.getElementById("project-repo");
+  if (repoLink) repoLink.href = repo.html_url;
+  const homepage = document.getElementById("project-homepage");
+  if (homepage) {
+    if (repo.homepage) {
+      homepage.href = repo.homepage;
+      homepage.hidden = false;
+    } else {
+      homepage.hidden = true;
+    }
+  }
+  const topics = document.getElementById("project-topics");
+  if (topics) topics.replaceChildren();
+  const shown = visibleTopics(repo, 10);
+  shown.forEach((topic) => appendTopic(repo, topic));
+  if (repo.topics.length > shown.length) {
+    const rest = document.createElement("a");
+    rest.className = "project-topic project-topic-more";
+    rest.href = repo.html_url + "#topics";
+    rest.textContent = "+" + (repo.topics.length - shown.length) + " more on GitHub";
+    rest.target = "_blank";
+    rest.rel = "noopener";
+    if (topics) topics.appendChild(rest);
+  }
+}
+
+function appendBlock(block) {
+  if (!readmeEl) return;
+  if (block.type === "heading") {
+    const heading = document.createElement("h" + String(block.level));
+    heading.textContent = block.text;
+    readmeEl.appendChild(heading);
+  } else if (block.type === "paragraph") {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = block.text;
+    readmeEl.appendChild(paragraph);
+  } else if (block.type === "list") {
+    const list = document.createElement(block.ordered ? "ol" : "ul");
+    block.items.forEach((item) => {
+      const bullet = document.createElement("li");
+      bullet.textContent = item;
+      list.appendChild(bullet);
+    });
+    readmeEl.appendChild(list);
+  } else if (block.type === "code") {
+    const pre = document.createElement("pre");
+    const code = document.createElement("code");
+    code.textContent = block.text;
+    pre.appendChild(code);
+    readmeEl.appendChild(pre);
+  } else if (block.type === "quote") {
+    const quote = document.createElement("blockquote");
+    quote.textContent = block.text;
+    readmeEl.appendChild(quote);
+  } else if (block.type === "rule") {
+    readmeEl.appendChild(document.createElement("hr"));
+  }
+}
+
+async function loadReadme(repo) {
+  if (readmeLink) readmeLink.href = repo.html_url + "#readme";
+  try {
+    const markdown = await fetchReadme(repo.name);
+    const parsed = readmeToBlocks(markdown);
+    if (!parsed.blocks.length) {
+      if (readmeStatus) readmeStatus.textContent = "No README excerpt is available.";
+      return;
+    }
+    if (readmeEl) readmeEl.replaceChildren();
+    parsed.blocks.forEach(appendBlock);
+    if (readmeStatus) {
+      readmeStatus.textContent = parsed.truncated
+        ? "Showing the first part of the README."
+        : "";
+    }
+  } catch (error) {
+    if (readmeStatus) readmeStatus.textContent = error.message;
+  }
+}
+
+async function boot() {
+  if (!validRepoName(requested)) {
+    fail("Choose a project from the portfolio.");
+    return;
+  }
+  if (statusEl) statusEl.textContent = "Loading project…";
+  try {
+    const raw = await lookupRepository();
+    const repo = normalizeRepo(raw);
+    render(repo);
+    await loadReadme(repo);
+  } catch (error) {
+    // hygiene: allow outbound fallback link, not a loaded dependency
+    const github = "https://github.com/AegeanWorks/" + encodeURIComponent(requested);
+    fail(error.message || "The project could not be loaded.", github);
+  }
+}
+
+if (detailEl) boot();

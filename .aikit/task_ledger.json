@@ -1,99 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v16",
+    "task_id": "site-v17",
     "last_phase": "phase 4",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793115854.1345983,
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793129023.5452297,
     "owner": "kilo:main",
     "started_by": "kilo:main",
-    "continuations": [],
-    "completed_at": 1793115932.8876696
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "site-v10",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Print media reveals all content, keeps exact colors, and drops interactive chrome; 45 tests and 4/4 gates pass. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793079684.4025,
-      "timestamp_str": "2026-10-27 08:41:24",
-      "agent": "kilo:main",
-      "handoff": {
-        "next": "commit, close the task and push, then verify the live page"
-      }
-    },
-    {
-      "task_id": "site-v10",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v10' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793079695.8798425,
-      "timestamp_str": "2026-10-27 08:41:35",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v11",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Make the umbrella licensing copy true for every repository, including AGPL, Apache-2.0, MIT and unlicensed outliers",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793079909.3870738,
-      "timestamp_str": "2026-10-27 08:45:09",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "GitHub reports 34 public repositories; most carry AGPL-3.0 or a custom Aegean license, N1-Engine is Apache-2.0, NeurologyClinicTemplates-TR is MIT, and PNN has no LICENSE at all. A blanket claim that current releases use the Aegean family is false for those repositories.",
-        "benefits": "The licensing section and README describe the family, the per-repository variation and the AGPL history without overclaiming; visitors know the LICENSE in each repository is authoritative.",
-        "risks": "contract: no URL or asset changes; dependency: none; concurrency: none; state: no schema or certificate changes; content: the section no longer claims all projects are source-available",
-        "mitigation": "Pin the new wording in tests, keep the tier links and CTA, and re-run gates plus a live copy check."
-      }
-    },
-    {
-      "task_id": "site-v11",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Umbrella licensing copy now names the family, the AGPL/Apache/MIT outliers and the repository LICENSE as authoritative; 45 tests and 4/4 gates pass. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793080267.0333,
-      "timestamp_str": "2026-10-27 08:51:07",
-      "agent": "kilo:main",
-      "handoff": {
-        "next": "commit, close the task and push, then verify the live licensing section"
-      }
-    },
-    {
-      "task_id": "site-v11",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v11' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793080286.730112,
-      "timestamp_str": "2026-10-27 08:51:26",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v12",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Add a public browser verifier for format-2 certificates and sync the GitHub titles, topics and descriptions",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793081417.491492,
-      "timestamp_str": "2026-10-27 09:10:17",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The owner wants a license-verification surface on the public site and the newly updated GitHub repository metadata reflected in the portfolio. The audit must prove that publishing a verifier cannot expose signing material or permit a forged certificate.",
-        "benefits": "Visitors can check a certificate against the canonical public register without sending it anywhere; every project card and README entry uses the updated GitHub title, topic tags and description; the verifier follows ACL-1.0 Section 6 instead of inventing a second trust model.",
-        "risks": "contract: new verify.html URL, no existing URL changes; dependency: browser Web Crypto only, Node only for tests; concurrency: no shared state; state: no certificate, register or key changes; security: untrusted certificate JSON must never be rendered as HTML or checked with a key",
-        "mitigation": "Fetch only the canonical register and frozen terms over HTTPS, require a register entry, use textContent and size limits, add Node parity tests against a Python-generated conformance vector, and scan the site for signing material."
-      }
-    },
     {
       "task_id": "site-v12",
       "phase": "phase 4",
@@ -283,6 +200,78 @@
       "status": "completed",
       "timestamp": 1793115932.8876712,
       "timestamp_str": "2026-10-27 18:45:32",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/6] Build searchable atlas metadata, local project pages, verifier conveniences, trust pages, an offline shell, and structured data on top of the live GitHub sync",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793117535.839777,
+      "timestamp_str": "2026-10-27 19:12:15",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "The atlas now fetches live GitHub data but only exposes five curated filters; repository cards omit language, license and freshness; every card leaves the site immediately; the verifier lacks ID lookup, drag-and-drop and export; there are no security, privacy or accessibility pages; the manifest has no service worker; and the 404 page and structured data are thin.",
+        "benefits": "Visitors can search and deep-link projects by text, topic, discipline and recency, open a local project summary with license and README context, verify a certificate from an ID, drop a file, and export the result, read the trust pages, install an offline-capable shell, and reach projects from the 404 page.",
+        "risks": "contract: adds project.html, security/privacy/accessibility pages, security.txt, atlas-snapshot.json and sw.js, no existing URL changes; dependency: no package, browser APIs only; concurrency: one service-worker cache version and one in-flight atlas fetch; state: URL query parameters, session cache and Cache Storage, no credentials; security: untrusted GitHub text stays text, README excerpts are plain text, the service worker caches only GET shell/API responses, and CSP hashes must be regenerated for every inline block",
+        "mitigation": "Split into six milestones, pin each with Python and Node tests, mock the GitHub API in Playwright, regenerate CSP hashes, run axe on every new page, and verify the deployed pages against the real API."
+      }
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/6] Atlas search, sort, topic chips, keyboard shortcut and URL state (q/topic/cat/sort); cards carry language, license and recency; connect-src now allows the GitHub API so the live atlas works under CSP; 78 Python tests and 52 atlas assertions pass; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793128988.025628,
+      "timestamp_str": "2026-10-27 22:23:08",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[3/6] Local project dossier: project.html, project-core.js and project.js resolve a repository from atlas-snapshot.json or the public API and render metadata plus a plain-text README excerpt; 32 project-page assertions and 78 Python tests pass; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793128994.1829834,
+      "timestamp_str": "2026-10-27 22:23:14",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[4/6] Verifier gains certificate-ID lookup, drag-and-drop, copy result and JSON download; the page stays local and keeps the canonical-registry CSP; 58 verifier assertions and 78 Python tests pass; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793129003.0812998,
+      "timestamp_str": "2026-10-27 22:23:23",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[5/6] Security, privacy and accessibility pages published with .well-known/security.txt, sitemap entries, footer links and README pointers; 78 Python tests and all four suites pass; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793129011.235714,
+      "timestamp_str": "2026-10-27 22:23:31",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v17",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[6/6] Installable offline shell: manifest shortcuts, service worker precache/API cache, offline page, deeper 404 and JSON-LD project list; ADR-025 records the decision; 78 Python tests, 58 verifier, 52 atlas and 32 project assertions, 4/4 gates pass; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793129023.5452297,
+      "timestamp_str": "2026-10-27 22:23:43",
       "agent": "kilo:main"
     }
   ]

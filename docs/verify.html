@@ -110,7 +110,7 @@
       <div class="verify-grid">
         <form class="verify-card verify-form" id="verify-form" novalidate>
           <label for="certificate-input">Certificate JSON</label>
-          <p class="verify-help" id="certificate-help">Paste the object from <code>license_certificate_&lt;id&gt;.json</code>. Nothing is uploaded.</p>
+          <p class="verify-help" id="certificate-help">Paste the object from <code>license_certificate_&lt;id&gt;.json</code>, drop the file anywhere in this panel, or choose it below. Nothing is uploaded.</p>
           <textarea id="certificate-input" name="certificate" spellcheck="false" autocomplete="off" aria-describedby="certificate-help" placeholder='{"cert_id": "...", "format": 2, ...}'></textarea>
 
           <div class="verify-form-row">
@@ -128,6 +128,16 @@
             <button class="btn btn-primary" type="submit" id="verify-submit" disabled>Verify certificate</button>
             <button class="btn btn-ghost" type="button" id="clear-button">Clear</button>
           </div>
+
+          <fieldset class="verify-id-lookup">
+            <legend>Only have a certificate ID?</legend>
+            <p class="verify-help">Look up its status in the public register. This does not check a certificate file.</p>
+            <div class="verify-id-row">
+              <label class="visually-hidden" for="certificate-id">Certificate ID</label>
+              <input type="text" id="certificate-id" autocomplete="off" maxlength="128" placeholder="cert_id">
+              <button class="btn btn-ghost" type="button" id="lookup-id" disabled>Look up ID</button>
+            </div>
+          </fieldset>
 
           <p class="verify-runtime" id="verify-runtime" role="status">Loading the public register…</p>
           <p class="verify-runtime is-error" id="verify-runtime-error" role="alert" hidden></p>
@@ -175,6 +185,11 @@
         <ul class="verify-reasons" id="result-reasons"></ul>
         <dl class="verify-facts" id="result-facts"></dl>
         <p class="verify-note" id="result-register"></p>
+        <div class="verify-actions verify-result-actions">
+          <button class="btn btn-ghost" type="button" id="copy-result">Copy result</button>
+          <button class="btn btn-ghost" type="button" id="download-result">Download JSON</button>
+        </div>
+        <p class="verify-runtime" id="export-status" role="status" aria-live="polite"></p>
       </section>
 
       <section class="verify-card verify-cli" aria-labelledby="cli-title">
@@ -231,6 +246,9 @@
 
     <div class="footer-col">
       <h2>Legal</h2>
+      <a href="security.html">Security</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="accessibility.html">Accessibility</a>
       <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">Commercial terms</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
       <a href="https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md" target="_blank" rel="noopener">License catalog</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
       <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/LICENSE" target="_blank" rel="noopener">AL-1.1</a> <!-- hygiene: allow outbound link, not a loaded dependency -->

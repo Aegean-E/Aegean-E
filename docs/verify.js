@@ -6,12 +6,15 @@ import {
   parseCertificate,
   parseRegister,
   parseTerms,
+  lookupRegister,
   resolveTerms,
+  validCertificateId,
   verifyCertificate,
 } from "./verify-core.js";
 
 const STATUS_LABELS = {
   VALID: "Valid",
+  REGISTERED: "Registered",
   REVOKED: "Revoked",
   UNREGISTERED: "Not registered",
   TAMPERED: "Tampered",
@@ -24,6 +27,7 @@ const STATUS_LABELS = {
 
 const STATUS_CLASSES = {
   VALID: "is-valid",
+  REGISTERED: "is-valid",
   REVOKED: "is-danger",
   TAMPERED: "is-danger",
   INVALID_FORMAT: "is-danger",
@@ -54,6 +58,8 @@ const state = {
   termTexts: new Map(),
 };
 
+let lastExport = null;
+
 const form = document.getElementById("verify-form");
 const input = document.getElementById("certificate-input");
 const fileInput = document.getElementById("certificate-file");
@@ -72,6 +78,11 @@ const registerMeta = document.getElementById("register-meta");
 const refreshButton = document.getElementById("refresh-register");
 const submitButton = document.getElementById("verify-submit");
 const clearButton = document.getElementById("clear-button");
+const idInput = document.getElementById("certificate-id");
+const idButton = document.getElementById("lookup-id");
+const copyButton = document.getElementById("copy-result");
+const downloadButton = document.getElementById("download-result");
+const exportStatus = document.getElementById("export-status");
 
 function setRuntime(message) {
   if (runtime) runtime.textContent = message;
@@ -92,12 +103,14 @@ function clearError() {
 function clearResult() {
   if (!resultPanel) return;
   resultPanel.hidden = true;
+  lastExport = null;
   if (resultBadge) resultBadge.textContent = "";
   if (resultBadge) resultBadge.className = "verify-badge";
   if (resultSummary) resultSummary.textContent = "";
   if (resultReasons) resultReasons.replaceChildren();
   if (resultFacts) resultFacts.replaceChildren();
   if (resultRegister) resultRegister.textContent = "";
+  if (exportStatus) exportStatus.textContent = "";
 }
 
 function utcClock(date) {
@@ -211,6 +224,7 @@ async function loadRegistries() {
   }
   if (submitButton) submitButton.disabled = true;
   if (refreshButton) refreshButton.disabled = true;
+  if (idButton) idButton.disabled = true;
   clearError();
   setRuntime("Loading the public register…");
   const outcomes = await Promise.allSettled([
@@ -221,6 +235,7 @@ async function loadRegistries() {
   if (outcomes[0].status === "fulfilled") {
     try {
       state.register = parseRegister(outcomes[0].value);
+      if (idButton) idButton.disabled = false;
     } catch (error) {
       state.register = null;
       problems.push(error.message);
@@ -283,19 +298,15 @@ function registerSummary(verification) {
   return "Valid entry" + (entry.issued_at ? ", issued " + entry.issued_at : "") + ".";
 }
 
-function renderResult(verification, certificate, citedTerms) {
+function finishResult(status, summary, reasons, facts, note, title, exportData) {
   if (!resultPanel) return;
-  const status = verification.status;
   if (resultBadge) {
     resultBadge.textContent = STATUS_LABELS[status] || status;
     resultBadge.className = "verify-badge " + (STATUS_CLASSES[status] || "is-danger");
   }
-  if (resultSummary) {
-    resultSummary.textContent = SUMMARY[status] || "The certificate could not be verified.";
-  }
+  if (resultSummary) resultSummary.textContent = summary;
   if (resultReasons) {
     const fragment = document.createDocumentFragment();
-    const reasons = verification.reasons.length ? verification.reasons : ["All checks passed."];
     reasons.forEach(function (reason) {
       const item = document.createElement("li");
       item.textContent = reason;
@@ -303,6 +314,143 @@ function renderResult(verification, certificate, citedTerms) {
     });
     resultReasons.replaceChildren(fragment);
   }
+  renderFacts(facts);
+  if (resultRegister) resultRegister.textContent = note || "";
+  if (resultTitle) resultTitle.textContent = title;
+  lastExport = exportData;
+  if (exportStatus) exportStatus.textContent = "";
+  resultPanel.hidden = false;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  resultPanel.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
+  if (resultTitle) resultTitle.focus({ preventScroll: true });
+}
+
+function exportText(exportData) {
+  const lines = [
+    "AegeanWorks " + (exportData.kind === "certificate" ? "verification result" : "register lookup"),
+    "Status: " + (STATUS_LABELS[exportData.status] || exportData.status),
+    exportData.summary,
+    "",
+  ];
+  exportData.facts.forEach(function (fact) {
+    lines.push(fact[0] + ": " + (fact[1] || "—"));
+  });
+  if (exportData.note) lines.push("", exportData.note);
+  lines.push("", "Checked: " + new Date().toISOString());
+  return lines.join("\n");
+}
+
+async function copyResult() {
+  if (!lastExport) return;
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    if (exportStatus) exportStatus.textContent = "Clipboard access is unavailable; use Download JSON.";
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(exportText(lastExport));
+    if (exportStatus) exportStatus.textContent = "Copied to clipboard.";
+  } catch (error) {
+    if (exportStatus) exportStatus.textContent = "Copy failed; use Download JSON.";
+  }
+}
+
+function downloadResult() {
+  if (!lastExport) return;
+  const facts = {};
+  lastExport.facts.forEach(function (fact) {
+    facts[fact[0]] = fact[1] || "";
+  });
+  const payload = {
+    product: "AegeanWorks",
+    format: 1,
+    kind: lastExport.kind,
+    certificate_id: lastExport.id,
+    checked_at: new Date().toISOString(),
+    status: lastExport.status,
+    summary: lastExport.summary,
+    facts,
+    note: lastExport.note || "",
+    entry: lastExport.entry || null,
+    verification: lastExport.verification || null,
+  };
+  const name = String(lastExport.id || "result").replace(/[^A-Za-z0-9._-]+/g, "-").slice(0, 80);
+  const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "aegean-" + lastExport.kind + "-" + (name || "result") + ".json";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  if (exportStatus) exportStatus.textContent = "Downloaded a JSON result.";
+}
+
+function renderRegisterLookup(entry, id) {
+  const status = entry ? (entry.status === "revoked" ? "REVOKED" : "REGISTERED") : "UNREGISTERED";
+  const summary = !entry
+    ? "No certificate with this ID is listed in the canonical register."
+    : entry.status === "revoked"
+      ? "The public register lists this certificate ID as revoked. Do not rely on it."
+      : "The public register lists this certificate ID as valid. Paste the certificate to verify its digest and contents.";
+  const reasons = [
+    "A register lookup checks the id and status only; it does not verify a certificate file.",
+  ];
+  const facts = [
+    ["Certificate", id],
+    ["Register", !entry ? "Not listed" : entry.status === "revoked" ? "Revoked" : "Valid entry"],
+    ["License", entry ? entry.license_type : ""],
+    ["Issued", entry ? entry.issued_at : ""],
+  ];
+  if (entry && entry.status === "revoked") {
+    facts.push(["Revoked", entry.revoked_at || "Date not listed"]);
+    if (entry.reason) facts.push(["Reason", entry.reason]);
+  }
+  facts.push(["Digest", entry ? entry.digest : ""]);
+  facts.push(["Signature", "Not part of a register lookup."]);
+  const note = state.fetchedAt
+    ? "Register checked against the canonical issued.json at " + utcClock(state.fetchedAt) + "."
+    : "Register checked against the canonical issued.json.";
+  finishResult(
+    status,
+    summary,
+    reasons,
+    facts,
+    note,
+    "Register lookup",
+    {
+      kind: "register",
+      id,
+      status,
+      summary,
+      facts,
+      note,
+      entry: entry || null,
+    }
+  );
+}
+
+async function handleIdLookup() {
+  clearError();
+  if (!state.register) await loadRegistries();
+  if (!state.register) {
+    showError("The register is not available, so the id cannot be looked up.");
+    return;
+  }
+  const id = idInput ? idInput.value.trim() : "";
+  if (!validCertificateId(id)) {
+    showError("Enter a certificate ID using letters, digits, dots, colons, underscores or hyphens.");
+    if (idInput) idInput.focus();
+    return;
+  }
+  renderRegisterLookup(lookupRegister(state.register, id), id);
+}
+
+function renderResult(verification, certificate, citedTerms) {
+  if (!resultPanel) return;
+  const status = verification.status;
+  const summary = SUMMARY[status] || "The certificate could not be verified.";
+  const reasons = verification.reasons.length ? verification.reasons : ["All checks passed."];
   const cert = verification.cert || {};
   const license = [cert.license_type, cert.tier].filter(Boolean).join(" · ");
   const termsState = verification.terms_verified
@@ -310,7 +458,7 @@ function renderResult(verification, certificate, citedTerms) {
     : citedTerms
       ? "Cited but not verified."
       : "Not cited by the certificate.";
-  renderFacts([
+  const facts = [
     ["Certificate", cert.cert_id],
     ["Licensee", cert.licensee_name],
     ["Contact", cert.licensee_contact],
@@ -326,16 +474,32 @@ function renderResult(verification, certificate, citedTerms) {
     ["Signature", cert.signature_present
       ? "Present (private HMAC; not checked in the browser)."
       : "Absent."],
-  ]);
-  if (resultRegister) {
-    resultRegister.textContent = state.fetchedAt
-      ? "Register checked against the canonical issued.json at " + utcClock(state.fetchedAt) + "."
-      : "Register checked against the canonical issued.json.";
-  }
-  resultPanel.hidden = false;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  resultPanel.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
-  if (resultTitle) resultTitle.focus({ preventScroll: true });
+  ];
+  const note = state.fetchedAt
+    ? "Register checked against the canonical issued.json at " + utcClock(state.fetchedAt) + "."
+    : "Register checked against the canonical issued.json.";
+  finishResult(
+    status,
+    summary,
+    reasons,
+    facts,
+    note,
+    "Verification result",
+    {
+      kind: "certificate",
+      id: cert.cert_id || "certificate",
+      status,
+      summary,
+      facts,
+      note,
+      verification: {
+        registered: verification.registered,
+        terms_verified: verification.terms_verified,
+        signature_verified: false,
+      },
+      entry: verification.register_entry || null,
+    }
+  );
 }
 
 async function handleSubmit(event) {
@@ -387,37 +551,80 @@ async function handleSubmit(event) {
   renderResult(verification, certificate, citedTerms);
 }
 
+async function loadCertificateFile(file) {
+  if (!file) return;
+  clearError();
+  clearResult();
+  if (file.size > MAX_CERTIFICATE_BYTES) {
+    showError("That file is larger than 256 KiB.");
+    return;
+  }
+  try {
+    input.value = await file.text();
+    setRuntime("Loaded " + file.name + ". Choose Verify certificate.");
+  } catch (error) {
+    showError("The file could not be read.");
+  }
+}
+
 if (form) {
   form.addEventListener("submit", handleSubmit);
   if (fileInput) {
-    fileInput.addEventListener("change", async function () {
-      const file = fileInput.files && fileInput.files[0];
-      if (!file) return;
-      clearError();
-      clearResult();
-      if (file.size > MAX_CERTIFICATE_BYTES) {
-        showError("That file is larger than 256 KiB.");
-        return;
-      }
-      try {
-        input.value = await file.text();
-        setRuntime("Loaded " + file.name + ". Choose Verify certificate.");
-      } catch (error) {
-        showError("The file could not be read.");
-      }
+    fileInput.addEventListener("change", function () {
+      loadCertificateFile(fileInput.files && fileInput.files[0]);
     });
   }
+  if (idButton) {
+    idButton.addEventListener("click", handleIdLookup);
+  }
+  if (idInput) {
+    idInput.addEventListener("keydown", function (event) {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      handleIdLookup();
+    });
+  }
+  if (copyButton) {
+    copyButton.addEventListener("click", copyResult);
+  }
+  if (downloadButton) {
+    downloadButton.addEventListener("click", downloadResult);
+  }
+  let dragDepth = 0;
+  ["dragenter", "dragover"].forEach(function (name) {
+    form.addEventListener(name, function (event) {
+      if (!event.dataTransfer) return;
+      event.preventDefault();
+      if (name === "dragenter") dragDepth += 1;
+      form.classList.add("is-dragging");
+    });
+  });
+  form.addEventListener("dragleave", function (event) {
+    event.preventDefault();
+    dragDepth = Math.max(0, dragDepth - 1);
+    if (!dragDepth) form.classList.remove("is-dragging");
+  });
+  form.addEventListener("drop", function (event) {
+    event.preventDefault();
+    dragDepth = 0;
+    form.classList.remove("is-dragging");
+    const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+    if (file) loadCertificateFile(file);
+  });
   if (clearButton) {
     clearButton.addEventListener("click", function () {
       if (input) input.value = "";
       if (fileInput) fileInput.value = "";
       if (projectInput) projectInput.value = "";
+      if (idInput) idInput.value = "";
       clearError();
       clearResult();
       setRuntime(
         state.register && state.terms
           ? "Register ready. Paste a certificate or choose a file."
-          : "Verification is unavailable until the canonical registry loads."
+          : state.register
+            ? "Register ready. Certificate checks need the terms registry; the ID lookup is available."
+            : "Verification is unavailable until the canonical registry loads."
       );
       if (input) input.focus();
     });

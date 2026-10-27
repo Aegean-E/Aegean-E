@@ -33,3 +33,5 @@ jobs:
         run: node tests/verify/run-tests.mjs
       - name: Run the live-atlas parity suite
         run: node tests/atlas/run-tests.mjs
+      - name: Run the project-dossier parity suite
+        run: node tests/project/run-tests.mjs

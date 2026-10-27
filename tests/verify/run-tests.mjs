@@ -6,10 +6,12 @@ import { fileURLToPath } from "node:url";
 import {
   canonicalPayload,
   computeDigest,
+  lookupRegister,
   parseCertificate,
   parseRegister,
   parseTerms,
   termsDigest,
+  validCertificateId,
   verifyCertificate,
 } from "../../docs/verify-core.js";
 
@@ -327,5 +329,20 @@ assert.throws(() => parseCertificate("[1,2,3]"), /must be an object|not valid/i)
 assertions += 1;
 assert.throws(() => parseCertificate("not json"), /valid JSON/);
 assertions += 1;
+
+expect(validCertificateId("conformance-vector-0001"), "certificate id accepted");
+expect(validCertificateId("abc_DEF.123:456"), "certificate id punctuation");
+expect(!validCertificateId("../escape"), "path traversal id rejected");
+expect(!validCertificateId("has space"), "space id rejected");
+expect(!validCertificateId(""), "empty id rejected");
+expect(!validCertificateId("x".repeat(129)), "long id rejected");
+
+const lookupMap = new Map([
+  ["known", { cert_id: "known", status: "valid" }],
+]);
+equal(lookupRegister(lookupMap, "known")?.status, "valid", "register lookup");
+equal(lookupRegister(lookupMap, " missing "), null, "unknown register lookup");
+equal(lookupRegister(null, "known"), null, "missing register map");
+equal(lookupRegister(lookupMap, "bad id"), null, "unsafe lookup id");
 
 console.log(`ok ${assertions} verifier assertions`);

@@ -44,7 +44,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. Every project card opens a local dossier with metadata and a README excerpt, while the repository link remains one click away.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -70,6 +70,7 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 | [PNN](https://github.com/AegeanWorks/PNN) | Oral, blood-brain barrier-penetrant agents that soften hypothalamic perineuronal nets to restore insulin signaling in obesity: research notes, data and computational analyses. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0. |
 | [Primordia](https://github.com/AegeanWorks/Primordia) | A zero-dependency evolution sandbox: seed a biosphere, run its clock, and watch genomes vary, compete and speciate. Every run replays exactly from its seed, and a fossil record keeps its history. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 | [Orrery](https://github.com/AegeanWorks/Orrery) | An N-body gravitational sandbox for the terminal or the browser: nine curated worlds, a symplectic integrator, optional relativity and collisions, live energy diagnostics, orbit trails and CSV/JSON export. Standard library only. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0. |
+| [Research-Engine](https://github.com/AegeanWorks/Research-Engine) | A falsification-first research engine that turns questions into provenance-backed claims, executable kill tests, and auditable verdicts. |
 | [NeurologyClinicTemplates-TR](https://github.com/AegeanWorks/NeurologyClinicTemplates-TR) | Standardized Turkish anamnesis (patient history) templates for common neurology complaints, helping neurologists, residents and medical students document assessments completely and systematically. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 
 </details>
@@ -162,6 +163,10 @@ AegeanWorks publishes source-available and open-source projects. AL-1.1 for soft
 ## Connect
 
 - **Website** — [aegeanworks.github.io/AegeanWorks](https://aegeanworks.github.io/AegeanWorks/)
+- **Install and offline** — the site is installable and caches its shell, project snapshot and trust pages for offline reading.
+- **Security** — [security.html](https://aegeanworks.github.io/AegeanWorks/security.html)
+- **Privacy** — [privacy.html](https://aegeanworks.github.io/AegeanWorks/privacy.html)
+- **Accessibility** — [accessibility.html](https://aegeanworks.github.io/AegeanWorks/accessibility.html)
 - **GitHub** — [@AegeanWorks](https://github.com/AegeanWorks)
 - **X** — [@Aegean_E](https://twitter.com/Aegean_E)
 - **Commercial licensing** — [aegean-licensing@proton.me](mailto:aegean-licensing@proton.me)
@@ -189,7 +194,12 @@ node tests/verify/run-tests.mjs
 node tests/atlas/run-tests.mjs
 ```
 
-All three suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier and the live GitHub atlas to the same rules as the Python code.
+**Project-Page Parity Gate**:
+```bash
+node tests/project/run-tests.mjs
+```
+
+All four suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier, the live GitHub atlas and the README renderer to the same rules as the Python code.
 
 ### What's Inside
 
@@ -206,12 +216,18 @@ AegeanWorks/
 │   ├── .nojekyll            <- Serve files exactly as committed
 │   ├── 404.html             <- Branded not-found page
 │   ├── index.html           <- Studio profile and public project atlas
+│   ├── project.html         <- Local project dossier (metadata and README excerpt)
+│   ├── project-core.js      <- Pure README block and repository lookup rules
+│   ├── project.js           <- Dossier fetch and safe text rendering
+│   ├── atlas-snapshot.json  <- Static fallback for the atlas and dossiers
 │   ├── verify.html          <- Public certificate verifier (certificate stays local)
 │   ├── verify-core.js       <- Shared format-2 canonicalization and checks
 │   ├── verify.js            <- Browser UI and canonical register fetch
 │   ├── atlas-core.js        <- Pure live-atlas validation, inference and sync planning
 │   ├── atlas.js             <- GitHub API fetch, cache and DOM reconciliation
-│   ├── app.js               <- Navigation, filtering and reveal behaviour
+│   ├── app.js               <- Navigation, filtering, reveal and service-worker registration
+│   ├── sw.js                <- Cached shell, offline fallback and API cache
+│   ├── offline.html         <- Branded offline page
 │   ├── styles.css           <- Zero-dependency design system
 │   ├── favicon.svg          <- Site mark
 │   ├── icon-192.png         <- Install icon
@@ -220,6 +236,11 @@ AegeanWorks/
 │   ├── og.png               <- Social card
 │   ├── robots.txt           <- Crawler rules
 │   ├── sitemap.xml          <- Indexed pages
+│   ├── security.html        <- Security model and disclosure
+│   ├── privacy.html         <- Data handling and third-party requests
+│   ├── accessibility.html   <- WCAG commitment, limits and feedback
+│   ├── .well-known/
+│   │   └── security.txt     <- RFC 9116 disclosure metadata
 │   └── site.webmanifest     <- Web app manifest
 ├── .github/
 │   ├── FUNDING.yml          <- Sponsorship configuration
@@ -239,8 +260,10 @@ AegeanWorks/
     │   └── verification-vector.json <- Known-answer certificate fixture
     ├── verify/
     │   └── run-tests.mjs    <- Browser-verifier parity suite
-    └── atlas/
-        └── run-tests.mjs    <- Live GitHub atlas parity suite
+    ├── atlas/
+    │   └── run-tests.mjs    <- Live GitHub atlas parity suite
+    └── project/
+        └── run-tests.mjs    <- README-rendering parity suite
 ```
 
 

@@ -45,6 +45,7 @@ PUBLIC_REPOS = {
     "Tempo",
     "UI-Sandbox",
     "Voidfarer",
+    "Research-Engine",
 }
 
 CATEGORY_LABELS = {
@@ -185,13 +186,52 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(file=name):
                 self.assertTrue((docs / name).is_file())
 
+    def test_project_dossier_page_is_wired(self):
+        page = (ROOT / "docs" / "project.html").read_text(encoding="utf-8")
+        for token in (
+            'id="project-detail"',
+            'id="project-title"',
+            'id="project-language"',
+            'id="project-license"',
+            'id="project-pushed"',
+            'id="project-topics"',
+            'id="readme-content"',
+            'id="readme-status"',
+            "project.js",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, page)
+        self.assertIn("connect-src 'self' https://api.github.com", page)
+        self.assertNotIn("unsafe-inline'", page.split("script-src", 1)[1].split(";", 1)[0])
+        self.assertIn("<noscript>", page)
+        self.assertIn(".project-status{display:none!important}", page)
+        for asset in re.findall(r'(?:src|href)="([^"]+)"', page):
+            if asset.startswith(("http://", "https://", "#", "mailto:")):
+                continue
+            with self.subTest(asset=asset):
+                self.assertTrue((ROOT / "docs" / asset.split("#")[0].split("?")[0]).exists())
+        script = (ROOT / "docs" / "project.js").read_text(encoding="utf-8")
+        self.assertIn('from "./project-core.js"', script)
+        self.assertIn('from "./atlas-core.js"', script)
+        self.assertIn('fetchJson("atlas-snapshot.json")', script)
+        self.assertIn("/readme", script)
+        for token in ("textContent", "replaceChildren"):
+            self.assertIn(token, script)
+        for token in ("innerHTML", "document.write", "eval(", "new Function"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, script)
+        core = (ROOT / "docs" / "project-core.js").read_text(encoding="utf-8")
+        self.assertIn("export function readmeToBlocks", core)
+        self.assertIn("export function findRepo", core)
+        self.assertIn("export function validRepoName", core)
+
     def test_site_is_self_contained(self):
         html = read_site()
         for asset in re.findall(r'(?:src|href)="([^"]+)"', html):
             if asset.startswith(("http://", "https://", "#", "mailto:")):
                 continue
             with self.subTest(asset=asset):
-                self.assertTrue((ROOT / "docs" / asset.split("#")[0]).exists())
+                self.assertTrue((ROOT / "docs" / asset.split("#")[0].split("?")[0]).exists())
         self.assertNotRegex(html, r'(?:src|href)="https?://(?:fonts|cdn|unpkg|jsdelivr)')
 
     def test_node_suites_are_esm(self):
@@ -202,6 +242,184 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("package.json", read_readme())
         workflow = (ROOT / ".github" / "workflows" / "tests.yml").read_text(encoding="utf-8")
         self.assertIn('node-version: "20"', workflow)
+
+    def test_verifier_conveniences_are_wired(self):
+        page = read_verify()
+        for token in (
+            'id="certificate-id"',
+            'id="lookup-id"',
+            'id="copy-result"',
+            'id="download-result"',
+            'id="export-status"',
+            "drop the file anywhere",
+            "Only have a certificate ID?",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, page)
+        script = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        for token in (
+            "handleIdLookup",
+            "lookupRegister",
+            "validCertificateId",
+            "renderRegisterLookup",
+            "copyResult",
+            "downloadResult",
+            "navigator.clipboard.writeText",
+            "URL.createObjectURL",
+            'addEventListener("drop"',
+            '["dragenter", "dragover"]',
+            "is-dragging",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, script)
+        core = (ROOT / "docs" / "verify-core.js").read_text(encoding="utf-8")
+        self.assertIn("export function validCertificateId", core)
+        self.assertIn("export function lookupRegister", core)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".verify-form.is-dragging", css)
+        self.assertIn(".verify-id-row", css)
+
+    def test_service_worker_shell_is_complete(self):
+        sw = (ROOT / "docs" / "sw.js").read_text(encoding="utf-8")
+        for token in (
+            "skipWaiting",
+            "clients.claim",
+            "navigationFirst",
+            "shellFirst",
+            "apiFirst",
+            "api.github.com",
+            "offline.html",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, sw)
+        block = sw.split("const PRECACHE = [", 1)[1].split("];", 1)[0]
+        entries = re.findall(r'"([^"]+)"', block)
+        for needed in (
+            "index.html",
+            "project.html",
+            "verify.html",
+            "security.html",
+            "privacy.html",
+            "accessibility.html",
+            "offline.html",
+            "atlas-snapshot.json",
+            "styles.css",
+            "app.js",
+            "atlas.js",
+            "project.js",
+            "verify.js",
+        ):
+            with self.subTest(entry=needed):
+                self.assertIn(needed, entries)
+        for entry in entries:
+            with self.subTest(file=entry):
+                self.assertTrue((ROOT / "docs" / entry).exists())
+        app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('navigator.serviceWorker.register("sw.js")', app)
+        manifest = json.loads(
+            (ROOT / "docs" / "site.webmanifest").read_text(encoding="utf-8")
+        )
+        self.assertEqual(manifest["scope"], "/AegeanWorks/")
+        offline = (ROOT / "docs" / "offline.html").read_text(encoding="utf-8")
+        self.assertIn("You are offline.", offline)
+        self.assertIn('href="/AegeanWorks/"', offline)
+        self.assertIn("/AegeanWorks/styles.css", offline)
+        self.assertNotIn("<script", offline)
+
+    def test_trust_pages_are_published_and_linked(self):
+        docs = ROOT / "docs"
+        for name in ("security.html", "privacy.html", "accessibility.html"):
+            with self.subTest(page=name):
+                page = (docs / name).read_text(encoding="utf-8")
+                self.assertIn("<main id=\"main\" tabindex=\"-1\">", page)
+                self.assertIn('class="skip"', page)
+                self.assertIn("Content-Security-Policy", page)
+                self.assertIn("connect-src 'self'", page)
+                self.assertNotRegex(page, r"<script(?![^>]*\bsrc=)[^>]*>")
+                for asset in re.findall(r'(?:src|href)="([^"]+)"', page):
+                    if asset.startswith(("http://", "https://", "#", "mailto:")):
+                        continue
+                    with self.subTest(asset=asset):
+                        self.assertTrue((docs / asset.split("#")[0].split("?")[0]).exists())
+        security = (docs / "security.html").read_text(encoding="utf-8")
+        self.assertIn("HMAC signing key is never published", security)
+        self.assertIn("register is the public proof", security)
+        self.assertIn("90 days", security)
+        privacy = (docs / "privacy.html").read_text(encoding="utf-8")
+        self.assertIn("never uploaded", privacy)
+        self.assertIn("api.github.com", privacy)
+        self.assertIn("raw.githubusercontent.com", privacy)
+        self.assertIn("sessionStorage", privacy)
+        self.assertIn("no accounts, cookies, analytics", privacy)
+        access = (docs / "accessibility.html").read_text(encoding="utf-8")
+        self.assertIn("WCAG 2.2 Level AA", access)
+        self.assertIn("Known limitations", access)
+        self.assertIn("axe-core", access)
+        for name in ("index.html", "verify.html", "project.html"):
+            page = (docs / name).read_text(encoding="utf-8")
+            for link in ("security.html", "privacy.html", "accessibility.html"):
+                with self.subTest(page=name, link=link):
+                    self.assertIn(f'href="{link}"', page)
+        not_found = (docs / "404.html").read_text(encoding="utf-8")
+        for link in (
+            "/AegeanWorks/?focus=search#projects",
+            "/AegeanWorks/verify.html",
+            "/AegeanWorks/security.html",
+            "/AegeanWorks/privacy.html",
+            "/AegeanWorks/accessibility.html",
+        ):
+            with self.subTest(link=link):
+                self.assertIn(link, not_found)
+        sitemap = (docs / "sitemap.xml").read_text(encoding="utf-8")
+        for page in ("security.html", "privacy.html", "accessibility.html"):
+            self.assertIn(f"https://aegeanworks.github.io/AegeanWorks/{page}", sitemap)
+
+    def test_security_txt_is_valid(self):
+        text = (ROOT / "docs" / ".well-known" / "security.txt").read_text(encoding="utf-8")
+        fields = {}
+        for line in text.splitlines():
+            if ": " in line:
+                key, value = line.split(": ", 1)
+                fields[key.strip()] = value.strip()
+        self.assertTrue(fields["Contact"].startswith("mailto:"))
+        self.assertEqual(
+            fields["Canonical"],
+            "https://aegeanworks.github.io/AegeanWorks/.well-known/security.txt",
+        )
+        self.assertEqual(
+            fields["Policy"], "https://aegeanworks.github.io/AegeanWorks/security.html"
+        )
+        self.assertRegex(fields["Expires"], r"^\d{4}-\d{2}-\d{2}T")
+        self.assertGreaterEqual(fields["Expires"][:10], "2027-10-27")
+
+    def test_atlas_search_topic_sort_and_url_state(self):
+        html = read_site()
+        self.assertIn('id="project-search"', html)
+        self.assertIn('id="project-sort"', html)
+        for value in ("curated", "recent", "name"):
+            self.assertIn(f'<option value="{value}">', html)
+        self.assertIn('id="clear-filters"', html)
+        self.assertIn('id="topic-filters"', html)
+        self.assertIn("Search projects, topics, languages", html)
+        app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        for token in (
+            "URLSearchParams",
+            "history.replaceState",
+            'params.get("q")',
+            'params.get("topic")',
+            'params.get("cat")',
+            'params.get("sort")',
+            "dataset.pushedAt",
+            "card.dataset.topics",            "function buildTopicChips",
+            "aria-pressed",
+            'event.key !== "/"',
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, app)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        for token in (".project-toolbar", ".topic-filters", ".topic-chip.is-active", ".visually-hidden"):
+            with self.subTest(token=token):
+                self.assertIn(token, css)
 
     def test_live_atlas_is_wired_to_the_github_api(self):
         html = read_site()
@@ -215,7 +433,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn(
             'export const API_ROOT = "https://api.github.com/users/AegeanWorks/repos";', core
         )
-        self.assertIn('export const CACHE_KEY = "aegean:atlas:v1";', core)
+        self.assertIn('export const CACHE_KEY = "aegean:atlas:v2";', core)
         self.assertIn("CACHE_TTL_MS = 10 * 60 * 1000", core)
         self.assertIn("export function planSync", core)
         self.assertIn("export async function fetchAllRepos", core)
@@ -231,7 +449,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         )
         app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         self.assertIn("updateProjectCounts();", app)
-        self.assertIn("This never calls applyFilter", app)
+        self.assertIn("This never reveals every card at once", app)
         self.assertIn("sessionStorage", ui)
         for token in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
             with self.subTest(token=token):
@@ -244,11 +462,14 @@ class ProfileIntegrityTests(unittest.TestCase):
     def test_site_lists_every_public_repository_once(self):
         html = read_site()
         cards = re.findall(
-            r'class="project reveal"[^>]*href="https://github\.com/AegeanWorks/([A-Za-z0-9._-]+)"',
+            r'class="project reveal"[^>]*data-repo-url="https://github\.com/AegeanWorks/([A-Za-z0-9._-]+)"',
             html,
         )
         self.assertEqual(len(cards), len(PUBLIC_REPOS))
         self.assertEqual(set(cards), PUBLIC_REPOS)
+        for name in PUBLIC_REPOS:
+            with self.subTest(repo=name):
+                self.assertIn(f'href="project.html?repo={name}"', html)
 
     def test_site_filter_counts_match_cards(self):
         html = read_site()
@@ -265,7 +486,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         html = read_site()
         snapshot = {repo["name"]: repo for repo in read_metadata()["repositories"]}
         cards = re.findall(
-            r'<a class="project reveal" data-repo-id="(\d+)"[^>]*href="https://github\.com/AegeanWorks/([^"]+)"',
+            r'<a class="project reveal" data-repo-id="(\d+)"[^>]*data-repo-url="https://github\.com/AegeanWorks/([^"]+)"',
             html,
         )
         self.assertEqual(len(cards), len(PUBLIC_REPOS))
@@ -277,6 +498,30 @@ class ProfileIntegrityTests(unittest.TestCase):
         snapshot_ids = [str(repo["id"]) for repo in snapshot.values()]
         self.assertEqual(len(snapshot_ids), len(set(snapshot_ids)))
         self.assertTrue(all(int(repo_id) > 0 for repo_id in snapshot_ids))
+        for repo in snapshot.values():
+            with self.subTest(repo=repo["name"]):
+                self.assertIn("language", repo)
+                self.assertIn("license", repo)
+                self.assertIn("pushed_at", repo)
+                self.assertTrue(repo["pushed_at"])
+
+    def test_project_cards_show_language_license_and_recency(self):
+        html = read_site()
+        snapshot = {str(repo["id"]): repo for repo in read_metadata()["repositories"]}
+        for repo_id, repo in snapshot.items():
+            with self.subTest(repo=repo["name"]):
+                language = html_escape(repo["language"], quote=True)
+                license_value = html_escape(repo["license"], quote=True)
+                pushed = html_escape(repo["pushed_at"], quote=True)
+                self.assertIn(f'data-language="{language}"', html)
+                self.assertIn(f'data-license="{license_value}"', html)
+                self.assertIn(f'data-pushed-at="{pushed}"', html)
+        self.assertEqual(html.count('class="project-facts"'), len(PUBLIC_REPOS))
+        self.assertIn(" · Updated ", html)
+        self.assertIn(f"<span data-project-count>{len(PUBLIC_REPOS)}</span>", html)
+        public = json.loads((ROOT / "docs" / "atlas-snapshot.json").read_text(encoding="utf-8"))
+        self.assertEqual(public["repositories"], read_metadata()["repositories"])
+        self.assertEqual(public["profile"], read_metadata()["profile"])
 
     def test_featured_work_cards_carry_an_immutable_repository_id(self):
         html = read_site()
@@ -315,7 +560,7 @@ class ProfileIntegrityTests(unittest.TestCase):
     def test_project_count_names_project_repositories(self):
         html = read_site()
         self.assertIn(
-            "<span data-project-count>33</span> project repositories, all public.", html
+            f"<span data-project-count>{len(PUBLIC_REPOS)}</span> project repositories, all public.", html
         )
         self.assertNotIn("Thirty-three repositories, all public.", html)
         self.assertIn("Every project repository below is public.", read_readme())
@@ -661,6 +906,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("actions/setup-node", workflow)
         self.assertIn("node tests/verify/run-tests.mjs", workflow)
         self.assertIn("node tests/atlas/run-tests.mjs", workflow)
+        self.assertIn("node tests/project/run-tests.mjs", workflow)
 
     def test_snapshot_covers_every_public_repository(self):
         metadata = read_metadata()
@@ -678,6 +924,20 @@ class ProfileIntegrityTests(unittest.TestCase):
         data = json.loads(match.group(1))
         organization = {node["@type"]: node for node in data["@graph"]}["Organization"]
         self.assertEqual(organization["description"], description)
+        website = {node["@type"]: node for node in data["@graph"]}["WebSite"]
+        self.assertIn("{search_term_string}", website["potentialAction"]["target"])
+        item_lists = [node for node in data["@graph"] if node["@type"] == "ItemList"]
+        self.assertEqual(len(item_lists), 1)
+        item_list = item_lists[0]
+        self.assertEqual(item_list["numberOfItems"], len(PUBLIC_REPOS))
+        self.assertEqual(len(item_list["itemListElement"]), len(PUBLIC_REPOS))
+        code_repositories = {
+            item["item"]["codeRepository"] for item in item_list["itemListElement"]
+        }
+        self.assertEqual(len(code_repositories), len(PUBLIC_REPOS))
+        for name in PUBLIC_REPOS:
+            self.assertIn(f"https://github.com/AegeanWorks/{name}", code_repositories)
+        self.assertIn("connect-src 'self' https://api.github.com", html)
 
     def test_project_cards_match_github_metadata(self):
         html = read_site()
@@ -686,7 +946,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         omitted = {"aikit", "python", "source-available"}
         for repo in read_metadata()["repositories"]:
             with self.subTest(repo=repo["name"]):
-                marker = f'href="https://github.com/AegeanWorks/{repo["name"]}"'
+                marker = f'data-repo-url="https://github.com/AegeanWorks/{repo["name"]}"'
                 block = next((item for item in blocks if marker in item), None)
                 self.assertIsNotNone(block)
                 self.assertIn(f'<h3>{repo["name"]}</h3>', block)
@@ -741,7 +1001,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             if asset.startswith(("http://", "https://", "#", "mailto:")):
                 continue
             with self.subTest(asset=asset):
-                self.assertTrue((ROOT / "docs" / asset.split("#")[0]).exists())
+                self.assertTrue((ROOT / "docs" / asset.split("#")[0].split("?")[0]).exists())
         self.assertNotRegex(page, r'<script[^>]+src="https?://')
         self.assertNotRegex(page, r'<link[^>]+href="https?://(?:fonts|cdn|unpkg|jsdelivr)')
         self.assertIn('class="skip"', page)
@@ -819,7 +1079,16 @@ class ProfileIntegrityTests(unittest.TestCase):
                     self.assertIn('rel="noopener"', match.group(0))
 
     def test_pages_send_a_content_security_policy(self):
-        for name in ("index.html", "verify.html", "404.html"):
+        for name in (
+            "index.html",
+            "verify.html",
+            "project.html",
+            "security.html",
+            "privacy.html",
+            "accessibility.html",
+            "offline.html",
+            "404.html",
+        ):
             page = (ROOT / "docs" / name).read_text(encoding="utf-8")
             with self.subTest(page=name):
                 self.assertIn('http-equiv="Content-Security-Policy"', page)

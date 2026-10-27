@@ -36,7 +36,13 @@
         "spdx",
         "tools",
         "verification"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-27T11:29:01Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1421168214,
@@ -56,7 +62,13 @@
         "python",
         "security",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-27T16:38:57Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1429321239,
@@ -82,7 +94,13 @@
         "terminal-game",
         "voxel",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:25Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1431459470,
@@ -100,7 +118,13 @@
         "python",
         "security",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:27Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1423597808,
@@ -120,7 +144,13 @@
         "terminal",
         "time-tracking",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:30Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1432398612,
@@ -139,7 +169,13 @@
         "roguelike",
         "source-available",
         "turn-based"
-      ]
+      ],
+      "language": "JavaScript",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:32Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1423620204,
@@ -157,7 +193,13 @@
         "simulation",
         "source-available",
         "terminal-game"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:34Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1433650287,
@@ -173,7 +215,13 @@
         "python",
         "science",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:45:13Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1431322124,
@@ -192,7 +240,13 @@
         "tile-merge",
         "web-game",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:36Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1431982682,
@@ -210,7 +264,13 @@
         "statistics",
         "terminal",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:38Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1427452835,
@@ -227,7 +287,13 @@
         "token-budget",
         "vowelless",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:41Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1428994367,
@@ -245,7 +311,13 @@
         "source-available",
         "sqlite",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:43Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1427158446,
@@ -264,7 +336,13 @@
         "roguelike",
         "source-available",
         "typescript"
-      ]
+      ],
+      "language": "TypeScript",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:45:07Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1428990967,
@@ -283,7 +361,13 @@
         "spaced-repetition",
         "study",
         "terminal"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:47Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1433666867,
@@ -297,7 +381,13 @@
         "music-generation",
         "python",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:53:30Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1159263193,
@@ -316,7 +406,13 @@
         "self-experimentation",
         "source-available",
         "statistics"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:53:35Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 688693231,
@@ -342,7 +438,13 @@
         "signal-processing",
         "sleep",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:43Z",
+      "homepage": "https://twitter.com/Aegean_E",
+      "archived": false,
+      "default_branch": "Base"
     },
     {
       "id": 1152419749,
@@ -366,7 +468,13 @@
         "source-available",
         "study-tool",
         "text-chunking"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:47Z",
+      "homepage": "https://twitter.com/Aegean_E",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1161451399,
@@ -391,7 +499,13 @@
         "tools",
         "workflow",
         "workflow-automation"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:49Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1168345495,
@@ -409,7 +523,13 @@
         "source-available",
         "templates",
         "turkish"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:53:40Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1164577390,
@@ -426,7 +546,13 @@
         "python",
         "source-available",
         "visual-oscillator"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:21Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1164096075,
@@ -444,7 +570,13 @@
         "source-available",
         "streamlit",
         "turkish"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:23Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1168810433,
@@ -462,7 +594,13 @@
         "local-llm",
         "python",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:52Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "main"
     },
     {
       "id": 1430292646,
@@ -481,7 +619,13 @@
         "symplectic-integrator",
         "terminal",
         "zero-dependencies"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:56Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1424866484,
@@ -498,7 +642,13 @@
         "repl",
         "source-available",
         "tree-walking-interpreter"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:48:58Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1432482472,
@@ -514,7 +664,13 @@
         "self-hosted",
         "source-available",
         "windows"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:01Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1430143833,
@@ -533,7 +689,13 @@
         "research",
         "science",
         "source-available"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T18:13:15Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1424769731,
@@ -551,7 +713,13 @@
         "speciation",
         "web-observatory",
         "zero-dependency"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:49Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1432491414,
@@ -566,7 +734,32 @@
         "puzzle",
         "source-available",
         "web"
-      ]
+      ],
+      "language": "JavaScript",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:05Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1435481274,
+      "name": "Research-Engine",
+      "description": "A falsification-first research engine that turns questions into provenance-backed claims, executable kill tests, and auditable verdicts.",
+      "topics": [
+        "aikit",
+        "knowledge-graph",
+        "reproducibility",
+        "research",
+        "science",
+        "source-available"
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-27T16:23:11Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1425198123,
@@ -584,7 +777,13 @@
         "python",
         "source-available",
         "terminal"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:07Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1430093692,
@@ -601,7 +800,13 @@
         "source-available",
         "timer",
         "zero-dependency"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:09Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1430194509,
@@ -617,7 +822,13 @@
         "testing",
         "ui",
         "vite"
-      ]
+      ],
+      "language": "JavaScript",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-26T19:49:55Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     },
     {
       "id": 1424192871,
@@ -639,7 +850,13 @@
         "space-simulation",
         "terminal-game",
         "zero-dependency"
-      ]
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-27T16:53:12Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     }
   ]
 }
