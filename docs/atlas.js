@@ -203,12 +203,12 @@ function apply(repos, mode, fetchedAt, complete) {
       detail: { total: counted.total, counts: counted.counts, mode },
     })
   );
-  setStatus(mode, counted.total, fetchedAt);
+  setStatus(mode, fetchedAt);
 }
 
-function setStatus(mode, total, fetchedAt) {
+function setStatus(mode, fetchedAt) {
   if (!statusEl) return;
-  statusEl.textContent = statusText(mode, { total, fetchedAt });
+  statusEl.textContent = statusText(mode, { fetchedAt });
   statusEl.dataset.mode = mode;
 }
 
@@ -234,8 +234,7 @@ async function boot() {
     );
   } catch (error) {
     const mode = error && error.reason === "rate-limited" ? "rate-limited" : "offline";
-    const counted = countCards(Array.from(grid.querySelectorAll(".project")));
-    setStatus(mode, counted.total, null);
+    setStatus(mode, null);
   }
 }
 

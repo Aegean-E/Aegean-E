@@ -347,13 +347,10 @@
 
   <section class="section" id="projects">
     <div class="wrap">
-      <header class="section-head section-head-row">
-        <div>
-          <p class="eyebrow">03 — Portfolio</p>
-          <h2>Every public project, in the open.</h2>
-          <p class="section-lede"><span data-project-count>34</span> project repositories, all public. Filter by discipline or browse the whole shelf.</p>
-        </div>
-        <a class="btn btn-ghost" href="https://github.com/AegeanWorks?tab=repositories" target="_blank" rel="noopener">All repositories on GitHub</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <header class="section-head">
+        <p class="eyebrow">03 — Portfolio</p>
+        <h2>Every public project, in the open.</h2>
+        <p class="section-lede"><span data-project-count>34</span> public project repositories. Search them, or filter by discipline.</p>
       </header>
 
       <div class="project-toolbar" role="search">
@@ -374,22 +371,17 @@
       </div>
 
       <div class="filters" role="group" aria-label="Filter projects">
-        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true" aria-controls="project-grid">All <span>34</span></button>
-        <button class="chip" type="button" data-filter="ai" aria-pressed="false" aria-controls="project-grid">AI &amp; Agents <span>6</span></button>
-        <button class="chip" type="button" data-filter="research" aria-pressed="false" aria-controls="project-grid">Research <span>7</span></button>
-        <button class="chip" type="button" data-filter="health" aria-pressed="false" aria-controls="project-grid">Health &amp; Neuro <span>6</span></button>
-        <button class="chip" type="button" data-filter="tools" aria-pressed="false" aria-controls="project-grid">Developer Tools <span>8</span></button>
-        <button class="chip" type="button" data-filter="play" aria-pressed="false" aria-controls="project-grid">Games &amp; Experiments <span>7</span></button>
-      </div>
-
-      <div class="topic-bar">
-        <span class="topic-label" id="topic-label" title="Most-used topics; use search for the rest.">Topics</span>
-        <div class="topic-filters" id="topic-filters" role="group" aria-labelledby="topic-label"></div>
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true" aria-controls="project-grid">All</button>
+        <button class="chip" type="button" data-filter="ai" aria-pressed="false" aria-controls="project-grid">AI &amp; Agents</button>
+        <button class="chip" type="button" data-filter="research" aria-pressed="false" aria-controls="project-grid">Research</button>
+        <button class="chip" type="button" data-filter="health" aria-pressed="false" aria-controls="project-grid">Health &amp; Neuro</button>
+        <button class="chip" type="button" data-filter="tools" aria-pressed="false" aria-controls="project-grid">Developer Tools</button>
+        <button class="chip" type="button" data-filter="play" aria-pressed="false" aria-controls="project-grid">Games &amp; Experiments</button>
       </div>
 
       <div class="filter-meta">
         <p class="filter-status" role="status" aria-live="polite">Showing all 34 public projects.</p>
-        <p class="atlas-status" id="atlas-status" role="status" aria-live="polite" data-mode="snapshot" title="Live metadata comes from api.github.com; the built-in snapshot serves no-JavaScript readers.">Built-in snapshot · 34 projects</p>
+        <p class="atlas-status" id="atlas-status" role="status" aria-live="polite" data-mode="snapshot" title="Live metadata comes from api.github.com; the built-in snapshot serves no-JavaScript readers.">Built-in snapshot</p>
       </div>
 
       <div class="project-grid" id="project-grid">

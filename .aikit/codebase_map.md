@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1124` lines (`51784` bytes)
+**Size**: `1124` lines (`51680` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -43,7 +43,7 @@
   - Method `.test_atlas_search_topic_sort_and_url_state()`
   - Method `.test_live_atlas_is_wired_to_the_github_api()`
   - Method `.test_site_lists_every_public_repository_once()`
-  - Method `.test_site_filter_counts_match_cards()`
+  - Method `.test_site_filter_chips_match_categories()`
   - Method `.test_project_cards_carry_an_immutable_repository_id()`
   - Method `.test_project_cards_show_language_license_and_recency()`
   - Method `.test_featured_work_cards_carry_an_immutable_repository_id()`

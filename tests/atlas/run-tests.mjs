@@ -159,11 +159,11 @@ equal(counted.counts.ai, 2, "ai counts");
 equal(counted.counts.play, 1, "play counts");
 equal(Object.keys(counted.counts), CATEGORY_ORDER, "category order is explicit");
 
-check(statusText("live", { total: 34, fetchedAt: Date.UTC(2026, 9, 27, 12, 34) }).includes("34 public projects"), "live status");
-check(statusText("cached", { total: 34, fetchedAt: Date.UTC(2026, 9, 27, 12, 34) }).includes("Cached"), "cached status");
+check(statusText("live", { fetchedAt: Date.UTC(2026, 9, 27, 12, 34) }).includes("Live from GitHub"), "live status");
+check(statusText("cached", { fetchedAt: Date.UTC(2026, 9, 27, 12, 34) }).includes("Cached"), "cached status");
 check(statusText("rate-limited").includes("rate limit"), "rate limit status");
 check(statusText("offline").includes("unreachable"), "offline status");
-check(statusText("partial", { total: 3 }).includes("removals held back"), "partial status");
-check(statusText("snapshot", { total: 33 }).includes("Built-in snapshot"), "snapshot status");
+check(statusText("partial").includes("removals held back"), "partial status");
+equal(statusText("snapshot", { total: 33 }), "Built-in snapshot", "snapshot status is count-free");
 
 console.log(`ok ${assertions} atlas assertions`);

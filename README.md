@@ -208,6 +208,9 @@ AegeanWorks/
 ├── README.md                <- Profile and public project atlas
 ├── LICENSE                  <- Aegean License 1.1 (AL-1.1): free personal use
 ├── COMMERCIAL.md            <- Licensing tiers and ACL-1.0 commercial terms
+├── LICENSES/                <- Pinned license text for REUSE metadata
+│   └── LicenseRef-AL-1.1.txt
+├── REUSE.toml               <- REUSE aggregate license annotations
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── package.json             <- Node module marker for the browser-core parity suites
 ├── assets/

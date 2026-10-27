@@ -756,11 +756,6 @@ h1 .grad {
   cursor: pointer;
   transition: all 0.2s var(--ease);
 }
-.chip span {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--dim);
-}
 .chip:hover {
   color: var(--text);
   border-color: rgba(103, 232, 249, 0.35);
@@ -770,7 +765,6 @@ h1 .grad {
   background: linear-gradient(100deg, #8ef0fb, #b9a4fd);
   border-color: transparent;
 }
-.chip.is-active span { color: rgba(4, 18, 26, 0.6); }
 
 .filter-status {
   margin: -8px 0 20px;
@@ -900,74 +894,6 @@ h1 .grad {
   text-transform: none;
 }
 .project-clear { min-height: 44px; }
-
-.topic-bar {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  min-width: 0;
-  margin: -6px 0 20px;
-}
-.topic-label {
-  flex: 0 0 auto;
-  padding-top: 7px;
-  color: var(--dim);
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.topic-filters {
-  display: flex;
-  flex: 1 1 auto;
-  gap: 6px;
-  min-width: 0;
-  max-width: 100%;
-  padding-bottom: 4px;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-2) transparent;
-  -webkit-overflow-scrolling: touch;
-}
-.topic-filters::-webkit-scrollbar { height: 4px; }
-.topic-filters::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background: var(--line-2);
-}
-.topic-chip {
-  display: inline-flex;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--dim);
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.topic-chip span { opacity: 0.7; }
-.topic-chip:hover {
-  color: var(--text);
-  border-color: rgba(103, 232, 249, 0.35);
-}
-.topic-chip.is-active {
-  color: #04121a;
-  border-color: transparent;
-  background: linear-gradient(100deg, #8ef0fb, #b9a4fd);
-}
-.topic-chip.is-active span { opacity: 1; color: rgba(4, 18, 26, 0.6); }
-
-@media (min-width: 981px) {
-  .topic-filters {
-    flex-wrap: wrap;
-    overflow-x: visible;
-  }
-}
 
 /* ---------- Project grid ---------- */
 

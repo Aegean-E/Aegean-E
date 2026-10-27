@@ -399,7 +399,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         for value in ("curated", "recent", "name"):
             self.assertIn(f'<option value="{value}">', html)
         self.assertIn('id="clear-filters"', html)
-        self.assertIn('id="topic-filters"', html)
+        self.assertNotIn('id="topic-filters"', html)
         self.assertIn("Search projects, topics, languages", html)
         app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         for token in (
@@ -410,14 +410,14 @@ class ProfileIntegrityTests(unittest.TestCase):
             'params.get("cat")',
             'params.get("sort")',
             "dataset.pushedAt",
-            "card.dataset.topics",            "function buildTopicChips",
+            "card.dataset.topics",
             "aria-pressed",
             'event.key !== "/"',
         ):
             with self.subTest(token=token):
                 self.assertIn(token, app)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
-        for token in (".project-toolbar", ".topic-filters", ".topic-chip.is-active", ".visually-hidden"):
+        for token in (".project-toolbar", ".search-key", ".visually-hidden"):
             with self.subTest(token=token):
                 self.assertIn(token, css)
 
@@ -471,16 +471,14 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(repo=name):
                 self.assertIn(f'href="project.html?repo={name}"', html)
 
-    def test_site_filter_counts_match_cards(self):
+    def test_site_filter_chips_match_categories(self):
         html = read_site()
+        self.assertIn(">All</button>", html)
         for category, label in CATEGORY_LABELS.items():
             with self.subTest(category=category):
-                self.assertIn(f">{label} <span>", html)
-                count = len(
-                    re.findall(rf'class="project reveal"[^>]*data-cat="{category}"', html)
-                )
-                self.assertIn(f">{label} <span>{count}</span>", html)
-        self.assertIn(f'All <span>{len(PUBLIC_REPOS)}</span>', html)
+                self.assertIn(f">{label}</button>", html)
+        filters = html.split('<div class="filters"', 1)[1].split("</div>", 1)[0]
+        self.assertNotIn("<span>", filters)
 
     def test_project_cards_carry_an_immutable_repository_id(self):
         html = read_site()
@@ -560,7 +558,9 @@ class ProfileIntegrityTests(unittest.TestCase):
     def test_project_count_names_project_repositories(self):
         html = read_site()
         self.assertIn(
-            f"<span data-project-count>{len(PUBLIC_REPOS)}</span> project repositories, all public.", html
+            f"<span data-project-count>{len(PUBLIC_REPOS)}</span> public project repositories. "
+            "Search them, or filter by discipline.",
+            html,
         )
         self.assertNotIn("Thirty-three repositories, all public.", html)
         self.assertIn("Every project repository below is public.", read_readme())

@@ -305,17 +305,17 @@ export function countCards(cards) {
   return { total: cards.length, counts };
 }
 
-export function statusText(mode, { total = 0, fetchedAt = null } = {}) {
+export function statusText(mode, { fetchedAt = null } = {}) {
   const time = fetchedAt
     ? new Date(fetchedAt).toISOString().slice(11, 16) + " UTC"
     : "";
   switch (mode) {
     case "live":
-      return "Live from GitHub · " + total + " public projects" + (time ? " · " + time : "");
+      return "Live from GitHub" + (time ? " · " + time : "");
     case "cached":
-      return "Cached GitHub atlas · " + total + " public projects" + (time ? " · " + time : "");
+      return "Cached atlas" + (time ? " · " + time : "");
     case "partial":
-      return "Partial GitHub sync · " + total + " public projects · removals held back";
+      return "Partial GitHub sync · removals held back";
     case "rate-limited":
       return "GitHub rate limit reached · showing the built-in snapshot";
     case "offline":
@@ -323,6 +323,6 @@ export function statusText(mode, { total = 0, fetchedAt = null } = {}) {
     case "stale":
       return "GitHub unreachable · showing the cached atlas";
     default:
-      return "Built-in snapshot · " + total + " projects";
+      return "Built-in snapshot";
   }
 }
