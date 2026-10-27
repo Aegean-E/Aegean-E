@@ -255,7 +255,7 @@
       if (active) visible.push(active);
     }
     topicContainer.replaceChildren();
-    makeTopicChip("", "All topics");
+    makeTopicChip("", "Any topic");
     visible.forEach(function (entry) {
       makeTopicChip(entry[0], entry[0]);
     });

@@ -742,13 +742,6 @@ h1 .grad {
   padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
 }
-.filters-sep {
-  width: 1px;
-  align-self: stretch;
-  min-height: 22px;
-  margin: 0 4px;
-  background: var(--line);
-}
 .chip {
   display: inline-flex;
   align-items: center;
@@ -839,10 +832,11 @@ h1 .grad {
 
 .topic-filters {
   display: flex;
-  flex: 1 1 320px;
+  flex: 1 1 100%;
   flex-wrap: wrap;
   gap: 6px;
   min-width: 0;
+  margin-top: 2px;
 }
 .topic-chip {
   padding: 5px 9px;
@@ -1355,13 +1349,19 @@ h1 .grad {
   .license-card { padding: 26px 22px 24px; }
   .filters { gap: 6px; }
   .chip { padding: 8px 12px; font-size: 0.76rem; }
+  .topic-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .topic-filters::-webkit-scrollbar { display: none; }
   .filter-meta { flex-direction: column; align-items: flex-start; }
   .project-toolbar { align-items: stretch; }
   .search-wrap { flex-basis: 100%; }
   .sort-wrap { flex: 1 1 auto; }
   .sort-wrap select { flex: 1 1 160px; }
-  .topic-bar { flex-direction: column; align-items: stretch; gap: 6px; }
-  .topic-label { padding-top: 0; }
   .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .footer-brand { grid-column: span 1; }
   .footer-bottom { margin-top: 34px; }
@@ -1583,6 +1583,10 @@ h1 .grad {
 .readme-content ul,
 .readme-content ol { margin: 0 0 16px; padding-left: 22px; }
 .readme-content li { margin-bottom: 5px; }
+pre:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
 .readme-content pre {
   margin: 0 0 16px;
   padding: 14px 16px;
@@ -2055,6 +2059,32 @@ h1 .grad {
 
 @media (max-width: 620px) {
   .trust-card { padding: 18px; }
-  .trust-table-wrap { overflow-x: auto; }
-  .trust-table { min-width: 560px; }
+  .trust-table-wrap { overflow: visible; }
+  .trust-table { min-width: 0; }
+  .trust-table thead { display: none; }
+  .trust-table,
+  .trust-table tbody,
+  .trust-table tr,
+  .trust-table td { display: block; width: 100%; }
+  .trust-table tr { padding: 12px 0; border-top: 1px solid var(--line); }
+  .trust-table tr:first-child { border-top: 0; }
+  .trust-table td { padding: 2px 0; border: 0; }
+  .trust-table td:first-child {
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .trust-table td + td { display: block; padding-top: 8px; }
+  .trust-table td + td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
 }

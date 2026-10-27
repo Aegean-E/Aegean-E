@@ -1,5 +1,6 @@
 import {
   MAX_CERTIFICATE_BYTES,
+  MAX_TERMS_BYTES,
   REGISTER_URL,
   TERMS_BASE_URL,
   TERMS_URL,
@@ -271,7 +272,7 @@ async function loadRegistries() {
 
 async function fetchTermsDocument(entry) {
   if (state.termTexts.has(entry.document)) return state.termTexts.get(entry.document);
-  const text = await fetchCanonical(TERMS_BASE_URL + entry.document, 524288, "The agreement text");
+  const text = await fetchCanonical(TERMS_BASE_URL + entry.document, MAX_TERMS_BYTES, "The agreement text");
   state.termTexts.set(entry.document, text);
   return text;
 }

@@ -102,6 +102,7 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 | [Photo-Harbor](https://github.com/AegeanWorks/Photo-Harbor) | A self-hosted photo server for Windows: an iPhone sends new photos over home Wi-Fi through Apple Shortcuts, with no app to install, verified-hash cleanup and a gallery. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 | [Muse](https://github.com/AegeanWorks/Muse) | Prompt-driven AI music creation with an automated listener that scores how well each track fits its theme, available as a CLI and a Python library. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 | [UI-Sandbox](https://github.com/AegeanWorks/UI-Sandbox) | A small React + Vite surface for exercising AIKit's bounded UI guard: one screen, token-driven theming, and a labelled control for every interaction. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Aegean-Reforge](https://github.com/AegeanWorks/Aegean-Reforge) | Progressive, evidence-backed Git history auditing and autonomous safe repair; independent configurable audit runs per project. Free for personal use under AL-1.1; commercial use under ACL-1.0. |
 
 </details>
 

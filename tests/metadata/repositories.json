@@ -45,6 +45,27 @@
       "default_branch": "master"
     },
     {
+      "id": 1436254574,
+      "name": "Aegean-Reforge",
+      "description": "Progressive, evidence-backed Git history auditing and autonomous safe repair; independent configurable audit runs per project. Free for personal use under AL-1.1; commercial use under ACL-1.0.",
+      "topics": [
+        "aikit",
+        "audit",
+        "cli",
+        "developer-tools",
+        "git-history",
+        "python",
+        "repair",
+        "source-available"
+      ],
+      "language": "Python",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-27T20:49:41Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
       "id": 1421168214,
       "name": "AIKit",
       "description": "Crash-resilient governance and delivery gates for AI coding agents: versioned task ledger, commit-level verification, secret scanning and per-project gates. Free for personal use under AL-1.1; commercial use under ACL-1.0.",

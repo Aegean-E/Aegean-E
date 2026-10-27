@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 PUBLIC_REPOS = {
     "Aegean-Licensing",
+    "Aegean-Reforge",
     "AIKit",
     "Aldervale",
     "Assay",
@@ -67,6 +68,16 @@ def read_site() -> str:
 
 def read_verify() -> str:
     return (ROOT / "docs" / "verify.html").read_text(encoding="utf-8")
+
+
+def read_license_families() -> dict:
+    """The site's license ledger is the single source of truth for family codes."""
+    source = (ROOT / "docs" / "atlas-core.js").read_text(encoding="utf-8")
+    families_block = source.split("export const LICENSE_FAMILIES", 1)[1].split("});", 1)[0]
+    short = dict(re.findall(r'(\w+): \{ short: "([^"]+)"', families_block))
+    ledger = source.split("export const REPO_LICENSES", 1)[1].split("});", 1)[0]
+    families = dict(re.findall(r'\n  "?([A-Za-z0-9._-]+)"?: "(\w+)",', ledger))
+    return {name.lower(): short[family] for name, family in families.items()}
 
 
 def read_metadata() -> dict:
@@ -222,6 +233,14 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json"', script)
         self.assertIn("normalizeMedia", script)
         self.assertIn("/commit/", script)
+        self.assertIn("pre.tabIndex = 0;", script)
+        for token in ("og:title", "og:description", "og:url", "twitter:title", "twitter:description"):
+            with self.subTest(meta=token):
+                self.assertIn(token, script)
+                self.assertIn(token, page)
+        verify_script = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        self.assertIn("MAX_TERMS_BYTES,", verify_script)
+        self.assertNotIn("524288", verify_script)
         self.assertIn("/readme", script)
         for token in ("textContent", "replaceChildren"):
             self.assertIn(token, script)
@@ -395,6 +414,32 @@ class ProfileIntegrityTests(unittest.TestCase):
         for page in ("security.html", "privacy.html", "accessibility.html"):
             self.assertIn(f"https://aegeanworks.github.io/AegeanWorks/{page}", sitemap)
 
+    def test_trust_pages_share_the_full_legal_footer(self):
+        docs = ROOT / "docs"
+        expected = ("Commercial terms", "License catalog", "AL-1.1", "Source")
+        for name in (
+            "index.html",
+            "project.html",
+            "verify.html",
+            "security.html",
+            "privacy.html",
+            "accessibility.html",
+        ):
+            page = (docs / name).read_text(encoding="utf-8")
+            with self.subTest(page=name):
+                for label in expected:
+                    self.assertIn(">" + label + "</a>", page)
+
+    def test_privacy_table_labels_its_cells_for_narrow_screens(self):
+        privacy = (ROOT / "docs" / "privacy.html").read_text(encoding="utf-8")
+        self.assertEqual(privacy.count('data-label="Request"'), 4)
+        self.assertEqual(privacy.count('data-label="Why"'), 4)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".trust-table td + td::before", css)
+        self.assertIn("content: attr(data-label)", css)
+        self.assertNotIn(".topic-bar", css)
+        self.assertNotIn(".topic-label", css)
+
     def test_security_txt_is_valid(self):
         text = (ROOT / "docs" / ".well-known" / "security.txt").read_text(encoding="utf-8")
         fields = {}
@@ -440,7 +485,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, app)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
-        for token in (".project-toolbar", ".filters-sep", ".topic-chip.is-active", ".visually-hidden"):
+        for token in (".project-toolbar", ".topic-filters", ".topic-chip.is-active", ".visually-hidden"):
             with self.subTest(token=token):
                 self.assertIn(token, css)
 
@@ -528,15 +573,19 @@ class ProfileIntegrityTests(unittest.TestCase):
 
     def test_project_cards_show_language_license_and_recency(self):
         html = read_site()
+        families = read_license_families()
         snapshot = {str(repo["id"]): repo for repo in read_metadata()["repositories"]}
+        self.assertEqual(set(families), {name.lower() for name in PUBLIC_REPOS})
         for repo_id, repo in snapshot.items():
             with self.subTest(repo=repo["name"]):
                 language = html_escape(repo["language"], quote=True)
-                license_value = html_escape(repo["license"], quote=True)
+                family = html_escape(families[repo["name"].lower()], quote=True)
                 pushed = html_escape(repo["pushed_at"], quote=True)
                 self.assertIn(f'data-language="{language}"', html)
-                self.assertIn(f'data-license="{license_value}"', html)
+                self.assertIn(f'data-license="{family}"', html)
                 self.assertIn(f'data-pushed-at="{pushed}"', html)
+                self.assertIn(f" · {family} · Updated ", html)
+        self.assertNotIn("Custom license", html)
         self.assertEqual(html.count('class="project-facts"'), len(PUBLIC_REPOS))
         self.assertIn(" · Updated ", html)
         self.assertIn(f"<span data-project-count>{len(PUBLIC_REPOS)}</span>", html)

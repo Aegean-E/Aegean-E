@@ -60,7 +60,7 @@ function updateCard(element, repo) {
   element.dataset.repoUrl = repo.html_url;
   element.dataset.topics = repo.topics.join(",");
   element.dataset.language = repo.language;
-  element.dataset.license = repo.license;
+  element.dataset.license = repo.license_family || repo.license;
   element.dataset.pushedAt = repo.pushed_at;
   if (element.getAttribute("href") !== repo.project_url) {
     element.setAttribute("href", repo.project_url);
@@ -101,6 +101,9 @@ function createCard(repo) {
   anchor.dataset.repoId = String(repo.id);
   anchor.dataset.repoUrl = repo.html_url;
   anchor.dataset.topics = repo.topics.join(",");
+  anchor.dataset.language = repo.language;
+  anchor.dataset.license = repo.license_family || repo.license;
+  anchor.dataset.pushedAt = repo.pushed_at;
   anchor.setAttribute("href", repo.project_url);
   anchor.setAttribute("rel", "noopener");
 

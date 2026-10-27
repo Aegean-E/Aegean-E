@@ -1,73 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "media-groundwork",
+    "task_id": "site-audit",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793132417.9126377,
+    "updated_at": 1793143188.749067,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793132437.610697
+    "completed_at": 1793143188.9795177
   },
   "checkpoints": [
-    {
-      "task_id": "site-v15",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[4/4] Live GitHub atlas, cache, fallbacks, ID matching, CSP and tests are complete; 71 Python tests, 52 atlas assertions, 48 verifier assertions and 4/4 gates pass. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793115143.379789,
-      "timestamp_str": "2026-10-27 18:32:23",
-      "agent": "kilo:main",
-      "handoff": {
-        "next": "commit, close and push, then verify the deployed page against the real GitHub API",
-        "evidence": "mocked add/rename/remove/topic/description sync, count and filter updates, XSS text handling, offline and rate-limit fallbacks, cached reload, and no console or CSP errors"
-      }
-    },
-    {
-      "task_id": "site-v15",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v15' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793115259.206459,
-      "timestamp_str": "2026-10-27 18:34:19",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v16",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Make the selected-work heading independent of the number of live public repositories",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793115833.771296,
-      "timestamp_str": "2026-10-27 18:43:53",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The live atlas hides a featured card when its repository is no longer public; the heading still said 'Four systems', which would become false.",
-        "benefits": "The featured section stays correct whether four, three or more systems are public.",
-        "risks": "contract: text-only change; dependency: none; concurrency: none; state: none; policy: none",
-        "mitigation": "Update the heading and re-run the content tests and live checks."
-      }
-    },
-    {
-      "task_id": "site-v16",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Heading is count-free; 71 Python tests, 52 atlas assertions and 48 verifier assertions pass. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793115854.1345983,
-      "timestamp_str": "2026-10-27 18:44:14",
-      "agent": "kilo:main",
-      "handoff": {
-        "next": "commit, close and push, then verify the live page"
-      }
-    },
     {
       "task_id": "site-v16",
       "phase": "completed",
@@ -256,6 +200,55 @@
       "status": "completed",
       "timestamp": 1793132437.610699,
       "timestamp_str": "2026-10-27 23:20:37",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-audit",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Name each repository's Aegean license family on cards and dossiers; add Reforge to the snapshot, JSON-LD, README, cards, tests and license ledger after it was published on GitHub",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793143175.2056274,
+      "timestamp_str": "2026-10-28 02:19:35",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "Every card said Custom license despite AL/AGL/ASL files, and the site claimed 34 projects while GitHub served 35",
+        "benefits": "Visitors see the license that binds them; catalogue, JSON-LD, README and snapshot agree on 35 repos",
+        "risks": "contract: data-license and license labels change; dependency: none; concurrency: live GitHub sync must not overwrite the family; state: REPO_LICENSES ledger must be maintained",
+        "mitigation": "license_family survives normalizeRepo, Python derives expectations from the same ledger, Node pins the mapping"
+      }
+    },
+    {
+      "task_id": "site-audit",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/3] Full UI audit at 1440px and a true 390px iframe: fix mobile privacy table, focusable code blocks, dossier OG/Twitter metadata, service-worker v4, shared legal footers, dead CSS removal and the duplicated terms cap; axe-core reports 0 WCAG A/AA violations on all eight pages at both widths",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793143175.4392467,
+      "timestamp_str": "2026-10-28 02:19:35",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-audit",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[3/3] ADR-028 and ADR-029 record the license ledger and the audit fixes; 81 Python tests, 65 atlas, 57 project and 58 verifier assertions pass; axe-core 0 violations on index, verify, project, security, privacy, accessibility, 404 and offline at 1440px and 480px; 4/4 project gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793143188.749067,
+      "timestamp_str": "2026-10-28 02:19:48",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-audit",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-audit' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793143188.9795191,
+      "timestamp_str": "2026-10-28 02:19:48",
       "agent": "kilo:main"
     }
   ]

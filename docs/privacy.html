@@ -100,10 +100,10 @@
 <table class="trust-table">
     <thead><tr><th>Page or action</th><th>Request</th><th>Why</th></tr></thead>
     <tbody>
-      <tr><td>Any page</td><td>GitHub Pages serves the HTML, CSS and JavaScript</td><td>Hosting; GitHub receives standard request metadata such as IP address, user agent and time.</td></tr>
-      <tr><td>Projects atlas</td><td><code>api.github.com/users/AegeanWorks/repos</code></td><td>Public titles, descriptions, topics and license metadata. Credentials are omitted and the referrer is suppressed.</td></tr>
-      <tr><td>Project dossier</td><td><code>atlas-snapshot.json</code> and a public README endpoint</td><td>Project metadata and a text-only README excerpt. Only the repository name is sent.</td></tr>
-      <tr><td>License verifier</td><td><code>raw.githubusercontent.com/AegeanWorks/Aegean-Licensing</code></td><td>The canonical register, terms registry and cited agreement. The certificate stays in the browser.</td></tr>
+      <tr><td>Any page</td><td data-label="Request">GitHub Pages serves the HTML, CSS and JavaScript</td><td data-label="Why">Hosting; GitHub receives standard request metadata such as IP address, user agent and time.</td></tr>
+      <tr><td>Projects atlas</td><td data-label="Request"><code>api.github.com/users/AegeanWorks/repos</code></td><td data-label="Why">Public titles, descriptions, topics and license metadata. Credentials are omitted and the referrer is suppressed.</td></tr>
+      <tr><td>Project dossier</td><td data-label="Request"><code>atlas-snapshot.json</code> and a public README endpoint</td><td data-label="Why">Project metadata and a text-only README excerpt. Only the repository name is sent.</td></tr>
+      <tr><td>License verifier</td><td data-label="Request"><code>raw.githubusercontent.com/AegeanWorks/Aegean-Licensing</code></td><td data-label="Why">The canonical register, terms registry and cited agreement. The certificate stays in the browser.</td></tr>
     </tbody>
   </table>
 </div>
@@ -167,7 +167,9 @@
       <a href="privacy.html">Privacy</a>
       <a href="accessibility.html">Accessibility</a>
       <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">Commercial terms</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md" target="_blank" rel="noopener">License catalog</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
       <a href="https://github.com/AegeanWorks/AegeanWorks/blob/main/LICENSE" target="_blank" rel="noopener">AL-1.1</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <a href="https://github.com/AegeanWorks/AegeanWorks" target="_blank" rel="noopener">Source</a> <!-- hygiene: allow outbound link, not a loaded dependency -->
     </div>
   </div>
   <div class="wrap footer-bottom">

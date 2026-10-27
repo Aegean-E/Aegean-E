@@ -68,6 +68,7 @@ export function normalizeRepo(raw) {
     topics: Array.from(new Set(topics)),
     language: typeof raw.language === "string" ? raw.language.trim() : "",
     license,
+    license_family: licenseShort(name),
     pushed_at: pushedAt,
     homepage,
     default_branch: defaultBranch,
@@ -88,7 +89,68 @@ function safeUrl(value) {
   }
 }
 
-export function licenseLabel(license) {
+/* GitHub reports every Aegean license as NOASSERTION because the family is not
+ * an OSI identifier, so the family per repository is recorded here. Update this
+ * ledger when a repository changes license; tests pin its coverage.
+ */
+export const LICENSE_FAMILIES = Object.freeze({
+  AL: { short: "AL-1.1", name: "Aegean License 1.1" },
+  AGL: { short: "AGL-1.1", name: "Aegean Game License 1.1" },
+  ASL: { short: "ASL-1.1", name: "Aegean Science License 1.1" },
+});
+
+export const REPO_LICENSES = Object.freeze({
+  "aegean-licensing": "AL",
+  "aegean-reforge": "AL",
+  aikit: "AL",
+  aldervale: "AGL",
+  assay: "AL",
+  chronos: "AL",
+  "crypt-crawler": "AGL",
+  cyberpulse: "AGL",
+  "fluid-universe": "ASL",
+  fold: "AGL",
+  gauge: "AL",
+  lacon: "AL",
+  lattice: "AL",
+  memoryreconstruction: "AGL",
+  mnemo: "AL",
+  muse: "AL",
+  "n1-engine": "AL",
+  neuralbeat: "AL",
+  neuraldeck: "AL",
+  neurocore: "AL",
+  "neurologyclinictemplates-tr": "AL",
+  neurooptic: "AL",
+  nobetwizard: "AL",
+  nomoreclutter: "AL",
+  orrery: "ASL",
+  pebble: "AL",
+  "photo-harbor": "AL",
+  pnn: "ASL",
+  primordia: "AL",
+  "prism-relay": "AGL",
+  "research-engine": "ASL",
+  tally: "AL",
+  tempo: "AL",
+  "ui-sandbox": "AL",
+  voidfarer: "AGL",
+});
+
+/* The family short code for a repository, or "" when it is not an Aegean one. */
+export function licenseShort(repoName) {
+  const family = licenseFamily(repoName);
+  return family ? family.short : "";
+}
+
+export function licenseFamily(repoName) {
+  if (typeof repoName !== "string") return null;
+  return LICENSE_FAMILIES[REPO_LICENSES[repoName.trim().toLowerCase()]] || null;
+}
+
+export function licenseLabel(license, repoName = "", { full = false } = {}) {
+  const family = licenseFamily(repoName);
+  if (family) return full ? family.name + " (" + family.short + ")" : family.short;
   if (!license) return "No license";
   if (license === "NOASSERTION") return "Custom license";
   return license;
@@ -110,7 +172,10 @@ export function relativeAge(pushedAt, now = Date.now()) {
 }
 
 export function factsText(repo, now = Date.now()) {
-  const facts = [repo.language || "Unknown language", licenseLabel(repo.license)];
+  const facts = [
+    repo.language || "Unknown language",
+    licenseLabel(repo.license, repo.name),
+  ];
   const age = relativeAge(repo.pushed_at, now);
   if (age) facts.push("Updated " + age);
   return facts.join(" · ");

@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `1`
 - **Total Classes**: `1`
-- **Total Top-Level Functions**: `4`
-- **Total Class Methods**: `79`
-- **Total Source Lines**: `1147`
+- **Total Top-Level Functions**: `5`
+- **Total Class Methods**: `81`
+- **Total Source Lines**: `1196`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1147` lines (`52921` bytes)
+**Size**: `1196` lines (`55399` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -40,6 +40,8 @@
   - Method `.test_verifier_conveniences_are_wired()`
   - Method `.test_service_worker_shell_is_complete()`
   - Method `.test_trust_pages_are_published_and_linked()`
+  - Method `.test_trust_pages_share_the_full_legal_footer()`
+  - Method `.test_privacy_table_labels_its_cells_for_narrow_screens()`
   - Method `.test_security_txt_is_valid()`
   - Method `.test_atlas_search_topic_sort_and_url_state()`
   - Method `.test_live_atlas_is_wired_to_the_github_api()`
@@ -107,6 +109,7 @@
 - `def read_readme()`
 - `def read_site()`
 - `def read_verify()`
+- `def read_license_families()` - *The site's license ledger is the single source of truth for family codes.*
 - `def read_metadata()`
 
 ---

@@ -33,6 +33,11 @@ function setText(id, value) {
   if (element) element.textContent = value;
 }
 
+function setMeta(selector, value) {
+  const element = document.querySelector(selector);
+  if (element) element.setAttribute("content", value);
+}
+
 function fail(message, githubUrl) {
   if (detailEl) detailEl.hidden = true;
   if (errorEl) errorEl.hidden = false;
@@ -193,18 +198,24 @@ function render(repo) {
   if (logoFallback) logoFallback.textContent = monogram(repo.name);
   setText("project-description", description);
   setText("project-language", repo.language || "Unknown");
-  setText("project-license", licenseLabel(repo.license));
+  setText("project-license", licenseLabel(repo.license, repo.name, { full: true }));
   setText("project-pushed", relativeAge(repo.pushed_at) || "Unknown");
   setText("project-branch", repo.default_branch || "main");
   const pushed = document.getElementById("project-pushed");
   if (pushed) pushed.title = repo.pushed_at || "";
   const meta = document.querySelector('meta[name="description"]');
   if (meta) meta.setAttribute("content", repo.name + " — " + description);
-  const canonical = document.querySelector('link[rel="canonical"]');
-  if (canonical) {
+  const pageUrl =
     // hygiene: allow canonical page URL metadata, not a loaded resource
-    canonical.href = "https://aegeanworks.github.io/AegeanWorks/project.html?repo=" + encodeURIComponent(repo.name);
-  }
+    "https://aegeanworks.github.io/AegeanWorks/project.html?repo=" +
+    encodeURIComponent(repo.name);
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.href = pageUrl;
+  setMeta('meta[property="og:title"]', repo.name + " \u2014 AegeanWorks");
+  setMeta('meta[property="og:description"]', description);
+  setMeta('meta[property="og:url"]', pageUrl);
+  setMeta('meta[name="twitter:title"]', repo.name + " \u2014 AegeanWorks");
+  setMeta('meta[name="twitter:description"]', description);
   const repoLink = document.getElementById("project-repo");
   if (repoLink) repoLink.href = repo.html_url;
   const homepage = document.getElementById("project-homepage");
@@ -251,6 +262,7 @@ function appendBlock(block) {
     readmeEl.appendChild(list);
   } else if (block.type === "code") {
     const pre = document.createElement("pre");
+    pre.tabIndex = 0;
     const code = document.createElement("code");
     code.textContent = block.text;
     pre.appendChild(code);

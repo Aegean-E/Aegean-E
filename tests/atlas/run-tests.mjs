@@ -5,8 +5,12 @@ import {
   CACHE_KEY,
   CATEGORY_ORDER,
   countCards,
+  factsText,
   fetchAllRepos,
   inferCategory,
+  licenseFamily,
+  licenseLabel,
+  licenseShort,
   monogram,
   normalizeRepo,
   parseCache,
@@ -166,4 +170,24 @@ check(statusText("offline").includes("unreachable"), "offline status");
 check(statusText("partial").includes("removals held back"), "partial status");
 equal(statusText("snapshot", { total: 33 }), "Built-in snapshot", "snapshot status is count-free");
 
+
+equal(licenseLabel("NOASSERTION", "AIKit"), "AL-1.1", "Aegean software family named");
+equal(licenseLabel("NOASSERTION", "aikit"), "AL-1.1", "family lookup is case-insensitive");
+equal(licenseLabel("NOASSERTION", "Voidfarer"), "AGL-1.1", "game family named");
+equal(licenseLabel("NOASSERTION", "Orrery"), "ASL-1.1", "science family named");
+equal(
+  licenseLabel("NOASSERTION", "AIKit", { full: true }),
+  "Aegean License 1.1 (AL-1.1)",
+  "full dossier label"
+);
+equal(licenseLabel("NOASSERTION", "Unknown-Repo"), "Custom license", "unknown repo stays generic");
+equal(licenseLabel("MIT", "Unknown-Repo"), "MIT", "SPDX identifier passes through");
+equal(licenseLabel("", "Unknown-Repo"), "No license", "absent license");
+equal(licenseShort("PNN"), "ASL-1.1", "short helper");
+equal(licenseFamily("nope"), null, "unknown family is null");
+equal(normalizeRepo(repo(7, "Voidfarer", { license: "NOASSERTION" })).license_family, "AGL-1.1", "normalize adds family");
+equal(normalizeRepo(repo(8, "NotMine", { license: "MIT" })).license_family, "", "non-Aegean repo has no family");
+check(factsText(normalizeRepo(repo(9, "Tally")), Date.UTC(2026, 9, 27)).includes("AL-1.1"), "facts name the family");
+
 console.log(`ok ${assertions} atlas assertions`);
+
