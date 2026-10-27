@@ -1,65 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v13",
+    "task_id": "site-v14",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793089518.2679923,
+    "updated_at": 1793100499.354374,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793089544.9455867
+    "completed_at": 1793100526.8074481
   },
   "checkpoints": [
-    {
-      "task_id": "site-v8",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Verify the last five pushes, fix the menu click-through, sharpen licensing and count copy, add manifest identity and a CI test gate",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793030663.3765833,
-      "timestamp_str": "2026-10-26 19:04:23",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "Visual and behavioural review of the last five pushes found a real menu defect: taps on the dimmed scrim activate the hero CTA underneath; keyboard focus can also leave the open menu. The site also overstates that all commercial use needs ACL-1.0 while most published repositories still carry AGPL-3.0, and it calls 33 project repositories simply 'repositories'.",
-        "benefits": "Taps on the scrim close the menu instead of navigating; background content is inert while the menu is open; licensing copy matches the AGPL-to-Aegean transition; manifest carries a stable identity; CI runs the regression suite on every push.",
-        "risks": "contract: no public URL or asset path changes; dependency: none, stdlib and GitHub Actions only; concurrency: inert is toggled only by setNav; state: no ledger or certificate schema changes; visual: scrim opacity changes slightly.",
-        "mitigation": "Cover every change with regression tests, re-run Playwright at 1440/834/390/320 with JS blocked and enabled, run aikit.py check, and verify the live page after push."
-      }
-    },
-    {
-      "task_id": "site-v8",
-      "phase": "phase 3",
-      "phase_num": 3,
-      "description": "[2/4] Make the open menu a modal surface: scrim absorbs taps, background inert; sharpen licensing and count copy with regression tests",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793030892.0258317,
-      "timestamp_str": "2026-10-26 19:08:12",
-      "agent": "kilo:main",
-      "handoff": {
-        "state": "copy and menu fixes implemented",
-        "next": "add the CI workflow, manifest identity and ADRs, then run full gates and visual checks",
-        "evidence": "38 tests pass, Playwright hit-test at 390x844 returns BODY and keeps the URL when the scrim is tapped"
-      }
-    },
-    {
-      "task_id": "site-v8",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[3/4] Add CI workflow, manifest identity, focus trap and ADRs; gates pass. checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793031458.5688756,
-      "timestamp_str": "2026-10-26 19:17:38",
-      "agent": "kilo:main",
-      "handoff": {
-        "next": "commit the batch and push, then verify the live page and the Actions run",
-        "evidence": "40 tests, 4/4 gates, Playwright 390x844 shows inert background, contained Tab order and a tap-dismissing scrim"
-      }
-    },
     {
       "task_id": "site-v8",
       "phase": "phase 5",
@@ -288,6 +240,48 @@
       "status": "completed",
       "timestamp": 1793089544.9455879,
       "timestamp_str": "2026-10-27 11:25:44",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v14",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Harden verifier parity, scope validation, CSP and disabled states",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793100091.5387516,
+      "timestamp_str": "2026-10-27 14:21:31",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "A differential audit found Python and the browser canonicalized some numbers and U+007F differently; neither verifier checked the certificate scope; no page sent a Content Security Policy; the disabled verify button was visually indistinguishable; Web Crypto absence surfaced only after a click; and cached agreement text survived a refresh.",
+        "benefits": "The same payload now produces the same digest and status in both verifiers, out-of-vocabulary scopes are refused, every page restricts scripts/connections/forms, and unavailable states are visible before a user acts.",
+        "risks": "contract: stricter validation for malformed input and scopes only; dependency: none; concurrency: no new state; state: the vector digest changes because the fixture gained probes; policy: CSP allows inline scripts/styles for existing code, and frame-ancestors cannot be set from meta",
+        "mitigation": "Pin every case in Python and Node tests, run the end-to-end issue/valid/tamper/revoke path, capture the edge states visually, run axe and all four gates, then verify the live page."
+      }
+    },
+    {
+      "task_id": "site-v14",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[3/3] Verifier parity, scope enforcement, hashed CSP, visible disabled states and registry provenance are complete; 67 Python tests, 48 Node assertions and 4/4 gates pass. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793100499.354374,
+      "timestamp_str": "2026-10-27 14:28:19",
+      "agent": "kilo:main",
+      "handoff": {
+        "next": "commit, close and push, then verify the live verify page",
+        "evidence": "end-to-end issue/valid/tamper/revoke passes with no CSP violations and no non-GET requests, axe reports zero WCAG violations"
+      }
+    },
+    {
+      "task_id": "site-v14",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v14' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793100526.807449,
+      "timestamp_str": "2026-10-27 14:28:46",
       "agent": "kilo:main"
     }
   ]
