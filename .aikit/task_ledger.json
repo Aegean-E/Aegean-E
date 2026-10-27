@@ -1,49 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v12",
+    "task_id": "site-v13",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793088569.9318354,
+    "updated_at": 1793089518.2679923,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793088680.8976605
+    "completed_at": 1793089544.9455867
   },
   "checkpoints": [
-    {
-      "task_id": "site-v7",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/3] Balanced headings, pretty ledes, OG waves moved; checklists: passed (34 tests, 4/4 gates, Nu 0, CLS 0)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793020688.6315157,
-      "timestamp_str": "2026-10-26 16:18:08",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v7",
-      "phase": "phase 5",
-      "phase_num": 5,
-      "description": "[3/3] Pushed 049dcc7; Pages built; live Lighthouse 99-100 with CLS 0; balanced wrapping live",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793020846.0668013,
-      "timestamp_str": "2026-10-26 16:20:46",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v7",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v7' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793020846.6612043,
-      "timestamp_str": "2026-10-26 16:20:46",
-      "agent": "kilo"
-    },
     {
       "task_id": "site-v8",
       "phase": "phase 2",
@@ -279,6 +247,47 @@
       "status": "completed",
       "timestamp": 1793088680.8976614,
       "timestamp_str": "2026-10-27 11:11:20",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v13",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Fail the verifier button closed until the canonical register is ready",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793089470.830275,
+      "timestamp_str": "2026-10-27 11:24:30",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "The submit button was enabled before verify.js loaded, and a click during the initial fetch hit a false 'verification unavailable' error because loadRegistries returned early while loading.",
+        "benefits": "The primary action is disabled until the register and terms are parsed, becomes enabled exactly when the page is ready, and stays disabled with a working Refresh retry when the registry is offline.",
+        "risks": "contract: no URL or fetch changes; dependency: none; concurrency: one in-flight load still guarded; state: no persisted state; accessibility: a disabled primary action is announced consistently",
+        "mitigation": "Static tests assert the disabled attribute and both transitions; Playwright verifies enabled-after-load and disabled-on-offline; axe remains clean at both widths."
+      }
+    },
+    {
+      "task_id": "site-v13",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Button fail-closed until ready; ready and offline states verified; 64 tests, 39 Node assertions and 4/4 gates pass. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793089518.2679923,
+      "timestamp_str": "2026-10-27 11:25:18",
+      "agent": "kilo:main",
+      "handoff": {
+        "next": "commit, close the task and push, then confirm live"
+      }
+    },
+    {
+      "task_id": "site-v13",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v13' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793089544.9455879,
+      "timestamp_str": "2026-10-27 11:25:44",
       "agent": "kilo:main"
     }
   ]
