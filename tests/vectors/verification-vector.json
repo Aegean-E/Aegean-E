@@ -16,7 +16,7 @@
     "expires_at": null,
     "is_perpetual": true,
     "notes": "Line one\nLine two \"quoted\" — ünïcode",
-    "digest": "855969a9506d23f8f5e0553a63f61f277329018bfc7c8d7fb1c40fba6eda52ff",
+    "digest": "9b645ad0147bd84d5d89d83d9d5b7c19337c9e4f2757ddd728b6267b509944d7",
     "signature": "",
     "tier": "Tier2",
     "terms_digest": "",
@@ -27,7 +27,18 @@
       "hosted-service"
     ],
     "format": 2,
-    "serial": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    "serial": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "numeric_probe": 1.0,
+    "control_probe": "",
+    "nested_probe": {
+      "b": [
+        3,
+        "é"
+      ],
+      "a": {
+        "z": true
+      }
+    }
   },
-  "expected_digest": "855969a9506d23f8f5e0553a63f61f277329018bfc7c8d7fb1c40fba6eda52ff"
+  "expected_digest": "9b645ad0147bd84d5d89d83d9d5b7c19337c9e4f2757ddd728b6267b509944d7"
 }

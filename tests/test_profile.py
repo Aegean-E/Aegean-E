@@ -1,5 +1,7 @@
 """Regression tests for the AegeanWorks profile, site and licensing integrity."""
 
+import base64
+import hashlib
 import json
 import re
 import unittest
@@ -421,6 +423,25 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertLess(core.index("const malformed = typeError(certificate)"), core.index("computed = await computeDigest(certificate)"))
         self.assertIn("Certificate payload cannot be canonicalized", core)
 
+    def test_verifier_canonical_numbers_and_del_are_bounded(self):
+        core = (ROOT / "docs" / "verify-core.js").read_text(encoding="utf-8")
+        self.assertIn("Number.isSafeInteger(value)", core)
+        self.assertIn("codePoint === 0x7f", core)
+        self.assertIn('replace(/^\\uFEFF/, "")', core)
+        self.assertIn("stringList(raw.scopes", core)
+        self.assertIn("Terms registry must list at least one license", core)
+
+    def test_verifier_explains_a_disabled_browser_crypto_path(self):
+        script = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        self.assertIn("window.crypto", script)
+        self.assertIn("crypto.subtle", script)
+        self.assertIn("Web Crypto is not available", script)
+        self.assertIn("state.termTexts.clear()", script)
+        self.assertIn('"No canonical registry loaded."', script)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".btn:disabled", css)
+        self.assertIn("cursor: not-allowed", css)
+
     def test_icon_dimensions(self):
         for name, expected in (
             ("apple-touch-icon.png", (180, 180)),
@@ -713,6 +734,38 @@ class ProfileIntegrityTests(unittest.TestCase):
             for match in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", page):
                 with self.subTest(tag=match.group(0)[:80]):
                     self.assertIn('rel="noopener"', match.group(0))
+
+    def test_pages_send_a_content_security_policy(self):
+        for name in ("index.html", "verify.html", "404.html"):
+            page = (ROOT / "docs" / name).read_text(encoding="utf-8")
+            with self.subTest(page=name):
+                self.assertIn('http-equiv="Content-Security-Policy"', page)
+                policy = re.search(
+                    r'http-equiv="Content-Security-Policy" content="([^"]*)"', page
+                ).group(1)
+                self.assertIn("form-action 'none'", policy)
+                self.assertIn("object-src 'none'", policy)
+                self.assertIn("base-uri 'none'", policy)
+                script_src = re.search(r"script-src ([^;]*)", policy).group(1)
+                self.assertNotIn("'unsafe-inline'", script_src)
+                self.assertNotIn("https://", script_src)
+                inline = re.findall(
+                    r"<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>", page, re.S
+                )
+                for body in inline:
+                    digest = base64.b64encode(
+                        hashlib.sha256(body.encode("utf-8")).digest()
+                    ).decode("ascii")
+                    with self.subTest(hash=digest[:12]):
+                        self.assertIn("'sha256-" + digest + "'", script_src)
+                external = re.findall(r"<script[^>]*\bsrc=\"([^\"]+)\"", page)
+                for source in external:
+                    with self.subTest(source=source):
+                        self.assertTrue(source.startswith("./") or source.startswith("/") or "://" not in source)
+        verify = read_verify()
+        self.assertIn(
+            "connect-src 'self' https://raw.githubusercontent.com", verify
+        )
 
 
 if __name__ == "__main__":

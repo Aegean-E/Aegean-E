@@ -94,6 +94,42 @@ assertions += 1;
 assert.match(canonicalPayload(original), /\\u2014/);
 assertions += 1;
 assert.match(canonicalPayload(original), /"projects":\["Aegean-Licensing","Chronos"\]/);
+assertions += 1;
+assert.equal(canonicalPayload({ cert_id: "x", format: 2, note: "\u007f" }),
+  '{"cert_id":"x","format":2,"note":"\\u007f"}');
+assertions += 1;
+assert.equal(canonicalPayload({ cert_id: "x", format: 2, n: 1.0 }),
+  '{"cert_id":"x","format":2,"n":1}');
+assertions += 1;
+assert.throws(() => canonicalPayload({ cert_id: "x", format: 2, n: 1.5 }), /integer/);
+assertions += 1;
+assert.throws(() => canonicalPayload({ cert_id: "x", format: 2, n: 9007199254740992 }), /safe/);
+assertions += 1;
+assert.equal(parseCertificate("\uFEFF" + JSON.stringify(original)).cert_id, original.cert_id);
+assertions += 1;
+assert.throws(
+  () => parseTerms(JSON.stringify({ version: 1, licenses: {} })),
+  /at least one/
+);
+assertions += 1;
+assert.throws(
+  () =>
+    parseTerms(
+      JSON.stringify({
+        version: 1,
+        licenses: {
+          "ACL-1.0": {
+            document: "licenses/ACL-1.0.md",
+            scopes: "internal-use",
+            tiers: [],
+            allowances: [],
+          },
+        },
+      })
+    ),
+  /list of strings/
+);
+assertions += 1;
 
 const validRegister = registerFor(original);
 const valid = await verdict(original, validRegister);
@@ -189,6 +225,15 @@ equal(
   (await verdict(unknownTierCert, registerFor(unknownTierCert))).status,
   "INVALID_FORMAT",
   "unknown tier"
+);
+
+const unknownScope = structuredClone(original);
+unknownScope.scope = "unlimited-global";
+const unknownScopeCert = await withDigest(unknownScope);
+equal(
+  (await verdict(unknownScopeCert, registerFor(unknownScopeCert))).status,
+  "INVALID_FORMAT",
+  "unknown scope"
 );
 
 const unknownAllowance = structuredClone(original);

@@ -142,3 +142,27 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: Project titles, descriptions and topics were updated on GitHub, while the site cards and the README atlas carried older prose and lowercase repository names. A live fetch at build time would make tests network-dependent and let an upstream edit change the site silently.
 - **Decision**: Add `tests/metadata/repositories.json`, captured from the GitHub API, as the reviewable source of truth. Rewrite every project card's title, description and `data-topics`, show six non-boilerplate tags per card, canonicalize repository-name casing in links, and rebuild the README atlas rows from the same snapshot. Tests compare every card and row to the snapshot; refreshing the snapshot is an explicit review step.
 - **Consequences**: The site, README and GitHub agree at the recorded snapshot date without a network dependency in CI. A future GitHub edit requires refreshing the snapshot deliberately; the card tags are a curated view of the full topics stored in `data-topics`.
+
+### ADR-021: Fail Closed in Verifier Edge States
+- **Date**: 2026-10-27
+- **Status**: Accepted
+- **Context**: The verifier's primary action was disabled while the registry loaded, but the disabled state looked identical to an active gradient button. A browser without Web Crypto could load the page and only fail after a click. A terms registry with string scopes or no licenses was accepted by the browser but rejected by the Python reference, and a cached agreement text survived a refresh.
+- **Decision**: Give disabled buttons a visible, non-interactive treatment; detect missing Web Crypto before fetching and point to the CLI; require array-valued scopes/tiers/allowances and a non-empty license registry; clear cached agreement text on refresh; strip a UTF-8 BOM from pasted or loaded certificates. Tests pin each edge and the Node parity suite covers the canonicalization rules.
+- **Consequences**: Every unavailable state is visible before a user acts, the browser and Python refuse the same malformed registry, and a refreshed registry cannot silently reuse an old agreement. Normal certificate and registry shapes are unchanged.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-011 (clear errors) and PRINCIPLE-014 (regression coverage).
+
+### ADR-022: Validate the Scope Before Trusting a Certificate
+- **Date**: 2026-10-27
+- **Status**: Accepted
+- **Context**: The browser verifier parsed the agreement's `scopes` vocabulary but never used it, while it did check tiers and allowances. A certificate with an arbitrary scope could therefore pass the browser check even though issuance would never produce one.
+- **Decision**: Reject a certificate whose non-empty scope is not in the resolved agreement's `scopes` list, at the same point as the tier and allowance checks. Node tests cover the browser path and the published specification lists the check.
+- **Consequences**: The browser and the Python reference agree on scope, and the page refuses a scope the agreement does not define. Existing certificates are unaffected because their scopes are issued from that vocabulary.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (strict claims) and PRINCIPLE-014 (regression coverage).
+
+### ADR-023: Send a Content Security Policy on Every Page
+- **Date**: 2026-10-27
+- **Status**: Accepted
+- **Context**: The site had no Content Security Policy, so any injected markup could load a remote script or send a request anywhere. The verifier page handles untrusted certificate text and fetches the canonical registry; a policy can bound both even though the page only uses text nodes.
+- **Decision**: Add a meta CSP to `index.html`, `verify.html` and `404.html`: scripts only from self or an exact SHA-256 hash of each inline block, styles from self or inline (needed by the no-script and 404 rules), images from self or data, connections only to self and `raw.githubusercontent.com`, forms disabled, and base/object URLs disabled. Tests recompute every inline hash and reject `unsafe-inline` in `script-src`; browser runs produced no CSP violations.
+- **Consequences**: An injected resource cannot load from a third-party origin or POST a certificate anywhere, and a native form submission is blocked even if the verifier script fails. `frame-ancestors` cannot be set from a meta policy, so clickjacking protection still depends on a server header that GitHub Pages does not provide; this limitation is recorded rather than hidden.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-019 (sensitive-data hygiene) and PRINCIPLE-014 (regression coverage).

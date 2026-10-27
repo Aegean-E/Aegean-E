@@ -35,7 +35,7 @@ const STATUS_CLASSES = {
 };
 
 const SUMMARY = {
-  VALID: "The certificate is listed as valid in the public register; its digest, terms, dates and optional project scope all pass.",
+  VALID: "The certificate is listed as valid in the public register; its digest, terms, scope, dates and optional project check all pass.",
   REVOKED: "The register lists this certificate as revoked. Do not rely on it.",
   UNREGISTERED: "This id and digest are not in the canonical register, so the certificate is not evidence of a grant.",
   TAMPERED: "The digest does not match the certificate contents. Treat the file as altered.",
@@ -190,9 +190,11 @@ function updateRegisterStatus() {
     }
   }
   if (registerMeta) {
-    registerMeta.textContent = state.fetchedAt
-      ? "Canonical issued.json · fetched " + utcClock(state.fetchedAt)
-      : "";
+    registerMeta.textContent = state.register
+      ? (state.fetchedAt
+        ? "Canonical issued.json · fetched " + utcClock(state.fetchedAt)
+        : "Canonical issued.json")
+      : "No canonical registry loaded.";
   }
 }
 
@@ -200,6 +202,13 @@ async function loadRegistries() {
   if (state.loading) return;
   state.loading = true;
   window.__aegeanVerifierReady = true;
+  if (!window.crypto || !window.crypto.subtle) {
+    state.loading = false;
+    setRuntime("This browser cannot compute SHA-256. Use the command-line verifier below.");
+    showError("Web Crypto is not available in this browser, so the certificate cannot be checked here.");
+    if (refreshButton) refreshButton.disabled = true;
+    return;
+  }
   if (submitButton) submitButton.disabled = true;
   if (refreshButton) refreshButton.disabled = true;
   clearError();
@@ -223,6 +232,7 @@ async function loadRegistries() {
   if (outcomes[1].status === "fulfilled") {
     try {
       state.terms = parseTerms(outcomes[1].value);
+      state.termTexts.clear();
     } catch (error) {
       state.terms = null;
       problems.push(error.message);

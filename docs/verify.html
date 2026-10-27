@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- hygiene: allow canonical registry fetch, not a loaded third-party resource -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-wWsVdaJkUTBR7LntGXkEVv1fzgibnT1sYru4hOTncXI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>Verify a license — AegeanWorks</title>
 <meta name="description" content="Check an Aegean Commercial License certificate against the public register. Verification runs in your browser; the certificate is never uploaded.">
 <meta name="robots" content="index,follow">
@@ -149,7 +151,7 @@
           <ol class="verify-steps">
             <li>Your browser reads the certificate locally and recomputes its SHA-256 digest.</li>
             <li>That id and digest must match an entry in the canonical public register.</li>
-            <li>The register status, the cited agreement, the tier, the dates and the optional project scope are then checked.</li>
+            <li>The register status, the cited agreement, the scope, the tier, the dates and the optional project check are then validated.</li>
           </ol>
           <p class="verify-note">A digest alone is not proof: anyone can recompute one. The register is the public proof of issuance, and the signing key never reaches this page. Copying the verifier cannot produce a valid new certificate.</p>
           <p class="verify-note">The register is fetched from <code>raw.githubusercontent.com</code> when this page loads; that request carries no certificate data. Certificate values are rendered as text. No tracker runs here.</p>

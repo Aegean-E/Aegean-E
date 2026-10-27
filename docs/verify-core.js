@@ -50,8 +50,9 @@ function quoteAscii(text) {
     else if (character === "\n") output += "\\n";
     else if (character === "\r") output += "\\r";
     else if (character === "\t") output += "\\t";
-    else if (codePoint < 0x20) output += "\\u" + codePoint.toString(16).padStart(4, "0");
-    else if (codePoint <= 0x7f) output += character;
+    else if (codePoint < 0x20 || codePoint === 0x7f) {
+      output += "\\u" + codePoint.toString(16).padStart(4, "0");
+    } else if (codePoint <= 0x7f) output += character;
     else if (codePoint <= 0xffff) output += "\\u" + codePoint.toString(16).padStart(4, "0");
     else {
       const scalar = codePoint - 0x10000;
@@ -69,8 +70,10 @@ function serializeAscii(value) {
   if (typeof value === "string") return quoteAscii(value);
   if (typeof value === "boolean") return value ? "true" : "false";
   if (typeof value === "number") {
-    if (!Number.isFinite(value)) throw new VerificationInputError("Non-finite number in certificate.");
-    return JSON.stringify(value);
+    if (!Number.isSafeInteger(value)) {
+      throw new VerificationInputError("Certificate numbers must be integers within the safe range.");
+    }
+    return String(value);
   }
   if (Array.isArray(value)) return "[" + value.map(serializeAscii).join(",") + "]";
   if (typeof value === "object") {
@@ -112,7 +115,7 @@ export async function termsDigest(text) {
 }
 
 export function parseCertificate(rawText) {
-  const text = String(rawText || "");
+  const text = String(rawText || "").replace(/^\uFEFF/, "");
   if (new TextEncoder().encode(text).length > MAX_CERTIFICATE_BYTES) {
     throw new VerificationInputError("Certificate is larger than 256 KiB.");
   }
@@ -133,6 +136,13 @@ function stringArray(value) {
   if (typeof value === "string") return [value];
   if (!Array.isArray(value) || !value.every((item) => typeof item === "string")) {
     throw new VerificationInputError("A project or allowance list must contain only strings.");
+  }
+  return value.slice();
+}
+
+function stringList(value, label) {
+  if (!Array.isArray(value) || !value.every((item) => typeof item === "string")) {
+    throw new VerificationInputError(label + " must be a list of strings.");
   }
   return value.slice();
 }
@@ -227,9 +237,13 @@ export function parseTerms(rawText) {
     if (sha256 && !HEX64.test(sha256)) {
       throw new VerificationInputError("License " + key + " has an invalid terms digest.");
     }
-    const scopes = stringArray(raw.scopes);
-    const tiers = stringArray(raw.tiers);
-    const allowances = stringArray(raw.allowances);
+    const scopes = stringList(raw.scopes, "License " + key + " scopes");
+    const tiers = raw.tiers === undefined
+      ? []
+      : stringList(raw.tiers, "License " + key + " tiers");
+    const allowances = raw.allowances === undefined
+      ? []
+      : stringList(raw.allowances, "License " + key + " allowances");
     if (!scopes.length) {
       throw new VerificationInputError("License " + key + " requires a scopes list.");
     }
@@ -243,6 +257,9 @@ export function parseTerms(rawText) {
       tiers,
       allowances,
     });
+  }
+  if (!entries.size) {
+    throw new VerificationInputError("Terms registry must list at least one license.");
   }
   return entries;
 }
@@ -406,7 +423,12 @@ export async function verifyCertificate({
   if (cert.tier && resolved.tiers.length && !resolved.tiers.includes(cert.tier)) {
     return result("INVALID_FORMAT", [
       "Tier " + cert.tier + " is not defined by " + resolved.key + ".",
-    ], { cert, terms: resolved, terms_verified: termsVerified });
+    ], { cert, terms: resolved });
+  }
+  if (cert.scope && !resolved.scopes.includes(cert.scope)) {
+    return result("INVALID_FORMAT", [
+      "Scope " + cert.scope + " is not defined by " + resolved.key + ".",
+    ], { cert, terms: resolved });
   }
   const unknown = cert.allowances.filter((allowance) => !resolved.allowances.includes(allowance));
   if (unknown.length) {

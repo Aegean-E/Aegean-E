@@ -9,8 +9,8 @@
 - **Total Python Modules**: `1`
 - **Total Classes**: `1`
 - **Total Top-Level Functions**: `4`
-- **Total Class Methods**: `64`
-- **Total Source Lines**: `719`
+- **Total Class Methods**: `67`
+- **Total Source Lines**: `771`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `719` lines (`31991` bytes)
+**Size**: `771` lines (`34700` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -56,6 +56,8 @@
   - Method `.test_verify_page_has_a_no_javascript_path()`
   - Method `.test_verifier_caps_fetches_before_reading()`
   - Method `.test_verifier_checks_types_before_canonicalization()`
+  - Method `.test_verifier_canonical_numbers_and_del_are_bounded()`
+  - Method `.test_verifier_explains_a_disabled_browser_crypto_path()`
   - Method `.test_icon_dimensions()`
   - Method `.test_mobile_orbit_labels_are_large_enough()`
   - Method `.test_print_media_reveals_every_section()`
@@ -87,6 +89,7 @@
   - Method `.test_verification_vector_is_pinned()`
   - Method `.test_sitemap_lists_the_verify_page()`
   - Method `.test_external_links_are_safe_on_every_page()`
+  - Method `.test_pages_send_a_content_security_policy()`
 
 **Functions:**
 - `def read_readme()`
