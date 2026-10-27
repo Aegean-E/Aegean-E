@@ -779,6 +779,48 @@ h1 .grad {
   color: var(--dim);
   min-height: 1em;
 }
+.filter-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: -8px 0 20px;
+}
+.filter-meta .filter-status { margin: 0; }
+.atlas-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: var(--dim);
+}
+.atlas-status::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dim);
+}
+.atlas-status[data-mode="live"]::before,
+.atlas-status[data-mode="cached"]::before {
+  background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12);
+}
+.atlas-status[data-mode="partial"]::before {
+  background: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.12);
+}
+.atlas-status[data-mode="rate-limited"]::before,
+.atlas-status[data-mode="offline"]::before,
+.atlas-status[data-mode="stale"]::before {
+  background: #f87171;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12);
+}
+.work-card[hidden] { display: none !important; }
 
 /* ---------- Project grid ---------- */
 
@@ -1192,6 +1234,7 @@ h1 .grad {
   .license-card { padding: 26px 22px 24px; }
   .filters { gap: 6px; }
   .chip { padding: 8px 12px; font-size: 0.76rem; }
+  .filter-meta { flex-direction: column; align-items: flex-start; }
   .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .footer-brand { grid-column: span 1; }
   .footer-bottom { margin-top: 34px; }

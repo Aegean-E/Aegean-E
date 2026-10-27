@@ -194,6 +194,53 @@ class ProfileIntegrityTests(unittest.TestCase):
                 self.assertTrue((ROOT / "docs" / asset.split("#")[0]).exists())
         self.assertNotRegex(html, r'(?:src|href)="https?://(?:fonts|cdn|unpkg|jsdelivr)')
 
+    def test_node_suites_are_esm(self):
+        manifest = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+        self.assertTrue(manifest["private"])
+        self.assertEqual(manifest["type"], "module")
+        self.assertNotIn("dependencies", manifest)
+        self.assertIn("package.json", read_readme())
+        workflow = (ROOT / ".github" / "workflows" / "tests.yml").read_text(encoding="utf-8")
+        self.assertIn('node-version: "20"', workflow)
+
+    def test_live_atlas_is_wired_to_the_github_api(self):
+        html = read_site()
+        self.assertIn('<script type="module" src="atlas.js"></script>', html)
+        self.assertIn('id="atlas-status"', html)
+        self.assertIn('data-mode="snapshot"', html)
+        self.assertEqual(html.count("data-project-count"), 2)
+        self.assertIn("Project metadata is read from the public GitHub API.", html)
+        core = (ROOT / "docs" / "atlas-core.js").read_text(encoding="utf-8")
+        ui = (ROOT / "docs" / "atlas.js").read_text(encoding="utf-8")
+        self.assertIn(
+            'export const API_ROOT = "https://api.github.com/users/AegeanWorks/repos";', core
+        )
+        self.assertIn('export const CACHE_KEY = "aegean:atlas:v1";', core)
+        self.assertIn("CACHE_TTL_MS = 10 * 60 * 1000", core)
+        self.assertIn("export function planSync", core)
+        self.assertIn("export async function fetchAllRepos", core)
+        self.assertIn("export function inferCategory", core)
+        self.assertIn('credentials: "omit"', ui)
+        self.assertIn('referrerPolicy: "no-referrer"', ui)
+        self.assertIn("controller.abort()", ui)
+        self.assertIn("window.clearTimeout(timer)", ui)
+        self.assertIn("title.textContent = repo.name", ui)
+        self.assertIn(
+            'window.addEventListener("atlas:changed"',
+            (ROOT / "docs" / "app.js").read_text(encoding="utf-8"),
+        )
+        app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("updateProjectCounts();", app)
+        self.assertIn("This never calls applyFilter", app)
+        self.assertIn("sessionStorage", ui)
+        for token in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, core)
+                self.assertNotIn(token, ui)
+        self.assertIn("connect-src 'self' https://api.github.com", html)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn(".work-card[hidden] { display: none !important; }", css)
+
     def test_site_lists_every_public_repository_once(self):
         html = read_site()
         cards = re.findall(
@@ -208,9 +255,42 @@ class ProfileIntegrityTests(unittest.TestCase):
         for category, label in CATEGORY_LABELS.items():
             with self.subTest(category=category):
                 self.assertIn(f">{label} <span>", html)
-                count = len(re.findall(rf'class="project reveal" data-cat="{category}"', html))
+                count = len(
+                    re.findall(rf'class="project reveal"[^>]*data-cat="{category}"', html)
+                )
                 self.assertIn(f">{label} <span>{count}</span>", html)
         self.assertIn(f'All <span>{len(PUBLIC_REPOS)}</span>', html)
+
+    def test_project_cards_carry_an_immutable_repository_id(self):
+        html = read_site()
+        snapshot = {repo["name"]: repo for repo in read_metadata()["repositories"]}
+        cards = re.findall(
+            r'<a class="project reveal" data-repo-id="(\d+)"[^>]*href="https://github\.com/AegeanWorks/([^"]+)"',
+            html,
+        )
+        self.assertEqual(len(cards), len(PUBLIC_REPOS))
+        ids = [card[0] for card in cards]
+        self.assertEqual(len(ids), len(set(ids)))
+        for repo_id, name in cards:
+            with self.subTest(repo=name):
+                self.assertEqual(str(snapshot[name]["id"]), repo_id)
+        snapshot_ids = [str(repo["id"]) for repo in snapshot.values()]
+        self.assertEqual(len(snapshot_ids), len(set(snapshot_ids)))
+        self.assertTrue(all(int(repo_id) > 0 for repo_id in snapshot_ids))
+
+    def test_featured_work_cards_carry_an_immutable_repository_id(self):
+        html = read_site()
+        snapshot = {str(repo["id"]): repo for repo in read_metadata()["repositories"]}
+        cards = re.findall(
+            r'<a class="work-card[^"]*" data-repo-id="(\d+)"[^>]*href="https://github\.com/AegeanWorks/([^"]+)"',
+            html,
+        )
+        self.assertEqual(len(cards), 4)
+        for repo_id, name in cards:
+            with self.subTest(repo=name):
+                self.assertEqual(snapshot[repo_id]["name"], name)
+        self.assertIn('data-mode="snapshot"', html)
+        self.assertIn("Built-in snapshot", html)
 
     def test_site_licensing_copy_is_current(self):
         html = read_site()
@@ -234,7 +314,9 @@ class ProfileIntegrityTests(unittest.TestCase):
 
     def test_project_count_names_project_repositories(self):
         html = read_site()
-        self.assertIn("Thirty-three project repositories, all public.", html)
+        self.assertIn(
+            "<span data-project-count>33</span> project repositories, all public.", html
+        )
         self.assertNotIn("Thirty-three repositories, all public.", html)
         self.assertIn("Every project repository below is public.", read_readme())
 
@@ -578,6 +660,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "tests.yml").read_text(encoding="utf-8")
         self.assertIn("actions/setup-node", workflow)
         self.assertIn("node tests/verify/run-tests.mjs", workflow)
+        self.assertIn("node tests/atlas/run-tests.mjs", workflow)
 
     def test_snapshot_covers_every_public_repository(self):
         metadata = read_metadata()

@@ -44,7 +44,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories).
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -172,7 +172,7 @@ AegeanWorks publishes source-available and open-source projects. AL-1.1 for soft
 
 ## Cold-Start Quick Reference
 
-- **Runtime Prerequisites**: Git 2.30+, Python 3.10+ (standard library only), and Node 20+ for the browser-verifier parity gate.
+- **Runtime Prerequisites**: Git 2.30+, Python 3.10+ (standard library only), and Node 20+ for the browser-verifier and live-atlas parity gates.
 
 **Canonical Regression Shield Gate**:
 ```bash
@@ -184,7 +184,12 @@ python -m unittest discover -s tests
 node tests/verify/run-tests.mjs
 ```
 
-Both suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suite pins the browser verifier to the same canonicalization vector as the Python verifier.
+**Live-Atlas Parity Gate**:
+```bash
+node tests/atlas/run-tests.mjs
+```
+
+All three suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier and the live GitHub atlas to the same rules as the Python code.
 
 ### What's Inside
 
@@ -194,6 +199,7 @@ AegeanWorks/
 ├── LICENSE                  <- Aegean License 1.1 (AL-1.1): free personal use
 ├── COMMERCIAL.md            <- Licensing tiers and ACL-1.0 commercial terms
 ├── .gitignore               <- Git and AIKit transient-state exclusions
+├── package.json             <- Node module marker for the browser-core parity suites
 ├── assets/
 │   └── banner.svg           <- Profile banner
 ├── docs/                    <- Static GitHub Pages site and its assets
@@ -203,6 +209,8 @@ AegeanWorks/
 │   ├── verify.html          <- Public certificate verifier (certificate stays local)
 │   ├── verify-core.js       <- Shared format-2 canonicalization and checks
 │   ├── verify.js            <- Browser UI and canonical register fetch
+│   ├── atlas-core.js        <- Pure live-atlas validation, inference and sync planning
+│   ├── atlas.js             <- GitHub API fetch, cache and DOM reconciliation
 │   ├── app.js               <- Navigation, filtering and reveal behaviour
 │   ├── styles.css           <- Zero-dependency design system
 │   ├── favicon.svg          <- Site mark
@@ -229,8 +237,10 @@ AegeanWorks/
     │   └── repositories.json <- GitHub title, topic and description snapshot
     ├── vectors/
     │   └── verification-vector.json <- Known-answer certificate fixture
-    └── verify/
-        └── run-tests.mjs    <- Browser-verifier parity suite
+    ├── verify/
+    │   └── run-tests.mjs    <- Browser-verifier parity suite
+    └── atlas/
+        └── run-tests.mjs    <- Live GitHub atlas parity suite
 ```
 
 

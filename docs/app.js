@@ -97,12 +97,41 @@
   window.addEventListener("scroll", onScroll, { passive: true });
 
   var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
-  var projects = Array.prototype.slice.call(document.querySelectorAll(".project"));
   var status = document.querySelector(".filter-status");
+
+  function projects() {
+    return Array.prototype.slice.call(document.querySelectorAll(".project"));
+  }
+
+  function updateProjectCounts(detail) {
+    var cards = projects();
+    var total = detail && typeof detail.total === "number" ? detail.total : cards.length;
+    var domCounts = {};
+    cards.forEach(function (card) {
+      var category = card.dataset.cat;
+      domCounts[category] = (domCounts[category] || 0) + 1;
+    });
+    document.querySelectorAll("[data-project-count]").forEach(function (element) {
+      element.textContent = String(total);
+    });
+    chips.forEach(function (chip) {
+      var value = chip.dataset.filter || "all";
+      var badge = chip.querySelector("span");
+      if (!badge) return;
+      if (value === "all") {
+        badge.textContent = String(total);
+      } else {
+        var count = detail && detail.counts && typeof detail.counts[value] === "number"
+          ? detail.counts[value]
+          : (domCounts[value] || 0);
+        badge.textContent = String(count);
+      }
+    });
+  }
 
   function applyFilter(value) {
     var shown = 0;
-    projects.forEach(function (card) {
+    projects().forEach(function (card) {
       var match = value === "all" || card.dataset.cat === value;
       card.classList.toggle("is-hidden", !match);
       if (match) {
@@ -122,11 +151,31 @@
     }
   }
 
+  window.addEventListener("atlas:changed", function (event) {
+    updateProjectCounts(event.detail);
+    var active = document.querySelector(".chip.is-active");
+    var value = active ? active.dataset.filter : "all";
+    if (value === "all") {
+      if (status) {
+        status.textContent = "Showing all " + projects().length + " public projects.";
+      }
+      return;
+    }
+    applyFilter(value);
+  });
+
   chips.forEach(function (chip) {
     chip.addEventListener("click", function () {
       applyFilter(chip.dataset.filter || "all");
     });
   });
+
+  // The atlas module may finish before this script wires its listener, so take the DOM as the
+  // initial truth. This never calls applyFilter("all"), which would reveal every card at once.
+  updateProjectCounts();
+  if (status) {
+    status.textContent = "Showing all " + projects().length + " public projects.";
+  }
 
   root.classList.remove("script-failed");
   root.classList.add("js");

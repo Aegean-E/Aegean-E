@@ -31,3 +31,5 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Run the browser-verifier parity suite
         run: node tests/verify/run-tests.mjs
+      - name: Run the live-atlas parity suite
+        run: node tests/atlas/run-tests.mjs

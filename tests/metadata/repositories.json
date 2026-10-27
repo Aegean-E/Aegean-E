@@ -19,6 +19,7 @@
   },
   "repositories": [
     {
+      "id": 1433083402,
       "name": "Aegean-Licensing",
       "description": "The Aegean License family (AL, AGL and ASL 1.1) and the Aegean Commercial License: canonical texts, policies, commercial templates and certificate verification tooling for AegeanWorks projects.",
       "topics": [
@@ -38,6 +39,7 @@
       ]
     },
     {
+      "id": 1421168214,
       "name": "AIKit",
       "description": "Crash-resilient governance and delivery gates for AI coding agents: versioned task ledger, commit-level verification, secret scanning and per-project gates. Free for personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -57,6 +59,7 @@
       ]
     },
     {
+      "id": 1429321239,
       "name": "Aldervale",
       "description": "A 2.5D medieval RPG drawn in tiny ASCII cells: low-poly 3D models baked into shaded sprites, voxel terrain, fog, day and night, water, quests, combat, loot, shops and saves. Python standard library only: no dependencies, no assets, no build step. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -82,6 +85,7 @@
       ]
     },
     {
+      "id": 1431459470,
       "name": "Assay",
       "description": "Tamper-evident audit evidence for AI agents: a local-first hash-chained ledger, policy review, and offline-verifiable evidence packs. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -99,6 +103,7 @@
       ]
     },
     {
+      "id": 1423597808,
       "name": "Chronos",
       "description": "A lightweight, local-first focus and session orchestrator for developers: track deep-work sessions, micro-milestones and interruptions, and get productivity insights. Python standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -118,6 +123,7 @@
       ]
     },
     {
+      "id": 1432398612,
       "name": "Crypt-Crawler",
       "description": "A tactical turn-based dungeon crawler for the browser: procedural levels, inventory, combat and headless browser inspection. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -136,6 +142,7 @@
       ]
     },
     {
+      "id": 1423620204,
       "name": "Cyberpulse",
       "description": "A retro-cyberpunk terminal hacking game built on behavioral psychology: procedural puzzle nodes, ICE defenses, push-your-luck extraction, persistent progression and a five-act campaign. Python standard library only. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -153,6 +160,7 @@
       ]
     },
     {
+      "id": 1433650287,
       "name": "Fluid-Universe",
       "description": "Falsification-first research codebase testing a Z3 circulant origin of the Koide lepton relation, with a separately labelled nematic-fluid UV speculation. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -168,6 +176,7 @@
       ]
     },
     {
+      "id": 1431322124,
       "name": "Fold",
       "description": "A 4x4 tile-merge puzzle you run on your own machine: one Python process, a browser page, no dependencies, no account and no network calls. Slide, merge and chase 2048; the server owns the rules and the browser only renders. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -186,6 +195,7 @@
       ]
     },
     {
+      "id": 1431982682,
       "name": "Gauge",
       "description": "A zero-dependency terminal ruler for numeric series: read numbers from arguments, a file or a pipe and draw a sparkline, signed bars, a histogram, a box plot or a statistics block. stats --json feeds other tools. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -203,6 +213,7 @@
       ]
     },
     {
+      "id": 1427452835,
       "name": "Lacon",
       "description": "An AI that thinks in as few letters as possible, recursively over a long context: its own alphabet, budget, thinker and recursive engine. No network, no API key, no model weights; the core is standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -219,6 +230,7 @@
       ]
     },
     {
+      "id": 1428994367,
       "name": "Lattice",
       "description": "A provenance-first research knowledge graph for humans and AI agents. Local-first, SQLite-backed and standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -236,6 +248,7 @@
       ]
     },
     {
+      "id": 1427158446,
       "name": "MemoryReconstruction",
       "description": "A top-down action roguelike about rebuilding a shattered world from lost memories: expeditions from the Sanctuary through sixteen procedurally generated sections, built with TypeScript and PixiJS. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -254,6 +267,7 @@
       ]
     },
     {
+      "id": 1428990967,
       "name": "Mnemo",
       "description": "A dependency-free, local-first spaced-repetition flashcard CLI: study each card on the day the SM-2 algorithm says it is due, and keep everything in one readable JSON file on your machine. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -272,6 +286,7 @@
       ]
     },
     {
+      "id": 1433666867,
       "name": "Muse",
       "description": "Prompt-driven AI music creation with an automated listener that scores how well each track fits its theme, available as a CLI and a Python library. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -285,6 +300,7 @@
       ]
     },
     {
+      "id": 1159263193,
       "name": "N1-Engine",
       "description": "A local-first, privacy-focused platform for rigorous N-of-1 self-experimentation: apply scientific statistics to your own life data, on your own machine. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -303,6 +319,7 @@
       ]
     },
     {
+      "id": 688693231,
       "name": "NeuralBeat",
       "description": "A local-first neuro-acoustic desktop app that generates mathematically accurate binaural, monaural and isochronic tones for focus, meditation, relaxation and sleep. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -328,6 +345,7 @@
       ]
     },
     {
+      "id": 1152419749,
       "name": "NeuralDeck",
       "description": "An offline desktop app that turns PDFs, Word files and other documents into high-quality Anki flashcards with a local LLM, with smart deck matching, AI editing and direct Anki sync. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -351,6 +369,7 @@
       ]
     },
     {
+      "id": 1161451399,
       "name": "NeuroCore",
       "description": "A self-hosted, modular AI agent framework for persistent, tool-using autonomous systems: workflows, long-term memory, RAG and a plugin architecture in one platform. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -375,6 +394,7 @@
       ]
     },
     {
+      "id": 1168345495,
       "name": "NeurologyClinicTemplates-TR",
       "description": "Standardized Turkish anamnesis (patient history) templates for common neurology complaints, helping neurologists, residents and medical students document assessments completely and systematically. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -392,6 +412,7 @@
       ]
     },
     {
+      "id": 1164577390,
       "name": "NeuroOptic",
       "description": "A research-grade visual oscillator for brainwave entrainment: configurable 1-120 Hz frequencies, hardware-aware safety limits and drift-free phase accumulation. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -408,6 +429,7 @@
       ]
     },
     {
+      "id": 1164096075,
       "name": "NobetWizard",
       "description": "An automated duty roster generator built with Streamlit: fair monthly schedules under constraints such as gender, rest days and availability, with Excel and PDF export, in English and Turkish. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -425,6 +447,7 @@
       ]
     },
     {
+      "id": 1168810433,
       "name": "NoMoreClutter",
       "description": "An AI desktop app that organizes your files with large language models: it analyzes, categorizes and renames them with descriptive names, and works with local LLMs. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -442,6 +465,7 @@
       ]
     },
     {
+      "id": 1430292646,
       "name": "Orrery",
       "description": "An N-body gravitational sandbox for the terminal or the browser: nine curated worlds, a symplectic integrator, optional relativity and collisions, live energy diagnostics, orbit trails and CSV/JSON export. Standard library only. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -460,6 +484,7 @@
       ]
     },
     {
+      "id": 1424866484,
       "name": "Pebble",
       "description": "A tiny, dependency-free scripting language: lexer, parser, tree-walking evaluator and REPL. Built as an AIKit evaluation project, where the process is under test as much as the code. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -476,6 +501,7 @@
       ]
     },
     {
+      "id": 1432482472,
       "name": "Photo-Harbor",
       "description": "A self-hosted photo server for Windows: an iPhone sends new photos over home Wi-Fi through Apple Shortcuts, with no app to install, verified-hash cleanup and a gallery. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -491,6 +517,7 @@
       ]
     },
     {
+      "id": 1430143833,
       "name": "PNN",
       "description": "Oral, blood-brain barrier-penetrant agents that soften hypothalamic perineuronal nets to restore insulin signaling in obesity: research notes, data and computational analyses. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -509,6 +536,7 @@
       ]
     },
     {
+      "id": 1424769731,
       "name": "Primordia",
       "description": "A zero-dependency evolution sandbox: seed a biosphere, run its clock, and watch genomes vary, compete and speciate. Every run replays exactly from its seed, and a fossil record keeps its history. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -526,6 +554,7 @@
       ]
     },
     {
+      "id": 1432491414,
       "name": "Prism-Relay",
       "description": "A neon light-routing puzzle game: rotate mirrors and splitters, fold beams through portals, and charge every receiver across three episodes. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -540,6 +569,7 @@
       ]
     },
     {
+      "id": 1425198123,
       "name": "Tally",
       "description": "A dependency-free, local-first expense ledger for the terminal: record what you spend, list it and see where the money went, all in one readable JSON file on your machine. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -557,6 +587,7 @@
       ]
     },
     {
+      "id": 1430093692,
       "name": "Tempo",
       "description": "A focus timer you run on your own machine: one Python process, a browser page, no dependencies, no account and no network calls. Focus and break phases alternate, and every fourth break is a long one. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -573,6 +604,7 @@
       ]
     },
     {
+      "id": 1430194509,
       "name": "UI-Sandbox",
       "description": "A small React + Vite surface for exercising AIKit's bounded UI guard: one screen, token-driven theming, and a labelled control for every interaction. Free personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
@@ -588,6 +620,7 @@
       ]
     },
     {
+      "id": 1424192871,
       "name": "Voidfarer",
       "description": "A zero-dependency space flight and exploration simulator with an autonomous deep-space fleet, a procedural galaxy and a Windows cockpit: route reactor power, board derelicts, scoop fuel, command drones, fight and trade. Free personal play under AGL-1.1; commercial use under ACL-1.0.",
       "topics": [
