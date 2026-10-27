@@ -400,7 +400,11 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn(".verify-form,.verify-register{display:none!important}", page)
         self.assertIn('<div class="verify-card verify-noscript">', page)
         self.assertIn("The public Python verifier below performs", page)
-        self.assertIn('id="verify-submit"', page)
+        self.assertIn('id="verify-submit" disabled', page)
+        script = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        self.assertIn("submitButton.disabled = true", script)
+        self.assertIn("submitButton.disabled = false", script)
+        self.assertIn("refreshButton.disabled = false", script)
 
     def test_verifier_caps_fetches_before_reading(self):
         ui = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")

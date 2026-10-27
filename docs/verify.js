@@ -70,6 +70,7 @@ const resultRegister = document.getElementById("result-register");
 const registerCount = document.getElementById("register-count");
 const registerMeta = document.getElementById("register-meta");
 const refreshButton = document.getElementById("refresh-register");
+const submitButton = document.getElementById("verify-submit");
 const clearButton = document.getElementById("clear-button");
 
 function setRuntime(message) {
@@ -199,6 +200,8 @@ async function loadRegistries() {
   if (state.loading) return;
   state.loading = true;
   window.__aegeanVerifierReady = true;
+  if (submitButton) submitButton.disabled = true;
+  if (refreshButton) refreshButton.disabled = true;
   clearError();
   setRuntime("Loading the public register…");
   const outcomes = await Promise.allSettled([
@@ -231,7 +234,9 @@ async function loadRegistries() {
   state.fetchedAt = new Date();
   updateRegisterStatus();
   state.loading = false;
+  if (refreshButton) refreshButton.disabled = false;
   if (state.register && state.terms) {
+    if (submitButton) submitButton.disabled = false;
     setRuntime("Register ready. Paste a certificate or choose a file.");
   } else {
     setRuntime("Verification is unavailable until the canonical registry loads.");
