@@ -1,55 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-audit",
+    "task_id": "site-audit-polish",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793143188.749067,
+    "updated_at": 1793144755.2301433,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793143188.9795177
+    "completed_at": 1793144755.4355533
   },
   "checkpoints": [
-    {
-      "task_id": "site-v16",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v16' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793115932.8876712,
-      "timestamp_str": "2026-10-27 18:45:32",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v17",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/6] Build searchable atlas metadata, local project pages, verifier conveniences, trust pages, an offline shell, and structured data on top of the live GitHub sync",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793117535.839777,
-      "timestamp_str": "2026-10-27 19:12:15",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The atlas now fetches live GitHub data but only exposes five curated filters; repository cards omit language, license and freshness; every card leaves the site immediately; the verifier lacks ID lookup, drag-and-drop and export; there are no security, privacy or accessibility pages; the manifest has no service worker; and the 404 page and structured data are thin.",
-        "benefits": "Visitors can search and deep-link projects by text, topic, discipline and recency, open a local project summary with license and README context, verify a certificate from an ID, drop a file, and export the result, read the trust pages, install an offline-capable shell, and reach projects from the 404 page.",
-        "risks": "contract: adds project.html, security/privacy/accessibility pages, security.txt, atlas-snapshot.json and sw.js, no existing URL changes; dependency: no package, browser APIs only; concurrency: one service-worker cache version and one in-flight atlas fetch; state: URL query parameters, session cache and Cache Storage, no credentials; security: untrusted GitHub text stays text, README excerpts are plain text, the service worker caches only GET shell/API responses, and CSP hashes must be regenerated for every inline block",
-        "mitigation": "Split into six milestones, pin each with Python and Node tests, mock the GitHub API in Playwright, regenerate CSP hashes, run axe on every new page, and verify the deployed pages against the real API."
-      }
-    },
-    {
-      "task_id": "site-v17",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/6] Atlas search, sort, topic chips, keyboard shortcut and URL state (q/topic/cat/sort); cards carry language, license and recency; connect-src now allows the GitHub API so the live atlas works under CSP; 78 Python tests and 52 atlas assertions pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793128988.025628,
-      "timestamp_str": "2026-10-27 22:23:08",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "site-v17",
       "phase": "phase 4",
@@ -249,6 +211,44 @@
       "status": "completed",
       "timestamp": 1793143188.9795191,
       "timestamp_str": "2026-10-28 02:19:48",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-audit-polish",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Close residual narrow-screen gaps: wrap README code blocks below 640px instead of clipping them, enlarge gallery metadata, remove the empty offline footer block and make the 404 link row wrap without literal separators",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793144690.3312774,
+      "timestamp_str": "2026-10-28 02:44:50",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "The 390px review still found clipped directory trees, tiny capture metadata, an empty bordered footer block and a dangling separator",
+        "benefits": "Dossiers are readable at phone width; offline and 404 pages look intentional",
+        "risks": "contract: narrow-width code rendering changes; dependency: none; concurrency: none; state: none",
+        "mitigation": "Python tests pin the wrap rule, the slim footer and the separator removal; screenshots and axe re-run at 390px and 1440px"
+      }
+    },
+    {
+      "task_id": "site-audit-polish",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] ADR-030 records the wrap, gallery, offline-footer and 404-link fixes; 81 Python tests, 65 atlas, 57 project and 58 verifier assertions pass; axe-core 0 violations on eight pages at 1440px and 480px; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793144755.2301433,
+      "timestamp_str": "2026-10-28 02:45:55",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-audit-polish",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-audit-polish' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793144755.4355545,
+      "timestamp_str": "2026-10-28 02:45:55",
       "agent": "kilo:main"
     }
   ]

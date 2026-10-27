@@ -1206,6 +1206,14 @@ h1 .grad {
   color: var(--dim);
 }
 .footer-bottom p { margin: 0; }
+.footer-slim { padding-top: 34px; }
+.footer-slim .footer-bottom { margin-top: 0; border-top: 0; }
+.error-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+}
 
 /* ---------- Reveal ---------- */
 
@@ -1365,6 +1373,14 @@ h1 .grad {
   .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .footer-brand { grid-column: span 1; }
   .footer-bottom { margin-top: 34px; }
+}
+
+@media (max-width: 640px) {
+  .readme-content pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 0.72rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1540,7 +1556,7 @@ h1 .grad {
 .gallery-meta {
   color: var(--dim);
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.68rem;
   letter-spacing: 0.03em;
 }
 .gallery-meta a {
@@ -1590,7 +1606,11 @@ pre:focus-visible {
 .readme-content pre {
   margin: 0 0 16px;
   padding: 14px 16px;
+  max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: #05080f;
