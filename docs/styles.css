@@ -1197,3 +1197,18 @@ h1 .grad {
   .reveal,
   .js .reveal { opacity: 1; transform: none; }
 }
+
+@media print {
+  html,
+  body { background: #04060c; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .reveal,
+  .js .reveal { opacity: 1; transform: none; transition: none !important; }
+  .site-header,
+  .page-grid,
+  .hero-aurora,
+  .nav-toggle,
+  .filters,
+  .skip { display: none !important; }
+  a { text-decoration: underline; }
+}

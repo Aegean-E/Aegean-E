@@ -114,3 +114,10 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Context**: Search engines had Open Graph and Twitter metadata but no machine-readable description of the studio, its canonical URL, social profiles or publisher relationship. The filter chips changed the visible project grid without telling assistive technology which region they control, and the "Read the license" button led only to AL-1.1 while its card covers three licenses.
 - **Decision**: Publish an `Organization` and `WebSite` JSON-LD graph with absolute URLs, the GitHub and X profiles, and the contact address; add `aria-controls="project-grid"` to every chip; and point the personal-tier button at the license catalog as "Compare the licenses". Tests parse the JSON-LD, check every chip, and check the canonical tier links.
 - **Consequences**: Crawlers can identify the studio and its publisher relationship without guessing from HTML, the filter buttons announce their target region, and the button under a three-license card leads to the comparison instead of a single text.
+
+### ADR-017: Reveal content and preserve contrast in print
+- **Date**: 2026-10-27
+- **Status**: Accepted
+- **Context**: Every `.reveal` element starts at `opacity: 0` and only becomes visible after `IntersectionObserver` fires. A printed page or PDF built before or without those observations can therefore omit sections. The dark palette also prints poorly when a browser drops background colours: light text lands on white paper. A print-media check found 48 unrevealed blocks before the print rules settled.
+- **Decision**: Add an `@media print` block that forces `.reveal` visible with no transition, sets `print-color-adjust: exact` so the dark palette and contrast survive, and removes the sticky header, filters, decorative grid, aurora, toggle and skip link. A regression test pins the rules and a PDF render verifies zero hidden blocks.
+- **Consequences**: Printing or exporting to PDF keeps every section and the intended contrast without the interactive chrome; screen rendering is unchanged.

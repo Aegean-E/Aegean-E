@@ -398,6 +398,16 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn(".orbit .node text { font-size: 14px; }", css)
         self.assertIn("max-height: calc(100vh - 72px);", css)
 
+    def test_print_media_reveals_every_section(self):
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("@media print {", css)
+        block = css.split("@media print {", 1)[1]
+        self.assertIn(".reveal,", block)
+        self.assertIn("opacity: 1; transform: none; transition: none !important;", block)
+        self.assertIn("print-color-adjust: exact", block)
+        self.assertIn(".site-header,", block)
+        self.assertIn(".filters,", block)
+
     def test_mobile_menu_is_opaque_and_single_github_entry(self):
         html = read_site()
         primary = re.search(r'<nav class="site-nav".*?</nav>', html, re.S).group(0)
