@@ -3,31 +3,15 @@
   "active_task": {
     "task_id": "site-v15",
     "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
+    "active_phase": 5,
+    "status": "completed",
     "updated_at": 1793115143.379789,
     "owner": "kilo:main",
     "started_by": "kilo:main",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1793115259.2064579
   },
   "checkpoints": [
-    {
-      "task_id": "site-v9",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Follow-up audit: structured data, filter labelling, accurate license CTA and menu link closing",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793033188.4540083,
-      "timestamp_str": "2026-10-26 19:46:28",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The post-push review found that the brand link left the mobile menu open, the three-license card linked only AL-1.1, filter chips did not name the grid they control, and the page lacked machine-readable organization data.",
-        "benefits": "Every header link closes the menu, the licensing CTA matches the card, filters announce their target, and crawlers can identify the studio, its profiles and publisher relationship.",
-        "risks": "contract: no URL or path changes; dependency: none; concurrency: header and nav listeners both call setNav(false), which is idempotent; state: no schema changes; policy: JSON-LD identifiers are not loaded resources, documented with a hygiene marker.",
-        "mitigation": "Regression tests cover the header-close wiring, JSON-LD parsing, chip controls and README atlas completeness; verify with Playwright and axe at desktop and mobile widths."
-      }
-    },
     {
       "task_id": "site-v9",
       "phase": "phase 4",
@@ -290,6 +274,16 @@
         "next": "commit, close and push, then verify the deployed page against the real GitHub API",
         "evidence": "mocked add/rename/remove/topic/description sync, count and filter updates, XSS text handling, offline and rate-limit fallbacks, cached reload, and no console or CSP errors"
       }
+    },
+    {
+      "task_id": "site-v15",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'site-v15' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793115259.206459,
+      "timestamp_str": "2026-10-27 18:34:19",
+      "agent": "kilo:main"
     }
   ]
 }
