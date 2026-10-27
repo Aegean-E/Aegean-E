@@ -1,0 +1,33 @@
+{
+  "note": "Conformance fixture only. This is not an issued certificate and must not be read as a license.",
+  "certificate": {
+    "cert_id": "conformance-vector-0001",
+    "licensee_name": "Ada Yılmaz",
+    "licensee_contact": "legal@example.invalid",
+    "issuer": "AegeanWorks",
+    "issuer_contact": "aegean-licensing@proton.me",
+    "license_type": "ACL-1.0",
+    "projects": [
+      "Chronos",
+      "Aegean-Licensing"
+    ],
+    "scope": "internal-use",
+    "issued_at": "2026-10-27",
+    "expires_at": null,
+    "is_perpetual": true,
+    "notes": "Line one\nLine two \"quoted\" — ünïcode",
+    "digest": "855969a9506d23f8f5e0553a63f61f277329018bfc7c8d7fb1c40fba6eda52ff",
+    "signature": "",
+    "tier": "Tier2",
+    "terms_digest": "",
+    "licensee_address": "Example Street 1",
+    "licensee_registration": "TEST-0001",
+    "licensee_country": "Türkiye",
+    "allowances": [
+      "hosted-service"
+    ],
+    "format": 2,
+    "serial": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "expected_digest": "855969a9506d23f8f5e0553a63f61f277329018bfc7c8d7fb1c40fba6eda52ff"
+}

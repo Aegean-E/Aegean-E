@@ -9,6 +9,14 @@
   "start_url": "/AegeanWorks/",
   "scope": "/AegeanWorks/",
   "display": "standalone",
+  "shortcuts": [
+    {
+      "name": "Verify a license",
+      "short_name": "Verify",
+      "url": "/AegeanWorks/verify.html",
+      "description": "Check a certificate against the public register."
+    }
+  ],
   "background_color": "#04060c",
   "theme_color": "#04060c",
   "icons": [

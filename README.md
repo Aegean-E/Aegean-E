@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="AegeanWorks — local-first AI, cognitive systems and computational research" width="100%">
+  <img src="assets/banner.svg" alt="AegeanWorks — local-first AI systems, cognitive tooling and computational research" width="100%">
 </p>
 
 <p align="center">
   <a href="https://aegeanworks.github.io/AegeanWorks/"><img src="https://img.shields.io/badge/website-live-22D3EE?style=flat-square&labelColor=0B1220" alt="Website"></a>
   <a href="https://github.com/AegeanWorks/AIKit"><img src="https://img.shields.io/badge/AIKit-integrated-6F42C1?style=flat-square&labelColor=0B1220" alt="AIKit integrated"></a>
-  <a href="COMMERCIAL.md"><img src="https://img.shields.io/badge/licensing-AL--1.1%20%2B%20ACL--1.0-22D3EE?style=flat-square&labelColor=0B1220" alt="Licensing"></a>
+  <a href="COMMERCIAL.md"><img src="https://img.shields.io/badge/licensing-Aegean%201.1%20%2B%20ACL--1.0-22D3EE?style=flat-square&labelColor=0B1220" alt="Licensing"></a>
   <a href="https://github.com/AegeanWorks?tab=repositories"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Fusers%2FAegeanWorks&query=public_repos&label=public%20repos&color=8B5CF6&style=flat-square&labelColor=0B1220" alt="Public repositories"></a>
 </p>
 
@@ -15,7 +15,7 @@
 
 ## What we build
 
-AegeanWorks is an independent software studio working on **local-first AI systems**, **cognitive architecture**, and **computational research**. The work favors small composable parts, inspectable state, and software that still works when the network does not.
+AegeanWorks is an independent studio building **local-first AI systems**, **cognitive tooling**, and **computational research**. The work favors small composable parts, inspectable state, and software that still works when the network does not.
 
 | Area | What it means in practice |
 |---|---|
@@ -35,7 +35,7 @@ A self-hosted, modular agent framework for persistent, tool-using autonomous sys
 Crash-resilient governance and delivery gates for AI coding agents: versioned task ledger, commit-level verification, secret scanning, and per-project gates.
 
 ### [N1-Engine](https://github.com/AegeanWorks/N1-Engine)
-A local-first platform for rigorous personal N=1 experimentation — protocol logging, metabolic tracking, and hormonal optimization models.
+A local-first, privacy-focused platform for rigorous N-of-1 self-experimentation: apply scientific statistics to your own life data, on your own machine.
 
 ### [NeuralBeat](https://github.com/AegeanWorks/NeuralBeat)
 A mathematically precise neuro-acoustic desktop app for binaural, monaural, and isochronic tones, with hardware-aware safety limits.
@@ -51,12 +51,12 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
-| [NeuroCore](https://github.com/AegeanWorks/NeuroCore) | Modular agent framework with workflows, memory, RAG, and plugins. |
-| [AIKit](https://github.com/AegeanWorks/AIKit) | Governance, delivery gates, and recovery for AI coding agents. |
-| [lacon](https://github.com/AegeanWorks/lacon) | An AI that thinks in as few letters as possible, recursively. |
-| [lattice](https://github.com/AegeanWorks/lattice) | Provenance-first knowledge graph for humans and agents. |
-| [assay](https://github.com/AegeanWorks/assay) | Tamper-evident audit evidence with hash-chained ledgers. |
-| [aegean-licensing](https://github.com/AegeanWorks/aegean-licensing) | Dual-licensing framework and certificate verification tooling. |
+| [NeuroCore](https://github.com/AegeanWorks/NeuroCore) | A self-hosted, modular AI agent framework for persistent, tool-using autonomous systems: workflows, long-term memory, RAG and a plugin architecture in one platform. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [AIKit](https://github.com/AegeanWorks/AIKit) | Crash-resilient governance and delivery gates for AI coding agents: versioned task ledger, commit-level verification, secret scanning and per-project gates. Free for personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Lacon](https://github.com/AegeanWorks/Lacon) | An AI that thinks in as few letters as possible, recursively over a long context: its own alphabet, budget, thinker and recursive engine. No network, no API key, no model weights; the core is standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Lattice](https://github.com/AegeanWorks/Lattice) | A provenance-first research knowledge graph for humans and AI agents. Local-first, SQLite-backed and standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Assay](https://github.com/AegeanWorks/Assay) | Tamper-evident audit evidence for AI agents: a local-first hash-chained ledger, policy review, and offline-verifiable evidence packs. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Aegean-Licensing](https://github.com/AegeanWorks/Aegean-Licensing) | The Aegean License family (AL, AGL and ASL 1.1) and the Aegean Commercial License: canonical texts, policies, commercial templates and certificate verification tooling for AegeanWorks projects. |
 
 </details>
 
@@ -65,12 +65,12 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
-| [N1-Engine](https://github.com/AegeanWorks/N1-Engine) | Local-first, privacy-focused N=1 experimentation platform. |
-| [fluid-universe](https://github.com/AegeanWorks/fluid-universe) | Falsification-first code testing a Z3 origin of the Koide relation. |
-| [PNN](https://github.com/AegeanWorks/PNN) | Perineuronal-net softening and insulin signaling in obesity. |
-| [primordia](https://github.com/AegeanWorks/primordia) | Zero-dependency evolution sandbox with exact seed replay. |
-| [orrery](https://github.com/AegeanWorks/orrery) | Terminal N-body gravitational sandbox with live diagnostics. |
-| [NeurologyClinicTemplates-TR](https://github.com/AegeanWorks/NeurologyClinicTemplates-TR) | Standardized Turkish neurology anamnesis templates. |
+| [N1-Engine](https://github.com/AegeanWorks/N1-Engine) | A local-first, privacy-focused platform for rigorous N-of-1 self-experimentation: apply scientific statistics to your own life data, on your own machine. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Fluid-Universe](https://github.com/AegeanWorks/Fluid-Universe) | Falsification-first research codebase testing a Z3 circulant origin of the Koide lepton relation, with a separately labelled nematic-fluid UV speculation. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0. |
+| [PNN](https://github.com/AegeanWorks/PNN) | Oral, blood-brain barrier-penetrant agents that soften hypothalamic perineuronal nets to restore insulin signaling in obesity: research notes, data and computational analyses. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0. |
+| [Primordia](https://github.com/AegeanWorks/Primordia) | A zero-dependency evolution sandbox: seed a biosphere, run its clock, and watch genomes vary, compete and speciate. Every run replays exactly from its seed, and a fossil record keeps its history. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Orrery](https://github.com/AegeanWorks/Orrery) | An N-body gravitational sandbox for the terminal or the browser: nine curated worlds, a symplectic integrator, optional relativity and collisions, live energy diagnostics, orbit trails and CSV/JSON export. Standard library only. Free non-commercial research under ASL-1.1; commercial use under ACL-1.0. |
+| [NeurologyClinicTemplates-TR](https://github.com/AegeanWorks/NeurologyClinicTemplates-TR) | Standardized Turkish anamnesis (patient history) templates for common neurology complaints, helping neurologists, residents and medical students document assessments completely and systematically. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 
 </details>
 
@@ -79,12 +79,12 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
-| [NeuralBeat](https://github.com/AegeanWorks/NeuralBeat) | Binaural, monaural, and isochronic tone generator. |
-| [NeuroOptic](https://github.com/AegeanWorks/NeuroOptic) | Research-grade visual oscillator for brainwave entrainment. |
-| [NeuralDeck](https://github.com/AegeanWorks/NeuralDeck) | Offline document-to-flashcard desktop app powered by local AI. |
-| [NobetWizard](https://github.com/AegeanWorks/NobetWizard) | Fair, exportable duty-roster optimizer built with Streamlit. |
-| [mnemo](https://github.com/AegeanWorks/mnemo) | Dependency-free spaced-repetition flashcard CLI. |
-| [NoMoreClutter](https://github.com/AegeanWorks/NoMoreClutter) | AI-powered desktop file organizer. |
+| [NeuralBeat](https://github.com/AegeanWorks/NeuralBeat) | A local-first neuro-acoustic desktop app that generates mathematically accurate binaural, monaural and isochronic tones for focus, meditation, relaxation and sleep. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [NeuroOptic](https://github.com/AegeanWorks/NeuroOptic) | A research-grade visual oscillator for brainwave entrainment: configurable 1-120 Hz frequencies, hardware-aware safety limits and drift-free phase accumulation. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [NeuralDeck](https://github.com/AegeanWorks/NeuralDeck) | An offline desktop app that turns PDFs, Word files and other documents into high-quality Anki flashcards with a local LLM, with smart deck matching, AI editing and direct Anki sync. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [NobetWizard](https://github.com/AegeanWorks/NobetWizard) | An automated duty roster generator built with Streamlit: fair monthly schedules under constraints such as gender, rest days and availability, with Excel and PDF export, in English and Turkish. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Mnemo](https://github.com/AegeanWorks/Mnemo) | A dependency-free, local-first spaced-repetition flashcard CLI: study each card on the day the SM-2 algorithm says it is due, and keep everything in one readable JSON file on your machine. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [NoMoreClutter](https://github.com/AegeanWorks/NoMoreClutter) | An AI desktop app that organizes your files with large language models: it analyzes, categorizes and renames them with descriptive names, and works with local LLMs. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 
 </details>
 
@@ -93,14 +93,14 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
-| [chronos](https://github.com/AegeanWorks/chronos) | Local-first focus and session orchestrator. |
-| [gauge](https://github.com/AegeanWorks/gauge) | Zero-dependency terminal ruler for numeric series. |
-| [tally](https://github.com/AegeanWorks/tally) | Dependency-free expense ledger for the terminal. |
-| [tempo](https://github.com/AegeanWorks/tempo) | Local focus timer with no account and no network calls. |
-| [pebble](https://github.com/AegeanWorks/pebble) | Tiny dependency-free scripting language, built as an AIKit evaluation. |
-| [photo-harbor](https://github.com/AegeanWorks/photo-harbor) | Self-hosted Windows photo server for iPhone Shortcuts. |
-| [muse](https://github.com/AegeanWorks/muse) | Prompt-driven AI music creation with automated listening scores. |
-| [ui-sandbox](https://github.com/AegeanWorks/ui-sandbox) | Small React + Vite surface for exercising AIKit's UI guard. |
+| [Chronos](https://github.com/AegeanWorks/Chronos) | A lightweight, local-first focus and session orchestrator for developers: track deep-work sessions, micro-milestones and interruptions, and get productivity insights. Python standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Gauge](https://github.com/AegeanWorks/Gauge) | A zero-dependency terminal ruler for numeric series: read numbers from arguments, a file or a pipe and draw a sparkline, signed bars, a histogram, a box plot or a statistics block. stats --json feeds other tools. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Tally](https://github.com/AegeanWorks/Tally) | A dependency-free, local-first expense ledger for the terminal: record what you spend, list it and see where the money went, all in one readable JSON file on your machine. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Tempo](https://github.com/AegeanWorks/Tempo) | A focus timer you run on your own machine: one Python process, a browser page, no dependencies, no account and no network calls. Focus and break phases alternate, and every fourth break is a long one. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Pebble](https://github.com/AegeanWorks/Pebble) | A tiny, dependency-free scripting language: lexer, parser, tree-walking evaluator and REPL. Built as an AIKit evaluation project, where the process is under test as much as the code. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Photo-Harbor](https://github.com/AegeanWorks/Photo-Harbor) | A self-hosted photo server for Windows: an iPhone sends new photos over home Wi-Fi through Apple Shortcuts, with no app to install, verified-hash cleanup and a gallery. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [Muse](https://github.com/AegeanWorks/Muse) | Prompt-driven AI music creation with an automated listener that scores how well each track fits its theme, available as a CLI and a Python library. Free personal use under AL-1.1; commercial use under ACL-1.0. |
+| [UI-Sandbox](https://github.com/AegeanWorks/UI-Sandbox) | A small React + Vite surface for exercising AIKit's bounded UI guard: one screen, token-driven theming, and a labelled control for every interaction. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 
 </details>
 
@@ -109,13 +109,13 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
-| [aldervale](https://github.com/AegeanWorks/aldervale) | 2.5D medieval RPG rendered in tiny ASCII cells. |
-| [MemoryReconstruction](https://github.com/AegeanWorks/MemoryReconstruction) | Action-roguelike metroidvania about rebuilding a lost world. |
-| [crypt-crawler](https://github.com/AegeanWorks/crypt-crawler) | Tactical turn-based web dungeon crawler. |
-| [cyberpulse](https://github.com/AegeanWorks/cyberpulse) | Retro-cyberpunk terminal hacking simulation. |
-| [fold](https://github.com/AegeanWorks/fold) | Local 4x4 tile-merge game with no dependencies or accounts. |
-| [prism-relay](https://github.com/AegeanWorks/prism-relay) | Neon light-routing puzzle with mirrors, prisms, and receivers. |
-| [voidfarer](https://github.com/AegeanWorks/voidfarer) | Autonomous deep-space fleet and procedural galaxy simulator. |
+| [Aldervale](https://github.com/AegeanWorks/Aldervale) | A 2.5D medieval RPG drawn in tiny ASCII cells: low-poly 3D models baked into shaded sprites, voxel terrain, fog, day and night, water, quests, combat, loot, shops and saves. Python standard library only: no dependencies, no assets, no build step. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
+| [MemoryReconstruction](https://github.com/AegeanWorks/MemoryReconstruction) | A top-down action roguelike about rebuilding a shattered world from lost memories: expeditions from the Sanctuary through sixteen procedurally generated sections, built with TypeScript and PixiJS. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
+| [Crypt-Crawler](https://github.com/AegeanWorks/Crypt-Crawler) | A tactical turn-based dungeon crawler for the browser: procedural levels, inventory, combat and headless browser inspection. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
+| [Cyberpulse](https://github.com/AegeanWorks/Cyberpulse) | A retro-cyberpunk terminal hacking game built on behavioral psychology: procedural puzzle nodes, ICE defenses, push-your-luck extraction, persistent progression and a five-act campaign. Python standard library only. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
+| [Fold](https://github.com/AegeanWorks/Fold) | A 4x4 tile-merge puzzle you run on your own machine: one Python process, a browser page, no dependencies, no account and no network calls. Slide, merge and chase 2048; the server owns the rules and the browser only renders. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
+| [Prism-Relay](https://github.com/AegeanWorks/Prism-Relay) | A neon light-routing puzzle game: rotate mirrors and splitters, fold beams through portals, and charge every receiver across three episodes. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
+| [Voidfarer](https://github.com/AegeanWorks/Voidfarer) | A zero-dependency space flight and exploration simulator with an autonomous deep-space fleet, a procedural galaxy and a Windows cockpit: route reactor power, board derelicts, scoop fuel, command drones, fight and trade. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
 
 </details>
 
@@ -155,7 +155,7 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 ## License
 
-AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/CATALOG.md).
+AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md). A commercial certificate can be checked against the public register at [aegeanworks.github.io/AegeanWorks/verify.html](https://aegeanworks.github.io/AegeanWorks/verify.html).
 
 ---
 
@@ -172,14 +172,19 @@ AegeanWorks publishes source-available and open-source projects. AL-1.1 for soft
 
 ## Cold-Start Quick Reference
 
-- **Runtime Prerequisites**: Git 2.30+ and Python 3.10+ (standard library only).
+- **Runtime Prerequisites**: Git 2.30+, Python 3.10+ (standard library only), and Node 20+ for the browser-verifier parity gate.
 
 **Canonical Regression Shield Gate**:
 ```bash
 python -m unittest discover -s tests
 ```
 
-The same suite runs in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`).
+**Browser-Verifier Parity Gate**:
+```bash
+node tests/verify/run-tests.mjs
+```
+
+Both suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suite pins the browser verifier to the same canonicalization vector as the Python verifier.
 
 ### What's Inside
 
@@ -192,6 +197,22 @@ AegeanWorks/
 ├── assets/
 │   └── banner.svg           <- Profile banner
 ├── docs/                    <- Static GitHub Pages site and its assets
+│   ├── .nojekyll            <- Serve files exactly as committed
+│   ├── 404.html             <- Branded not-found page
+│   ├── index.html           <- Studio profile and public project atlas
+│   ├── verify.html          <- Public certificate verifier (certificate stays local)
+│   ├── verify-core.js       <- Shared format-2 canonicalization and checks
+│   ├── verify.js            <- Browser UI and canonical register fetch
+│   ├── app.js               <- Navigation, filtering and reveal behaviour
+│   ├── styles.css           <- Zero-dependency design system
+│   ├── favicon.svg          <- Site mark
+│   ├── icon-192.png         <- Install icon
+│   ├── icon-512.png         <- Install icon
+│   ├── apple-touch-icon.png <- iOS home-screen icon
+│   ├── og.png               <- Social card
+│   ├── robots.txt           <- Crawler rules
+│   ├── sitemap.xml          <- Indexed pages
+│   └── site.webmanifest     <- Web app manifest
 ├── .github/
 │   ├── FUNDING.yml          <- Sponsorship configuration
 │   └── workflows/
@@ -203,7 +224,13 @@ AegeanWorks/
 │   ├── codebase_map.md      <- Generated AST symbol catalog
 │   └── task_ledger.json     <- Delivery ledger
 └── tests/
-    └── test_profile.py      <- Content and link integrity tests
+    ├── test_profile.py      <- Content, metadata and link integrity tests
+    ├── metadata/
+    │   └── repositories.json <- GitHub title, topic and description snapshot
+    ├── vectors/
+    │   └── verification-vector.json <- Known-answer certificate fixture
+    └── verify/
+        └── run-tests.mjs    <- Browser-verifier parity suite
 ```
 
 

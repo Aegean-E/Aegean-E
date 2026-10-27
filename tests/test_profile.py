@@ -3,27 +3,28 @@
 import json
 import re
 import unittest
+from html import escape as html_escape, unescape as html_unescape
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
 PUBLIC_REPOS = {
-    "aegean-licensing",
+    "Aegean-Licensing",
     "AIKit",
-    "aldervale",
-    "assay",
-    "chronos",
-    "crypt-crawler",
-    "cyberpulse",
-    "fluid-universe",
-    "fold",
-    "gauge",
-    "lacon",
-    "lattice",
+    "Aldervale",
+    "Assay",
+    "Chronos",
+    "Crypt-Crawler",
+    "Cyberpulse",
+    "Fluid-Universe",
+    "Fold",
+    "Gauge",
+    "Lacon",
+    "Lattice",
     "MemoryReconstruction",
-    "mnemo",
-    "muse",
+    "Mnemo",
+    "Muse",
     "N1-Engine",
     "NeuralBeat",
     "NeuralDeck",
@@ -32,16 +33,16 @@ PUBLIC_REPOS = {
     "NeuroOptic",
     "NobetWizard",
     "NoMoreClutter",
-    "orrery",
-    "pebble",
-    "photo-harbor",
+    "Orrery",
+    "Pebble",
+    "Photo-Harbor",
     "PNN",
-    "primordia",
-    "prism-relay",
-    "tally",
-    "tempo",
-    "ui-sandbox",
-    "voidfarer",
+    "Primordia",
+    "Prism-Relay",
+    "Tally",
+    "Tempo",
+    "UI-Sandbox",
+    "Voidfarer",
 }
 
 CATEGORY_LABELS = {
@@ -59,6 +60,16 @@ def read_readme() -> str:
 
 def read_site() -> str:
     return (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+
+
+def read_verify() -> str:
+    return (ROOT / "docs" / "verify.html").read_text(encoding="utf-8")
+
+
+def read_metadata() -> dict:
+    return json.loads(
+        (ROOT / "tests" / "metadata" / "repositories.json").read_text(encoding="utf-8")
+    )
 
 
 class ProfileIntegrityTests(unittest.TestCase):
@@ -230,7 +241,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         for name in ("AL-1.1.md", "AGL-1.1.md", "ASL-1.1.md"):
             with self.subTest(name=name):
                 self.assertIn(
-                    "https://github.com/AegeanWorks/aegean-licensing/blob/master/licenses/"
+                    "https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/"
                     + name,
                     html,
                 )
@@ -370,6 +381,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(manifest["dir"], "ltr")
         self.assertIn("productivity", manifest["categories"])
         self.assertEqual(manifest["display"], "standalone")
+        self.assertEqual(manifest["shortcuts"][0]["url"], "/AegeanWorks/verify.html")
         sources = {icon["src"] for icon in manifest["icons"]}
         for expected in ("favicon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
             with self.subTest(expected=expected):
@@ -382,6 +394,28 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('rel="manifest" href="site.webmanifest"', html)
         self.assertIn('rel="apple-touch-icon" sizes="180x180"', html)
         self.assertIn('sizes="192x192" href="icon-192.png"', html)
+
+    def test_verify_page_has_a_no_javascript_path(self):
+        page = read_verify()
+        self.assertIn(".verify-form,.verify-register{display:none!important}", page)
+        self.assertIn('<div class="verify-card verify-noscript">', page)
+        self.assertIn("The public Python verifier below performs", page)
+        self.assertIn('id="verify-submit"', page)
+
+    def test_verifier_caps_fetches_before_reading(self):
+        ui = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        self.assertIn("function readCapped", ui)
+        self.assertIn("response.body.getReader()", ui)
+        self.assertIn('response.headers.get("content-length")', ui)
+        self.assertIn('credentials: "omit"', ui)
+        self.assertIn('referrerPolicy: "no-referrer"', ui)
+        self.assertIn("reader.cancel()", ui)
+
+    def test_verifier_checks_types_before_canonicalization(self):
+        core = (ROOT / "docs" / "verify-core.js").read_text(encoding="utf-8")
+        self.assertIn("function typeError(certificate)", core)
+        self.assertLess(core.index("const malformed = typeError(certificate)"), core.index("computed = await computeDigest(certificate)"))
+        self.assertIn("Certificate payload cannot be canonicalized", core)
 
     def test_icon_dimensions(self):
         for name, expected in (
@@ -514,6 +548,167 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("python -m unittest discover -s tests", text)
         self.assertIn("permissions:", text)
         self.assertIn("contents: read", text)
+
+    def test_ci_workflow_runs_the_node_parity_suite(self):
+        workflow = (ROOT / ".github" / "workflows" / "tests.yml").read_text(encoding="utf-8")
+        self.assertIn("actions/setup-node", workflow)
+        self.assertIn("node tests/verify/run-tests.mjs", workflow)
+
+    def test_snapshot_covers_every_public_repository(self):
+        metadata = read_metadata()
+        self.assertEqual({repo["name"] for repo in metadata["repositories"]}, PUBLIC_REPOS)
+        self.assertGreaterEqual(len(metadata["profile"]["description"]), 80)
+        self.assertIn("local-first", metadata["profile"]["description"])
+
+    def test_site_metadata_matches_the_github_profile(self):
+        description = read_metadata()["profile"]["description"]
+        html = read_site()
+        self.assertIn(f'<meta name="description" content="{description}">', html)
+        self.assertIn(f'<meta property="og:description" content="{description}">', html)
+        self.assertIn(f'<meta name="twitter:description" content="{description}">', html)
+        match = re.search(r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>', html, re.S)
+        data = json.loads(match.group(1))
+        organization = {node["@type"]: node for node in data["@graph"]}["Organization"]
+        self.assertEqual(organization["description"], description)
+
+    def test_project_cards_match_github_metadata(self):
+        html = read_site()
+        blocks = re.findall(r'<a class="project reveal".*?</a>', html, re.S)
+        self.assertEqual(len(blocks), len(PUBLIC_REPOS))
+        omitted = {"aikit", "python", "source-available"}
+        for repo in read_metadata()["repositories"]:
+            with self.subTest(repo=repo["name"]):
+                marker = f'href="https://github.com/AegeanWorks/{repo["name"]}"'
+                block = next((item for item in blocks if marker in item), None)
+                self.assertIsNotNone(block)
+                self.assertIn(f'<h3>{repo["name"]}</h3>', block)
+                self.assertIn(
+                    f'<p>{html_escape(repo["description"], quote=False)}</p>', block
+                )
+                self.assertIn('data-topics="' + ",".join(repo["topics"]) + '"', block)
+                expected = [topic for topic in repo["topics"] if topic not in omitted][:6]
+                self.assertEqual(
+                    re.findall(r'<span class="tag">([^<]+)</span>', block), expected
+                )
+
+    def test_readme_atlas_matches_github_metadata(self):
+        rows = dict(
+            re.findall(
+                r"\| \[([^\]]+)\]\(https://github\.com/AegeanWorks/[^)]+\) \| ([^|]+) \|",
+                read_readme(),
+            )
+        )
+        self.assertEqual(set(rows), PUBLIC_REPOS)
+        for repo in read_metadata()["repositories"]:
+            with self.subTest(repo=repo["name"]):
+                self.assertEqual(rows[repo["name"]].strip(), repo["description"].strip())
+
+    def test_verify_page_is_linked_and_complete(self):
+        index = read_site()
+        page = read_verify()
+        self.assertIn('href="verify.html"', index)
+        self.assertIn("Verify a license", index)
+        self.assertIn(
+            "aegeanworks.github.io/AegeanWorks/verify.html", read_readme()
+        )
+        for token in (
+            'id="verify-form"',
+            'id="certificate-input"',
+            'id="verify-result"',
+            "verify.js",
+            "app.js",
+            "styles.css",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, page)
+        script = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        self.assertIn('from "./verify-core.js"', script)
+        self.assertIn('aria-live="polite"', page)
+        self.assertIn('role="status"', page)
+        self.assertIn("certificate never leaves it", page)
+
+    def test_verify_page_is_self_contained(self):
+        page = read_verify()
+        for asset in re.findall(r'(?:src|href)="([^"]+)"', page):
+            if asset.startswith(("http://", "https://", "#", "mailto:")):
+                continue
+            with self.subTest(asset=asset):
+                self.assertTrue((ROOT / "docs" / asset.split("#")[0]).exists())
+        self.assertNotRegex(page, r'<script[^>]+src="https?://')
+        self.assertNotRegex(page, r'<link[^>]+href="https?://(?:fonts|cdn|unpkg|jsdelivr)')
+        self.assertIn('class="skip"', page)
+        self.assertIn('<main id="main" tabindex="-1">', page)
+
+    def test_verifier_reads_only_the_canonical_registry(self):
+        core = (ROOT / "docs" / "verify-core.js").read_text(encoding="utf-8")
+        hosts = set(re.findall(r"https?://([^/\"]+)", core))
+        self.assertEqual(hosts, {"raw.githubusercontent.com"})
+        self.assertIn("AegeanWorks/Aegean-Licensing/master/licenses/issued.json", core)
+        self.assertIn("AegeanWorks/Aegean-Licensing/master/licenses/terms.json", core)
+        self.assertIn("register.get(cert.cert_id)", core)
+
+    def test_verifier_cannot_check_signatures(self):
+        core = (ROOT / "docs" / "verify-core.js").read_text(encoding="utf-8")
+        ui = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        for token in ("computeSignature", "crypto.subtle.sign", "secret_key", "signing.key"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, core)
+        self.assertIn("signature_verified: false", core)
+        self.assertNotIn("X-Ops-Token", ui)
+
+    def test_verifier_never_uploads_the_certificate(self):
+        ui = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        for token in ('method: "POST"', "FormData", "XMLHttpRequest", "sendBeacon"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, ui)
+
+    def test_verifier_form_cannot_natively_submit(self):
+        page = read_verify()
+        self.assertIn('id="verify-form"', page)
+        block = page.split('<script>', 1)[1]
+        self.assertIn('verifyForm.addEventListener("submit"', block)
+        self.assertIn("event.preventDefault();", block)
+        self.assertIn('id="verify-submit"', page)
+
+    def test_verifier_uses_text_nodes_only(self):
+        ui = (ROOT / "docs" / "verify.js").read_text(encoding="utf-8")
+        core = (ROOT / "docs" / "verify-core.js").read_text(encoding="utf-8")
+        for token in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, ui)
+                self.assertNotIn(token, core)
+        self.assertIn("textContent", ui)
+
+    def test_site_ships_no_signing_material(self):
+        for path in (ROOT / "docs").iterdir():
+            if path.suffix not in {".html", ".js", ".css", ".json", ".xml", ".txt", ".webmanifest"}:
+                continue
+            text = path.read_text(encoding="utf-8")
+            with self.subTest(file=path.name):
+                self.assertNotRegex(text, r"-----BEGIN [A-Z ]*PRIVATE KEY-----")
+                self.assertNotIn("AEGEAN_SIGNING_KEY", text)
+                self.assertNotIn("ops-secret", text)
+
+    def test_verification_vector_is_pinned(self):
+        vector = json.loads(
+            (ROOT / "tests" / "vectors" / "verification-vector.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(vector["certificate"]["digest"], vector["expected_digest"])
+        self.assertRegex(vector["expected_digest"], r"^[0-9a-f]{64}$")
+        self.assertIn("not an issued certificate", vector["note"])
+
+    def test_sitemap_lists_the_verify_page(self):
+        sitemap = (ROOT / "docs" / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertIn(
+            "<loc>https://aegeanworks.github.io/AegeanWorks/verify.html</loc>", sitemap
+        )
+        self.assertIsNotNone(ET.fromstring(sitemap))
+
+    def test_external_links_are_safe_on_every_page(self):
+        for page in (read_site(), read_verify()):
+            for match in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", page):
+                with self.subTest(tag=match.group(0)[:80]):
+                    self.assertIn('rel="noopener"', match.group(0))
 
 
 if __name__ == "__main__":

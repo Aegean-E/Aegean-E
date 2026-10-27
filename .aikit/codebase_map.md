@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `1`
 - **Total Classes**: `1`
-- **Total Top-Level Functions**: `2`
-- **Total Class Methods**: `45`
-- **Total Source Lines**: `520`
+- **Total Top-Level Functions**: `4`
+- **Total Class Methods**: `64`
+- **Total Source Lines**: `715`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `520` lines (`21935` bytes)
+**Size**: `715` lines (`31718` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -53,6 +53,9 @@
   - Method `.test_social_image_has_the_expected_dimensions()`
   - Method `.test_not_found_page_is_noindexed()`
   - Method `.test_web_app_manifest()`
+  - Method `.test_verify_page_has_a_no_javascript_path()`
+  - Method `.test_verifier_caps_fetches_before_reading()`
+  - Method `.test_verifier_checks_types_before_canonicalization()`
   - Method `.test_icon_dimensions()`
   - Method `.test_mobile_orbit_labels_are_large_enough()`
   - Method `.test_print_media_reveals_every_section()`
@@ -68,9 +71,27 @@
   - Method `.test_hero_mark_is_centred_in_its_square()`
   - Method `.test_aikit_memory_intact()`
   - Method `.test_ci_workflow_runs_the_suite()`
+  - Method `.test_ci_workflow_runs_the_node_parity_suite()`
+  - Method `.test_snapshot_covers_every_public_repository()`
+  - Method `.test_site_metadata_matches_the_github_profile()`
+  - Method `.test_project_cards_match_github_metadata()`
+  - Method `.test_readme_atlas_matches_github_metadata()`
+  - Method `.test_verify_page_is_linked_and_complete()`
+  - Method `.test_verify_page_is_self_contained()`
+  - Method `.test_verifier_reads_only_the_canonical_registry()`
+  - Method `.test_verifier_cannot_check_signatures()`
+  - Method `.test_verifier_never_uploads_the_certificate()`
+  - Method `.test_verifier_form_cannot_natively_submit()`
+  - Method `.test_verifier_uses_text_nodes_only()`
+  - Method `.test_site_ships_no_signing_material()`
+  - Method `.test_verification_vector_is_pinned()`
+  - Method `.test_sitemap_lists_the_verify_page()`
+  - Method `.test_external_links_are_safe_on_every_page()`
 
 **Functions:**
 - `def read_readme()`
 - `def read_site()`
+- `def read_verify()`
+- `def read_metadata()`
 
 ---
