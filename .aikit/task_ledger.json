@@ -1,44 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-v10",
+    "task_id": "site-v11",
     "last_phase": "phase 4",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793079684.4025,
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793080267.0333,
     "owner": "kilo:main",
     "started_by": "kilo:main",
-    "continuations": [],
-    "completed_at": 1793079695.879841
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "site-v5",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-v5' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793008540.359193,
-      "timestamp_str": "2026-10-26 12:55:40",
-      "agent": "kilo"
-    },
-    {
-      "task_id": "site-v6",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/3] Plan: add a script-failure watchdog, make the no-JS nav sticky, fix the ambiguous AL monogram; verify with blocked-script and no-JS screenshots",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793012980.9705026,
-      "timestamp_str": "2026-10-26 14:09:40",
-      "agent": "kilo",
-      "impact_assessment": {
-        "why": "A blocked app.js left the mobile menu permanently open with no close control.",
-        "benefits": "A missing script now degrades to a compact inline nav, not an overlay.",
-        "risks": "contract: JS/CSS fallback coupling; dependency: none; concurrency: single agent; state: inline watchdog",
-        "mitigation": "Test blocked script at 3.2s, no-JS, CLS and Nu; keep all four gates green"
-      }
-    },
     {
       "task_id": "site-v6",
       "phase": "phase 4",
@@ -273,6 +245,37 @@
       "timestamp": 1793079695.8798425,
       "timestamp_str": "2026-10-27 08:41:35",
       "agent": "kilo:main"
+    },
+    {
+      "task_id": "site-v11",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Make the umbrella licensing copy true for every repository, including AGPL, Apache-2.0, MIT and unlicensed outliers",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793079909.3870738,
+      "timestamp_str": "2026-10-27 08:45:09",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "GitHub reports 34 public repositories; most carry AGPL-3.0 or a custom Aegean license, N1-Engine is Apache-2.0, NeurologyClinicTemplates-TR is MIT, and PNN has no LICENSE at all. A blanket claim that current releases use the Aegean family is false for those repositories.",
+        "benefits": "The licensing section and README describe the family, the per-repository variation and the AGPL history without overclaiming; visitors know the LICENSE in each repository is authoritative.",
+        "risks": "contract: no URL or asset changes; dependency: none; concurrency: none; state: no schema or certificate changes; content: the section no longer claims all projects are source-available",
+        "mitigation": "Pin the new wording in tests, keep the tier links and CTA, and re-run gates plus a live copy check."
+      }
+    },
+    {
+      "task_id": "site-v11",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Umbrella licensing copy now names the family, the AGPL/Apache/MIT outliers and the repository LICENSE as authoritative; 45 tests and 4/4 gates pass. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793080267.0333,
+      "timestamp_str": "2026-10-27 08:51:07",
+      "agent": "kilo:main",
+      "handoff": {
+        "next": "commit, close the task and push, then verify the live licensing section"
+      }
     }
   ]
 }
