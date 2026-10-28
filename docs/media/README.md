@@ -7,10 +7,12 @@ fetches the manifest and hides any slot whose entry is missing.
 
 ## Where the images come from
 
-- `logo` is the repository's own `assets/logo.jpg` (or `.png`/`.webp`/`.svg`)
-  fetched from GitHub at the commit recorded in the manifest.
+- `logo` is the repository's own `assets/logo.jpg` (or `.png`/`.webp`/`.svg`),
+  fetched from GitHub at the commit recorded in the manifest. A reviewed logo
+  already committed is kept as-is; a new one is optimized to a 256px square.
 - `preview` is the repository's `assets/social-preview.png`, the same card
-  GitHub shows for the repository, fetched from the same commit.
+  GitHub shows for the repository, fetched from the same commit and stored as
+  a 1200px-wide WebP.
 - `screenshots` are real captures added with `ingest`, each tied to the commit it
   shows.
 - A repository with no `assets/` images gets a generated branded card, marked

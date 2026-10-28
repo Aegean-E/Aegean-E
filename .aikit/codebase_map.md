@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `2`
 - **Total Classes**: `2`
-- **Total Top-Level Functions**: `36`
+- **Total Top-Level Functions**: `37`
 - **Total Class Methods**: `82`
-- **Total Source Lines**: `1933`
+- **Total Source Lines**: `1949`
 
 ---
 
@@ -118,7 +118,7 @@
 ### [`tools/build_dossier_media.py`](tools/build_dossier_media.py)
 > *Build and verify the dossier media (logo, social preview, screenshots).*
 
-**Size**: `707` lines (`26960` bytes)
+**Size**: `723` lines (`27458` bytes)
 
 **Classes:**
 - `class MediaError`
@@ -139,6 +139,7 @@
 - `def raw_url(name, ref, path)`
 - `def load_repos()`
 - `def previous_local_logo(folder)` - *The approved logo art already committed for this repository, if any.*
+- `def exact_path(relative)` - *True when every segment matches on-disk case, which Windows would hide.*
 - `def manifest_path(name)` - *Existing manifests keep their original file name, which may differ in case.*
 - `def media_folder(name, manifest)` - *Reuse the folder an existing logo points at so paths never churn.*
 - `def read_manifest(name)`

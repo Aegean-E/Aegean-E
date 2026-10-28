@@ -1,56 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "dossier-media",
+    "task_id": "dossier-media-case",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793204216.632,
+    "updated_at": 1793204594.0325568,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793204216.9007006
+    "completed_at": 1793204594.2951996
   },
   "checkpoints": [
-    {
-      "task_id": "media-groundwork",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Put topic chips back inside the discipline row (count-free), add a dossier logo slot and a screenshot gallery fed by a per-repository media manifest that records the commit and date of every capture",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793131584.3386874,
-      "timestamp_str": "2026-10-27 23:06:24",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The single discipline row lost topic discovery, and dossiers have no logo or screenshot surface even though captures will soon exist",
-        "benefits": "One chip row covers discipline and topics; dossiers can show a real logo and commit-stamped screenshots without a build step",
-        "risks": "contract: docs/media/<Repo>.json schema and dossier markup; dependency: browser fetch only; concurrency: none; state: media manifests and images, no credentials",
-        "mitigation": "Pure normalization helpers with Node tests, safe relative media paths only, hidden sections until media exists, Python and Node parity tests"
-      }
-    },
-    {
-      "task_id": "media-groundwork",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/4] Topic chips are back inside the discipline row: quiet dashed pills, no counts, top 12 by usage, separator; filtering and URL state unchanged; 79 Python tests, 52 atlas assertions pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793132417.5817735,
-      "timestamp_str": "2026-10-27 23:20:17",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "media-groundwork",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[3/4] Dossier logo slot with monogram fallback and a screenshot gallery; docs/media/<Name>.json schema validated (media/ paths, 7-40 hex commit, real date, 12 cap); commit links to GitHub; no capture exists yet so both slots stay hidden; 57 project assertions pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793132417.744687,
-      "timestamp_str": "2026-10-27 23:20:17",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "media-groundwork",
       "phase": "phase 4",
@@ -255,6 +216,44 @@
       "status": "completed",
       "timestamp": 1793204216.9007025,
       "timestamp_str": "2026-10-28 19:16:56",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "dossier-media-case",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Record exact repository casing for two media folders/manifests in git and make the media checker reject case-mismatched paths",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793204593.7641175,
+      "timestamp_str": "2026-10-28 19:23:13",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "Git missed the case-only renames, so GitHub Pages served Neurocore.json while the dossier requested NeuroCore.json",
+        "benefits": "Media resolves on case-sensitive hosting; the checker catches the class of bug on Windows too",
+        "risks": "contract: none; dependency: none; concurrency: none; state: two renames",
+        "mitigation": "Two-step git mv, exact-path validation, offline check run"
+      }
+    },
+    {
+      "task_id": "dossier-media-case",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] 82 Python tests, 69 project assertions and media check pass; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793204594.0325568,
+      "timestamp_str": "2026-10-28 19:23:14",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "dossier-media-case",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'dossier-media-case' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793204594.295201,
+      "timestamp_str": "2026-10-28 19:23:14",
       "agent": "kilo:main"
     }
   ]

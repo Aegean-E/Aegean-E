@@ -342,6 +342,18 @@ def previous_local_logo(folder: str) -> Path | None:
     return None
 
 
+def exact_path(relative: str) -> bool:
+    """True when every segment matches on-disk case, which Windows would hide."""
+    current = ROOT / "docs"
+    for part in relative.split("/"):
+        if not current.is_dir():
+            return False
+        if part not in {entry.name for entry in current.iterdir()}:
+            return False
+        current = current / part
+    return True
+
+
 def manifest_path(name: str) -> Path:
     """Existing manifests keep their original file name, which may differ in case."""
     direct = MEDIA / f"{name}.json"
@@ -586,7 +598,7 @@ def command_check(args: argparse.Namespace) -> int:
                 problems.append(f"{name}: {kind} src is unsafe: {src!r}")
                 continue
             file = ROOT / "docs" / src
-            if not file.exists():
+            if not file.exists() or not exact_path(src):
                 problems.append(f"{name}: {kind} file is missing: {src}")
                 continue
             data = file.read_bytes()
@@ -605,7 +617,11 @@ def command_check(args: argparse.Namespace) -> int:
                 problems.append(f"{name}: {kind} taken_at is not a date")
         for index, shot in enumerate(manifest.get("screenshots", [])):
             src = shot.get("src", "") if isinstance(shot, dict) else ""
-            if not src.startswith(f"media/{name}/") or not (ROOT / "docs" / src).exists():
+            if (
+                not src.startswith(f"media/{name}/")
+                or not (ROOT / "docs" / src).exists()
+                or not exact_path(src)
+            ):
                 problems.append(f"{name}: screenshot {index} file is missing: {src!r}")
     for problem in problems:
         print(f"FAIL {problem}", file=sys.stderr)
