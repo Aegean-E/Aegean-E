@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "name": "AegeanWorks",
+  "repo": "AegeanWorks",
+  "has_ui": true,
+  "ui_kind": "web",
+  "palette": [
+    "#07111f",
+    "#0e2a47",
+    "#22d3ee",
+    "#e2f8ff"
+  ],
+  "assets": {
+    "logo": {
+      "path": "assets/logo.svg",
+      "status": "approved",
+      "commit": "",
+      "generated_at": "2026-10-28T08:02:07",
+      "review": {
+        "status": "approved",
+        "reviewer": "subagent:vision-review",
+        "method": "vision",
+        "notes": "AE monogram with ring geometry, AEGEANWORKS subtitle, legible and coherent dark aesthetic.",
+        "score": 95,
+        "reviewed_at": "2026-10-28T08:10:41"
+      }
+    },
+    "social_preview": {
+      "path": "assets/social-preview.svg",
+      "status": "approved",
+      "commit": "",
+      "generated_at": "2026-10-28T08:02:07",
+      "review": {
+        "status": "approved",
+        "reviewer": "subagent:vision-review",
+        "method": "vision",
+        "notes": "Full card: AE icon, title, paragraph, WEB tag, GitHub footer; dark aesthetic, legible.",
+        "score": 95,
+        "reviewed_at": "2026-10-28T08:10:41"
+      }
+    },
+    "social_preview_png": {
+      "path": "assets/social-preview.png",
+      "status": "pending_review",
+      "commit": "",
+      "generated_at": "2026-10-28T08:02:09",
+      "review": null
+    }
+  },
+  "screenshots": [
+    {
+      "path": "assets/screenshots/2026-10-28-home.png",
+      "alt": "AegeanWorks interface at 2026-10-28",
+      "caption": "AegeanWorks interface captured from index.html",
+      "commit": "7c814b2880b316fae20434628df87da0c5e6a55b",
+      "taken_at": "2026-10-28",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "status": "approved",
+      "review": {
+        "status": "approved",
+        "reviewer": "subagent:vision-review",
+        "method": "vision",
+        "notes": "2026-10-28-home.png \u2014 real hero UI 'Software that thinks, remembers, and explains itself.' non-blank, legible.",
+        "score": 95,
+        "reviewed_at": "2026-10-28T08:10:41"
+      }
+    }
+  ]
+}

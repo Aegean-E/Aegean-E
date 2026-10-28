@@ -1,3 +1,8 @@
+
+<!-- aegean:media:start -->
+<p align="center"><img src="assets/logo.svg" alt="AegeanWorks logo" width="96" height="96"></p>
+<p align="center"><img src="assets/social-preview.svg" alt="AegeanWorks social preview" width="100%"></p>
+<!-- aegean:media:end -->
 <p align="center">
   <img src="assets/banner.svg" alt="AegeanWorks — local-first AI systems, cognitive tooling and computational research" width="100%">
 </p>
@@ -272,4 +277,10 @@ AegeanWorks/
         └── run-tests.mjs    <- README-rendering parity suite
 ```
 
+<!-- aegean:screenshots:start -->
+## Screenshots
 
+<a href="https://github.com/AegeanWorks/AegeanWorks/commit/7c814b2"><img src="assets/screenshots/2026-10-28-home.png" alt="AegeanWorks interface at 2026-10-28"></a>
+
+*AegeanWorks interface captured from index.html* · commit `7c814b2` · 2026-10-28
+<!-- aegean:screenshots:end -->

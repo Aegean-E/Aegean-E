@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Aegean-Licensing-Ops",
+  "screenshots": [
+    {
+      "src": "media/Aegean-Licensing-Ops/2026-10-28-ui.png",
+      "alt": "Aegean-Licensing-Ops interface at 2026-10-28",
+      "caption": "Aegean-Licensing-Ops interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\aegean-licensing-ops\\aegean_licensing_ops\\ui.html",
+      "commit": "89b0c12",
+      "taken_at": "2026-10-28",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "logo": {
+    "src": "media/Aegean-Licensing-Ops/logo.svg",
+    "alt": "Aegean-Licensing-Ops logo"
+  }
+}

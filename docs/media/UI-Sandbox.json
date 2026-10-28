@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "UI-Sandbox",
+  "screenshots": [],
+  "logo": {
+    "src": "media/UI-Sandbox/logo.svg",
+    "alt": "UI-Sandbox logo"
+  }
+}

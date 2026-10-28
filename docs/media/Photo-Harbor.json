@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "Photo-Harbor",
+  "screenshots": [],
+  "logo": {
+    "src": "media/Photo-Harbor/logo.svg",
+    "alt": "Photo-Harbor logo"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "NeuroOptic",
+  "screenshots": [],
+  "logo": {
+    "src": "media/NeuroOptic/logo.svg",
+    "alt": "NeuroOptic logo"
+  }
+}

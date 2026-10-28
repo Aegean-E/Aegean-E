@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Cyberpulse",
+  "screenshots": [
+    {
+      "src": "media/Cyberpulse/2026-10-28-index.png",
+      "alt": "Cyberpulse interface at 2026-10-28",
+      "caption": "Cyberpulse interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\cyberpulse\\cyberpulse\\static\\index.html",
+      "commit": "1215870",
+      "taken_at": "2026-10-28",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "logo": {
+    "src": "media/Cyberpulse/logo.svg",
+    "alt": "Cyberpulse logo"
+  }
+}

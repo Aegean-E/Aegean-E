@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "MemoryReconstruction",
+  "screenshots": [],
+  "logo": {
+    "src": "media/MemoryReconstruction/logo.svg",
+    "alt": "MemoryReconstruction logo"
+  }
+}

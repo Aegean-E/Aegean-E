@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "NeuralDeck",
+  "screenshots": [],
+  "logo": {
+    "src": "media/NeuralDeck/logo.svg",
+    "alt": "NeuralDeck logo"
+  }
+}

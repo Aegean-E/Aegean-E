@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "NeuralBeat",
+  "screenshots": [],
+  "logo": {
+    "src": "media/NeuralBeat/logo.svg",
+    "alt": "NeuralBeat logo"
+  }
+}

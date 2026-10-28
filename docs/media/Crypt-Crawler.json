@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Crypt-Crawler",
+  "screenshots": [
+    {
+      "src": "media/Crypt-Crawler/2026-10-28-index.png",
+      "alt": "Crypt-Crawler interface at 2026-10-28",
+      "caption": "Crypt-Crawler interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\crypt-crawler\\static\\index.html",
+      "commit": "941f16f",
+      "taken_at": "2026-10-28",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "logo": {
+    "src": "media/Crypt-Crawler/logo.svg",
+    "alt": "Crypt-Crawler logo"
+  }
+}

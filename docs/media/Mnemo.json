@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "Mnemo",
+  "screenshots": [],
+  "logo": {
+    "src": "media/Mnemo/logo.svg",
+    "alt": "Mnemo logo"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repo": "Pebble",
+  "screenshots": [],
+  "logo": {
+    "src": "media/Pebble/logo.svg",
+    "alt": "Pebble logo"
+  }
+}

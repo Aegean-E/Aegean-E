@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Aldervale",
+  "screenshots": [
+    {
+      "src": "media/Aldervale/2026-10-28-index.png",
+      "alt": "Aldervale interface at 2026-10-28",
+      "caption": "Aldervale interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\aldervale\\.inspect\\index.html",
+      "commit": "6c90987",
+      "taken_at": "2026-10-28",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "logo": {
+    "src": "media/Aldervale/logo.svg",
+    "alt": "Aldervale logo"
+  }
+}
