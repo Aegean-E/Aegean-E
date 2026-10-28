@@ -47,7 +47,7 @@
     {
       "id": 1436254574,
       "name": "Aegean-Reforge",
-      "description": "Progressive, evidence-backed Git history auditing and autonomous safe repair; independent configurable audit runs per project. Free for personal use under AL-1.1; commercial use under ACL-1.0.",
+      "description": "Archived: integrated into AIKit. Progressive, evidence-backed Git history auditing and safe repair now ships as AIKit's reforge/ package plus reforge.py; the archived repository keeps its history and tags. Free for personal use under AL-1.1; commercial use under ACL-1.0.",
       "topics": [
         "aikit",
         "audit",
@@ -60,9 +60,9 @@
       ],
       "language": "Python",
       "license": "NOASSERTION",
-      "pushed_at": "2026-10-27T20:49:41Z",
+      "pushed_at": "2026-10-28T19:45:00Z",
       "homepage": "",
-      "archived": false,
+      "archived": true,
       "default_branch": "master"
     },
     {
