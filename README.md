@@ -1,7 +1,7 @@
 
 <!-- aegean:media:start -->
-<p align="center"><img src="assets/logo.svg" alt="AegeanWorks logo" width="96" height="96"></p>
-<p align="center"><img src="assets/social-preview.svg" alt="AegeanWorks social preview" width="100%"></p>
+<p align="center"><img src="assets/logo.png" alt="AegeanWorks logo" width="96" height="96"></p>
+<p align="center"><img src="assets/social-preview.png" alt="AegeanWorks social preview" width="100%"></p>
 <!-- aegean:media:end -->
 <p align="center">
   <img src="assets/banner.svg" alt="AegeanWorks — local-first AI systems, cognitive tooling and computational research" width="100%">

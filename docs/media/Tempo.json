@@ -1,20 +1,9 @@
 {
   "schema": 1,
   "repo": "Tempo",
-  "screenshots": [
-    {
-      "src": "media/Tempo/2026-10-28-home.png",
-      "alt": "Tempo interface at 2026-10-28",
-      "caption": "Tempo interface captured from index.html",
-      "commit": "aadcbde",
-      "taken_at": "2026-10-28",
-      "viewport": "1440x900",
-      "width": 1440,
-      "height": 900
-    }
-  ],
+  "screenshots": [],
   "logo": {
-    "src": "media/Tempo/logo.svg",
+    "src": "media/Tempo/logo.png",
     "alt": "Tempo logo"
   }
 }
