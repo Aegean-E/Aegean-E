@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "logos": {
+    "Aegean-Licensing": {
+      "src": "media/Aegean-Licensing/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Aegean-Reforge": {
+      "src": "media/Aegean-Reforge/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "AIKit": {
+      "src": "media/AIKit/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Aldervale": {
+      "src": "media/Aldervale/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Assay": {
+      "src": "media/Assay/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Chronos": {
+      "src": "media/Chronos/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Crypt-Crawler": {
+      "src": "media/Crypt-Crawler/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Cyberpulse": {
+      "src": "media/Cyberpulse/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Fluid-Universe": {
+      "src": "media/Fluid-Universe/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Fold": {
+      "src": "media/Fold/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Gauge": {
+      "src": "media/Gauge/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Lacon": {
+      "src": "media/Lacon/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Lattice": {
+      "src": "media/Lattice/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "MemoryReconstruction": {
+      "src": "media/MemoryReconstruction/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Mnemo": {
+      "src": "media/Mnemo/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Muse": {
+      "src": "media/Muse/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "N1-Engine": {
+      "src": "media/N1-Engine/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NeuralBeat": {
+      "src": "media/NeuralBeat/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NeuralDeck": {
+      "src": "media/NeuralDeck/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NeuroCore": {
+      "src": "media/NeuroCore/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NeurologyClinicTemplates-TR": {
+      "src": "media/NeurologyClinicTemplates-TR/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NeuroOptic": {
+      "src": "media/NeuroOptic/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NobetWizard": {
+      "src": "media/NobetWizard/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "NoMoreClutter": {
+      "src": "media/NoMoreClutter/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Orrery": {
+      "src": "media/Orrery/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Pebble": {
+      "src": "media/Pebble/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Photo-Harbor": {
+      "src": "media/Photo-Harbor/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "PNN": {
+      "src": "media/PNN/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Primordia": {
+      "src": "media/Primordia/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Prism-Relay": {
+      "src": "media/Prism-Relay/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Research-Engine": {
+      "src": "media/Research-Engine/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Tally": {
+      "src": "media/Tally/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Tempo": {
+      "src": "media/Tempo/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "UI-Sandbox": {
+      "src": "media/UI-Sandbox/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Voidfarer": {
+      "src": "media/Voidfarer/logo.webp",
+      "width": 256,
+      "height": 256
+    }
+  }
+}

@@ -3,14 +3,14 @@
   "repo": "Lattice",
   "screenshots": [],
   "logo": {
-    "src": "media/Lattice/logo.jpg",
+    "src": "media/Lattice/logo.webp",
     "alt": "Lattice logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:193da2ab953c845d495dfa7bb26b3632788089194c9db46c5817dcef81ed4877",
-    "commit": "9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:c68f6f05e8070139dac32bb7376d98442eef2d75998942e87a4f0d22c67230c4",
+    "commit": "ffa746bf457d89a30e307ee2004ba930f5bc10ff",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/ffa746bf457d89a30e307ee2004ba930f5bc10ff/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Lattice/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:01521e8e8a36a613410f7da7b44e63a8551fc59fef21e50476ebc929edc79b93",
-    "commit": "9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b",
+    "commit": "ffa746bf457d89a30e307ee2004ba930f5bc10ff",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/ffa746bf457d89a30e307ee2004ba930f5bc10ff/assets/social-preview.png"
   }
 }

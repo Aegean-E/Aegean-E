@@ -3,25 +3,27 @@
   "repo": "Voidfarer",
   "screenshots": [
     {
-      "src": "media/Voidfarer/2026-10-28-index.png",
-      "alt": "Voidfarer interface at 2026-10-28",
-      "caption": "Voidfarer interface at 2026-10-28",
-      "commit": "1262ed9",
+      "src": "media/Voidfarer/2026-10-28-index.webp",
+      "alt": "Voidfarer screenshot",
+      "caption": "Voidfarer interface from assets/screenshots/2026-10-28-index.png",
+      "commit": "064b259320a080d21fb31cca657a9165df65b6b9",
       "taken_at": "2026-10-28",
-      "viewport": "1440x900",
+      "viewport": "",
       "width": 1440,
-      "height": 900
+      "height": 900,
+      "digest": "sha256:2599df67967cbba4f1fa8855edeaef20fe847acff7ac103f64369b52f70e48a3",
+      "source": "Voidfarer:assets/screenshots/2026-10-28-index.png"
     }
   ],
   "logo": {
-    "src": "media/Voidfarer/logo.jpg",
+    "src": "media/Voidfarer/logo.webp",
     "alt": "Voidfarer logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:080ada6aa257ce819aea04cfc9d8bee5cfd01ca9e802a24288786dc7d3ca0e96",
-    "commit": "3d0c5f946251711bb4a442d99d0c0a355608e9de",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:b609a9049dac05e4367f70eb37a913213bf9561a57d39735ff4036a35d361747",
+    "commit": "064b259320a080d21fb31cca657a9165df65b6b9",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Voidfarer/3d0c5f946251711bb4a442d99d0c0a355608e9de/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Voidfarer/064b259320a080d21fb31cca657a9165df65b6b9/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Voidfarer/social-preview.webp",
@@ -29,8 +31,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:f36db9223b71621eed40863342b1170b5329750b4b3fce39c88ecb3a8bb9cd7f",
-    "commit": "3d0c5f946251711bb4a442d99d0c0a355608e9de",
+    "commit": "064b259320a080d21fb31cca657a9165df65b6b9",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Voidfarer/3d0c5f946251711bb4a442d99d0c0a355608e9de/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Voidfarer/064b259320a080d21fb31cca657a9165df65b6b9/assets/social-preview.png"
   }
 }

@@ -3,14 +3,14 @@
   "repo": "Aegean-Reforge",
   "screenshots": [],
   "logo": {
-    "src": "media/Aegean-Reforge/logo.jpg",
+    "src": "media/Aegean-Reforge/logo.webp",
     "alt": "Aegean-Reforge logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:b238cbe57a46194fa9f965aa889ecee75a2fc5395a9f2b609c2cc02745b377e2",
-    "commit": "430bd27327342addffd69f8e68e5616bce4349b0",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:4eb064e4943b9e56982dd1794f3bf77c71b31f16c007203d6ad9a450a226f2a0",
+    "commit": "d818dbf8aac690e4bc5e79f892c1a2114018b115",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Reforge/430bd27327342addffd69f8e68e5616bce4349b0/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Reforge/d818dbf8aac690e4bc5e79f892c1a2114018b115/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Aegean-Reforge/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:26f31ec5d4cec056c8bdac9ccbe8d4f7de6adc6202284efaf51062a7b164da93",
-    "commit": "430bd27327342addffd69f8e68e5616bce4349b0",
+    "commit": "d818dbf8aac690e4bc5e79f892c1a2114018b115",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Reforge/430bd27327342addffd69f8e68e5616bce4349b0/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Reforge/d818dbf8aac690e4bc5e79f892c1a2114018b115/assets/social-preview.png"
   }
 }

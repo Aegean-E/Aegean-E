@@ -3,25 +3,27 @@
   "repo": "Aldervale",
   "screenshots": [
     {
-      "src": "media/Aldervale/2026-10-28-index.png",
-      "alt": "Aldervale interface at 2026-10-28",
-      "caption": "Aldervale interface at 2026-10-28",
-      "commit": "6c90987",
+      "src": "media/Aldervale/2026-10-28-index.webp",
+      "alt": "Aldervale screenshot",
+      "caption": "Aldervale interface from assets/screenshots/2026-10-28-index.png",
+      "commit": "f49db3bdc3e796ea6d63c3b3fba200cc8a5c1e54",
       "taken_at": "2026-10-28",
-      "viewport": "1440x900",
+      "viewport": "",
       "width": 1440,
-      "height": 900
+      "height": 900,
+      "digest": "sha256:8cd10691a9bb944d4b53b1f3e82bc3c0f2e335c58d770029cfcc781820c0784b",
+      "source": "Aldervale:assets/screenshots/2026-10-28-index.png"
     }
   ],
   "logo": {
-    "src": "media/Aldervale/logo.jpg",
+    "src": "media/Aldervale/logo.webp",
     "alt": "Aldervale logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:916b4e2cba0c59cbabeb2bdf28ba83afb4628039214c054d4b4c29651d029d4d",
-    "commit": "2c812ebb532df8cdb8ae6bc378087f706cce840c",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:9e1d9a6644b1c01d4a9a6ae747ab580379dd63f35ed5ab5dd382f43684e60d3f",
+    "commit": "f49db3bdc3e796ea6d63c3b3fba200cc8a5c1e54",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/2c812ebb532df8cdb8ae6bc378087f706cce840c/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/f49db3bdc3e796ea6d63c3b3fba200cc8a5c1e54/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Aldervale/social-preview.webp",
@@ -29,8 +31,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:3daaacd7a3791c922bb14123d18f73fecb772d95ad3adb2c7eaebc879573f8c8",
-    "commit": "2c812ebb532df8cdb8ae6bc378087f706cce840c",
+    "commit": "f49db3bdc3e796ea6d63c3b3fba200cc8a5c1e54",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/2c812ebb532df8cdb8ae6bc378087f706cce840c/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/f49db3bdc3e796ea6d63c3b3fba200cc8a5c1e54/assets/social-preview.png"
   }
 }

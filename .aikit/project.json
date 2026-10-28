@@ -4,20 +4,20 @@
   "test_command": "python -m unittest discover -s tests",
   "topics": [
     "aikit",
+    "source-available",
+    "aegean-license",
+    "commercial-license",
     "github-profile",
     "ai",
     "cognitive-systems",
     "github-pages",
     "local-first",
-    "portfolio",
-    "source-available",
     "python",
     "ai-agents",
     "cognitive-science",
     "computational-science",
     "developer-tools",
     "javascript",
-    "software",
     "user-interface",
     "web-app",
     "aegeanworks",
@@ -62,5 +62,10 @@
   ],
   "topics_choice_round3": [
     "ai-research"
+  ],
+  "license_topics": [
+    "source-available",
+    "aegean-license",
+    "commercial-license"
   ]
 }

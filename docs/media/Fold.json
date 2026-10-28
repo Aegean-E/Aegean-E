@@ -3,14 +3,14 @@
   "repo": "Fold",
   "screenshots": [],
   "logo": {
-    "src": "media/Fold/logo.jpg",
+    "src": "media/Fold/logo.webp",
     "alt": "Fold logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:2a6eeb3b0276619716efeea4f37796813ac726203a3e3d05e80137238275b390",
-    "commit": "db8ca267491bb306471eca7284eac487cd3ff8ea",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:604dc7d2e510f7c9295f903cbba8ee86242561a4503c69c28489a9772500e5bf",
+    "commit": "1132acdc71e1814ef2dca928602dade76a1ab6c7",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/db8ca267491bb306471eca7284eac487cd3ff8ea/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/1132acdc71e1814ef2dca928602dade76a1ab6c7/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Fold/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:7d6f349d60265f4c728d199a2ed256d85439dc400e5d67b8e11398ee60bac7af",
-    "commit": "db8ca267491bb306471eca7284eac487cd3ff8ea",
+    "commit": "1132acdc71e1814ef2dca928602dade76a1ab6c7",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/db8ca267491bb306471eca7284eac487cd3ff8ea/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/1132acdc71e1814ef2dca928602dade76a1ab6c7/assets/social-preview.png"
   }
 }

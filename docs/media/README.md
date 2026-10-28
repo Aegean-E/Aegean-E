@@ -13,8 +13,9 @@ fetches the manifest and hides any slot whose entry is missing.
 - `preview` is the repository's `assets/social-preview.png`, the same card
   GitHub shows for the repository, fetched from the same commit and stored as
   a 1200px-wide WebP.
-- `screenshots` are real captures added with `ingest`, each tied to the commit it
-  shows.
+- `screenshots` come from the repository's `assets/screenshots/` or
+  `screenshots/` folders (`fetch --screenshots`, up to three new captures per
+  run) or from `ingest`, each tied to the commit it shows.
 - A repository with no `assets/` images gets a generated branded card, marked
   `"generated": true`, so the dossier never falls back to a remote image.
 
@@ -79,8 +80,9 @@ and Pillow for optimization (a maintenance dependency, never shipped to the
 site).
 
 ```bash
-python tools/build_dossier_media.py fetch            # logos + social previews at HEAD
-python tools/build_dossier_media.py fetch --force    # refetch every repository
+python tools/build_dossier_media.py fetch                      # logos + social previews at HEAD
+python tools/build_dossier_media.py fetch --screenshots        # also pull repository capture folders
+python tools/build_dossier_media.py fetch --force --screenshots # scheduled refresh
 python tools/build_dossier_media.py analyze          # dimensions, size, commit
 python tools/build_dossier_media.py check            # manifests, files, digests (offline)
 python tools/build_dossier_media.py ingest --repo AIKit --file capture.png \
@@ -88,9 +90,12 @@ python tools/build_dossier_media.py ingest --repo AIKit --file capture.png \
 ```
 
 `fetch` records the repository's HEAD commit, fetches the matching
-`assets/logo.*` and `assets/social-preview.*`, converts them to WebP, writes the
-manifest, and removes a superseded file only when the manifest no longer points
-at it. `check` runs in CI: every catalogue repository must have a manifest, every
+`assets/logo.*` and `assets/social-preview.*`, writes a 256px logo and a 1200px
+preview as WebP, and with `--screenshots` lists the repository's screenshot
+folders through the GitHub trees API (authenticated with `GITHUB_TOKEN` in the
+workflow) and adds up to three new captures. Unchanged files keep their recorded
+date, so a scheduled run is a no-op unless a repository actually changed. The
+scheduled `.github/workflows/media.yml` runs this weekly and commits the result. `check` runs in CI: every catalogue repository must have a manifest, every
 file must exist, and every digest and dimension must match.
 
 ## Adding a capture

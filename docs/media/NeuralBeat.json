@@ -3,14 +3,14 @@
   "repo": "NeuralBeat",
   "screenshots": [],
   "logo": {
-    "src": "media/NeuralBeat/logo.jpg",
+    "src": "media/NeuralBeat/logo.webp",
     "alt": "NeuralBeat logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:f4b5f8643e2adad689381885e628e5b867c95f990782756d0a7949014c5e2dd0",
-    "commit": "a6fcbec07390380a5f6fe604cbf98cbb59f53c91",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:f35cf0dae3e166f12490cef6e3f80b00ed83e9d947b0919046aeecad0a497449",
+    "commit": "5abefdb401fad80b8c215a7c41673af2d37fbfbe",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/a6fcbec07390380a5f6fe604cbf98cbb59f53c91/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/5abefdb401fad80b8c215a7c41673af2d37fbfbe/assets/logo.jpg"
   },
   "preview": {
     "src": "media/NeuralBeat/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1024,
     "height": 609,
     "digest": "sha256:e408e52d3beee6522d1d2bfa24bddeaac9bef504ff512ad9dc77ed9c032b583a",
-    "commit": "a6fcbec07390380a5f6fe604cbf98cbb59f53c91",
+    "commit": "5abefdb401fad80b8c215a7c41673af2d37fbfbe",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/a6fcbec07390380a5f6fe604cbf98cbb59f53c91/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/5abefdb401fad80b8c215a7c41673af2d37fbfbe/assets/social-preview.png"
   }
 }

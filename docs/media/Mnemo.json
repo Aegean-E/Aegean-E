@@ -3,14 +3,14 @@
   "repo": "Mnemo",
   "screenshots": [],
   "logo": {
-    "src": "media/Mnemo/logo.jpg",
+    "src": "media/Mnemo/logo.webp",
     "alt": "Mnemo logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:1d0c72695597222d5bf5138a0bfa27b0f724fb23b2b27e4762df7e1fd1e2b953",
-    "commit": "afcb4a9f1048a157efb6b527e62bb5106f7b2985",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:22b974b0f5574140bea875c389a78e2163efdb22875350827b807eb941e16116",
+    "commit": "6ae3fe776988aab1797708a27e2dda592bda4152",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Mnemo/afcb4a9f1048a157efb6b527e62bb5106f7b2985/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Mnemo/6ae3fe776988aab1797708a27e2dda592bda4152/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Mnemo/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:f18a3f5540ea7410dda63cfe1b2056019995a464d734de1f5d1012b7a183a90f",
-    "commit": "afcb4a9f1048a157efb6b527e62bb5106f7b2985",
+    "commit": "6ae3fe776988aab1797708a27e2dda592bda4152",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Mnemo/afcb4a9f1048a157efb6b527e62bb5106f7b2985/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Mnemo/6ae3fe776988aab1797708a27e2dda592bda4152/assets/social-preview.png"
   }
 }

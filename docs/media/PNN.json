@@ -3,25 +3,27 @@
   "repo": "PNN",
   "screenshots": [
     {
-      "src": "media/PNN/2026-10-28-studio.png",
-      "alt": "PNN interface at 2026-10-28",
-      "caption": "PNN interface at 2026-10-28",
-      "commit": "70d7c48",
+      "src": "media/PNN/2026-10-28-studio.webp",
+      "alt": "PNN screenshot",
+      "caption": "PNN interface from assets/screenshots/2026-10-28-studio.png",
+      "commit": "6df7265c9160ddf016b79b99b94dfd5907093885",
       "taken_at": "2026-10-28",
-      "viewport": "1440x900",
+      "viewport": "",
       "width": 1440,
-      "height": 900
+      "height": 900,
+      "digest": "sha256:9cdd05df17945e0dab264daa95476c19f0f9437b53eea98a5090b490fc5cdc49",
+      "source": "PNN:assets/screenshots/2026-10-28-studio.png"
     }
   ],
   "logo": {
-    "src": "media/PNN/logo.jpg",
+    "src": "media/PNN/logo.webp",
     "alt": "PNN logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:76fd4df1baea2b6fa97ecf6423863be26c1243220e8bb44e9d64995f267699cb",
-    "commit": "db6ce471a7a2bd1c76e63afbab11e51dd66aed75",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:e61ed1b2e69b171c0e6401cf971f91bccbf760af76f98882571436ab9eefbba4",
+    "commit": "6df7265c9160ddf016b79b99b94dfd5907093885",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/db6ce471a7a2bd1c76e63afbab11e51dd66aed75/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/6df7265c9160ddf016b79b99b94dfd5907093885/assets/logo.jpg"
   },
   "preview": {
     "src": "media/PNN/social-preview.webp",
@@ -29,8 +31,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:e265f1d4944c27bb58d047b85b27108edbfba12d953e821d49b2ff81231c9f66",
-    "commit": "db6ce471a7a2bd1c76e63afbab11e51dd66aed75",
+    "commit": "6df7265c9160ddf016b79b99b94dfd5907093885",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/db6ce471a7a2bd1c76e63afbab11e51dd66aed75/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/6df7265c9160ddf016b79b99b94dfd5907093885/assets/social-preview.png"
   }
 }

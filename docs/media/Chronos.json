@@ -3,14 +3,14 @@
   "repo": "Chronos",
   "screenshots": [],
   "logo": {
-    "src": "media/Chronos/logo.jpg",
+    "src": "media/Chronos/logo.webp",
     "alt": "Chronos logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:73b3e5991d9ae45ebfeb5599d07b9d180ac427daba9e407ee52e2d5865540f89",
-    "commit": "21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:37c9bf076bf7fec5e1b209e803ee3f78efa89e461f46f004fe3c13f3a39a4e00",
+    "commit": "9a0d4e9c61061280bf19cf0d07de9a8754b43d0e",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/9a0d4e9c61061280bf19cf0d07de9a8754b43d0e/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Chronos/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:55708772f70a256f0964fdfd3fb94276cae98283e47eb642b5da8d695d3d4314",
-    "commit": "21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd",
+    "commit": "9a0d4e9c61061280bf19cf0d07de9a8754b43d0e",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/9a0d4e9c61061280bf19cf0d07de9a8754b43d0e/assets/social-preview.png"
   }
 }

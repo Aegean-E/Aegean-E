@@ -3,14 +3,14 @@
   "repo": "NeuroCore",
   "screenshots": [],
   "logo": {
-    "src": "media/NeuroCore/logo.jpg",
+    "src": "media/NeuroCore/logo.webp",
     "alt": "NeuroCore logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:143aa5000f0b7c2ad54a8fbdc6b345796d5c4ea21de850c9c8256cbd3a7cdc34",
-    "commit": "01b30a07734c9bacd8440a6b39f38cdc30d35770",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:59f3e67be10bf2e2d6f4ca45555d1f57a226faf9ee2b0615a45228bbd9b48315",
+    "commit": "16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/01b30a07734c9bacd8440a6b39f38cdc30d35770/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838/assets/logo.jpg"
   },
   "preview": {
     "src": "media/NeuroCore/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 573,
     "digest": "sha256:3b24cd0f21fb1e7418780ffbe032fa21c0561e9f5b9caccbd40417017ae83b32",
-    "commit": "01b30a07734c9bacd8440a6b39f38cdc30d35770",
+    "commit": "16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/01b30a07734c9bacd8440a6b39f38cdc30d35770/assets/social-preview.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838/assets/social-preview.jpg"
   }
 }

@@ -3,14 +3,14 @@
   "repo": "Assay",
   "screenshots": [],
   "logo": {
-    "src": "media/Assay/logo.jpg",
+    "src": "media/Assay/logo.webp",
     "alt": "Assay logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:83240bbf186fcc29fc54ac4996c35837669b6b37ab982cdc1bdc6938d05dd1cd",
-    "commit": "112215e541b49ce4447a4a01624404c14124b43a",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:ecd1e793d6747a8331919c112c331acf1e3b14b1906511b33a403faaa8daed21",
+    "commit": "ee77f05ffb676fa5f41ae9e5b222078c477a424d",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/112215e541b49ce4447a4a01624404c14124b43a/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/ee77f05ffb676fa5f41ae9e5b222078c477a424d/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Assay/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:276248c124c796f81ff16c3a676fe1e62009d1ddb0d790d39d687c415984f040",
-    "commit": "112215e541b49ce4447a4a01624404c14124b43a",
+    "commit": "ee77f05ffb676fa5f41ae9e5b222078c477a424d",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/112215e541b49ce4447a4a01624404c14124b43a/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/ee77f05ffb676fa5f41ae9e5b222078c477a424d/assets/social-preview.png"
   }
 }

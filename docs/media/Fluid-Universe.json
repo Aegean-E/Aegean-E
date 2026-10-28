@@ -3,14 +3,14 @@
   "repo": "Fluid-Universe",
   "screenshots": [],
   "logo": {
-    "src": "media/Fluid-Universe/logo.jpg",
+    "src": "media/Fluid-Universe/logo.webp",
     "alt": "Fluid-Universe logo",
-    "width": 1024,
-    "height": 1024,
-    "digest": "sha256:5c411e43aed5789fa8c2a01b4a1a3d05f869a1fcfb3227a6ee970ccf45be00bc",
-    "commit": "d92507304df6741853e9da943b03ac9396ad470b",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:5565bd8933f3a929ece23bbdfaaf857938350f5bd2849b13cd7b5d43922e67b2",
+    "commit": "3ef42e21bcb2bf96db9c7a99329d991ec45776af",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Fluid-Universe/d92507304df6741853e9da943b03ac9396ad470b/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fluid-Universe/3ef42e21bcb2bf96db9c7a99329d991ec45776af/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Fluid-Universe/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:fff576170c562b0b25615e6882f6d4dd15f91b55a206bfd3ffcace70477eb996",
-    "commit": "d92507304df6741853e9da943b03ac9396ad470b",
+    "commit": "3ef42e21bcb2bf96db9c7a99329d991ec45776af",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Fluid-Universe/d92507304df6741853e9da943b03ac9396ad470b/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fluid-Universe/3ef42e21bcb2bf96db9c7a99329d991ec45776af/assets/social-preview.png"
   }
 }
