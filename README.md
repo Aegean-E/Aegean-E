@@ -1,7 +1,7 @@
 
 <!-- aegean:media:start -->
 <p align="center"><img src="assets/social-preview.png" alt="AegeanWorks social preview" width="100%"></p>
-*Brand assets are generated and may not fully represent the project scope.*
+*The banner and logo are AI-generated brand assets. They are illustrative and may not literally depict every feature or the full project scope.*
 <!-- aegean:media:end -->
 <p align="center">
 </p>
@@ -256,6 +256,7 @@ AegeanWorks/
 │       └── tests.yml        <- CI regression gate on every push
 ├── .aikit/
 │   ├── project.json         <- Project identity and test command
+│   ├── media.json           <- Reviewed brand media state and approvals
 │   ├── guidelines.md        <- Project-only rules
 │   ├── decisions.md         <- ADR register
 │   ├── codebase_map.md      <- Generated AST symbol catalog
