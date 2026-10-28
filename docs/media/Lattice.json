@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Lattice",
   "screenshots": [],
   "logo": {
     "src": "media/Lattice/logo.jpg",
-    "alt": "Lattice logo"
+    "alt": "Lattice logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:193da2ab953c845d495dfa7bb26b3632788089194c9db46c5817dcef81ed4877",
+    "commit": "9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Lattice/social-preview.webp",
+    "alt": "Lattice social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:01521e8e8a36a613410f7da7b44e63a8551fc59fef21e50476ebc929edc79b93",
+    "commit": "9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/9a1217cd1b6634b4dc79ae6d82e4ff3726dbdf7b/assets/social-preview.png"
   }
 }

@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Assay",
   "screenshots": [],
   "logo": {
     "src": "media/Assay/logo.jpg",
-    "alt": "Assay logo"
+    "alt": "Assay logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:83240bbf186fcc29fc54ac4996c35837669b6b37ab982cdc1bdc6938d05dd1cd",
+    "commit": "112215e541b49ce4447a4a01624404c14124b43a",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/112215e541b49ce4447a4a01624404c14124b43a/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Assay/social-preview.webp",
+    "alt": "Assay social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:276248c124c796f81ff16c3a676fe1e62009d1ddb0d790d39d687c415984f040",
+    "commit": "112215e541b49ce4447a4a01624404c14124b43a",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/112215e541b49ce4447a4a01624404c14124b43a/assets/social-preview.png"
   }
 }

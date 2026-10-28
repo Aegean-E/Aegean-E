@@ -1,4 +1,5 @@
 import {
+  licenseFamily,
   licenseLabel,
   monogram,
   normalizeRepo,
@@ -27,6 +28,10 @@ const logoFallback = document.getElementById("project-logo-fallback");
 const galleryEl = document.getElementById("project-gallery");
 const galleryGrid = document.getElementById("gallery-grid");
 const galleryNote = document.getElementById("gallery-note");
+const previewCard = document.getElementById("project-preview-card");
+const previewImage = document.getElementById("project-preview");
+const previewLink = document.getElementById("project-preview-link");
+const previewMeta = document.getElementById("project-preview-meta");
 
 function setText(id, value) {
   const element = document.getElementById(id);
@@ -107,8 +112,23 @@ async function loadMedia(repo) {
     }
     if (logoFallback) logoFallback.hidden = true;
   }
+  if (media.preview) renderPreview(repo, media.preview);
   if (!media.screenshots.length) return;
   renderGallery(repo, media.screenshots);
+}
+
+function renderPreview(repo, preview) {
+  if (!previewCard || !previewImage) return;
+  previewImage.src = preview.src;
+  previewImage.alt = preview.alt || repo.name + " social preview";
+  previewImage.width = preview.width || 1200;
+  previewImage.height = preview.height || 600;
+  if (previewLink) previewLink.href = preview.src;
+  if (previewMeta) {
+    // hygiene: allow canonical commit link, not a loaded dependency
+    previewMeta.textContent = screenshotMeta(preview) || "Social preview";
+  }
+  previewCard.hidden = false;
 }
 
 function renderGallery(repo, shots) {
@@ -198,7 +218,9 @@ function render(repo) {
   if (logoFallback) logoFallback.textContent = monogram(repo.name);
   setText("project-description", description);
   setText("project-language", repo.language || "Unknown");
-  setText("project-license", licenseLabel(repo.license, repo.name, { full: true }));
+  const family = licenseFamily(repo.name);
+  setText("project-license-name", family ? family.name : licenseLabel(repo.license, repo.name));
+  setText("project-license-code", family ? "(" + family.short + ")" : "");
   setText("project-pushed", relativeAge(repo.pushed_at) || "Unknown");
   setText("project-branch", repo.default_branch || "main");
   const pushed = document.getElementById("project-pushed");

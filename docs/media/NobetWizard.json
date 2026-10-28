@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "NobetWizard",
   "screenshots": [],
   "logo": {
     "src": "media/NobetWizard/logo.jpg",
-    "alt": "NobetWizard logo"
+    "alt": "NobetWizard logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:c532f96cf355fc1794afa508d01507e68453f46d291f801fbaac9e025614b2d1",
+    "commit": "335dfbf6d39b87d661f5480af2403c6cacc5a7b9",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NobetWizard/335dfbf6d39b87d661f5480af2403c6cacc5a7b9/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/NobetWizard/social-preview.webp",
+    "alt": "NobetWizard social preview",
+    "width": 1200,
+    "height": 584,
+    "digest": "sha256:67a30f8be4e6c8ce12af9a592e0b10292f70885b10faf75b0533e9eab32da9d3",
+    "commit": "335dfbf6d39b87d661f5480af2403c6cacc5a7b9",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NobetWizard/335dfbf6d39b87d661f5480af2403c6cacc5a7b9/assets/social-preview.jpg"
   }
 }

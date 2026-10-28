@@ -175,7 +175,7 @@ export function readmeToBlocks(markdown, { maxChars = 7000, maxLines = 160 } = {
  * Every capture names the commit and date it was taken, so a screenshot never
  * silently outlives the code it claims to show. Paths are relative to docs/.
  */
-export const MEDIA_SCHEMA = 1;
+export const MEDIA_SCHEMA = 2;
 export const MAX_SCREENSHOTS = 12;
 const MEDIA_PATH = /^media\/[A-Za-z0-9._/-]{1,160}$/;
 const COMMIT = /^[0-9a-f]{7,40}$/i;
@@ -239,7 +239,7 @@ function normalizeScreenshot(raw) {
 }
 
 export function normalizeMedia(raw, repoName) {
-  const empty = { logo: null, screenshots: [] };
+  const empty = { logo: null, preview: null, screenshots: [] };
   if (!raw || typeof raw !== "object" || raw.schema !== MEDIA_SCHEMA) return empty;
   if (!validRepoName(repoName)) return empty;
   if (typeof raw.repo === "string" && raw.repo.trim().toLowerCase() !== repoName.trim().toLowerCase()) {
@@ -249,7 +249,11 @@ export function normalizeMedia(raw, repoName) {
     .map(normalizeScreenshot)
     .filter(Boolean)
     .slice(0, MAX_SCREENSHOTS);
-  return { logo: normalizeLogo(raw.logo), screenshots };
+  return {
+    logo: normalizeLogo(raw.logo),
+    preview: normalizeScreenshot(raw.preview),
+    screenshots,
+  };
 }
 
 export function screenshotMeta(shot) {

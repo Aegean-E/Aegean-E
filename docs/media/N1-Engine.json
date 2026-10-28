@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "N1-Engine",
   "screenshots": [],
   "logo": {
     "src": "media/N1-Engine/logo.jpg",
-    "alt": "N1-Engine logo"
+    "alt": "N1-Engine logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:f8bd9bccb27086c110b0646acc093476e12a720176956571cfeafe900c7f5017",
+    "commit": "7af0043df4556595ad5ce0203c325453b2dbe46a",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/N1-Engine/7af0043df4556595ad5ce0203c325453b2dbe46a/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/N1-Engine/social-preview.webp",
+    "alt": "N1-Engine social preview",
+    "width": 1200,
+    "height": 568,
+    "digest": "sha256:bcec49b795ad6538a6133670f9e8ca4348ba500deffd3dbec86bc1acec8b9035",
+    "commit": "7af0043df4556595ad5ce0203c325453b2dbe46a",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/N1-Engine/7af0043df4556595ad5ce0203c325453b2dbe46a/assets/social-preview.png"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Prism-Relay",
   "screenshots": [
     {
@@ -15,6 +15,22 @@
   ],
   "logo": {
     "src": "media/Prism-Relay/logo.jpg",
-    "alt": "Prism-Relay logo"
+    "alt": "Prism-Relay logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:90d158ae183af728280e23f8e4ce95a54f484112c567e0428691b255da9ce3e0",
+    "commit": "caf191b08bd9808779d04e51e443e356dbb06557",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Prism-Relay/caf191b08bd9808779d04e51e443e356dbb06557/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Prism-Relay/social-preview.webp",
+    "alt": "Prism-Relay social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:f8658179bcf85e69bb76ab8c4c95927e9cc734a54d2b8a0b1a0d43838204b056",
+    "commit": "caf191b08bd9808779d04e51e443e356dbb06557",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Prism-Relay/caf191b08bd9808779d04e51e443e356dbb06557/assets/social-preview.png"
   }
 }

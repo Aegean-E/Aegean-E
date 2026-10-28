@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Gauge",
   "screenshots": [],
   "logo": {
     "src": "media/Gauge/logo.jpg",
-    "alt": "Gauge logo"
+    "alt": "Gauge logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:ef44bd57aa80f9eb1a8c81c2ebf2b4f72aceb21297d7756893f7ffce5c592948",
+    "commit": "13fb8d4038c4cd58ef637caf86bfa3d1ae7f62ef",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Gauge/13fb8d4038c4cd58ef637caf86bfa3d1ae7f62ef/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Gauge/social-preview.webp",
+    "alt": "Gauge social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:d6aac0d7292e4d690e8b05597ad1abf10bca41d3b4e6a061968920b2786a569a",
+    "commit": "13fb8d4038c4cd58ef637caf86bfa3d1ae7f62ef",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Gauge/13fb8d4038c4cd58ef637caf86bfa3d1ae7f62ef/assets/social-preview.png"
   }
 }

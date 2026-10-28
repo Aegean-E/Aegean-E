@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Primordia",
   "screenshots": [],
   "logo": {
     "src": "media/Primordia/logo.jpg",
-    "alt": "Primordia logo"
+    "alt": "Primordia logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:080f9aafce0d5ae71868c398b57b4d5cecac1f23fe25a143220d9bfd78444264",
+    "commit": "924265299505ba22234e4f6e3841c2b9a9757d2d",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/924265299505ba22234e4f6e3841c2b9a9757d2d/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Primordia/social-preview.webp",
+    "alt": "Primordia social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:369020eccc190f11f773e72c9710cac3269fb094db503382e1c5ee22a433974c",
+    "commit": "924265299505ba22234e4f6e3841c2b9a9757d2d",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/924265299505ba22234e4f6e3841c2b9a9757d2d/assets/social-preview.png"
   }
 }

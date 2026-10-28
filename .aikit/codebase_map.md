@@ -6,11 +6,11 @@
 ---
 
 ## 📊 Codebase Metrics
-- **Total Python Modules**: `1`
-- **Total Classes**: `1`
-- **Total Top-Level Functions**: `5`
-- **Total Class Methods**: `81`
-- **Total Source Lines**: `1204`
+- **Total Python Modules**: `2`
+- **Total Classes**: `2`
+- **Total Top-Level Functions**: `36`
+- **Total Class Methods**: `82`
+- **Total Source Lines**: `1933`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1204` lines (`55854` bytes)
+**Size**: `1226` lines (`56794` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -27,13 +27,14 @@
   - Method `.test_readme_sections_present()`
   - Method `.test_readme_categories_are_title_cased()`
   - Method `.test_readme_speaks_as_the_company()`
-  - Method `.test_banner_asset_present()`
+  - Method `.test_brand_assets_are_present()`
   - Method `.test_funding_configuration()`
   - Method `.test_only_public_repositories_are_linked()`
   - Method `.test_readme_atlas_lists_every_public_repository()`
   - Method `.test_license_matches_the_aikit_family()`
   - Method `.test_site_entry_points_exist()`
   - Method `.test_project_dossier_page_is_wired()`
+  - Method `.test_dossier_media_manifests_are_consistent()`
   - Method `.test_dossier_media_manifest_is_documented()`
   - Method `.test_site_is_self_contained()`
   - Method `.test_node_suites_are_esm()`
@@ -111,5 +112,48 @@
 - `def read_verify()`
 - `def read_license_families()` - *The site's license ledger is the single source of truth for family codes.*
 - `def read_metadata()`
+
+---
+
+### [`tools/build_dossier_media.py`](tools/build_dossier_media.py)
+> *Build and verify the dossier media (logo, social preview, screenshots).*
+
+**Size**: `707` lines (`26960` bytes)
+
+**Classes:**
+- `class MediaError`
+
+**Functions:**
+- `def image_facts(data)` - *Return (format, width, height) without decoding the pixels.*
+- `def _webp_size(data)`
+- `def _jpeg_size(data)`
+- `def _svg_size(data)`
+- `def digest(data)`
+- `def _pillow()`
+- `def optimize(data, kind)`
+- `def _font(size, bold)`
+- `def _wrap(draw, text, font, width)`
+- `def fallback_card(repo, kind)` - *Draw a branded card for a repository that ships no assets/ images.*
+- `def fetch(url)`
+- `def resolve_commit(name, branch)`
+- `def raw_url(name, ref, path)`
+- `def load_repos()`
+- `def previous_local_logo(folder)` - *The approved logo art already committed for this repository, if any.*
+- `def manifest_path(name)` - *Existing manifests keep their original file name, which may differ in case.*
+- `def media_folder(name, manifest)` - *Reuse the folder an existing logo points at so paths never churn.*
+- `def read_manifest(name)`
+- `def clean_text(value, name, date)` - *Strip local filesystem paths from captions; manifests are public.*
+- `def sanitize_manifest(manifest, name)`
+- `def write_atomic(path, payload)`
+- `def write_manifest(name, manifest)`
+- `def asset_entry(folder, name, kind, payload, fmt, width, height, commit, source, generated)`
+- `def fetch_asset(name, ref, candidates)`
+- `def build_repo(repo, force)`
+- `def command_fetch(args)`
+- `def command_analyze(args)`
+- `def command_check(args)`
+- `def safe_slug(value)`
+- `def command_ingest(args)`
+- `def main(argv)`
 
 ---

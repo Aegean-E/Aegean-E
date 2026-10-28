@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Tempo",
   "screenshots": [],
   "logo": {
     "src": "media/Tempo/logo.jpg",
-    "alt": "Tempo logo"
+    "alt": "Tempo logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:b2fd3fc6204a00b4dad6d4ab58fd7ec0a32f2697ed54bd681b3890e49d2b72cc",
+    "commit": "f6999e74750b9d6c0eafe1eeda634d8a7b80e5df",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/f6999e74750b9d6c0eafe1eeda634d8a7b80e5df/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Tempo/social-preview.webp",
+    "alt": "Tempo social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:32cd8ab28b29043508563be89e9ebf5a6dea8e224851e321b29a7cd2ef197bc3",
+    "commit": "f6999e74750b9d6c0eafe1eeda634d8a7b80e5df",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/f6999e74750b9d6c0eafe1eeda634d8a7b80e5df/assets/social-preview.png"
   }
 }

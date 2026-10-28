@@ -18,4 +18,19 @@
     "alt": "Voidfarer logo",
     "width": 1024,
     "height": 1024,
-    "digest": "sha256:080ada6aa257ce819aea04cfc9d8bee5cfd01ca9e802a24
+    "digest": "sha256:080ada6aa257ce819aea04cfc9d8bee5cfd01ca9e802a24288786dc7d3ca0e96",
+    "commit": "3d0c5f946251711bb4a442d99d0c0a355608e9de",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Voidfarer/3d0c5f946251711bb4a442d99d0c0a355608e9de/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Voidfarer/social-preview.webp",
+    "alt": "Voidfarer social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:f36db9223b71621eed40863342b1170b5329750b4b3fce39c88ecb3a8bb9cd7f",
+    "commit": "3d0c5f946251711bb4a442d99d0c0a355608e9de",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Voidfarer/3d0c5f946251711bb4a442d99d0c0a355608e9de/assets/social-preview.png"
+  }
+}

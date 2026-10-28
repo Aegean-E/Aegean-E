@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Chronos",
   "screenshots": [],
   "logo": {
     "src": "media/Chronos/logo.jpg",
-    "alt": "Chronos logo"
+    "alt": "Chronos logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:73b3e5991d9ae45ebfeb5599d07b9d180ac427daba9e407ee52e2d5865540f89",
+    "commit": "21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Chronos/social-preview.webp",
+    "alt": "Chronos social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:55708772f70a256f0964fdfd3fb94276cae98283e47eb642b5da8d695d3d4314",
+    "commit": "21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/21cf2d10de8ca39c3b5a80be24e3e91be1abbbcd/assets/social-preview.png"
   }
 }

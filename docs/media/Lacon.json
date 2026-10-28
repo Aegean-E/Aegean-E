@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Lacon",
   "screenshots": [],
   "logo": {
     "src": "media/Lacon/logo.jpg",
-    "alt": "Lacon logo"
+    "alt": "Lacon logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:4e5787d37390728467879a919cf6590ce8efa3186cdcdc34abf7fc613a71e3d8",
+    "commit": "e610d4f78b32f680d6efffe7d49cf3cc8d627aaa",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lacon/e610d4f78b32f680d6efffe7d49cf3cc8d627aaa/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Lacon/social-preview.webp",
+    "alt": "Lacon social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:cb1d91d97f6d33cb1e0d3c0a3761f84392eed748d45e934685320139693557c0",
+    "commit": "e610d4f78b32f680d6efffe7d49cf3cc8d627aaa",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lacon/e610d4f78b32f680d6efffe7d49cf3cc8d627aaa/assets/social-preview.png"
   }
 }

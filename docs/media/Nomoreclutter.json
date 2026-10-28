@@ -1,9 +1,25 @@
 {
-  "schema": 1,
-  "repo": "Nomoreclutter",
+  "schema": 2,
+  "repo": "NoMoreClutter",
   "screenshots": [],
   "logo": {
-    "src": "media/Nomoreclutter/logo.jpg",
-    "alt": "Nomoreclutter logo"
+    "src": "media/NoMoreClutter/logo.jpg",
+    "alt": "NoMoreClutter logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:66b09953f268f1698dbacd3ecf64409d2c845681254c183383a8a5ae9524bec4",
+    "commit": "3d1bd2e23f7b9e09d228f834bb3d791e02d002d7",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NoMoreClutter/3d1bd2e23f7b9e09d228f834bb3d791e02d002d7/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/NoMoreClutter/social-preview.webp",
+    "alt": "NoMoreClutter social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:daf288f220bae5b35805929bb2a7dd14c8c21e10ea83649dc3856a4e3654ab88",
+    "commit": "3d1bd2e23f7b9e09d228f834bb3d791e02d002d7",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NoMoreClutter/3d1bd2e23f7b9e09d228f834bb3d791e02d002d7/assets/social-preview.png"
   }
 }

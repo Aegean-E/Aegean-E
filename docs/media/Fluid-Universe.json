@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Fluid-Universe",
   "screenshots": [],
   "logo": {
     "src": "media/Fluid-Universe/logo.jpg",
-    "alt": "Fluid-Universe logo"
+    "alt": "Fluid-Universe logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:5c411e43aed5789fa8c2a01b4a1a3d05f869a1fcfb3227a6ee970ccf45be00bc",
+    "commit": "d92507304df6741853e9da943b03ac9396ad470b",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fluid-Universe/d92507304df6741853e9da943b03ac9396ad470b/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Fluid-Universe/social-preview.webp",
+    "alt": "Fluid-Universe social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:fff576170c562b0b25615e6882f6d4dd15f91b55a206bfd3ffcace70477eb996",
+    "commit": "d92507304df6741853e9da943b03ac9396ad470b",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fluid-Universe/d92507304df6741853e9da943b03ac9396ad470b/assets/social-preview.png"
   }
 }

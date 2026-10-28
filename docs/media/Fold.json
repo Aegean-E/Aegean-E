@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Fold",
   "screenshots": [],
   "logo": {
     "src": "media/Fold/logo.jpg",
-    "alt": "Fold logo"
+    "alt": "Fold logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:2a6eeb3b0276619716efeea4f37796813ac726203a3e3d05e80137238275b390",
+    "commit": "db8ca267491bb306471eca7284eac487cd3ff8ea",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/db8ca267491bb306471eca7284eac487cd3ff8ea/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Fold/social-preview.webp",
+    "alt": "Fold social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:7d6f349d60265f4c728d199a2ed256d85439dc400e5d67b8e11398ee60bac7af",
+    "commit": "db8ca267491bb306471eca7284eac487cd3ff8ea",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/db8ca267491bb306471eca7284eac487cd3ff8ea/assets/social-preview.png"
   }
 }

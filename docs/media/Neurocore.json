@@ -1,9 +1,25 @@
 {
-  "schema": 1,
-  "repo": "Neurocore",
+  "schema": 2,
+  "repo": "NeuroCore",
   "screenshots": [],
   "logo": {
-    "src": "media/Neurocore/logo.jpg",
-    "alt": "Neurocore logo"
+    "src": "media/NeuroCore/logo.jpg",
+    "alt": "NeuroCore logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:143aa5000f0b7c2ad54a8fbdc6b345796d5c4ea21de850c9c8256cbd3a7cdc34",
+    "commit": "01b30a07734c9bacd8440a6b39f38cdc30d35770",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/01b30a07734c9bacd8440a6b39f38cdc30d35770/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/NeuroCore/social-preview.webp",
+    "alt": "NeuroCore social preview",
+    "width": 1200,
+    "height": 573,
+    "digest": "sha256:3b24cd0f21fb1e7418780ffbe032fa21c0561e9f5b9caccbd40417017ae83b32",
+    "commit": "01b30a07734c9bacd8440a6b39f38cdc30d35770",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/01b30a07734c9bacd8440a6b39f38cdc30d35770/assets/social-preview.jpg"
   }
 }

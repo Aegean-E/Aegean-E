@@ -35,3 +35,5 @@ jobs:
         run: node tests/atlas/run-tests.mjs
       - name: Run the project-dossier parity suite
         run: node tests/project/run-tests.mjs
+      - name: Verify dossier media manifests and digests
+        run: python tools/build_dossier_media.py check

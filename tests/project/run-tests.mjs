@@ -115,8 +115,16 @@ equal(takenAt("27-10-2026"), "", "wrong date shape rejected");
 
 const media = normalizeMedia(
   {
-    schema: 1,
+    schema: 2,
     repo: "AIKit",
+    preview: {
+      src: "media/AIKit/social-preview.webp",
+      alt: "AIKit social preview",
+      commit: "3ec859e9",
+      taken_at: "2026-10-27",
+      width: 1200,
+      height: 600,
+    },
     logo: { src: "media/AIKit/logo.svg", alt: "AIKit logo" },
     screenshots: [
       {
@@ -138,6 +146,9 @@ const media = normalizeMedia(
 equal(media.logo.src, "media/AIKit/logo.svg", "logo kept");
 equal(media.logo.alt, "AIKit logo", "logo alt kept");
 equal(media.screenshots.length, 2, "unsafe and unnamed captures dropped");
+equal(media.preview.src, "media/AIKit/social-preview.webp", "social preview kept");
+equal(media.preview.width, 1200, "preview width kept");
+equal(screenshotMeta(media.preview), "commit 3ec859e \u00b7 2026-10-27", "preview meta");
 equal(media.screenshots[0].alt, "Ledger view", "caption supplies alt");
 equal(media.screenshots[0].commit, "3ec859e", "commit normalized");
 equal(media.screenshots[0].width, 1440, "width kept");
@@ -145,8 +156,9 @@ equal(media.screenshots[1].commit, "", "missing commit stays empty");
 equal(screenshotMeta(media.screenshots[0]), "commit 3ec859e \u00b7 2026-10-27 \u00b7 1440x900", "capture meta");
 equal(screenshotMeta(media.screenshots[1]), "", "bare capture has no meta");
 
-equal(normalizeMedia({ schema: 2, screenshots: [] }, "AIKit").screenshots.length, 0, "unknown schema ignored");
-equal(normalizeMedia({ schema: 1, repo: "Other", screenshots: [] }, "AIKit").screenshots.length, 0, "repo mismatch ignored");
+equal(normalizeMedia({ schema: 3, screenshots: [] }, "AIKit").screenshots.length, 0, "unknown schema ignored");
+equal(normalizeMedia({ schema: 2, screenshots: [] }, "AIKit").screenshots.length, 0, "missing preview is tolerated");
+equal(normalizeMedia({ schema: 2, repo: "Other", screenshots: [] }, "AIKit").screenshots.length, 0, "repo mismatch ignored");
 const wrapped = readmeToBlocks(
   [
     "- Only small, mechanical repairs are automatic",
@@ -176,9 +188,10 @@ equal(wrapped.blocks[1].type, "paragraph", "unindented text ends the list");
 equal(wrapped.blocks[1].text, "A paragraph after the list.", "trailing paragraph kept");
 
 equal(normalizeMedia(null, "AIKit").logo, null, "missing manifest tolerated");
+equal(normalizeMedia(null, "AIKit").preview, null, "missing preview tolerated");
 
 const many = normalizeMedia(
-  { schema: 1, screenshots: Array.from({ length: 20 }, (_, index) => ({ src: "media/A/xx" + index + ".png", alt: "shot" })) },
+  { schema: 2, screenshots: Array.from({ length: 20 }, (_, index) => ({ src: "media/A/xx" + index + ".png", alt: "shot" })) },
   "AIKit"
 );
 equal(many.screenshots.length, 12, "screenshot cap");

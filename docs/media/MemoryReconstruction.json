@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "MemoryReconstruction",
   "screenshots": [],
   "logo": {
     "src": "media/MemoryReconstruction/logo.jpg",
-    "alt": "MemoryReconstruction logo"
+    "alt": "MemoryReconstruction logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:bdb360e56e8a2e6b6b610bc4f0fdb3c92aaf8f0ae493f3bad3c1e87f206a9a95",
+    "commit": "8e0c94318976d08b5cc184352e0a2c914c09a326",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/MemoryReconstruction/8e0c94318976d08b5cc184352e0a2c914c09a326/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/MemoryReconstruction/social-preview.webp",
+    "alt": "MemoryReconstruction social preview",
+    "width": 1200,
+    "height": 300,
+    "digest": "sha256:a2fc7fb0a5f3220f13eacc4e03b80af9d064e03da92ce0ddc988a0cd4ef2dd6a",
+    "commit": "8e0c94318976d08b5cc184352e0a2c914c09a326",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/MemoryReconstruction/8e0c94318976d08b5cc184352e0a2c914c09a326/assets/social-preview.png"
   }
 }

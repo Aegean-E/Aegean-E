@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Tally",
   "screenshots": [],
   "logo": {
     "src": "media/Tally/logo.jpg",
-    "alt": "Tally logo"
+    "alt": "Tally logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:c0df0b8dc54059b4b00880b4f7f530aa73b14bfbb5b7a2b8d23de3cd0e761db3",
+    "commit": "f512f026d37b632bbda686200a1094c6d5901b63",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tally/f512f026d37b632bbda686200a1094c6d5901b63/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Tally/social-preview.webp",
+    "alt": "Tally social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:8dafc151485a3b12e37c403c08c4662d7851aeb0b334ccf4fbf6cb8f5a0aa079",
+    "commit": "f512f026d37b632bbda686200a1094c6d5901b63",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tally/f512f026d37b632bbda686200a1094c6d5901b63/assets/social-preview.png"
   }
 }

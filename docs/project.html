@@ -113,29 +113,41 @@
 
       <article id="project-detail" hidden>
         <a class="back-link" href="index.html#projects">← All projects</a>
-        <header class="project-detail-head">
-          <p class="eyebrow">Project dossier</p>
-          <div class="project-detail-brand">
-            <span class="project-detail-mark" id="project-logo-fallback" aria-hidden="true"></span>
-            <img class="project-detail-logo" id="project-logo" alt="" width="72" height="72" loading="lazy" decoding="async" hidden>
+        <section class="dossier-hero" aria-labelledby="project-title">
+          <div class="dossier-intro">
+            <div class="dossier-brand">
+              <span class="project-detail-mark" id="project-logo-fallback" aria-hidden="true"></span>
+              <img class="project-detail-logo" id="project-logo" alt="" width="88" height="88" loading="eager" decoding="async" hidden>
+              <p class="eyebrow">Project dossier</p>
+            </div>
+            <h1 id="project-title">Project</h1>
+            <p class="project-detail-lede" id="project-description"></p>
           </div>
-          <h1 id="project-title">Project</h1>
-          <p class="project-detail-lede" id="project-description"></p>
-          <dl class="project-detail-facts">
-            <div><dt>Language</dt><dd id="project-language"></dd></div>
-            <div><dt>License</dt><dd id="project-license"></dd></div>
-            <div><dt>Last push</dt><dd id="project-pushed"></dd></div>
-            <div><dt>Default branch</dt><dd id="project-branch"></dd></div>
-          </dl>
-          <div class="project-detail-topics" id="project-topics" aria-label="Project topics"></div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" id="project-repo" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">View repository <!-- hygiene: allow outbound link, not a loaded dependency -->
-              <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg>
+
+          <figure class="dossier-preview" id="project-preview-card" hidden>
+            <a id="project-preview-link" href="#" target="_blank" rel="noopener">
+              <img id="project-preview" alt="" loading="eager" decoding="async">
             </a>
-            <a class="btn btn-ghost" id="project-homepage" href="#" target="_blank" rel="noopener" hidden>Project site</a>
-            <a class="btn btn-ghost" id="readme-link" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">README on GitHub <!-- hygiene: allow outbound link, not a loaded dependency --></a>
+            <figcaption id="project-preview-meta"></figcaption>
+          </figure>
+
+          <div class="dossier-body">
+            <dl class="project-detail-facts">
+              <div><dt>Language</dt><dd id="project-language"></dd></div>
+              <div><dt>License</dt><dd id="project-license"><span id="project-license-name"></span> <span class="license-code" id="project-license-code"></span></dd></div>
+              <div><dt>Last push</dt><dd id="project-pushed"></dd></div>
+              <div><dt>Default branch</dt><dd id="project-branch"></dd></div>
+            </dl>
+            <div class="project-detail-topics" id="project-topics" aria-label="Project topics"></div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" id="project-repo" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">View repository <!-- hygiene: allow outbound link, not a loaded dependency -->
+                <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg>
+              </a>
+              <a class="btn btn-ghost" id="project-homepage" href="#" target="_blank" rel="noopener" hidden>Project site</a>
+              <a class="btn btn-ghost" id="readme-link" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">README on GitHub <!-- hygiene: allow outbound link, not a loaded dependency --></a>
+            </div>
           </div>
-        </header>
+        </section>
 
         <section class="project-gallery" id="project-gallery" aria-labelledby="gallery-title" hidden>
           <div class="gallery-head">

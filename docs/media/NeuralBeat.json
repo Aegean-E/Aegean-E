@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "NeuralBeat",
   "screenshots": [],
   "logo": {
     "src": "media/NeuralBeat/logo.jpg",
-    "alt": "NeuralBeat logo"
+    "alt": "NeuralBeat logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:f4b5f8643e2adad689381885e628e5b867c95f990782756d0a7949014c5e2dd0",
+    "commit": "a6fcbec07390380a5f6fe604cbf98cbb59f53c91",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/a6fcbec07390380a5f6fe604cbf98cbb59f53c91/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/NeuralBeat/social-preview.webp",
+    "alt": "NeuralBeat social preview",
+    "width": 1024,
+    "height": 609,
+    "digest": "sha256:e408e52d3beee6522d1d2bfa24bddeaac9bef504ff512ad9dc77ed9c032b583a",
+    "commit": "a6fcbec07390380a5f6fe604cbf98cbb59f53c91",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/a6fcbec07390380a5f6fe604cbf98cbb59f53c91/assets/social-preview.png"
   }
 }

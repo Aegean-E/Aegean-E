@@ -4,6 +4,8 @@ import base64
 import hashlib
 import json
 import re
+import subprocess
+import sys
 import unittest
 from html import escape as html_escape, unescape as html_unescape
 import xml.etree.ElementTree as ET
@@ -129,12 +131,13 @@ class ProfileIntegrityTests(unittest.TestCase):
         body = re.sub(r"[\w.+-]+@[\w-]+\.[\w.]+", "", body)
         self.assertNotRegex(body, r"\b(I|I'm|I’m|my|me|mine)\b")
 
-    def test_banner_asset_present(self):
-        banner_path = ROOT / "assets" / "banner.svg"
-        self.assertTrue(banner_path.is_file())
-        content = banner_path.read_text(encoding="utf-8")
-        self.assertIn("<svg", content)
-        self.assertIn("AEGEAN", content)
+    def test_brand_assets_are_present(self):
+        for name in ("social-preview.png", "logo.jpg"):
+            with self.subTest(asset=name):
+                path = ROOT / "assets" / name
+                self.assertTrue(path.is_file())
+                self.assertGreater(path.stat().st_size, 0)
+        self.assertFalse((ROOT / "assets" / "banner.svg").exists())
 
     def test_funding_configuration(self):
         funding_path = ROOT / ".github" / "FUNDING.yml"
@@ -148,13 +151,14 @@ class ProfileIntegrityTests(unittest.TestCase):
             re.findall(r"https://github\.com/AegeanWorks/([A-Za-z0-9._-]+)", read_readme())
         )
         self.assertTrue(linked)
-        self.assertTrue(linked.issubset(PUBLIC_REPOS), linked - PUBLIC_REPOS)
+        # README may link this repository itself (screenshots, source), never another private repo.
+        self.assertTrue(linked.issubset(PUBLIC_REPOS | {"AegeanWorks"}), linked - PUBLIC_REPOS - {"AegeanWorks"})
 
     def test_readme_atlas_lists_every_public_repository(self):
         linked = set(
             re.findall(r"https://github\.com/AegeanWorks/([A-Za-z0-9._-]+)", read_readme())
         )
-        self.assertEqual(linked, PUBLIC_REPOS)
+        self.assertEqual(linked - {"AegeanWorks"}, PUBLIC_REPOS)
 
     def test_license_matches_the_aikit_family(self):
         license_path = ROOT / "LICENSE"
@@ -210,6 +214,11 @@ class ProfileIntegrityTests(unittest.TestCase):
             'id="readme-status"',
             'id="project-logo"',
             'id="project-logo-fallback"',
+            'id="project-preview"',
+            'id="project-preview-link"',
+            'id="project-preview-meta"',
+            'id="project-license-name"',
+            'id="project-license-code"',
             'id="project-gallery"',
             'id="gallery-grid"',
             'id="gallery-note"',
@@ -252,9 +261,22 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("export function findRepo", core)
         self.assertIn("export function validRepoName", core)
 
+    def test_dossier_media_manifests_are_consistent(self):
+        tool = ROOT / "tools" / "build_dossier_media.py"
+        self.assertTrue(tool.is_file())
+        result = subprocess.run(
+            [sys.executable, str(tool), "check"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            cwd=str(ROOT),
+            timeout=120,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_dossier_media_manifest_is_documented(self):
         docs = (ROOT / "docs" / "media" / "README.md").read_text(encoding="utf-8")
-        for token in ("schema", "repo", "logo", "screenshots", "commit", "taken_at", "viewport"):
+        for token in ("schema", "repo", "logo", "preview", "screenshots", "commit", "taken_at", "viewport", "digest"):
             with self.subTest(token=token):
                 self.assertIn(token, docs)
         self.assertIn("media/<Name>.json", docs)

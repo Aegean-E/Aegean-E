@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Muse",
   "screenshots": [],
   "logo": {
     "src": "media/Muse/logo.jpg",
-    "alt": "Muse logo"
+    "alt": "Muse logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:bda7bfb7b9c39fdb73bbb1c9cb48868d7d9cda60ff5171d717e7e33e36887376",
+    "commit": "9617f30c3f3b5c3e9e725f696b24fa2bcfd4fa88",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Muse/9617f30c3f3b5c3e9e725f696b24fa2bcfd4fa88/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Muse/social-preview.webp",
+    "alt": "Muse social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:14affd530694799fe9c82077ef24e20ce122c79e3aa94a15cd1c55da16c065d2",
+    "commit": "9617f30c3f3b5c3e9e725f696b24fa2bcfd4fa88",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Muse/9617f30c3f3b5c3e9e725f696b24fa2bcfd4fa88/assets/social-preview.png"
   }
 }

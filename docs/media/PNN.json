@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "PNN",
   "screenshots": [
     {
       "src": "media/PNN/2026-10-28-studio.png",
       "alt": "PNN interface at 2026-10-28",
-      "caption": "PNN interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\PNN\\studio.html",
+      "caption": "PNN interface at 2026-10-28",
       "commit": "70d7c48",
       "taken_at": "2026-10-28",
       "viewport": "1440x900",
@@ -15,6 +15,22 @@
   ],
   "logo": {
     "src": "media/PNN/logo.jpg",
-    "alt": "PNN logo"
+    "alt": "PNN logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:76fd4df1baea2b6fa97ecf6423863be26c1243220e8bb44e9d64995f267699cb",
+    "commit": "db6ce471a7a2bd1c76e63afbab11e51dd66aed75",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/db6ce471a7a2bd1c76e63afbab11e51dd66aed75/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/PNN/social-preview.webp",
+    "alt": "PNN social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:e265f1d4944c27bb58d047b85b27108edbfba12d953e821d49b2ff81231c9f66",
+    "commit": "db6ce471a7a2bd1c76e63afbab11e51dd66aed75",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/db6ce471a7a2bd1c76e63afbab11e51dd66aed75/assets/social-preview.png"
   }
 }

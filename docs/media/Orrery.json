@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Orrery",
   "screenshots": [],
   "logo": {
     "src": "media/Orrery/logo.jpg",
-    "alt": "Orrery logo"
+    "alt": "Orrery logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:46c8eda4d282debe2527de9ec93ec9a67b6c60d55ef6b7aa650e93c587d6eff7",
+    "commit": "aa30ac9b9687fcde2a5ae2bdf4fb7b25a35cbbbe",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Orrery/aa30ac9b9687fcde2a5ae2bdf4fb7b25a35cbbbe/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Orrery/social-preview.webp",
+    "alt": "Orrery social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:e91b352e65a880d8eeda0acf463ccb4010d6f101b118150b7ef93e524a04c9f0",
+    "commit": "aa30ac9b9687fcde2a5ae2bdf4fb7b25a35cbbbe",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Orrery/aa30ac9b9687fcde2a5ae2bdf4fb7b25a35cbbbe/assets/social-preview.png"
   }
 }

@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "NeuralDeck",
   "screenshots": [],
   "logo": {
     "src": "media/NeuralDeck/logo.jpg",
-    "alt": "NeuralDeck logo"
+    "alt": "NeuralDeck logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:2087e40ad03dd17620ac5ca4850bb51e9ecdd60c6fc7a12c3d18093980c832fa",
+    "commit": "69bc2b5652e2158bfbc814333e60e86962e780cc",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralDeck/69bc2b5652e2158bfbc814333e60e86962e780cc/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/NeuralDeck/social-preview.webp",
+    "alt": "NeuralDeck social preview",
+    "width": 1200,
+    "height": 485,
+    "digest": "sha256:26f5c73acce8c234efa5e60dcea052257309e44d1a49dc665c9f0f6cb4943cb1",
+    "commit": "69bc2b5652e2158bfbc814333e60e86962e780cc",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralDeck/69bc2b5652e2158bfbc814333e60e86962e780cc/assets/social-preview.png"
   }
 }

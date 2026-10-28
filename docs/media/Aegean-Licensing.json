@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Aegean-Licensing",
   "screenshots": [],
   "logo": {
     "src": "media/Aegean-Licensing/logo.jpg",
-    "alt": "Aegean-Licensing logo"
+    "alt": "Aegean-Licensing logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:fd8fa56debd79c5bd8e87c6e0f13c3dcafb874f76fb14e13807d7d488a5a612c",
+    "commit": "03dae400fb2888dc54f7c3a0c35cdb2fd2e98d4c",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Licensing/03dae400fb2888dc54f7c3a0c35cdb2fd2e98d4c/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Aegean-Licensing/social-preview.webp",
+    "alt": "Aegean-Licensing social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:57e6e488b194143a930319415d0bf043b02150b3dc12e643f0209786ab5edbfc",
+    "commit": "03dae400fb2888dc54f7c3a0c35cdb2fd2e98d4c",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Licensing/03dae400fb2888dc54f7c3a0c35cdb2fd2e98d4c/assets/social-preview.png"
   }
 }

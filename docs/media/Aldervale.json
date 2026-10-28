@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Aldervale",
   "screenshots": [
     {
       "src": "media/Aldervale/2026-10-28-index.png",
       "alt": "Aldervale interface at 2026-10-28",
-      "caption": "Aldervale interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\aldervale\\.inspect\\index.html",
+      "caption": "Aldervale interface at 2026-10-28",
       "commit": "6c90987",
       "taken_at": "2026-10-28",
       "viewport": "1440x900",
@@ -15,6 +15,22 @@
   ],
   "logo": {
     "src": "media/Aldervale/logo.jpg",
-    "alt": "Aldervale logo"
+    "alt": "Aldervale logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:916b4e2cba0c59cbabeb2bdf28ba83afb4628039214c054d4b4c29651d029d4d",
+    "commit": "2c812ebb532df8cdb8ae6bc378087f706cce840c",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/2c812ebb532df8cdb8ae6bc378087f706cce840c/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Aldervale/social-preview.webp",
+    "alt": "Aldervale social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:3daaacd7a3791c922bb14123d18f73fecb772d95ad3adb2c7eaebc879573f8c8",
+    "commit": "2c812ebb532df8cdb8ae6bc378087f706cce840c",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/2c812ebb532df8cdb8ae6bc378087f706cce840c/assets/social-preview.png"
   }
 }

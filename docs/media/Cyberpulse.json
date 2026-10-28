@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Cyberpulse",
   "screenshots": [
     {
       "src": "media/Cyberpulse/2026-10-28-index.png",
       "alt": "Cyberpulse interface at 2026-10-28",
-      "caption": "Cyberpulse interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\cyberpulse\\cyberpulse\\static\\index.html",
+      "caption": "Cyberpulse interface at 2026-10-28",
       "commit": "1215870",
       "taken_at": "2026-10-28",
       "viewport": "1440x900",
@@ -15,6 +15,22 @@
   ],
   "logo": {
     "src": "media/Cyberpulse/logo.jpg",
-    "alt": "Cyberpulse logo"
+    "alt": "Cyberpulse logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:51a98a5beabb85522e6811d43a3bb14e0da5b7b46384f57990f0d5b6b0ce9dec",
+    "commit": "d24c5dde916e352e41ca982f2cf96224a1d1a19f",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/d24c5dde916e352e41ca982f2cf96224a1d1a19f/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Cyberpulse/social-preview.webp",
+    "alt": "Cyberpulse social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:df4720a9c80f77cb202355bd8370a9328f2aaf397c8747ac20edebd89fdb6593",
+    "commit": "d24c5dde916e352e41ca982f2cf96224a1d1a19f",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/d24c5dde916e352e41ca982f2cf96224a1d1a19f/assets/social-preview.png"
   }
 }

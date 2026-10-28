@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Pebble",
   "screenshots": [],
   "logo": {
     "src": "media/Pebble/logo.jpg",
-    "alt": "Pebble logo"
+    "alt": "Pebble logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:8cd9a3b2f6f1d8437ebc19e9e61bb35ffa593f882191338b046ba32ea7bca14e",
+    "commit": "36e8bbd1c62b168e2918afd1166fe1fd0ea32f0c",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Pebble/36e8bbd1c62b168e2918afd1166fe1fd0ea32f0c/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Pebble/social-preview.webp",
+    "alt": "Pebble social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:bb1f4f88c556899ad3d9b128b2f7287c555123ae870f59479cf18ea2a47daadf",
+    "commit": "36e8bbd1c62b168e2918afd1166fe1fd0ea32f0c",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Pebble/36e8bbd1c62b168e2918afd1166fe1fd0ea32f0c/assets/social-preview.png"
   }
 }

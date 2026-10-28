@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Crypt-Crawler",
   "screenshots": [
     {
       "src": "media/Crypt-Crawler/2026-10-28-index.png",
       "alt": "Crypt-Crawler interface at 2026-10-28",
-      "caption": "Crypt-Crawler interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\crypt-crawler\\static\\index.html",
+      "caption": "Crypt-Crawler interface at 2026-10-28",
       "commit": "941f16f",
       "taken_at": "2026-10-28",
       "viewport": "1440x900",
@@ -15,6 +15,22 @@
   ],
   "logo": {
     "src": "media/Crypt-Crawler/logo.jpg",
-    "alt": "Crypt-Crawler logo"
+    "alt": "Crypt-Crawler logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:f76a9af4b91acfc9077cfd0c70281c7d7c23881f5c7f28fcdaac8072facc3397",
+    "commit": "69a06d37dbcd1b391838387fcc0769bdadaf7584",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Crypt-Crawler/69a06d37dbcd1b391838387fcc0769bdadaf7584/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Crypt-Crawler/social-preview.webp",
+    "alt": "Crypt-Crawler social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:1f7c04d3d572240a2ca308d848d78e5e3cba63d98a0f475ddae69edbb62170e6",
+    "commit": "69a06d37dbcd1b391838387fcc0769bdadaf7584",
+    "taken_at": "2026-10-28",
+    "generated": true
   }
 }

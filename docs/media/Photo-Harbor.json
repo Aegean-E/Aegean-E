@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Photo-Harbor",
   "screenshots": [],
   "logo": {
     "src": "media/Photo-Harbor/logo.jpg",
-    "alt": "Photo-Harbor logo"
+    "alt": "Photo-Harbor logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:51acc1cf5214a211a123c199fecf575d58c326b112a2993f7108b7becfadbf60",
+    "commit": "e91794c9bdc7f195db90a5d0810a6611754773a0",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Photo-Harbor/e91794c9bdc7f195db90a5d0810a6611754773a0/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Photo-Harbor/social-preview.webp",
+    "alt": "Photo-Harbor social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:ef6bef59ddf58ad802d98f95dda1321f72ab66457cb366b3b11480bcfed7cb18",
+    "commit": "e91794c9bdc7f195db90a5d0810a6611754773a0",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Photo-Harbor/e91794c9bdc7f195db90a5d0810a6611754773a0/assets/social-preview.png"
   }
 }
