@@ -1,50 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "site-audit-polish",
+    "task_id": "render-fixes",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793144755.2301433,
+    "updated_at": 1793147910.0628898,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793144755.4355533
+    "completed_at": 1793147910.2879012
   },
   "checkpoints": [
-    {
-      "task_id": "site-v17",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[3/6] Local project dossier: project.html, project-core.js and project.js resolve a repository from atlas-snapshot.json or the public API and render metadata plus a plain-text README excerpt; 32 project-page assertions and 78 Python tests pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793128994.1829834,
-      "timestamp_str": "2026-10-27 22:23:14",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v17",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[4/6] Verifier gains certificate-ID lookup, drag-and-drop, copy result and JSON download; the page stays local and keeps the canonical-registry CSP; 58 verifier assertions and 78 Python tests pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793129003.0812998,
-      "timestamp_str": "2026-10-27 22:23:23",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-v17",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[5/6] Security, privacy and accessibility pages published with .well-known/security.txt, sitemap entries, footer links and README pointers; 78 Python tests and all four suites pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793129011.235714,
-      "timestamp_str": "2026-10-27 22:23:31",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "site-v17",
       "phase": "phase 4",
@@ -249,6 +216,44 @@
       "status": "completed",
       "timestamp": 1793144755.4355545,
       "timestamp_str": "2026-10-28 02:45:55",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "render-fixes",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Keep wrapped and indented README lines inside their list item, and let mobile topic chips wrap instead of clipping behind a hidden scrollbar",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793147909.8463175,
+      "timestamp_str": "2026-10-28 03:38:29",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "Bullet continuations rendered as stray paragraphs and half the topic filters were unreachable at 390px",
+        "benefits": "Dossiers mirror the README structure; every filter is visible on a phone",
+        "risks": "contract: README block parsing and narrow-width chip layout; dependency: none; concurrency: none; state: none",
+        "mitigation": "Node assertions for wrapped, indented and blank-line continuations; screenshots at 390px; axe re-run"
+      }
+    },
+    {
+      "task_id": "render-fixes",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] ADR-031; 81 Python tests, 65 atlas, 64 project and 58 verifier assertions; axe-core 0 violations at 1440px and 480px; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793147910.0628898,
+      "timestamp_str": "2026-10-28 03:38:30",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "render-fixes",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'render-fixes' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793147910.287902,
+      "timestamp_str": "2026-10-28 03:38:30",
       "agent": "kilo:main"
     }
   ]

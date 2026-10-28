@@ -125,6 +125,16 @@ export function readmeToBlocks(markdown, { maxChars = 7000, maxLines = 160 } = {
       if (text) list.items.push(text);
       continue;
     }
+    if (list && /^\s{2,}\S/.test(line)) {
+      // A wrapped or new paragraph inside a list item: markdown indents it.
+      const text = inline(line.trim());
+      if (text && list.items.length) {
+        list.items[list.items.length - 1] += " " + text;
+      } else if (text) {
+        list.items.push(text);
+      }
+      continue;
+    }
     const quoteLine = line.match(/^\s*>\s?(.*)$/);
     if (quoteLine) {
       flushParagraph();
@@ -136,6 +146,9 @@ export function readmeToBlocks(markdown, { maxChars = 7000, maxLines = 160 } = {
       continue;
     }
     if (!line.trim()) {
+      // A blank line may sit between list items or inside one; only a
+      // non-indented block after it ends the list.
+      if (list) continue;
       flush();
       continue;
     }

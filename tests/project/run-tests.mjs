@@ -147,6 +147,34 @@ equal(screenshotMeta(media.screenshots[1]), "", "bare capture has no meta");
 
 equal(normalizeMedia({ schema: 2, screenshots: [] }, "AIKit").screenshots.length, 0, "unknown schema ignored");
 equal(normalizeMedia({ schema: 1, repo: "Other", screenshots: [] }, "AIKit").screenshots.length, 0, "repo mismatch ignored");
+const wrapped = readmeToBlocks(
+  [
+    "- Only small, mechanical repairs are automatic",
+    "  (bare except, mutable defaults, unsafe",
+    "  yaml.load).",
+    "- Second item",
+    "",
+    "  A red gate rolls the patch back.",
+    "",
+    "A paragraph after the list.",
+  ].join("\n")
+);
+equal(wrapped.blocks.length, 2, "continuations do not split the list");
+equal(wrapped.blocks[0].type, "list", "list survives continuation");
+equal(wrapped.blocks[0].items.length, 2, "two list items");
+equal(
+  wrapped.blocks[0].items[0],
+  "Only small, mechanical repairs are automatic (bare except, mutable defaults, unsafe yaml.load).",
+  "wrapped lines join the first item"
+);
+equal(
+  wrapped.blocks[0].items[1],
+  "Second item A red gate rolls the patch back.",
+  "blank line keeps an indented paragraph in the item"
+);
+equal(wrapped.blocks[1].type, "paragraph", "unindented text ends the list");
+equal(wrapped.blocks[1].text, "A paragraph after the list.", "trailing paragraph kept");
+
 equal(normalizeMedia(null, "AIKit").logo, null, "missing manifest tolerated");
 
 const many = normalizeMedia(

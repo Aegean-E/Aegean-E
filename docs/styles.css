@@ -1357,14 +1357,7 @@ h1 .grad {
   .license-card { padding: 26px 22px 24px; }
   .filters { gap: 6px; }
   .chip { padding: 8px 12px; font-size: 0.76rem; }
-  .topic-filters {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .topic-filters::-webkit-scrollbar { display: none; }
+  .topic-chip { padding: 7px 10px; font-size: 0.66rem; }
   .filter-meta { flex-direction: column; align-items: flex-start; }
   .project-toolbar { align-items: stretch; }
   .search-wrap { flex-basis: 100%; }
