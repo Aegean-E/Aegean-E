@@ -219,7 +219,6 @@ AegeanWorks/
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── package.json             <- Node module marker for the browser-core parity suites
 ├── assets/
-│   └── banner.svg           <- Profile banner
 ├── docs/                    <- Static GitHub Pages site and its assets
 │   ├── .nojekyll            <- Serve files exactly as committed
 │   ├── 404.html             <- Branded not-found page
