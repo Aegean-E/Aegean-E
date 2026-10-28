@@ -4,6 +4,7 @@
   "test_command": "python -m unittest discover -s tests",
   "topics": [
     "aikit",
+    "aikit-integrated",
     "source-available",
     "aegean-license",
     "commercial-license",
@@ -21,7 +22,6 @@
     "user-interface",
     "web-app",
     "aegeanworks",
-    "studio",
     "ai-research"
   ],
   "gates": {},
