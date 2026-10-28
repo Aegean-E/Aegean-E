@@ -1,9 +1,25 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Aegean-Reforge",
   "screenshots": [],
   "logo": {
     "src": "media/Aegean-Reforge/logo.jpg",
-    "alt": "Aegean-Reforge logo"
+    "alt": "Aegean-Reforge logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:b238cbe57a46194fa9f965aa889ecee75a2fc5395a9f2b609c2cc02745b377e2",
+    "commit": "430bd27327342addffd69f8e68e5616bce4349b0",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Reforge/430bd27327342addffd69f8e68e5616bce4349b0/assets/logo.jpg"
+  },
+  "preview": {
+    "src": "media/Aegean-Reforge/social-preview.webp",
+    "alt": "Aegean-Reforge social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:26f31ec5d4cec056c8bdac9ccbe8d4f7de6adc6202284efaf51062a7b164da93",
+    "commit": "430bd27327342addffd69f8e68e5616bce4349b0",
+    "taken_at": "2026-10-28",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aegean-Reforge/430bd27327342addffd69f8e68e5616bce4349b0/assets/social-preview.png"
   }
 }

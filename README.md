@@ -48,7 +48,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. Every project card opens a local dossier with metadata, a logo slot and commit-stamped screenshots when media exists, and a README excerpt, while the repository link remains one click away.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. Every project card opens a local dossier with its GitHub logo, social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt, while the repository link remains one click away.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -226,8 +226,7 @@ AegeanWorks/
 │   ├── project.html         <- Local project dossier (metadata and README excerpt)
 │   ├── project-core.js      <- Pure README block and repository lookup rules
 │   ├── project.js           <- Dossier fetch and safe text rendering
-│   ├── media/               <- Dossier logos and screenshots with capture metadata
-│   │   └── README.md        <- Media manifest schema and capture rules
+│   ├── media/               <- Dossier logos, social previews and screenshots
 │   ├── atlas-snapshot.json  <- Static fallback for the atlas and dossiers
 │   ├── verify.html          <- Public certificate verifier (certificate stays local)
 │   ├── verify-core.js       <- Shared format-2 canonicalization and checks
@@ -261,6 +260,8 @@ AegeanWorks/
 │   ├── decisions.md         <- ADR register
 │   ├── codebase_map.md      <- Generated AST symbol catalog
 │   └── task_ledger.json     <- Delivery ledger
+├── tools/
+│   └── build_dossier_media.py  <- Fetches, optimizes and verifies dossier media
 └── tests/
     ├── test_profile.py      <- Content, metadata and link integrity tests
     ├── metadata/

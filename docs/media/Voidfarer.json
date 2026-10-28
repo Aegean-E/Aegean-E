@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repo": "Voidfarer",
   "screenshots": [
     {
       "src": "media/Voidfarer/2026-10-28-index.png",
       "alt": "Voidfarer interface at 2026-10-28",
-      "caption": "Voidfarer interface captured from C:\\Users\\Yunus-Emre\\Desktop\\portable_agent_kit\\projects\\voidfarer\\voidfarer\\static\\index.html",
+      "caption": "Voidfarer interface at 2026-10-28",
       "commit": "1262ed9",
       "taken_at": "2026-10-28",
       "viewport": "1440x900",
@@ -15,6 +15,7 @@
   ],
   "logo": {
     "src": "media/Voidfarer/logo.jpg",
-    "alt": "Voidfarer logo"
-  }
-}
+    "alt": "Voidfarer logo",
+    "width": 1024,
+    "height": 1024,
+    "digest": "sha256:080ada6aa257ce819aea04cfc9d8bee5cfd01ca9e802a24
