@@ -8,9 +8,9 @@
     "width": 256,
     "height": 256,
     "digest": "sha256:af1802918c77a0f0115a951673c6bbd63705bb37438123823bde461e0d962323",
-    "commit": "907cceb92085e6a53141c5b40f6bda2e9f2e856a",
+    "commit": "6ae9c6deb972290a0589e004ef72bb3a8d5f7103",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Lacon/907cceb92085e6a53141c5b40f6bda2e9f2e856a/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lacon/6ae9c6deb972290a0589e004ef72bb3a8d5f7103/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Lacon/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:cb1d91d97f6d33cb1e0d3c0a3761f84392eed748d45e934685320139693557c0",
-    "commit": "907cceb92085e6a53141c5b40f6bda2e9f2e856a",
+    "commit": "6ae9c6deb972290a0589e004ef72bb3a8d5f7103",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Lacon/907cceb92085e6a53141c5b40f6bda2e9f2e856a/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Lacon/6ae9c6deb972290a0589e004ef72bb3a8d5f7103/assets/social-preview.png"
   }
 }

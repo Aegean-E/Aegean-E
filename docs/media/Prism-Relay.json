@@ -3,16 +3,14 @@
   "repo": "Prism-Relay",
   "screenshots": [
     {
-      "src": "media/Prism-Relay/2026-10-28-home.webp",
-      "alt": "Prism-Relay screenshot",
-      "caption": "Prism-Relay interface from assets/screenshots/2026-10-28-home.png",
-      "commit": "53daa8c55bb04a31643ba1d57a9afa36a7522535",
+      "src": "media/Prism-Relay/2026-10-28-home.png",
+      "alt": "Prism-Relay interface at 2026-10-28",
+      "caption": "Prism-Relay interface captured from index.html",
+      "commit": "de3c997",
       "taken_at": "2026-10-28",
-      "viewport": "",
+      "viewport": "1440x900",
       "width": 1440,
-      "height": 900,
-      "digest": "sha256:bc18b45c1cada067fa8e8d7f7a0ad634027ace94cd4bf16a6d69b2601a12c57d",
-      "source": "Prism-Relay:assets/screenshots/2026-10-28-home.png"
+      "height": 900
     }
   ],
   "logo": {
@@ -21,9 +19,9 @@
     "width": 256,
     "height": 256,
     "digest": "sha256:c687756b25661c18b388d038f4d7e9e4c7d96f6aaca5c036699754573116029d",
-    "commit": "53daa8c55bb04a31643ba1d57a9afa36a7522535",
+    "commit": "74fd731e878e8ca7417ca4d254d8fab8179afc26",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Prism-Relay/53daa8c55bb04a31643ba1d57a9afa36a7522535/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Prism-Relay/74fd731e878e8ca7417ca4d254d8fab8179afc26/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Prism-Relay/social-preview.webp",
@@ -31,8 +29,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:f8658179bcf85e69bb76ab8c4c95927e9cc734a54d2b8a0b1a0d43838204b056",
-    "commit": "53daa8c55bb04a31643ba1d57a9afa36a7522535",
+    "commit": "74fd731e878e8ca7417ca4d254d8fab8179afc26",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Prism-Relay/53daa8c55bb04a31643ba1d57a9afa36a7522535/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Prism-Relay/74fd731e878e8ca7417ca4d254d8fab8179afc26/assets/social-preview.png"
   }
 }

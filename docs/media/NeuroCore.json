@@ -1,16 +1,53 @@
 {
   "schema": 2,
   "repo": "NeuroCore",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "media/NeuroCore/2026-10-28-chat-ui.webp",
+      "alt": "NeuroCore screenshot",
+      "caption": "NeuroCore — Chat UI",
+      "commit": "a9b0d3364e80ec09b0601da99d305ec2010495a2",
+      "taken_at": "2026-10-28",
+      "viewport": "",
+      "width": 1440,
+      "height": 815,
+      "digest": "sha256:78b1d1ff02bd660ff67a2a4f37137579e07855e5d236eb3f90f7bead72c02e9b",
+      "source": "NeuroCore:screenshots/chat_ui.png"
+    },
+    {
+      "src": "media/NeuroCore/2026-10-28-flow-editor.webp",
+      "alt": "NeuroCore screenshot",
+      "caption": "NeuroCore — Flow Editor",
+      "commit": "a9b0d3364e80ec09b0601da99d305ec2010495a2",
+      "taken_at": "2026-10-28",
+      "viewport": "",
+      "width": 1440,
+      "height": 680,
+      "digest": "sha256:692a94152f75d5bf000a45f43b0a6b72f945833062dd2d2a2a5f28cc97898c4d",
+      "source": "NeuroCore:screenshots/flow_editor.png"
+    },
+    {
+      "src": "media/NeuroCore/2026-10-28-memory-browser.webp",
+      "alt": "NeuroCore screenshot",
+      "caption": "NeuroCore — Memory Browser",
+      "commit": "a9b0d3364e80ec09b0601da99d305ec2010495a2",
+      "taken_at": "2026-10-28",
+      "viewport": "",
+      "width": 1440,
+      "height": 809,
+      "digest": "sha256:5553b5f2dd53f61a7ebe25d2b383595ee384415a7fa9d04d08d0270485d63f75",
+      "source": "NeuroCore:screenshots/memory_browser.png"
+    }
+  ],
   "logo": {
     "src": "media/NeuroCore/logo.webp",
     "alt": "NeuroCore logo",
     "width": 256,
     "height": 256,
     "digest": "sha256:59f3e67be10bf2e2d6f4ca45555d1f57a226faf9ee2b0615a45228bbd9b48315",
-    "commit": "16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838",
+    "commit": "a9b0d3364e80ec09b0601da99d305ec2010495a2",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/a9b0d3364e80ec09b0601da99d305ec2010495a2/assets/logo.jpg"
   },
   "preview": {
     "src": "media/NeuroCore/social-preview.webp",
@@ -18,8 +55,8 @@
     "width": 1200,
     "height": 573,
     "digest": "sha256:3b24cd0f21fb1e7418780ffbe032fa21c0561e9f5b9caccbd40417017ae83b32",
-    "commit": "16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838",
+    "commit": "a9b0d3364e80ec09b0601da99d305ec2010495a2",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/16dfd7610ea1dfb0c5ee0b9d4aafa3d8b995d838/assets/social-preview.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuroCore/a9b0d3364e80ec09b0601da99d305ec2010495a2/assets/social-preview.jpg"
   }
 }

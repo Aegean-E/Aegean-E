@@ -8,9 +8,9 @@
     "width": 256,
     "height": 256,
     "digest": "sha256:edbdb244572206fba36be6251d4bf149dff8c41358f83c8c2e65436c8bfbf27f",
-    "commit": "099c82c591fce968fa1341454aafad01fa00fc6a",
+    "commit": "1c0a6449717bbb10a35a3a648aad8ba6e461568c",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/099c82c591fce968fa1341454aafad01fa00fc6a/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/1c0a6449717bbb10a35a3a648aad8ba6e461568c/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Primordia/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:369020eccc190f11f773e72c9710cac3269fb094db503382e1c5ee22a433974c",
-    "commit": "099c82c591fce968fa1341454aafad01fa00fc6a",
+    "commit": "1c0a6449717bbb10a35a3a648aad8ba6e461568c",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/099c82c591fce968fa1341454aafad01fa00fc6a/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/1c0a6449717bbb10a35a3a648aad8ba6e461568c/assets/social-preview.png"
   }
 }

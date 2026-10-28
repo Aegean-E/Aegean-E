@@ -212,8 +212,6 @@ class ProfileIntegrityTests(unittest.TestCase):
             'id="project-topics"',
             'id="readme-content"',
             'id="readme-status"',
-            'id="project-logo"',
-            'id="project-logo-fallback"',
             'id="project-preview"',
             'id="project-preview-link"',
             'id="project-preview-meta"',
@@ -260,6 +258,22 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("export function readmeToBlocks", core)
         self.assertIn("export function findRepo", core)
         self.assertIn("export function validRepoName", core)
+
+    def test_portfolio_cards_use_repository_logos(self):
+        index = (ROOT / "docs" / "media" / "logos.json").read_text(encoding="utf-8")
+        data = json.loads(index)
+        self.assertEqual(data["schema"], 1)
+        self.assertEqual(set(data["logos"]), PUBLIC_REPOS)
+        for name, entry in data["logos"].items():
+            with self.subTest(repo=name):
+                self.assertTrue((ROOT / "docs" / entry["src"]).is_file(), entry["src"])
+        script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('window.fetch("media/logos.json"', script)
+        self.assertIn("applyCardLogos", script)
+        self.assertIn("has-logo", script)
+        project_page = (ROOT / "docs" / "project.html").read_text(encoding="utf-8")
+        self.assertNotIn('id="project-logo"', project_page)
+        self.assertIn('id="project-preview"', project_page)
 
     def test_dossier_media_manifests_are_consistent(self):
         tool = ROOT / "tools" / "build_dossier_media.py"
@@ -504,7 +518,6 @@ class ProfileIntegrityTests(unittest.TestCase):
             "history.replaceState",
             'params.get("q")',
             'params.get("topic")',
-            'params.get("cat")',
             'params.get("sort")',
             "dataset.pushedAt",
             "card.dataset.topics",
@@ -569,13 +582,14 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(repo=name):
                 self.assertIn(f'href="project.html?repo={name}"', html)
 
-    def test_site_filter_chips_match_categories(self):
+    def test_site_filters_are_topics_only(self):
         html = read_site()
-        self.assertIn(">All</button>", html)
-        for category, label in CATEGORY_LABELS.items():
-            with self.subTest(category=category):
-                self.assertIn(f">{label}</button>", html)
+        self.assertNotIn('data-filter="', html)
+        for _category, label in CATEGORY_LABELS.items():
+            with self.subTest(label=label):
+                self.assertNotIn(f">{label}</button>", html)
         filters = html.split('<div class="filters"', 1)[1].split("</div>", 1)[0]
+        self.assertIn('id="topic-filters"', filters)
         self.assertNotIn("<span>", filters)
 
     def test_project_cards_carry_an_immutable_repository_id(self):
@@ -661,7 +675,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         html = read_site()
         self.assertIn(
             f"<span data-project-count>{len(PUBLIC_REPOS)}</span> public project repositories. "
-            "Search them, or filter by discipline.",
+            "Search them, or filter by topic.",
             html,
         )
         self.assertNotIn("Thirty-three repositories, all public.", html)
@@ -759,15 +773,14 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(website["publisher"]["@id"], organization["@id"])
         self.assertEqual(website["inLanguage"], "en")
 
-    def test_filter_chips_control_the_project_grid(self):
+    def test_topic_filter_region_controls_the_project_grid(self):
         html = read_site()
-        chips = re.findall(r'<button class="chip[^"]*"[^>]*>', html)
-        self.assertEqual(len(chips), 6)
-        for chip in chips:
-            with self.subTest(chip=chip[:80]):
-                self.assertIn('aria-controls="project-grid"', chip)
-                self.assertIn('aria-pressed="', chip)
+        self.assertNotIn('class="chip"', html)
+        self.assertIn('<div class="topic-filters" id="topic-filters" role="group" aria-label="Filter by topic"></div>', html)
         self.assertIn('<div class="project-grid" id="project-grid">', html)
+        script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('querySelectorAll(".topic-chip")', script)
+        self.assertNotIn("state.cat", script)
 
     def test_anchor_navigation_clears_the_sticky_header(self):
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")

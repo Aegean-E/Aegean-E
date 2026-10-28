@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `2`
 - **Total Classes**: `2`
-- **Total Top-Level Functions**: `37`
-- **Total Class Methods**: `82`
-- **Total Source Lines**: `1949`
+- **Total Top-Level Functions**: `43`
+- **Total Class Methods**: `83`
+- **Total Source Lines**: `2147`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1226` lines (`56794` bytes)
+**Size**: `1239` lines (`57678` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -34,6 +34,7 @@
   - Method `.test_license_matches_the_aikit_family()`
   - Method `.test_site_entry_points_exist()`
   - Method `.test_project_dossier_page_is_wired()`
+  - Method `.test_portfolio_cards_use_repository_logos()`
   - Method `.test_dossier_media_manifests_are_consistent()`
   - Method `.test_dossier_media_manifest_is_documented()`
   - Method `.test_site_is_self_contained()`
@@ -47,7 +48,7 @@
   - Method `.test_atlas_search_topic_sort_and_url_state()`
   - Method `.test_live_atlas_is_wired_to_the_github_api()`
   - Method `.test_site_lists_every_public_repository_once()`
-  - Method `.test_site_filter_chips_match_categories()`
+  - Method `.test_site_filters_are_topics_only()`
   - Method `.test_project_cards_carry_an_immutable_repository_id()`
   - Method `.test_project_cards_show_language_license_and_recency()`
   - Method `.test_featured_work_cards_carry_an_immutable_repository_id()`
@@ -62,7 +63,7 @@
   - Method `.test_hero_chip_is_exposed_to_assistive_tech()`
   - Method `.test_social_metadata_is_complete()`
   - Method `.test_structured_data_describes_the_organization()`
-  - Method `.test_filter_chips_control_the_project_grid()`
+  - Method `.test_topic_filter_region_controls_the_project_grid()`
   - Method `.test_anchor_navigation_clears_the_sticky_header()`
   - Method `.test_discovery_files()`
   - Method `.test_social_image_has_the_expected_dimensions()`
@@ -118,7 +119,7 @@
 ### [`tools/build_dossier_media.py`](tools/build_dossier_media.py)
 > *Build and verify the dossier media (logo, social preview, screenshots).*
 
-**Size**: `723` lines (`27458` bytes)
+**Size**: `908` lines (`34935` bytes)
 
 **Classes:**
 - `class MediaError`
@@ -146,13 +147,19 @@
 - `def clean_text(value, name, date)` - *Strip local filesystem paths from captions; manifests are public.*
 - `def sanitize_manifest(manifest, name)`
 - `def write_atomic(path, payload)`
+- `def write_logo_index()` - *One small file the portfolio reads to put real logos on the cards.*
 - `def write_manifest(name, manifest)`
 - `def asset_entry(folder, name, kind, payload, fmt, width, height, commit, source, generated)`
 - `def fetch_asset(name, ref, candidates)`
 - `def build_repo(repo, force)`
+- `def api_json(url)`
+- `def discover_screenshots(name, commit)` - *List capture files committed under a repository's screenshot folders.*
+- `def optimize_shot(data)`
+- `def add_screenshots(repo, commit)`
 - `def command_fetch(args)`
 - `def command_analyze(args)`
 - `def command_check(args)`
+- `def humanize(value)`
 - `def safe_slug(value)`
 - `def command_ingest(args)`
 - `def main(argv)`

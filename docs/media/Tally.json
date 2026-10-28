@@ -8,9 +8,9 @@
     "width": 256,
     "height": 256,
     "digest": "sha256:41e9afeba4558728f70373e0a87840b2e8d75ee235987f11879d82c8aeeb4ffb",
-    "commit": "d2e04031efabcdebe2e2e564618b6b5dfb9cba21",
+    "commit": "fb78d21ba608b1f76c3807a5914e2d5f37e64761",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Tally/d2e04031efabcdebe2e2e564618b6b5dfb9cba21/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tally/fb78d21ba608b1f76c3807a5914e2d5f37e64761/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Tally/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:8dafc151485a3b12e37c403c08c4662d7851aeb0b334ccf4fbf6cb8f5a0aa079",
-    "commit": "d2e04031efabcdebe2e2e564618b6b5dfb9cba21",
+    "commit": "fb78d21ba608b1f76c3807a5914e2d5f37e64761",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Tally/d2e04031efabcdebe2e2e564618b6b5dfb9cba21/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tally/fb78d21ba608b1f76c3807a5914e2d5f37e64761/assets/social-preview.png"
   }
 }

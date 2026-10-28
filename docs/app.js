@@ -96,14 +96,12 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
   var status = document.querySelector(".filter-status");
   var grid = document.getElementById("project-grid");
   var searchInput = document.getElementById("project-search");
   var sortSelect = document.getElementById("project-sort");
   var clearButton = document.getElementById("clear-filters");
   var topicContainer = document.getElementById("topic-filters");
-  var CATEGORY_VALUES = ["ai", "research", "health", "tools", "play"];
   var SORT_VALUES = ["curated", "recent", "name"];
   var TOPIC_LIMIT = 12;
   var BOILERPLATE_TOPICS = {
@@ -114,10 +112,11 @@
     "drm-free": true,
     "zero-dependencies": true,
   };
-  var state = { q: "", topic: "", cat: "all", sort: "curated" };
+  var state = { q: "", topic: "", sort: "curated" };
   var curatedOrder = new Map();
   var topicChips = [];
   var focusSearch = false;
+  var logoIndex = null;
 
   function projects() {
     return Array.prototype.slice.call(document.querySelectorAll(".project"));
@@ -132,7 +131,7 @@
   }
 
   function hasNarrowing() {
-    return Boolean(state.q || state.topic || state.cat !== "all");
+    return Boolean(state.q || state.topic);
   }
 
   function hasViewChange() {
@@ -144,6 +143,54 @@
     document.querySelectorAll("[data-project-count]").forEach(function (element) {
       element.textContent = String(total);
     });
+  }
+
+  function repoNameFromCard(card) {
+    var url = card.dataset.repoUrl || "";
+    return url.split("/").filter(Boolean).pop() || "";
+  }
+
+  function applyCardLogos() {
+    if (!logoIndex) return;
+    projects().forEach(function (card) {
+      var mark = card.querySelector(".project-mark");
+      if (!mark || mark.classList.contains("has-logo")) return;
+      var logo = logoIndex[repoNameFromCard(card).toLowerCase()];
+      if (!logo) return;
+      mark.classList.add("has-logo");
+      mark.textContent = "";
+      var image = document.createElement("img");
+      image.src = logo.src;
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      if (logo.width) image.width = logo.width;
+      if (logo.height) image.height = logo.height;
+      mark.appendChild(image);
+    });
+  }
+
+  function loadCardLogos() {
+    if (logoIndex) {
+      applyCardLogos();
+      return;
+    }
+    window.fetch("media/logos.json", { cache: "no-cache" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("no logo index");
+        return response.json();
+      })
+      .then(function (data) {
+        var logos = (data && data.logos) || {};
+        logoIndex = {};
+        Object.keys(logos).forEach(function (name) {
+          logoIndex[name.toLowerCase()] = logos[name];
+        });
+        applyCardLogos();
+      })
+      .catch(function () {
+        /* monograms stay */
+      });
   }
 
   function cardTitle(card) {
@@ -196,14 +243,6 @@
       fragment.appendChild(card);
     });
     grid.appendChild(fragment);
-  }
-
-  function updateDisciplineChips() {
-    chips.forEach(function (chip) {
-      var active = (chip.dataset.filter || "all") === state.cat;
-      chip.classList.toggle("is-active", active);
-      chip.setAttribute("aria-pressed", active ? "true" : "false");
-    });
   }
 
   function updateTopicChips() {
@@ -275,8 +314,6 @@
       else params.delete("q");
       if (state.topic) params.set("topic", state.topic);
       else params.delete("topic");
-      if (state.cat !== "all") params.set("cat", state.cat);
-      else params.delete("cat");
       if (state.sort !== "curated") params.set("sort", state.sort);
       else params.delete("sort");
       params.delete("focus");
@@ -295,8 +332,6 @@
     var params = new URLSearchParams(window.location.search);
     state.q = (params.get("q") || "").trim().slice(0, 100);
     state.topic = (params.get("topic") || "").trim().toLowerCase().slice(0, 80);
-    var category = params.get("cat") || "all";
-    state.cat = CATEGORY_VALUES.indexOf(category) === -1 ? "all" : category;
     var sort = params.get("sort") || "curated";
     state.sort = SORT_VALUES.indexOf(sort) === -1 ? "curated" : sort;
     focusSearch = params.get("focus") === "search";
@@ -312,21 +347,19 @@
     var shown = 0;
     var reveal = hasNarrowing();
     cards.forEach(function (card) {
-      var categoryMatch = state.cat === "all" || card.dataset.cat === state.cat;
       var topics = (card.dataset.topics || "").toLowerCase().split(",");
       var topicMatch = !state.topic || topics.indexOf(state.topic) !== -1;
       var haystack = projectHaystack(card);
       var queryMatch = terms.every(function (term) {
         return haystack.indexOf(term) !== -1;
       });
-      var match = categoryMatch && topicMatch && queryMatch;
+      var match = topicMatch && queryMatch;
       card.classList.toggle("is-hidden", !match);
       if (match) {
         shown += 1;
         if (reveal) card.classList.add("in");
       }
     });
-    updateDisciplineChips();
     updateTopicChips();
     if (status) {
       status.textContent = !hasNarrowing()
@@ -342,11 +375,9 @@
   function clearFilters() {
     state.q = "";
     state.topic = "";
-    state.cat = "all";
     state.sort = "curated";
     if (searchInput) searchInput.value = "";
     if (sortSelect) sortSelect.value = "curated";
-    updateDisciplineChips();
     updateTopicChips();
     applyView();
   }
@@ -356,13 +387,6 @@
     recordCuratedOrder();
     buildTopicChips();
     applyView();
-  });
-
-  chips.forEach(function (chip) {
-    chip.addEventListener("click", function () {
-      state.cat = chip.dataset.filter || "all";
-      applyView();
-    });
   });
 
   if (topicContainer) {
@@ -421,6 +445,7 @@
   recordCuratedOrder();
   readStateFromUrl();
   buildTopicChips();
+  loadCardLogos();
   updateProjectCounts();
   applyView();
   if (focusSearch && searchInput) searchInput.focus();

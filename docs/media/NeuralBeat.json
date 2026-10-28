@@ -1,16 +1,29 @@
 {
   "schema": 2,
   "repo": "NeuralBeat",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "media/NeuralBeat/2026-10-28-ui-main.webp",
+      "alt": "NeuralBeat screenshot",
+      "caption": "NeuralBeat — UI Main",
+      "commit": "bf31e36978588e50d786a8bc0cd944a7cf983fe1",
+      "taken_at": "2026-10-28",
+      "viewport": "",
+      "width": 1101,
+      "height": 685,
+      "digest": "sha256:bde6361fb263fb8ac30d9df2abb963e27d572a7eb914cf352e98c490bc4b3574",
+      "source": "NeuralBeat:screenshots/ui_main.png"
+    }
+  ],
   "logo": {
     "src": "media/NeuralBeat/logo.webp",
     "alt": "NeuralBeat logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:f35cf0dae3e166f12490cef6e3f80b00ed83e9d947b0919046aeecad0a497449",
-    "commit": "5abefdb401fad80b8c215a7c41673af2d37fbfbe",
+    "digest": "sha256:15b271efe0938dcf0a0b92261084af0fdce8e90081b4342f219910db2393a2f9",
+    "commit": "bf31e36978588e50d786a8bc0cd944a7cf983fe1",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/5abefdb401fad80b8c215a7c41673af2d37fbfbe/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/bf31e36978588e50d786a8bc0cd944a7cf983fe1/assets/logo.jpg"
   },
   "preview": {
     "src": "media/NeuralBeat/social-preview.webp",
@@ -18,8 +31,8 @@
     "width": 1024,
     "height": 609,
     "digest": "sha256:e408e52d3beee6522d1d2bfa24bddeaac9bef504ff512ad9dc77ed9c032b583a",
-    "commit": "5abefdb401fad80b8c215a7c41673af2d37fbfbe",
+    "commit": "bf31e36978588e50d786a8bc0cd944a7cf983fe1",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/5abefdb401fad80b8c215a7c41673af2d37fbfbe/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NeuralBeat/bf31e36978588e50d786a8bc0cd944a7cf983fe1/assets/social-preview.png"
   }
 }

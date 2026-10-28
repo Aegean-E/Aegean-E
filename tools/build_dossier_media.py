@@ -430,6 +430,23 @@ def write_atomic(path: Path, payload: bytes) -> None:
             os.unlink(temp)
 
 
+def write_logo_index() -> None:
+    """One small file the portfolio reads to put real logos on the cards."""
+    logos = {}
+    for repo in load_repos():
+        manifest = read_manifest(repo["name"])
+        logo = manifest.get("logo")
+        if not isinstance(logo, dict) or not logo.get("src"):
+            continue
+        logos[repo["name"]] = {
+            "src": logo["src"],
+            "width": logo.get("width", 0),
+            "height": logo.get("height", 0),
+        }
+    payload = json.dumps({"schema": 1, "logos": logos}, indent=2, ensure_ascii=False) + "\n"
+    write_atomic(MEDIA / "logos.json", payload.encode("utf-8"))
+
+
 def write_manifest(name: str, manifest: dict) -> None:
     payload = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
     write_atomic(manifest_path(name), payload.encode("utf-8"))
@@ -492,37 +509,155 @@ def build_repo(repo: dict, force: bool) -> list[str]:
             continue
 
         raw, url, _path = fetched
-        # A reviewed logo already in the tree is authoritative: record the new
-        # provenance but never re-encode or replace the approved artwork.
+        # The reviewed full-size art stays in the project repository; the site
+        # stores only a 256px derivative for the portfolio card.
         kept = previous_local_logo(folder) if kind == "logo" else None
         if kept is not None:
-            data = kept.read_bytes()
-            fmt, width, height = image_facts(data)
-            manifest[kind] = {
-                "src": f"media/{folder}/{kept.name}",
-                "alt": f"{name} logo",
-                "width": width,
-                "height": height,
-                "digest": digest(data),
-                "commit": commit,
-                "taken_at": datetime.now(timezone.utc).date().isoformat(),
-                "source": url,
-            }
-            notes.append(f"{name}: kept existing logo {kept.name}")
-            continue
+            raw = kept.read_bytes()
+            notes.append(f"{name}: downscaled reviewed logo {kept.name}")
 
+        previous_entry = manifest.get(kind) or {}
         try:
             payload, fmt, width, height = optimize(raw, kind)
         except MediaError:
             fmt, width, height = image_facts(raw)
             payload = raw
+        expected = f"media/{folder}/{'logo' if kind == 'logo' else 'social-preview'}.{fmt}"
+        if (
+            previous_entry.get("digest") == digest(payload)
+            and previous_entry.get("commit") == commit
+            and previous_entry.get("src") == expected
+        ):
+            manifest[kind] = previous_entry
+            continue
         manifest[kind] = asset_entry(folder, name, kind, payload, fmt, width, height, commit, url, False)
+        for stale in (MEDIA / folder).glob(("logo" if kind == "logo" else "social-preview") + ".*"):
+            if stale.name != Path(manifest[kind]["src"]).name:
+                stale.unlink()
 
     manifest["schema"] = SCHEMA
     manifest["repo"] = name
     sanitize_manifest(manifest, name)
     write_manifest(name, manifest)
     return notes
+
+
+
+# ------------------------------------------------------------ screenshots
+
+
+SCREENSHOT_DIRS = ("assets/screenshots", "screenshots")
+SCREENSHOT_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
+SHOT_MAX_WIDTH = 1440
+SHOTS_PER_RUN = 3
+MAX_SCREENSHOTS = 12
+
+
+def api_json(url: str):
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/vnd.github+json"}
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if token:
+        headers["Authorization"] = "Bearer " + token
+    request = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read(MAX_BYTES))
+
+
+def discover_screenshots(name: str, commit: str) -> list[dict]:
+    """List capture files committed under a repository's screenshot folders."""
+    url = f"https://api.github.com/repos/AegeanWorks/{name}/git/trees/{commit}?recursive=1"
+    payload = api_json(url)
+    found = []
+    for entry in payload.get("tree", []):
+        path = entry.get("path", "")
+        if entry.get("type") != "blob":
+            continue
+        if not any(path.startswith(folder + "/") for folder in SCREENSHOT_DIRS):
+            continue
+        if ".inspect" in path or "__MACOSX" in path:
+            continue
+        if Path(path).suffix.lower() not in SCREENSHOT_SUFFIXES:
+            continue
+        found.append(path)
+    return sorted(found)
+
+
+def optimize_shot(data: bytes) -> tuple[bytes, str, int, int]:
+    Image = _pillow()
+    # hygiene: allow in-memory Pillow decode, not a filesystem open
+    with Image.open(io.BytesIO(data)) as image:
+        image.load()
+        out = image.convert("RGB")
+        if out.width > SHOT_MAX_WIDTH:
+            height = round(out.height * SHOT_MAX_WIDTH / out.width)
+            out = out.resize((SHOT_MAX_WIDTH, height), Image.LANCZOS)
+        buffer = io.BytesIO()
+        out.save(buffer, format="WEBP", quality=82, method=6)
+        payload = buffer.getvalue()
+    return payload, "webp", out.width, out.height
+
+
+def add_screenshots(repo: dict, commit: str) -> list[str]:
+    name = repo["name"]
+    manifest = read_manifest(name)
+    folder = media_folder(name, manifest)
+    known = {
+        shot.get("source")
+        for shot in manifest.get("screenshots", [])
+        if isinstance(shot, dict)
+    }
+    added: list[str] = []
+    try:
+        paths = discover_screenshots(name, commit)
+    except (MediaError, urllib.error.URLError, json.JSONDecodeError) as error:
+        raise MediaError(f"{name}: could not list screenshots ({error})") from error
+    for path in paths:
+        if len(manifest.get("screenshots", [])) >= MAX_SCREENSHOTS:
+            break
+        if len(added) >= SHOTS_PER_RUN:
+            break
+        if path in known:
+            continue
+        raw = fetch(raw_url(name, commit, path))
+        if raw is None:
+            continue
+        try:
+            payload, fmt, width, height = optimize_shot(raw)
+        except MediaError:
+            continue
+        date = datetime.now(timezone.utc).date().isoformat()
+        stem = re.sub(r"[^a-z0-9]+", "-", Path(path).stem.lower()).strip("-")
+        stem = re.sub(r"^(\d{4}-\d{2}-\d{2}-)+", "", stem)[:40] or "capture"
+        existing_stems = {
+            re.sub(r"^(\d{4}-\d{2}-\d{2}-)+", "", Path(shot.get("src", "")).stem)
+            for shot in manifest.get("screenshots", [])
+        }
+        if stem in existing_stems:
+            known.add(path)
+            continue
+        relative = f"media/{folder}/{date}-{stem}.{fmt}"
+        write_atomic(ROOT / "docs" / relative, payload)
+        manifest.setdefault("screenshots", []).append(
+            {
+                "src": relative,
+                "alt": f"{name} screenshot",
+                "caption": f"{name} — " + humanize(Path(path).stem),
+                "commit": commit,
+                "taken_at": date,
+                "viewport": "",
+                "width": width,
+                "height": height,
+                "digest": digest(payload),
+                "source": f"{name}:{path}",
+            }
+        )
+        known.add(path)
+        added.append(relative)
+    if added:
+        manifest["schema"] = SCHEMA
+        manifest["repo"] = name
+        write_manifest(name, manifest)
+    return added
 
 
 # ---------------------------------------------------------------- operations
@@ -544,9 +679,19 @@ def command_fetch(args: argparse.Namespace) -> int:
             failures += 1
             print(f"FAIL {repo['name']}: {error}", file=sys.stderr)
             continue
+        if args.screenshots:
+            try:
+                commit = resolve_commit(repo["name"], repo.get("default_branch") or "main")
+                added = add_screenshots(repo, commit) if commit else []
+                notes.extend(f"{repo['name']}: added {shot}" for shot in added)
+            except MediaError as error:
+                # Logos and previews are already refreshed; capture listing is optional.
+                print(f"WARN {repo['name']}: {error}", file=sys.stderr)
         for note in notes:
             print(note)
         print(f"ok   {repo['name']}")
+    if not failures:
+        write_logo_index()
     print(f"{len(repos) - failures}/{len(repos)} repositories have media")
     return 0 if failures == 0 else 1
 
@@ -623,10 +768,49 @@ def command_check(args: argparse.Namespace) -> int:
                 or not exact_path(src)
             ):
                 problems.append(f"{name}: screenshot {index} file is missing: {src!r}")
+    known = {repo["name"].lower() for repo in load_repos()}
+    for extra in sorted(MEDIA.glob("*.json")):
+        if extra.name != "logos.json" and extra.stem.lower() not in known:
+            problems.append(f"{extra.name}: not a catalogue repository")
+    for extra in sorted(p for p in MEDIA.iterdir() if p.is_dir()):
+        if extra.name.lower() not in known:
+            problems.append(f"{extra.name}/: not a catalogue repository")
+
+    index_path = MEDIA / "logos.json"
+    if not index_path.exists():
+        problems.append("media/logos.json is missing; run fetch")
+    else:
+        try:
+            index = json.loads(index_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            index = {}
+            problems.append(f"media/logos.json is not JSON ({error})")
+        logos = index.get("logos", {}) if isinstance(index, dict) else {}
+        if index.get("schema") != 1:
+            problems.append("media/logos.json schema is not 1")
+        for repo in load_repos():
+            name = repo["name"]
+            entry = logos.get(name)
+            if not isinstance(entry, dict) or not entry.get("src"):
+                problems.append(f"{name}: logos.json entry is missing")
+                continue
+            if not (ROOT / "docs" / entry["src"]).exists() or not exact_path(entry["src"]):
+                problems.append(f"{name}: logos.json src does not resolve exactly: {entry['src']}")
+
     for problem in problems:
         print(f"FAIL {problem}", file=sys.stderr)
     print(f"{len(problems)} media problem(s)")
     return 0 if not problems else 1
+
+
+def humanize(value: str) -> str:
+    words = re.split(r"[-_\s]+", value.strip())
+    pretty = []
+    for word in words:
+        if not word:
+            continue
+        pretty.append(word.upper() if word.lower() in {"ui", "api", "cli", "db", "id"} else word.capitalize())
+    return " ".join(pretty)
 
 
 def safe_slug(value: str) -> str:
@@ -691,6 +875,7 @@ def main(argv: list[str] | None = None) -> int:
     fetch_parser = sub.add_parser("fetch", help="fetch logos and social previews at each repository's HEAD")
     fetch_parser.add_argument("--repo", action="append", help="limit to one repository (repeatable)")
     fetch_parser.add_argument("--force", action="store_true", help="refetch even when a manifest is complete")
+    fetch_parser.add_argument("--screenshots", action="store_true", help="also pull captures from the repository screenshot folders")
     fetch_parser.set_defaults(func=command_fetch)
 
     analyze_parser = sub.add_parser("analyze", help="print stored image dimensions, sizes and commits")

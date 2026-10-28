@@ -1,18 +1,20 @@
 # Project media
 
-Logos, social previews and screenshots shown on a project dossier at
-`project.html?repo=<Name>`. Each project has one manifest, `media/<Name>.json`,
-plus the files it points at. Nothing is generated at build time: the dossier
-fetches the manifest and hides any slot whose entry is missing.
+Logos, social previews and screenshots for the portfolio and a project dossier
+at `project.html?repo=<Name>`. Each project has one manifest,
+`media/<Name>.json`, plus the files it points at, and `media/logos.json` is the
+small index the portfolio reads to put logos on the cards without fetching 35
+manifests. Nothing is generated at build time.
 
 ## Where the images come from
 
 - `logo` is the repository's own `assets/logo.jpg` (or `.png`/`.webp`/`.svg`),
-  fetched from GitHub at the commit recorded in the manifest. A reviewed logo
-  already committed is kept as-is; a new one is optimized to a 256px square.
+  fetched from GitHub at the commit recorded in the manifest and stored as a
+  256px square WebP. It appears on the **portfolio card**, not on the dossier;
+  the full-size reviewed art stays in the project repository.
 - `preview` is the repository's `assets/social-preview.png`, the same card
   GitHub shows for the repository, fetched from the same commit and stored as
-  a 1200px-wide WebP.
+  a 1200px-wide WebP. It is the image at the top of the **dossier**.
 - `screenshots` come from the repository's `assets/screenshots/` or
   `screenshots/` folders (`fetch --screenshots`, up to three new captures per
   run) or from `ingest`, each tied to the commit it shows.

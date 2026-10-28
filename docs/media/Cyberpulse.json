@@ -3,16 +3,14 @@
   "repo": "Cyberpulse",
   "screenshots": [
     {
-      "src": "media/Cyberpulse/2026-10-28-index.webp",
-      "alt": "Cyberpulse screenshot",
-      "caption": "Cyberpulse interface from assets/screenshots/2026-10-28-index.png",
-      "commit": "40952dfb1740f996b0c240c4827fa53e010bb873",
+      "src": "media/Cyberpulse/2026-10-28-index.png",
+      "alt": "Cyberpulse interface at 2026-10-28",
+      "caption": "Cyberpulse interface at 2026-10-28",
+      "commit": "1215870",
       "taken_at": "2026-10-28",
-      "viewport": "",
+      "viewport": "1440x900",
       "width": 1440,
-      "height": 900,
-      "digest": "sha256:13896899ff154133534f4831d6011edbc2882abf0ae663678bc6b073ce5ab2fe",
-      "source": "Cyberpulse:assets/screenshots/2026-10-28-index.png"
+      "height": 900
     }
   ],
   "logo": {
@@ -21,9 +19,9 @@
     "width": 256,
     "height": 256,
     "digest": "sha256:019c11ea61c23791da9b752237b8bbf342dc023ec701ba6469b852d5ca46bc05",
-    "commit": "40952dfb1740f996b0c240c4827fa53e010bb873",
+    "commit": "7385e6571f4fe947aba7373d9844e8e9370ed309",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/40952dfb1740f996b0c240c4827fa53e010bb873/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/7385e6571f4fe947aba7373d9844e8e9370ed309/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Cyberpulse/social-preview.webp",
@@ -31,8 +29,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:df4720a9c80f77cb202355bd8370a9328f2aaf397c8747ac20edebd89fdb6593",
-    "commit": "40952dfb1740f996b0c240c4827fa53e010bb873",
+    "commit": "7385e6571f4fe947aba7373d9844e8e9370ed309",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/40952dfb1740f996b0c240c4827fa53e010bb873/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/7385e6571f4fe947aba7373d9844e8e9370ed309/assets/social-preview.png"
   }
 }

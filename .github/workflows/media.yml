@@ -1,0 +1,48 @@
+name: media
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/build_dossier_media.py"
+      - "tests/metadata/repositories.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: media-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the image optimizer
+        run: python -m pip install --disable-pip-version-check pillow
+      - name: Refresh logos, social previews and captures
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/build_dossier_media.py fetch --force --screenshots
+      - name: Verify the refreshed media
+        run: python tools/build_dossier_media.py check
+      - name: Commit when the repositories changed
+        run: |
+          if [ -n "$(git status --porcelain docs/media)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/media
+            git commit -m "chore(media): refresh dossier logos, previews and captures"
+            git push
+          else
+            echo "Media is already current."
+          fi

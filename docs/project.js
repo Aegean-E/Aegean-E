@@ -1,7 +1,6 @@
 import {
   licenseFamily,
   licenseLabel,
-  monogram,
   normalizeRepo,
   relativeAge,
   visibleTopics,
@@ -23,8 +22,6 @@ const detailEl = document.getElementById("project-detail");
 const readmeEl = document.getElementById("readme-content");
 const readmeStatus = document.getElementById("readme-status");
 const readmeLink = document.getElementById("readme-link");
-const logoEl = document.getElementById("project-logo");
-const logoFallback = document.getElementById("project-logo-fallback");
 const galleryEl = document.getElementById("project-gallery");
 const galleryGrid = document.getElementById("gallery-grid");
 const galleryNote = document.getElementById("gallery-note");
@@ -104,14 +101,6 @@ async function loadMedia(repo) {
     "media/" + encodeURIComponent(repo.name) + ".json"
   );
   const media = normalizeMedia(raw, repo.name);
-  if (media.logo) {
-    if (logoEl) {
-      logoEl.src = media.logo.src;
-      logoEl.alt = media.logo.alt || repo.name + " logo";
-      logoEl.hidden = false;
-    }
-    if (logoFallback) logoFallback.hidden = true;
-  }
   if (media.preview) renderPreview(repo, media.preview);
   if (!media.screenshots.length) return;
   renderGallery(repo, media.screenshots);
@@ -215,7 +204,6 @@ function render(repo) {
   document.title = repo.name + " — AegeanWorks";
   const description = repo.description || "A public project from the AegeanWorks studio.";
   setText("project-title", repo.name);
-  if (logoFallback) logoFallback.textContent = monogram(repo.name);
   setText("project-description", description);
   setText("project-language", repo.language || "Unknown");
   const family = licenseFamily(repo.name);

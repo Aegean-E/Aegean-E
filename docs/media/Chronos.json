@@ -8,9 +8,9 @@
     "width": 256,
     "height": 256,
     "digest": "sha256:37c9bf076bf7fec5e1b209e803ee3f78efa89e461f46f004fe3c13f3a39a4e00",
-    "commit": "9a0d4e9c61061280bf19cf0d07de9a8754b43d0e",
+    "commit": "64751dbeddd027df216786d5c9c37740ce643ec0",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/9a0d4e9c61061280bf19cf0d07de9a8754b43d0e/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/64751dbeddd027df216786d5c9c37740ce643ec0/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Chronos/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:55708772f70a256f0964fdfd3fb94276cae98283e47eb642b5da8d695d3d4314",
-    "commit": "9a0d4e9c61061280bf19cf0d07de9a8754b43d0e",
+    "commit": "64751dbeddd027df216786d5c9c37740ce643ec0",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/9a0d4e9c61061280bf19cf0d07de9a8754b43d0e/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Chronos/64751dbeddd027df216786d5c9c37740ce643ec0/assets/social-preview.png"
   }
 }

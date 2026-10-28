@@ -742,31 +742,6 @@ h1 .grad {
   padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
 }
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border: 1px solid var(--line-2);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  font-weight: 550;
-  cursor: pointer;
-  transition: all 0.2s var(--ease);
-}
-.chip:hover {
-  color: var(--text);
-  border-color: rgba(103, 232, 249, 0.35);
-}
-.chip.is-active {
-  color: #04121a;
-  background: linear-gradient(100deg, #8ef0fb, #b9a4fd);
-  border-color: transparent;
-}
-
 .filter-status {
   margin: -8px 0 20px;
   font-family: var(--mono);
@@ -965,10 +940,11 @@ h1 .grad {
 .project-mark {
   display: inline-grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   margin-bottom: 14px;
-  border-radius: 9px;
+  border-radius: 11px;
+  overflow: hidden;
   font-family: var(--mono);
   font-size: 0.76rem;
   font-weight: 600;
@@ -976,6 +952,17 @@ h1 .grad {
   border: 1px solid var(--line-2);
   color: var(--muted);
   background: rgba(255, 255, 255, 0.03);
+}
+.project-mark.has-logo {
+  padding: 0;
+  border-color: transparent;
+  background: #05080f;
+}
+.project-mark.has-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .mark-ai { color: #a5f3fc; border-color: rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.09); }
 .mark-research { color: #c4b5fd; border-color: rgba(167, 139, 250, 0.3); background: rgba(167, 139, 250, 0.09); }
@@ -1356,7 +1343,6 @@ h1 .grad {
   .work-card { padding: 26px 22px 22px; }
   .license-card { padding: 26px 22px 24px; }
   .filters { gap: 6px; }
-  .chip { padding: 8px 12px; font-size: 0.76rem; }
   .topic-chip { padding: 7px 10px; font-size: 0.66rem; }
   .filter-meta { flex-direction: column; align-items: flex-start; }
   .project-toolbar { align-items: stretch; }
@@ -1418,48 +1404,10 @@ h1 .grad {
   row-gap: 24px;
   align-items: start;
 }
-.dossier-intro { grid-area: intro; }
+.dossier-intro { grid-area: intro; padding-top: 6px; }
+.dossier-intro .eyebrow { margin: 0 0 14px; }
 .dossier-preview { grid-area: preview; }
 .dossier-body { grid-area: body; }
-.dossier-brand {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 20px 0 6px;
-}
-.dossier-brand .eyebrow { margin: 0; }
-.project-detail-mark,
-.project-detail-logo {
-  flex: 0 0 auto;
-  width: 120px;
-  height: 120px;
-  border-radius: 26px;
-}
-.project-detail-mark {
-  display: inline-grid;
-  place-items: center;
-  border: 1px solid var(--line-2);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 1.35rem;
-  letter-spacing: 0.04em;
-}
-.project-detail-logo {
-  object-fit: contain;
-  border: 1px solid var(--line-2);
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.9);
-}
-.project-detail-mark[hidden] { display: none; }
-.license-code {
-  display: block;
-  margin-top: 2px;
-  color: var(--dim);
-  font-family: var(--mono);
-  font-size: 0.74em;
-  white-space: nowrap;
-}
 .dossier-hero h1 {
   margin: 14px 0 16px;
   font-size: clamp(2.4rem, 5.6vw, 4.4rem);
@@ -1570,12 +1518,20 @@ h1 .grad {
   letter-spacing: 0.05em;
 }
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
+  columns: 3;
+  column-gap: 16px;
 }
 .gallery-item {
-  margin: 0;
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+@media (max-width: 900px) {
+  .gallery-grid { columns: 2; }
+}
+@media (max-width: 640px) {
+  .gallery-grid { columns: 1; }
+}
+.gallery-item {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);

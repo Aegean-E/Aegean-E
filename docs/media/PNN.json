@@ -3,16 +3,14 @@
   "repo": "PNN",
   "screenshots": [
     {
-      "src": "media/PNN/2026-10-28-studio.webp",
-      "alt": "PNN screenshot",
-      "caption": "PNN interface from assets/screenshots/2026-10-28-studio.png",
-      "commit": "6df7265c9160ddf016b79b99b94dfd5907093885",
+      "src": "media/PNN/2026-10-28-studio.png",
+      "alt": "PNN interface at 2026-10-28",
+      "caption": "PNN interface at 2026-10-28",
+      "commit": "70d7c48",
       "taken_at": "2026-10-28",
-      "viewport": "",
+      "viewport": "1440x900",
       "width": 1440,
-      "height": 900,
-      "digest": "sha256:9cdd05df17945e0dab264daa95476c19f0f9437b53eea98a5090b490fc5cdc49",
-      "source": "PNN:assets/screenshots/2026-10-28-studio.png"
+      "height": 900
     }
   ],
   "logo": {
@@ -20,10 +18,10 @@
     "alt": "PNN logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:e61ed1b2e69b171c0e6401cf971f91bccbf760af76f98882571436ab9eefbba4",
-    "commit": "6df7265c9160ddf016b79b99b94dfd5907093885",
+    "digest": "sha256:6eb6424d6482ca9c3973c0a147438ea352b903f1576bb997d5a13fce1f8d46f6",
+    "commit": "6dd6523cb52b45183951a97ebff8f83bf37f0741",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/6df7265c9160ddf016b79b99b94dfd5907093885/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/6dd6523cb52b45183951a97ebff8f83bf37f0741/assets/logo.jpg"
   },
   "preview": {
     "src": "media/PNN/social-preview.webp",
@@ -31,8 +29,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:e265f1d4944c27bb58d047b85b27108edbfba12d953e821d49b2ff81231c9f66",
-    "commit": "6df7265c9160ddf016b79b99b94dfd5907093885",
+    "commit": "6dd6523cb52b45183951a97ebff8f83bf37f0741",
     "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/6df7265c9160ddf016b79b99b94dfd5907093885/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/6dd6523cb52b45183951a97ebff8f83bf37f0741/assets/social-preview.png"
   }
 }

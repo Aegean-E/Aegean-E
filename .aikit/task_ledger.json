@@ -1,77 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "dossier-media-case",
+    "task_id": "media-automation",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793204594.0325568,
+    "updated_at": 1793208508.0571246,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793204594.2951996
+    "completed_at": 1793208508.3114986
   },
   "checkpoints": [
-    {
-      "task_id": "media-groundwork",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[4/4] docs/media/README.md records the manifest schema and capture workflow; README tree and dossier paragraph updated; ADR-027; service worker v3; 79 Python tests, 58 verifier, 52 atlas and 57 project assertions, 4/4 gates pass; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793132417.9126377,
-      "timestamp_str": "2026-10-27 23:20:17",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "media-groundwork",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'media-groundwork' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793132437.610699,
-      "timestamp_str": "2026-10-27 23:20:37",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-audit",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/3] Name each repository's Aegean license family on cards and dossiers; add Reforge to the snapshot, JSON-LD, README, cards, tests and license ledger after it was published on GitHub",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793143175.2056274,
-      "timestamp_str": "2026-10-28 02:19:35",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "Every card said Custom license despite AL/AGL/ASL files, and the site claimed 34 projects while GitHub served 35",
-        "benefits": "Visitors see the license that binds them; catalogue, JSON-LD, README and snapshot agree on 35 repos",
-        "risks": "contract: data-license and license labels change; dependency: none; concurrency: live GitHub sync must not overwrite the family; state: REPO_LICENSES ledger must be maintained",
-        "mitigation": "license_family survives normalizeRepo, Python derives expectations from the same ledger, Node pins the mapping"
-      }
-    },
-    {
-      "task_id": "site-audit",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/3] Full UI audit at 1440px and a true 390px iframe: fix mobile privacy table, focusable code blocks, dossier OG/Twitter metadata, service-worker v4, shared legal footers, dead CSS removal and the duplicated terms cap; axe-core reports 0 WCAG A/AA violations on all eight pages at both widths",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793143175.4392467,
-      "timestamp_str": "2026-10-28 02:19:35",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-audit",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[3/3] ADR-028 and ADR-029 record the license ledger and the audit fixes; 81 Python tests, 65 atlas, 57 project and 58 verifier assertions pass; axe-core 0 violations on index, verify, project, security, privacy, accessibility, 404 and offline at 1440px and 480px; 4/4 project gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793143188.749067,
-      "timestamp_str": "2026-10-28 02:19:48",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "site-audit",
       "phase": "completed",
@@ -254,6 +194,66 @@
       "status": "completed",
       "timestamp": 1793204594.295201,
       "timestamp_str": "2026-10-28 19:23:14",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "media-automation",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/4] Topics-only filter row; portfolio cards show each repository's logo from a generated logos.json; dossier drops its duplicate logo tile and keeps the social preview",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793208498.6792288,
+      "timestamp_str": "2026-10-28 20:28:18",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "Discipline chips duplicated topic classification, and the dossier repeated an identity already shown on the card",
+        "benefits": "One filter axis, one identity per surface; cards are scannable by real logos",
+        "risks": "contract: cat URL param and chip markup removed; dependency: none at page time; concurrency: logos.json must stay in sync with manifests; state: per-card logo fallback kept",
+        "mitigation": "Generated index verified in check mode and tests; monogram fallback preserved; axe and screenshots at three widths"
+      }
+    },
+    {
+      "task_id": "media-automation",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/4] Automate media: fetch resolves HEAD, keeps reviewed art, converts logos to 256px WebP and previews to 1200px WebP, pulls up to three captures from repository screenshot folders with a token, writes stable manifests and a logo index",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793208498.935488,
+      "timestamp_str": "2026-10-28 20:28:18",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "media-automation",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[3/4] .github/workflows/media.yml refreshes weekly and on demand, commits only when docs/media changes; media README and ADR-034 document the pipeline, the logo split and the topics-only filter",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793208507.7940228,
+      "timestamp_str": "2026-10-28 20:28:27",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "media-automation",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[4/4] 83 Python tests, 69 project, 65 atlas and 58 verifier assertions; media check 0 problems on 35 manifests and 11 repository captures; axe-core 0 violations on eight pages at 1440px and 480px; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793208508.0571246,
+      "timestamp_str": "2026-10-28 20:28:28",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "media-automation",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'media-automation' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793208508.3115003,
+      "timestamp_str": "2026-10-28 20:28:28",
       "agent": "kilo:main"
     }
   ]
