@@ -1,15 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">Idea-Catcher logo</title>
-  <desc id="desc">A geometric monogram for Idea-Catcher from AegeanWorks.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc" data-motif="bulb" data-layout="center">
+  <title id="title">Idea Catcher logo</title>
+  <desc id="desc">Project-specific bulb mark for Idea Catcher; AegeanWorks identity.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#1e293b"/></linearGradient>
-    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f8fafc"/></linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#09120d"/><stop offset="1" stop-color="#132a1e"/></linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4ade80"/><stop offset="1" stop-color="#f0abfc"/></linearGradient>
   </defs>
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <circle cx="256" cy="256" r="168" fill="none" stroke="#fbbf24" stroke-opacity="0.22" stroke-width="2"/>
-  <circle cx="256" cy="256" r="132" fill="none" stroke="#fbbf24" stroke-opacity="0.30" stroke-width="2"/>
-  <path d="M126 314c44-72 88-108 132-108s88 36 132 108" fill="none" stroke="#fbbf24" stroke-opacity="0.55" stroke-width="5" stroke-linecap="round"/>
-  <path d="M126 338c44 46 88 70 132 70s88-24 132-70" fill="none" stroke="#f8fafc" stroke-opacity="0.28" stroke-width="3" stroke-linecap="round"/>
-  <text x="256" y="286" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="132" font-weight="700" fill="url(#ac)" letter-spacing="2">IC</text>
-  <text x="256" y="424" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" letter-spacing="8" fill="#f8fafc" fill-opacity="0.62">AEGEANWORKS</text>
+  <circle cx="256" cy="238" r="170" fill="none" stroke="#4ade80" stroke-opacity="0.22" stroke-width="2"/><circle cx="256" cy="238" r="136" fill="none" stroke="#f0abfc" stroke-opacity="0.20" stroke-width="2"/>
+  <g transform="translate(256 232) scale(1.62)" opacity="1.0"><path d="M0 -56C-30 -56 -46 -34 -40 -12C-36 4 -22 10 -18 26H18C22 10 36 4 40 -12C46 -34 30 -56 0 -56Z" fill="none" stroke="#4ade80" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16 38H16M-12 50H12" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M-46 -30L-60 -38M46 -30L60 -38M-54 0H-68M54 0H68" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="256" y="404" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="62" font-weight="700" fill="url(#mark)" letter-spacing="3">IC</text>
+  <text x="256" y="458" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" letter-spacing="6" fill="#F8FAFC" fill-opacity="0.55">AEGEANWORKS</text>
 </svg>
