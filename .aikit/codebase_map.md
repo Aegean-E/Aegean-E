@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `3`
 - **Total Classes**: `3`
-- **Total Top-Level Functions**: `64`
-- **Total Class Methods**: `87`
-- **Total Source Lines**: `2934`
+- **Total Top-Level Functions**: `65`
+- **Total Class Methods**: `88`
+- **Total Source Lines**: `2990`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1507` lines (`69673` bytes)
+**Size**: `1551` lines (`71655` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -36,6 +36,7 @@
   - Method `.test_project_dossier_page_is_wired()`
   - Method `.test_screenshot_viewer_is_in_page_and_keyboard_ready()`
   - Method `.test_playable_games_are_wired_and_current()`
+  - Method `.test_source_validator_covers_every_runtime_file()`
   - Method `.test_portfolio_cards_use_repository_logos()`
   - Method `.test_dossier_media_manifests_are_consistent()`
   - Method `.test_dossier_media_manifest_is_documented()`
@@ -172,7 +173,7 @@
 ### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
 > *Sync the static browser games and the playable-game manifest.*
 
-**Size**: `519` lines (`20769` bytes)
+**Size**: `531` lines (`21236` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
@@ -187,6 +188,7 @@
 - `def _copy_runtime(source, target, entries)`
 - `def _runtime_files(target)`
 - `def _source_path(source, relative)` - *Resolve an index reference inside the source, or None when it escapes it.*
+- `def _allowed_url(value)` - *Only the W3C SVG and XLink namespaces may be named as external URLs.*
 - `def validate_source(game, source_root)` - *Check the static contract the website relies on before copying a build.*
 - `def source_problems(source_root)`
 - `def _manifest_entry(slug)` - *The previous manifest entry for one game, or an empty mapping.*

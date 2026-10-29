@@ -172,6 +172,11 @@ def _source_path(source: Path, relative: str) -> Path | None:
     return (source / clean.lstrip("./")).resolve()
 
 
+def _allowed_url(value: str) -> bool:
+    """Only the W3C SVG and XLink namespaces may be named as external URLs."""
+    return value.startswith(("http://www.w3.org/", "https://www.w3.org/"))
+
+
 def validate_source(game: dict, source_root: Path) -> list[str]:
     """Check the static contract the website relies on before copying a build."""
     problems: list[str] = []
@@ -213,7 +218,7 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
         if reference.startswith(("data:", "#", "mailto:")):
             continue
         if reference.startswith(("http://", "https://")):
-            if "www.w3.org" not in reference:
+            if not _allowed_url(reference):
                 problems.append(f"{game['repo']} index.html loads an external resource: {reference}")
             continue
         if reference.startswith("/") or ".." in reference.split("/"):
@@ -222,8 +227,15 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
         target = _source_path(source, reference)
         if target is None or not target.is_file():
             problems.append(f"{game['repo']} index.html references a missing file: {reference}")
-    for path in sorted((source / "src").rglob("*")):
-        if not path.is_file() or path.suffix not in {".js", ".css"}:
+    runtime_files = [index]
+    for entry in game["runtime"]:
+        path = source / entry
+        if path.is_dir():
+            runtime_files.extend(child for child in path.rglob("*") if child.is_file())
+        elif path.is_file():
+            runtime_files.append(path)
+    for path in sorted(set(runtime_files)):
+        if path == index or path.suffix not in {".js", ".css", ".html", ".svg"}:
             continue
         source_text = path.read_text(encoding="utf-8")
         relative = path.relative_to(source).as_posix()
@@ -231,7 +243,7 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
             if token in source_text:
                 problems.append(f"{game['repo']} {relative} uses {token}; the website build must stay static")
         for url in re.findall(r"https?://[^\s\"'<>)]+", source_text):
-            if "www.w3.org" not in url:
+            if not _allowed_url(url):
                 problems.append(f"{game['repo']} {relative} loads an external URL: {url}")
         if path.suffix == ".css" and re.search(r"@import|url\(\s*['\"]?https?://", source_text):
             problems.append(f"{game['repo']} {relative} imports an external stylesheet")

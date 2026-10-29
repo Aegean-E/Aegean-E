@@ -453,6 +453,50 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, workflow)
 
+    def test_source_validator_covers_every_runtime_file(self):
+        import importlib.util
+        import tempfile
+
+        tool = ROOT / "tools" / "sync_playable_games.py"
+        spec = importlib.util.spec_from_file_location("sync_playable_games", tool)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        game = {
+            "slug": "fixture",
+            "repo": "Fixture",
+            "source": "fixture",
+            "runtime": ("index.html", "src", "assets"),
+            "version_file": "package.json",
+        }
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "fixture"
+            (source / "src").mkdir(parents=True)
+            (source / "assets").mkdir()
+            (source / "index.html").write_text(
+                '<script type="module" src="./src/main.js"></script>\n'
+                '<script src="https://cdn.example/app.js?www.w3.org"></script>\n',
+                encoding="utf-8",
+            )
+            (source / "package.json").write_text('{"version": "1.0.0"}\n', encoding="utf-8")
+            (source / "LICENSE").write_text("# Aegean Game License 1.1\n", encoding="utf-8")
+            (source / "src" / "main.js").write_text("export const ready = true;\n", encoding="utf-8")
+            (source / "assets" / "logo.svg").write_text(
+                '<svg xmlns="http://www.w3.org/2000/svg">'
+                '<image href="https://cdn.example/logo.png"/></svg>\n',
+                encoding="utf-8",
+            )
+            problems = module.validate_source(game, root)
+        self.assertTrue(
+            any("assets/logo.svg" in problem for problem in problems), problems
+        )
+        self.assertTrue(
+            any("cdn.example/app.js?www.w3.org" in problem for problem in problems), problems
+        )
+        self.assertFalse(
+            any("www.w3.org/2000/svg" in problem for problem in problems), problems
+        )
+
     def test_portfolio_cards_use_repository_logos(self):
         index = (ROOT / "docs" / "media" / "logos.json").read_text(encoding="utf-8")
         data = json.loads(index)

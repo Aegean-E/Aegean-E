@@ -1,44 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-final",
+    "task_id": "playable-validator-coverage",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793303844.4610891,
+    "updated_at": 1793304222.1079628,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The close-out commit that recorded stage 16 was itself the only unaudited commit",
-      "benefits": "The stopped run now covers HEAD, so a resume or a new run starts cleanly",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 17",
-      "mitigation": "Confirmed stage 17 reviewed the bookkeeping-only commit, the status shows HEAD audited and no pending findings, and committed only the audit state"
+      "why": "The contract check walked only src/ while Weft's runtime includes assets/, and the W3C allowance was a substring test that a query string could spoof",
+      "benefits": "A remote image, font or script in any runtime directory is refused before it is copied, and the namespace allowance can no longer be spoofed",
+      "risks": "contract: tools/sync_playable_games.py scans more files and tightens the URL allowance; dependency: none; concurrency: none; state: the copied builds are unchanged",
+      "mitigation": "Added a failing-first fixture with a remote SVG image and a W3C-lookalike host, confirmed both are reported, and confirmed the real Prism-Relay and Weft sources still pass"
     },
-    "completed_at": 1793303844.5862734
+    "completed_at": 1793304222.2673736
   },
   "checkpoints": [
-    {
-      "task_id": "play-weft-refresh",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Weft 0.1.1 build 22beac25d364 synced, manifest and digest verified; checklists: passed; gates: test, hygiene, guidelines, secrets",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793301121.7729917,
-      "timestamp_str": "2026-10-29 22:12:01",
-      "agent": "opencode:weft"
-    },
-    {
-      "task_id": "play-weft-refresh",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'play-weft-refresh' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793301122.2304175,
-      "timestamp_str": "2026-10-29 22:12:02",
-      "agent": "opencode:weft"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 14",
@@ -268,6 +247,33 @@
       "status": "completed",
       "timestamp": 1793303844.586275,
       "timestamp_str": "2026-10-29 22:57:24",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "playable-validator-coverage",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Scan every declared runtime entry (index.html, src, assets) for network tokens and external URLs, allow only real W3C namespace origins, and pin it with a fixture regression test; 87 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793304222.1079628,
+      "timestamp_str": "2026-10-29 23:03:42",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The contract check walked only src/ while Weft's runtime includes assets/, and the W3C allowance was a substring test that a query string could spoof",
+        "benefits": "A remote image, font or script in any runtime directory is refused before it is copied, and the namespace allowance can no longer be spoofed",
+        "risks": "contract: tools/sync_playable_games.py scans more files and tightens the URL allowance; dependency: none; concurrency: none; state: the copied builds are unchanged",
+        "mitigation": "Added a failing-first fixture with a remote SVG image and a W3C-lookalike host, confirmed both are reported, and confirmed the real Prism-Relay and Weft sources still pass"
+      }
+    },
+    {
+      "task_id": "playable-validator-coverage",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'playable-validator-coverage' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793304222.2673755,
+      "timestamp_str": "2026-10-29 23:03:42",
       "agent": "opencode:main"
     }
   ]
