@@ -1,83 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "dossier-media-completeness",
+    "task_id": "reforge-run-1-stage26",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793310772.1483457,
+    "updated_at": 1793310834.4818811,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "Most dossiers carried only a logo and preview, and the dossier never used the logo that every manifest already had",
-      "benefits": "Dossiers now show real UI captures where a project is runnable and a visible logo everywhere, with previews unchanged",
-      "risks": "contract: new media files and manifests, a dossier logo element and shell v16; dependency: none; concurrency: none; state: captures pinned to the current project commits",
-      "mitigation": "Captured each runnable UI, kept provenance and dimensions, checked every manifest, browser-checked six dossiers for logo, preview and captures, and ran all suites and gates"
+      "why": "Dossier media and the dossier logo badge changed",
+      "benefits": "The stopped run covers the media completeness work with no pending review",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 26",
+      "mitigation": "Reviewed the eighteen text files, browser-checked six dossiers, and committed only the audit state"
     },
-    "completed_at": 1793310772.2860584
+    "completed_at": 1793310834.636618
   },
   "checkpoints": [
-    {
-      "task_id": "nav-live-page-header",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'nav-live-page-header' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793308624.0525806,
-      "timestamp_str": "2026-10-30 00:17:04",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 22",
-      "phase_num": 3,
-      "description": "Reforge stage 22: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308632.0943093,
-      "timestamp_str": "2026-10-30 00:17:12",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 23",
-      "phase_num": 3,
-      "description": "Reforge stage 23: window 119, 2 commit(s), 3 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308643.8393261,
-      "timestamp_str": "2026-10-30 00:17:23",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 23",
-      "phase_num": 3,
-      "description": "Reforge stage 23: run stopped at stage 23; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793308648.3264935,
-      "timestamp_str": "2026-10-30 00:17:28",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage23",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 23 audited the completed nav swap; no findings; 87 Python tests and 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308654.2740998,
-      "timestamp_str": "2026-10-30 00:17:34",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The Live page header and its order assertion changed",
-        "benefits": "The stopped run covers the completed nav order with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 23",
-        "mitigation": "Reviewed the three changed files and committed only the audit state"
-      }
-    },
     {
       "task_id": "reforge-run-1-stage23",
       "phase": "completed",
@@ -276,6 +216,87 @@
       "status": "completed",
       "timestamp": 1793310772.2860599,
       "timestamp_str": "2026-10-30 00:52:52",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 25",
+      "phase_num": 3,
+      "description": "Reforge stage 25: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793310795.6970503,
+      "timestamp_str": "2026-10-30 00:53:15",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 26",
+      "phase_num": 3,
+      "description": "Reforge stage 26: window 125, 2 commit(s), 18 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 23 binary not analysed",
+      "files_affected": [
+        "docs/media/Crypt-Crawler/2026-10-30-advance.webp",
+        "docs/media/Crypt-Crawler/2026-10-30-dungeon.webp",
+        "docs/media/Crypt-Crawler/2026-10-30-journal.webp",
+        "docs/media/Fold/2026-10-30-later.webp",
+        "docs/media/Fold/2026-10-30-mid.webp",
+        "docs/media/Fold/2026-10-30-start.webp",
+        "docs/media/MemoryReconstruction/2026-10-30-field.webp",
+        "docs/media/MemoryReconstruction/2026-10-30-forgotten-ruins.webp",
+        "docs/media/MemoryReconstruction/2026-10-30-sanctuary.webp",
+        "docs/media/MemoryReconstruction/2026-10-30-set-out.webp",
+        "docs/media/NeuroCore/2026-10-29-tools-library.webp",
+        "docs/media/Prism-Relay/2026-10-30-complete.webp",
+        "docs/media/Prism-Relay/2026-10-30-episode-index.webp",
+        "docs/media/Prism-Relay/2026-10-30-first-light.webp",
+        "docs/media/Prism-Relay/2026-10-30-how-to-play.webp",
+        "docs/media/Prism-Relay/2026-10-30-split-decision.webp",
+        "docs/media/Prism-Relay/2026-10-30-title.webp",
+        "docs/media/UI-Sandbox/2026-10-30-aurora.webp",
+        "docs/media/UI-Sandbox/2026-10-30-default.webp",
+        "docs/media/UI-Sandbox/2026-10-30-outlines.webp"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793310811.522357,
+      "timestamp_str": "2026-10-30 00:53:31",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 26",
+      "phase_num": 3,
+      "description": "Reforge stage 26: run stopped at stage 26; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793310823.3534756,
+      "timestamp_str": "2026-10-30 00:53:43",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage26",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 26 audited the dossier screenshot, preview and logo work; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793310834.4818811,
+      "timestamp_str": "2026-10-30 00:53:54",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Dossier media and the dossier logo badge changed",
+        "benefits": "The stopped run covers the media completeness work with no pending review",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 26",
+        "mitigation": "Reviewed the eighteen text files, browser-checked six dossiers, and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage26",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage26' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793310834.6366196,
+      "timestamp_str": "2026-10-30 00:53:54",
       "agent": "opencode:main"
     }
   ]
