@@ -1,44 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage18",
+    "task_id": "ui-review-policy",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793304271.7053287,
+    "updated_at": 1793306927.6211042,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The runtime validator and its regression test were the newest code after stage 17",
-      "benefits": "The stopped run again covers HEAD with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 18",
-      "mitigation": "Reviewed the four changed files, confirmed the real sources pass, and committed only the audit state"
+      "why": "AIKit's UI contract can only be closed with a human --reviewed attestation, and the owner has declined to give one; adopting it would leave a permanently open task",
+      "benefits": "Future agents stop re-opening the UI adoption, and the remaining advisory is an explicit, owner-approved policy instead of an unexplained warning",
+      "risks": "contract: one project guideline; dependency: none; concurrency: none; state: the UI contract stays absent",
+      "mitigation": "Confirmed the guidelines gate accepts G-001 and all four gates pass without the UI contract"
     },
-    "completed_at": 1793304271.8418381
+    "completed_at": 1793306927.7665668
   },
   "checkpoints": [
-    {
-      "task_id": "playable-build-retention",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'playable-build-retention' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793303274.1874774,
-      "timestamp_str": "2026-10-29 22:47:54",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 15",
-      "phase_num": 3,
-      "description": "Reforge stage 15: window 105, 2 commit(s), 6 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793303303.392018,
-      "timestamp_str": "2026-10-29 22:48:23",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge-run-1-stage15",
       "phase": "in_progress",
@@ -260,6 +239,33 @@
       "status": "completed",
       "timestamp": 1793304271.8418393,
       "timestamp_str": "2026-10-29 23:04:31",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "ui-review-policy",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Record G-001: the owner declines UI review, so .aikit/ui.json is never adopted and the automated Python/Node suites remain the UI proof; 87 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793306927.6211042,
+      "timestamp_str": "2026-10-29 23:48:47",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "AIKit's UI contract can only be closed with a human --reviewed attestation, and the owner has declined to give one; adopting it would leave a permanently open task",
+        "benefits": "Future agents stop re-opening the UI adoption, and the remaining advisory is an explicit, owner-approved policy instead of an unexplained warning",
+        "risks": "contract: one project guideline; dependency: none; concurrency: none; state: the UI contract stays absent",
+        "mitigation": "Confirmed the guidelines gate accepts G-001 and all four gates pass without the UI contract"
+      }
+    },
+    {
+      "task_id": "ui-review-policy",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'ui-review-policy' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793306927.7665682,
+      "timestamp_str": "2026-10-29 23:48:47",
       "agent": "opencode:main"
     }
   ]

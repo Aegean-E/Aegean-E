@@ -9,3 +9,4 @@ Persisted state carries a format version. A loader refuses a version it does not
 without modifying or quarantining that file; older versions migrate when a migration exists.
 
 ## Rules
+- **G-001** (user): Do not adopt .aikit/ui.json or ask the owner for a UI review; the owner declines UI review, and the automated Python/Node suites are the UI proof.
