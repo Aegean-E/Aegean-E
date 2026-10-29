@@ -2,7 +2,7 @@
   "use strict";
 
   var root = document.documentElement;
-  root.dataset.appVersion = "8";
+  root.dataset.appVersion = "9";
 
   var header = document.querySelector(".site-header");
   var navToggle = document.querySelector(".nav-toggle");
@@ -305,16 +305,20 @@
       return left[0].localeCompare(right[0]);
     });
     var visible = showAllTopics ? topics : topics.slice(0, TOPIC_LIMIT);
+    var expandable = topics.length > TOPIC_LIMIT;
+    var expanded = expandable && showAllTopics;
     if (state.topic && !visible.some(function (entry) { return entry[0] === state.topic; })) {
       var active = topics.find(function (entry) { return entry[0] === state.topic; });
       if (active) visible.push(active);
     }
+    topicContainer.classList.toggle("is-expanded", expanded);
     topicContainer.replaceChildren();
     makeTopicChip("", "Any topic");
+    if (expanded) makeTopicToggle(topics.length);
     visible.forEach(function (entry) {
       makeTopicChip(entry[0], entry[0]);
     });
-    if (topics.length > TOPIC_LIMIT) {
+    if (expandable && !expanded) {
       makeTopicToggle(topics.length);
     }
     if (state.topic && !counts.has(state.topic)) {

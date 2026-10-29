@@ -1,4 +1,9 @@
-import { clampIndex, counterText, stepIndex } from "./lightbox-core.js";
+import {
+  clampIndex,
+  counterText,
+  stepIndex,
+  viewerAnnouncement,
+} from "./lightbox-core.js";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -16,6 +21,7 @@ export function createLightbox(dialog) {
   const caption = dialog.querySelector("[data-lightbox-caption]");
   const meta = dialog.querySelector("[data-lightbox-meta]");
   const counter = dialog.querySelector("[data-lightbox-counter]");
+  const announcer = dialog.querySelector("[data-lightbox-announcer]");
   const original = dialog.querySelector("[data-lightbox-original]");
   const previous = dialog.querySelector("[data-lightbox-prev]");
   const next = dialog.querySelector("[data-lightbox-next]");
@@ -25,6 +31,7 @@ export function createLightbox(dialog) {
     !caption ||
     !meta ||
     !counter ||
+    !announcer ||
     !original ||
     !previous ||
     !next ||
@@ -86,6 +93,7 @@ export function createLightbox(dialog) {
     caption.textContent = label;
     renderMeta(item);
     counter.textContent = counterText(index, items.length);
+    announcer.textContent = viewerAnnouncement(index, items.length, label);
     counter.hidden = items.length < 2;
     previous.hidden = items.length < 2;
     next.hidden = items.length < 2;

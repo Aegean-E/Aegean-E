@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "8";
+  var APP_VERSION = "9";
   var RECOVERY_KEY = "aegean:sw-recovery";
 
   if (!("serviceWorker" in navigator)) return;
@@ -24,6 +24,13 @@
     } catch (error) {
       /* private browsing can refuse storage; the page still works */
     }
+  }
+
+  function expectedVersion() {
+    var tag = document.querySelector('script[src*="app.js?v="]');
+    if (!tag) return APP_VERSION;
+    var match = /[?&]v=(\d+)/.exec(tag.getAttribute("src") || "");
+    return match ? match[1] : APP_VERSION;
   }
 
   navigator.serviceWorker.addEventListener("controllerchange", function () {
@@ -52,7 +59,7 @@
   // worker once so the versioned script is fetched from the network.
   window.addEventListener("load", function () {
     window.setTimeout(function () {
-      if (document.documentElement.dataset.appVersion === APP_VERSION) {
+      if (document.documentElement.dataset.appVersion === expectedVersion()) {
         writeRecovery(false);
         return;
       }

@@ -274,7 +274,9 @@ class ProfileIntegrityTests(unittest.TestCase):
             'id="lightbox-next"',
             'id="lightbox-close"',
             'id="lightbox-original"',
+            'id="lightbox-announcer"',
             'aria-live="polite"',
+            'aria-atomic="true"',
         ):
             with self.subTest(token=token):
                 self.assertIn(token, page)
@@ -284,6 +286,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "createLightbox",
             "viewerItem",
             "gallery-open",
+            "aria-controls",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, script)
@@ -293,6 +296,8 @@ class ProfileIntegrityTests(unittest.TestCase):
             "showModal",
             "previouslyFocused",
             "lightbox-open",
+            "lightbox-announcer",
+            "viewerAnnouncement",
             "addEventListener(\"cancel\"",
             "addEventListener(\"keydown\"",
             "ArrowRight",
@@ -313,6 +318,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "export function clampIndex",
             "export function counterText",
             "export function stepIndex",
+            "export function viewerAnnouncement",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, core)
@@ -321,6 +327,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             ".gallery-lightbox",
             ".lightbox-stage",
             ".gallery-lightbox::backdrop",
+            ".gallery-lightbox:not([open])",
             "body.lightbox-open",
             ".gallery-open",
         ):
@@ -601,6 +608,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "function buildTopicChips",
             "showAllTopics",
             "topic-more",
+            "is-expanded",
             'button.setAttribute("aria-expanded"',
             "aria-pressed",
             'event.key !== "/"',
@@ -608,7 +616,13 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, app)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
-        for token in (".project-toolbar", ".topic-filters", ".topic-chip.is-active", ".visually-hidden"):
+        for token in (
+            ".project-toolbar",
+            ".topic-filters",
+            ".topic-filters.is-expanded",
+            ".topic-chip.is-active",
+            ".visually-hidden",
+        ):
             with self.subTest(token=token):
                 self.assertIn(token, css)
 
@@ -619,14 +633,18 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIsNotNone(app_tag, "index.html must request a versioned app.js")
         atlas_tag = re.search(r'<script type="module" src="atlas\.js\?v=(\d+)"></script>', html)
         self.assertIsNotNone(atlas_tag, "index.html must request a versioned atlas.js")
-        self.assertIn('<script src="sw-client.js" defer></script>', html)
+        client_tag = re.search(r'<script src="sw-client\.js\?v=(\d+)" defer></script>', html)
+        self.assertIsNotNone(client_tag, "index.html must request a versioned sw-client.js")
         version = app_tag.group(1)
         self.assertEqual(atlas_tag.group(1), version)
+        self.assertEqual(client_tag.group(1), version)
         app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         self.assertIn(f'root.dataset.appVersion = "{version}";', app)
         client = (ROOT / "docs" / "sw-client.js").read_text(encoding="utf-8")
         for token in (
             f'var APP_VERSION = "{version}";',
+            "expectedVersion",
+            'script[src*="app.js?v="]',
             "controllerchange",
             "registration.update()",
             "registration.unregister()",
@@ -637,10 +655,12 @@ class ProfileIntegrityTests(unittest.TestCase):
         sw = (ROOT / "docs" / "sw.js").read_text(encoding="utf-8")
         self.assertIn(f'const VERSION = "aegeanworks-shell-v{version}";', sw)
         self.assertIn('"sw-client.js"', sw)
+        self.assertIn("versionedFirst", sw)
+        self.assertIn('url.searchParams.has("v")', sw)
 
     def test_live_atlas_is_wired_to_the_github_api(self):
         html = read_site()
-        self.assertIn('<script type="module" src="atlas.js?v=8"></script>', html)
+        self.assertIn('<script type="module" src="atlas.js?v=9"></script>', html)
         self.assertIn('id="atlas-status"', html)
         self.assertIn('data-mode="snapshot"', html)
         self.assertEqual(html.count("data-project-count"), 2)

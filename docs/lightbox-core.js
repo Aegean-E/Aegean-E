@@ -27,3 +27,10 @@ export function counterText(index, count) {
   if (!Number.isFinite(size) || size <= 0) return "";
   return clampIndex(index, size) + 1 + " / " + size;
 }
+
+export function viewerAnnouncement(index, count, label) {
+  const size = Math.trunc(Number(count));
+  if (!Number.isFinite(size) || size <= 0) return "";
+  const name = String(label == null ? "" : label).trim() || "Image";
+  return "Image " + (clampIndex(index, size) + 1) + " of " + size + ": " + name + ".";
+}

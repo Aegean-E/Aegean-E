@@ -813,6 +813,19 @@ h1 .grad {
   min-width: 0;
   margin-top: 2px;
 }
+.topic-filters.is-expanded {
+  max-height: clamp(180px, 40vh, 320px);
+  padding-right: 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+.topic-filters.is-expanded::-webkit-scrollbar { width: 8px; }
+.topic-filters.is-expanded::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+}
 .topic-chip {
   padding: 5px 9px;
   border: 1px dashed var(--line-2);
@@ -1559,7 +1572,11 @@ h1 .grad {
   font: inherit;
   text-align: inherit;
 }
-.gallery-open { cursor: zoom-in; }
+.gallery-open {
+  cursor: zoom-in;
+  appearance: none;
+  -webkit-appearance: none;
+}
 .gallery-open img {
   transition: transform 0.35s var(--ease), filter 0.35s var(--ease);
 }
@@ -1637,6 +1654,7 @@ body.lightbox-open { overflow: hidden; }
   box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.95);
   overflow: hidden;
 }
+.gallery-lightbox:not([open]) { display: none; }
 .gallery-lightbox::backdrop {
   background: rgba(2, 4, 9, 0.86);
   backdrop-filter: blur(8px);

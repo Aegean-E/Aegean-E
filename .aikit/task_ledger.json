@@ -1,66 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "screenshot-viewer",
+    "task_id": "review-fixes",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793288347.2147286,
+    "updated_at": 1793291144.6417985,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
-    "completed_at": 1793288352.4387705
+    "completed_at": 1793291149.7440214
   },
   "checkpoints": [
-    {
-      "task_id": "dossier-media-case",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'dossier-media-case' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793204594.295201,
-      "timestamp_str": "2026-10-28 19:23:14",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "media-automation",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Topics-only filter row; portfolio cards show each repository's logo from a generated logos.json; dossier drops its duplicate logo tile and keeps the social preview",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793208498.6792288,
-      "timestamp_str": "2026-10-28 20:28:18",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "Discipline chips duplicated topic classification, and the dossier repeated an identity already shown on the card",
-        "benefits": "One filter axis, one identity per surface; cards are scannable by real logos",
-        "risks": "contract: cat URL param and chip markup removed; dependency: none at page time; concurrency: logos.json must stay in sync with manifests; state: per-card logo fallback kept",
-        "mitigation": "Generated index verified in check mode and tests; monogram fallback preserved; axe and screenshots at three widths"
-      }
-    },
-    {
-      "task_id": "media-automation",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/4] Automate media: fetch resolves HEAD, keeps reviewed art, converts logos to 256px WebP and previews to 1200px WebP, pulls up to three captures from repository screenshot folders with a token, writes stable manifests and a logo index",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793208498.935488,
-      "timestamp_str": "2026-10-28 20:28:18",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "media-automation",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[3/4] .github/workflows/media.yml refreshes weekly and on demand, commits only when docs/media changes; media README and ADR-034 document the pipeline, the logo split and the topics-only filter",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793208507.7940228,
-      "timestamp_str": "2026-10-28 20:28:27",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "media-automation",
       "phase": "phase 4",
@@ -267,6 +218,55 @@
       "status": "completed",
       "timestamp": 1793288352.4387724,
       "timestamp_str": "2026-10-29 18:39:12",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "review-fixes",
+      "phase": "in_progress",
+      "phase_num": 2,
+      "description": "[1/4] Review the last three commits and harden the gaps they left: versioned-asset cache coherence, the expanded topic shelf, dialog fallback hiding and screen-reader feedback in the screenshot viewer",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793290675.131533,
+      "timestamp_str": "2026-10-29 19:17:55",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The archive/topic and screenshot-viewer work exposed three residual gaps: a controlled page can still receive an older app.js from the service-worker cache even when the HTML asks for a versioned URL, expanding 317 live topics creates a 3,564px shelf with Show fewer at the far end, and the viewer announces a position change without the new caption",
+        "benefits": "A versioned asset bypasses an older shell cache, the expanded topic shelf stays bounded with its collapse control first, the viewer announces position plus caption, and browsers without dialog support never show an empty viewer shell",
+        "risks": "contract: index/project markup, app.js and the sw/sw-client version markers; dependency: none; concurrency: worker activation and reload; state: shell cache keys, session recovery flag, topic shelf expansion",
+        "mitigation": "Bump the shell contract together to v9, add static and browser tests for every changed contract, keep the offline fallback, and run axe plus the full project gates before pushing"
+      }
+    },
+    {
+      "task_id": "review-fixes",
+      "phase": "in_progress",
+      "phase_num": 3,
+      "description": "[2-3/4] Versioned-first shell cache with v9 markers and script-derived recovery, bounded expanded topic shelf with collapse first, and viewer live announcements plus closed-dialog fallback",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793291144.2740421,
+      "timestamp_str": "2026-10-29 19:25:44",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "review-fixes",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[4/4] 85 Python tests, 88 project, 67 atlas and 58 verifier assertions; media check 0 problems; axe-core 0 WCAG A/AA violations on the collapsed and expanded portfolio and the mobile viewer; browser checks stale-cache bypass, offline shell and viewer, v9 recovery flag, bounded 317-topic shelf and live announcements; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793291144.6417985,
+      "timestamp_str": "2026-10-29 19:25:44",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "review-fixes",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'review-fixes' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793291149.7440238,
+      "timestamp_str": "2026-10-29 19:25:49",
       "agent": "opencode:main"
     }
   ]

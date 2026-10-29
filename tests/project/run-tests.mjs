@@ -14,6 +14,7 @@ import {
   clampIndex,
   counterText,
   stepIndex,
+  viewerAnnouncement,
 } from "../../docs/lightbox-core.js";
 
 let assertions = 0;
@@ -216,6 +217,22 @@ equal(stepIndex(3, 4, 2), 1, "multi-step next wraps");
 equal(stepIndex(0, 1, 1), 0, "single shot cannot step");
 equal(stepIndex(0, 0, 1), 0, "empty gallery cannot step");
 equal(stepIndex(1, 3, Number.NaN), 1, "non-numeric step is ignored");
+equal(
+  viewerAnnouncement(0, 3, "NeuroCore \u2014 Chat UI"),
+  "Image 1 of 3: NeuroCore \u2014 Chat UI.",
+  "announcement names the position and caption"
+);
+equal(
+  viewerAnnouncement(2, 1, "Social preview"),
+  "Image 1 of 1: Social preview.",
+  "announcement clamps the index"
+);
+equal(viewerAnnouncement(1, 0, "Lost"), "", "empty viewer has no announcement");
+equal(
+  viewerAnnouncement(1, 3, "   "),
+  "Image 2 of 3: Image.",
+  "blank caption falls back to a label"
+);
 
 console.log(`ok ${assertions} project-page assertions`);
 

@@ -144,6 +144,7 @@ function renderPreview(repo, preview) {
     previewLink.setAttribute("aria-label", "Open social preview");
     if (viewer) {
       previewLink.setAttribute("aria-haspopup", "dialog");
+      previewLink.setAttribute("aria-controls", "gallery-lightbox");
       previewLink.addEventListener("click", function (event) {
         if (
           event.button !== 0 ||
@@ -182,6 +183,7 @@ function renderGallery(repo, shots) {
       trigger.type = "button";
       trigger.className = "gallery-open";
       trigger.setAttribute("aria-haspopup", "dialog");
+      trigger.setAttribute("aria-controls", "gallery-lightbox");
       const label = shot.caption || shot.alt;
       trigger.setAttribute("aria-label", label ? "Open " + label : "Open screenshot");
       trigger.addEventListener("click", function () {

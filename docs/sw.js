@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v8";
+const VERSION = "aegeanworks-shell-v9";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -84,6 +84,20 @@ async function shellFirst(request) {
   return cached || network;
 }
 
+// A versioned URL is the page's request for fresh code, so it must not be
+// answered from an older shell cache. The unversioned precache remains the
+// offline fallback.
+async function versionedFirst(request) {
+  const cache = await caches.open(SHELL_CACHE);
+  try {
+    const response = await fetch(request);
+    if (response.ok) cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    return (await cache.match(request, { ignoreSearch: true })) || Response.error();
+  }
+}
+
 async function apiFirst(request) {
   const cache = await caches.open(API_CACHE);
   try {
@@ -108,7 +122,9 @@ self.addEventListener("fetch", function (event) {
     return;
   }
   if (url.origin === self.location.origin) {
-    event.respondWith(shellFirst(request));
+    event.respondWith(
+      url.searchParams.has("v") ? versionedFirst(request) : shellFirst(request)
+    );
     return;
   }
   if (url.hostname === "api.github.com") {
