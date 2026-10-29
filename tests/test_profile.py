@@ -1199,6 +1199,9 @@ class ProfileIntegrityTests(unittest.TestCase):
                 self.assertIn('data-topics="' + ",".join(repo["topics"]) + '"', block)
                 archived = "true" if repo.get("archived") else "false"
                 self.assertIn(f'data-archived="{archived}"', block)
+                pushed = re.search(r'data-pushed-at="(\d{4}-\d{2}-\d{2})', block)
+                self.assertIsNotNone(pushed, repo["name"])
+                self.assertIn(f"Updated {pushed.group(1)}", block, repo["name"])
                 expected = [topic for topic in repo["topics"] if topic not in omitted][:6]
                 self.assertEqual(
                     re.findall(r'<span class="tag">([^<]+)</span>', block), expected

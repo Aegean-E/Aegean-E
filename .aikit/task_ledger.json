@@ -1,84 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1",
+    "task_id": "reforge-run-1-stage3",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793291723.374672,
+    "updated_at": 1793292271.81366,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "Reforge stage 1 found that rebuilding the topic shelf dropped keyboard focus and that versionedFirst left cache.put rejections unhandled",
-      "benefits": "Show all/Show fewer keeps focus on the rebuilt toggle, and a failed cache write no longer becomes an unhandled service-worker rejection",
-      "risks": "contract: reforge state and ledger plus app.js and sw.js; dependency: none; concurrency: service-worker cache writes; state: run-1 remains active for stage 2",
-      "mitigation": "Run the project suite and gates, verify both toggle directions in the browser, and record the reforge findings in .aikit/reforge.json"
+      "why": "The 7d755b1 portfolio update changed the AIKit visible date to 2026-10-28 and the Reforge data-pushed-at to 2026-10-28 but left each card's counterpart stale, so Recent sorting and the visible label disagreed",
+      "benefits": "Static cards, snapshot metadata and Recent sort now use one date per repository, and the new assertion prevents a future one-sided date edit",
+      "risks": "contract: index card date labels and the profile test; dependency: none; concurrency: none; state: reforge run-1 remains active for stage 4",
+      "mitigation": "Verified every project card's Updated label against data-pushed-at, ran the full suite and project gates, and recorded the run state"
     },
-    "completed_at": 1793291723.5409012
+    "completed_at": 1793292272.098481
   },
   "checkpoints": [
-    {
-      "task_id": "archived-filter",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Gate attempt: hygiene and secrets pass; guidelines pass after refreshing .aikit/codebase_map.md; test gate fails 1 of 83 on test_dossier_media_manifests_are_consistent from uncommitted schema-1 docs/media manifests written 2026-10-28 21:40, before this task. Archive filter work itself passes its targeted tests and all 67 atlas assertions. Not complete.",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793276925.2153873,
-      "timestamp_str": "2026-10-29 15:28:45",
-      "agent": "kilo:main",
-      "handoff": {
-        "state": "data-archived on 35 cards, Status select and archive URL state in docs/app.js, live atlas writes data-archived, ADR-035 added",
-        "next": "resolve the unrelated media manifest drift, then rerun python aikit.py check AegeanWorks",
-        "failed": "test gate (media manifests), 3/4 gates pass",
-        "open": "uncommitted media files are not part of archived-filter",
-        "evidence": "83 tests 1 failure, node tests 67 assertions OK, targeted archive/atlas/card tests OK"
-      }
-    },
-    {
-      "task_id": "archived-filter",
-      "phase": "phase 3",
-      "phase_num": 3,
-      "description": "[2/2] Fixed the search topic shelf: default still shows 12 chips, new 'Show all N topics' toggle reveals every catalogued topic and collapses to 'Show fewer'; toggle carries aria-expanded and is excluded from selected-chip state. ADR-036 added, README updated, Python tokens pinned. Targeted atlas/profile tests and 67 node assertions pass; full suite still fails only on the pre-existing uncommitted media manifests.",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793278166.442002,
-      "timestamp_str": "2026-10-29 15:49:26",
-      "agent": "kilo:main",
-      "handoff": {
-        "state": "archive filter + full topic shelf in docs/app.js, docs/styles.css, ADR-035/036",
-        "next": "resolve unrelated docs/media drift, then rerun python aikit.py check AegeanWorks",
-        "failed": "test gate only (media manifests)",
-        "evidence": "83 tests 1 failure, node 67 assertions OK"
-      }
-    },
-    {
-      "task_id": "archived-filter",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Verified: 83 project tests pass, 67 atlas assertions pass, 4/4 gates pass (test, hygiene, guidelines, secrets); checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793280661.0853176,
-      "timestamp_str": "2026-10-29 16:31:01",
-      "agent": "kilo:main",
-      "handoff": {
-        "state": "archive Status filter, Show all topics shelf, atlas cache v3, service worker shell v6, ADR-035/036/037",
-        "next": "none, task complete",
-        "evidence": "python aikit.py check AegeanWorks -> 4/4, node tests/atlas/run-tests.mjs -> 67 assertions"
-      }
-    },
-    {
-      "task_id": "archived-filter",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'archived-filter' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793280688.3609092,
-      "timestamp_str": "2026-10-29 16:31:28",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "filter-cache",
       "phase": "planning",
@@ -273,6 +212,55 @@
       "status": "completed",
       "timestamp": 1793291723.5409024,
       "timestamp_str": "2026-10-29 19:35:23",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 2",
+      "phase_num": 3,
+      "description": "Reforge stage 2: window 6, 3 commit(s), 12 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793291848.9299195,
+      "timestamp_str": "2026-10-29 19:37:28",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 3",
+      "phase_num": 3,
+      "description": "Reforge stage 3: window 9, 3 commit(s), 5 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793292002.296505,
+      "timestamp_str": "2026-10-29 19:40:02",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage3",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 3 found AIKit and Aegean-Reforge static card dates swapped relative to data-pushed-at; both corrected and a card-date assertion added; 85 Python tests, 88 project, 67 atlas and 58 verifier assertions; media check 0 problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793292271.81366,
+      "timestamp_str": "2026-10-29 19:44:31",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The 7d755b1 portfolio update changed the AIKit visible date to 2026-10-28 and the Reforge data-pushed-at to 2026-10-28 but left each card's counterpart stale, so Recent sorting and the visible label disagreed",
+        "benefits": "Static cards, snapshot metadata and Recent sort now use one date per repository, and the new assertion prevents a future one-sided date edit",
+        "risks": "contract: index card date labels and the profile test; dependency: none; concurrency: none; state: reforge run-1 remains active for stage 4",
+        "mitigation": "Verified every project card's Updated label against data-pushed-at, ran the full suite and project gates, and recorded the run state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage3",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage3' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793292272.0984828,
+      "timestamp_str": "2026-10-29 19:44:32",
       "agent": "opencode:main"
     }
   ]
