@@ -11,6 +11,12 @@
   "display": "standalone",
   "shortcuts": [
     {
+      "name": "Play a game",
+      "short_name": "Play",
+      "url": "/AegeanWorks/play.html",
+      "description": "Open the playable browser game catalog."
+    },
+    {
       "name": "Verify a license",
       "short_name": "Verify",
       "url": "/AegeanWorks/verify.html",

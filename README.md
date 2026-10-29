@@ -47,7 +47,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser games also appear on the [Play page](https://aegeanworks.github.io/AegeanWorks/play.html) with their version and commit; Prism-Relay runs in the page, while titles that need a local server say so.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -166,7 +166,7 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 ## License
 
-AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md). A commercial certificate can be checked against the public register at [aegeanworks.github.io/AegeanWorks/verify.html](https://aegeanworks.github.io/AegeanWorks/verify.html).
+AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). The browser game builds under `docs/play/` keep their AGL-1.1 license. Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md). A commercial certificate can be checked against the public register at [aegeanworks.github.io/AegeanWorks/verify.html](https://aegeanworks.github.io/AegeanWorks/verify.html).
 
 ---
 
@@ -209,7 +209,7 @@ node tests/atlas/run-tests.mjs
 node tests/project/run-tests.mjs
 ```
 
-All four suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier, the live GitHub atlas and the README renderer to the same rules as the Python code. A scheduled `media.yml` run pulls logos, social previews and repository captures, regenerates the manifests and commits them when a repository changed.
+All five suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier, the live GitHub atlas, the README renderer and the playable catalog to the same rules as the Python code. A scheduled `media.yml` run pulls logos, social previews and repository captures, regenerates the manifests and commits them when a repository changed. A scheduled `playable.yml` run copies the Prism-Relay browser build and records its version and commit, while Crypt-Crawler stays a local-run title because its Python API cannot run on static Pages.
 
 ### What's Inside
 
@@ -219,7 +219,8 @@ AegeanWorks/
 ├── LICENSE                  <- Aegean License 1.1 (AL-1.1): free personal use
 ├── COMMERCIAL.md            <- Licensing tiers and ACL-1.0 commercial terms
 ├── LICENSES/                <- Pinned license text for REUSE metadata
-│   └── LicenseRef-AL-1.1.txt
+│   ├── LicenseRef-AL-1.1.txt
+│   └── LicenseRef-AGL-1.1.txt <- Playable game builds
 ├── REUSE.toml               <- REUSE aggregate license annotations
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── package.json             <- Node module marker for the browser-core parity suites
@@ -233,6 +234,11 @@ AegeanWorks/
 │   ├── project.js           <- Dossier fetch and safe text rendering
 │   ├── lightbox-core.js     <- Pure viewer index and counter rules
 │   ├── lightbox.js          <- Dialog viewer: navigation, focus and metadata
+│   ├── play.html            <- Playable game catalog and fullscreen player
+│   ├── play-core.js         <- Pure manifest, lookup and version-label rules
+│   ├── play.js              <- Catalog rendering, player and URL state
+│   ├── playable.json        <- Synced game versions, commits and digests
+│   ├── play/                <- Versioned browser game builds
 │   ├── media/               <- Dossier logos, social previews and screenshots
 │   ├── atlas-snapshot.json  <- Static fallback for the atlas and dossiers
 │   ├── verify.html          <- Public certificate verifier (certificate stays local)
@@ -262,7 +268,8 @@ AegeanWorks/
 │   ├── FUNDING.yml          <- Sponsorship configuration
 │   └── workflows/
 │       ├── tests.yml        <- CI regression gate on every push
-│       └── media.yml        <- Weekly refresh of logos, previews and captures
+│       ├── media.yml        <- Weekly refresh of logos, previews and captures
+│       └── playable.yml    <- Weekly refresh of the browser game builds
 ├── .aikit/
 │   ├── project.json         <- Project identity and test command
 │   ├── media.json           <- Reviewed brand media state and approvals
@@ -272,9 +279,12 @@ AegeanWorks/
 │   ├── task_ledger.json     <- Delivery ledger
 │   └── reforge.json         <- Progressive audit run state and applied findings
 ├── tools/
-│   └── build_dossier_media.py  <- Fetches, optimizes and verifies dossier media
+│   ├── build_dossier_media.py  <- Fetches, optimizes and verifies dossier media
+│   └── sync_playable_games.py  <- Copies and verifies the browser game build
 └── tests/
     ├── test_profile.py      <- Content, metadata and link integrity tests
+    ├── play/
+    │   └── run-tests.mjs     <- Play catalog and version-label parity
     ├── metadata/
     │   └── repositories.json <- GitHub title, topic and description snapshot
     ├── vectors/

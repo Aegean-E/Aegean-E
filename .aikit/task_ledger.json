@@ -1,72 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage4",
+    "task_id": "playable-games",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793292593.5339448,
+    "updated_at": 1793296423.9407637,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
-    "impact_assessment": {
-      "why": "loadCardLogos applied the index once at startup, while the atlas can add or replace cards later; those cards never received their repository logo",
-      "benefits": "Portfolio cards remain visually consistent when the live atlas grows, and the regression assertion covers the atlas:changed refresh path",
-      "risks": "contract: app.js atlas listener and the profile test; dependency: none; concurrency: one additional logo pass per atlas update; state: reforge run-1 remains active for stage 5",
-      "mitigation": "Browser-checked a synthetic atlas-added card, ran the full suite and media check, and recorded the reforge finding"
-    },
-    "completed_at": 1793292593.8858347
+    "completed_at": 1793296430.3130279
   },
   "checkpoints": [
-    {
-      "task_id": "review-fixes",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'review-fixes' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793291149.7440238,
-      "timestamp_str": "2026-10-29 19:25:49",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge run",
-      "phase_num": 3,
-      "description": "run started (start=3, step=3, stop=15)",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793291419.4801745,
-      "timestamp_str": "2026-10-29 19:30:19",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 1",
-      "phase_num": 3,
-      "description": "Reforge stage 1: window 3, 3 commit(s), 16 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793291430.784545,
-      "timestamp_str": "2026-10-29 19:30:30",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge run-1 stage 1 audited the newest 3 commits, reviewed 16 files, accepted 4 improvements and repaired them; 85 Python tests, 88 project, 67 atlas and 58 verifier assertions; media check 0 problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793291723.374672,
-      "timestamp_str": "2026-10-29 19:35:23",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "Reforge stage 1 found that rebuilding the topic shelf dropped keyboard focus and that versionedFirst left cache.put rejections unhandled",
-        "benefits": "Show all/Show fewer keeps focus on the rebuilt toggle, and a failed cache write no longer becomes an unhandled service-worker rejection",
-        "risks": "contract: reforge state and ledger plus app.js and sw.js; dependency: none; concurrency: service-worker cache writes; state: run-1 remains active for stage 2",
-        "mitigation": "Run the project suite and gates, verify both toggle directions in the browser, and record the reforge findings in .aikit/reforge.json"
-      }
-    },
     {
       "task_id": "reforge-run-1",
       "phase": "completed",
@@ -308,6 +253,55 @@
       "timestamp": 1793294174.8503866,
       "timestamp_str": "2026-10-29 20:16:14",
       "agent": "opencode"
+    },
+    {
+      "task_id": "playable-games",
+      "phase": "in_progress",
+      "phase_num": 2,
+      "description": "[1/5] Add a Play surface for browser games: auto-synced Prism-Relay build, a local-play card for Crypt-Crawler, version/commit display, dossier Play buttons and a cache-coherent shell",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793295143.3480678,
+      "timestamp_str": "2026-10-29 20:32:23",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The portfolio can show a game but cannot start it; visitors must clone a repository to try a playable project",
+        "benefits": "One click from a game dossier or the Play page starts Prism-Relay in the browser, shows its exact version and commit, and the weekly sync keeps it current without hand-copying files",
+        "risks": "contract: new Play page/manifest, Django? no; dependency: only standard library plus a weekly Actions checkout; concurrency: sync workflow versus site edits; state: versioned game directories and the shell cache",
+        "mitigation": "Version the copied build by commit, write a digest manifest, add a check mode and CI workflow, keep Crypt-Crawler as an explicit local-run card because its Python API cannot run on static Pages, and pin all new files in tests"
+      }
+    },
+    {
+      "task_id": "playable-games",
+      "phase": "in_progress",
+      "phase_num": 3,
+      "description": "[2-3/5] Play manifest, synced Prism-Relay build, Play page with version/commit player, dossier Play button, navigation, cache v10 and the daily sync workflow; Crypt-Crawler is a local-run card because its Python API cannot run on static Pages",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793296423.786939,
+      "timestamp_str": "2026-10-29 20:53:43",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "playable-games",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[5/5] 86 Python tests, 14 play/88 project/67 atlas/58 verifier assertions; media check 0 problems; sync check 0 problems; axe-core 0 WCAG A/AA violations on Play catalog/player desktop and mobile plus the Prism dossier; browser checks online play, direct URL, back navigation, dossier Play button and offline game reload; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793296423.9407637,
+      "timestamp_str": "2026-10-29 20:53:43",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "playable-games",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'playable-games' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793296430.3130295,
+      "timestamp_str": "2026-10-29 20:53:50",
+      "agent": "opencode:main"
     }
   ]
 }

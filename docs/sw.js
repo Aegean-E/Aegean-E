@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v9";
+const VERSION = "aegeanworks-shell-v10";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -20,6 +20,10 @@ const PRECACHE = [
   "project-core.js",
   "lightbox.js",
   "lightbox-core.js",
+  "play.html",
+  "play.js",
+  "play-core.js",
+  "playable.json",
   "verify.js",
   "verify-core.js",
   "atlas-snapshot.json",
@@ -66,7 +70,12 @@ async function offlineResponse() {
 
 async function navigationFirst(request) {
   try {
-    return await fetch(request);
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(SHELL_CACHE);
+      cache.put(request, response.clone()).catch(function () {});
+    }
+    return response;
   } catch (error) {
     return (await caches.match(request, { ignoreSearch: true })) || offlineResponse();
   }
@@ -123,7 +132,9 @@ self.addEventListener("fetch", function (event) {
   }
   if (url.origin === self.location.origin) {
     event.respondWith(
-      url.searchParams.has("v") ? versionedFirst(request) : shellFirst(request)
+      url.searchParams.has("v") || url.pathname.endsWith("/playable.json")
+        ? versionedFirst(request)
+        : shellFirst(request)
     );
     return;
   }

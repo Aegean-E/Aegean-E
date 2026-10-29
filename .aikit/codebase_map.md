@@ -6,11 +6,11 @@
 ---
 
 ## 📊 Codebase Metrics
-- **Total Python Modules**: `2`
-- **Total Classes**: `2`
-- **Total Top-Level Functions**: `43`
-- **Total Class Methods**: `85`
-- **Total Source Lines**: `2281`
+- **Total Python Modules**: `3`
+- **Total Classes**: `3`
+- **Total Top-Level Functions**: `58`
+- **Total Class Methods**: `87`
+- **Total Source Lines**: `2747`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1373` lines (`63522` bytes)
+**Size**: `1481` lines (`68166` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -35,6 +35,7 @@
   - Method `.test_site_entry_points_exist()`
   - Method `.test_project_dossier_page_is_wired()`
   - Method `.test_screenshot_viewer_is_in_page_and_keyboard_ready()`
+  - Method `.test_playable_games_are_wired_and_current()`
   - Method `.test_portfolio_cards_use_repository_logos()`
   - Method `.test_dossier_media_manifests_are_consistent()`
   - Method `.test_dossier_media_manifest_is_documented()`
@@ -164,6 +165,34 @@
 - `def humanize(value)`
 - `def safe_slug(value)`
 - `def command_ingest(args)`
+- `def main(argv)`
+
+---
+
+### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
+> *Sync the static browser game and the playable-game manifest.*
+
+**Size**: `358` lines (`13461` bytes)
+
+**Classes:**
+- `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
+  - Method `.__init__(what, why, fix)`
+
+**Functions:**
+- `def _git(source, *args)`
+- `def _version(source, relative)`
+- `def _digest(files, root)`
+- `def _write_atomic(path, payload)`
+- `def _copy_file(source, target)`
+- `def _copy_runtime(source, target, entries)`
+- `def _runtime_files(target)`
+- `def _browser_entry(game, source_root)`
+- `def _local_entry(game, source_root)`
+- `def build_manifest(source_root)`
+- `def _read_manifest()`
+- `def check_manifest()`
+- `def command_write(source_root)`
+- `def command_check()`
 - `def main(argv)`
 
 ---
