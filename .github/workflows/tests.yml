@@ -35,7 +35,7 @@ jobs:
         run: node tests/atlas/run-tests.mjs
       - name: Run the project-dossier parity suite
         run: node tests/project/run-tests.mjs
-      - name: Run the playable catalog suite
-        run: node tests/play/run-tests.mjs
+      - name: Run the live catalog suite
+        run: node tests/live/run-tests.mjs
       - name: Verify dossier media manifests and digests
         run: python tools/build_dossier_media.py check

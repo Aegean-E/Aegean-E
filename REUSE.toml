@@ -7,7 +7,13 @@ SPDX-FileCopyrightText = "2026 AegeanWorks"
 SPDX-License-Identifier = "LicenseRef-AL-1.1"
 
 [[annotations]]
-path = ["docs/play/prism-relay/**"]
+path = ["docs/live/prism-relay/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 AegeanWorks"
+SPDX-License-Identifier = "LicenseRef-AGL-1.1"
+
+[[annotations]]
+path = ["docs/live/weft/**"]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 AegeanWorks"
 SPDX-License-Identifier = "LicenseRef-AGL-1.1"

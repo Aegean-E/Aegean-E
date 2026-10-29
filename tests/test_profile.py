@@ -188,10 +188,11 @@ class ProfileIntegrityTests(unittest.TestCase):
             "styles.css",
             "app.js",
             "sw-client.js",
-            "play.html",
-            "play.js",
-            "play-core.js",
-            "playable.json",
+            "live.html",
+            "live.js",
+            "live-core.js",
+            "live-home.js",
+            "live.json",
             "favicon.svg",
             "404.html",
             "robots.txt",
@@ -338,19 +339,19 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, css)
 
-    def test_playable_games_are_wired_and_current(self):
-        manifest_path = ROOT / "docs" / "playable.json"
+    def test_live_apps_are_wired_and_current(self):
+        manifest_path = ROOT / "docs" / "live.json"
         self.assertTrue(manifest_path.is_file())
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        self.assertEqual(manifest["schema"], 1)
-        games = {game["slug"]: game for game in manifest["games"]}
-        self.assertEqual(set(games), {"prism-relay", "weft"})
+        self.assertEqual(manifest["schema"], 2)
+        apps = {app["slug"]: app for app in manifest["apps"]}
+        self.assertEqual(set(apps), {"prism-relay", "weft"})
 
-        prism = games["prism-relay"]
-        self.assertTrue(prism["playable"])
+        prism = apps["prism-relay"]
+        self.assertTrue(prism["available"])
         self.assertEqual(prism["mode"], "browser")
         self.assertEqual(prism["license"], "AGL-1.1")
-        self.assertRegex(prism["path"], r"^play/prism-relay/[0-9a-f]{7,40}/index\.html$")
+        self.assertRegex(prism["path"], r"^live/prism-relay/[0-9a-f]{7,40}/index\.html$")
         self.assertTrue((ROOT / "docs" / prism["path"]).is_file())
         self.assertTrue((ROOT / "docs" / prism["license_path"]).is_file())
         self.assertTrue((ROOT / "LICENSES" / "LicenseRef-AGL-1.1.txt").is_file())
@@ -366,11 +367,11 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(build=build):
                 self.assertTrue((ROOT / "docs" / build).is_file())
 
-        weft = games["weft"]
-        self.assertTrue(weft["playable"])
+        weft = apps["weft"]
+        self.assertTrue(weft["available"])
         self.assertEqual(weft["mode"], "browser")
         self.assertEqual(weft["license"], "AGL-1.1")
-        self.assertRegex(weft["path"], r"^play/weft/[0-9a-f]{7,40}/index\.html$")
+        self.assertRegex(weft["path"], r"^live/weft/[0-9a-f]{7,40}/index\.html$")
         self.assertTrue((ROOT / "docs" / weft["path"]).is_file())
         self.assertTrue((ROOT / "docs" / weft["license_path"]).is_file())
         self.assertRegex(weft["commit"], r"^[0-9a-f]{7,40}$")
@@ -387,7 +388,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(build=build):
                 self.assertTrue((ROOT / "docs" / build).is_file())
 
-        tool = ROOT / "tools" / "sync_playable_games.py"
+        tool = ROOT / "tools" / "sync_live_apps.py"
         self.assertTrue(tool.is_file())
         result = subprocess.run(
             [sys.executable, str(tool), "--check"],
@@ -399,25 +400,25 @@ class ProfileIntegrityTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 
-        page = (ROOT / "docs" / "play.html").read_text(encoding="utf-8")
+        page = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")
         for token in (
-            'id="play-grid"',
-            'id="play-frame"',
-            'id="play-player"',
-            'id="play-version"',
-            'id="play-frame-status"',
-            'id="play-retry"',
-            "play.js",
-            "playable.json",
+            'id="live-grid"',
+            'id="live-frame"',
+            'id="live-player"',
+            'id="live-version"',
+            'id="live-frame-status"',
+            'id="live-retry"',
+            "live.js",
+            "live.json",
             "frame-src 'self'",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, page)
-        script = (ROOT / "docs" / "play.js").read_text(encoding="utf-8")
+        script = (ROOT / "docs" / "live.js").read_text(encoding="utf-8")
         for token in (
-            'from "./play-core.js"',
-            "playable.json",
-            "gameFrameUrl",
+            'from "./live-core.js"',
+            "live.json",
+            "appFrameUrl",
             "showFrameError",
             "versionLabel",
             "requestFullscreen",
@@ -426,27 +427,37 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, script)
         project_script = (ROOT / "docs" / "project.js").read_text(encoding="utf-8")
-        for token in ("playable.json", "play.html?game=", "Play"):
+        for token in ("live.json", "live.html?app=", "Open"):
             with self.subTest(token=token):
                 self.assertIn(token, project_script)
         for name in ("index.html", "project.html"):
             with self.subTest(page=name):
-                self.assertIn('href="play.html"', (ROOT / "docs" / name).read_text(encoding="utf-8"))
+                self.assertIn('href="live.html"', (ROOT / "docs" / name).read_text(encoding="utf-8"))
+        home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('id="live"', home)
+        self.assertIn('id="live-home-grid"', home)
+        self.assertIn("live-home.js", home)
+        self.assertLess(home.index('id="work"'), home.index('id="live"'))
+        self.assertLess(home.index('id="live"'), home.index('id="projects"'))
+        redirect = (ROOT / "docs" / "play.html").read_text(encoding="utf-8")
+        self.assertIn('content="0; url=live.html"', redirect)
+        self.assertIn('name="robots" content="noindex"', redirect)
+        self.assertIn("live.html", redirect)
         sw = (ROOT / "docs" / "sw.js").read_text(encoding="utf-8")
-        for entry in ("play.html", "play.js", "play-core.js", "playable.json"):
+        for entry in ("live.html", "live.js", "live-core.js", "live-home.js", "live.json"):
             with self.subTest(entry=entry):
                 self.assertIn(f'"{entry}"', sw)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
-        for token in (".play-grid", ".play-player", ".play-frame"):
+        for token in (".live-grid", ".live-player", ".live-frame"):
             with self.subTest(token=token):
                 self.assertIn(token, css)
-        workflow = (ROOT / ".github" / "workflows" / "playable.yml").read_text(
+        workflow = (ROOT / ".github" / "workflows" / "live.yml").read_text(
             encoding="utf-8"
         )
         for token in (
             "Prism-Relay",
             "Weft",
-            "sync_playable_games.py",
+            "sync_live_apps.py",
             "--check-source",
             "actions/checkout@v4",
         ):
@@ -457,8 +468,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         import importlib.util
         import tempfile
 
-        tool = ROOT / "tools" / "sync_playable_games.py"
-        spec = importlib.util.spec_from_file_location("sync_playable_games", tool)
+        tool = ROOT / "tools" / "sync_live_apps.py"
+        spec = importlib.util.spec_from_file_location("sync_live_apps", tool)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         game = {
@@ -537,7 +548,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("img-src 'self' data:", page)
         script = (ROOT / "docs" / "project.js").read_text(encoding="utf-8")
         for token in (
-            "await Promise.all([loadReadme(repo), loadMedia(repo), loadPlayable(repo)])",
+            "await Promise.all([loadReadme(repo), loadMedia(repo), loadLive(repo)])",
             "hidden = false",
         ):
             with self.subTest(token=token):
@@ -628,10 +639,11 @@ class ProfileIntegrityTests(unittest.TestCase):
             "project.js",
             "lightbox.js",
             "lightbox-core.js",
-            "play.html",
-            "play.js",
-            "play-core.js",
-            "playable.json",
+            "live.html",
+            "live.js",
+            "live-core.js",
+            "live-home.js",
+            "live.json",
             "verify.js",
         ):
             with self.subTest(entry=needed):
@@ -680,7 +692,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("WCAG 2.2 Level AA", access)
         self.assertIn("Known limitations", access)
         self.assertIn("axe-core", access)
-        for name in ("index.html", "verify.html", "project.html", "play.html"):
+        for name in ("index.html", "verify.html", "project.html", "live.html"):
             page = (docs / name).read_text(encoding="utf-8")
             for link in ("security.html", "privacy.html", "accessibility.html"):
                 with self.subTest(page=name, link=link):
@@ -696,7 +708,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(link=link):
                 self.assertIn(link, not_found)
         sitemap = (docs / "sitemap.xml").read_text(encoding="utf-8")
-        for page in ("security.html", "privacy.html", "accessibility.html", "play.html"):
+        for page in ("security.html", "privacy.html", "accessibility.html", "live.html"):
             self.assertIn(f"https://aegeanworks.github.io/AegeanWorks/{page}", sitemap)
 
     def test_trust_pages_share_the_full_legal_footer(self):
@@ -706,7 +718,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "index.html",
             "project.html",
             "verify.html",
-            "play.html",
+            "live.html",
             "security.html",
             "privacy.html",
             "accessibility.html",
@@ -1128,7 +1140,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("productivity", manifest["categories"])
         self.assertEqual(manifest["display"], "standalone")
         shortcut_urls = {shortcut["url"] for shortcut in manifest["shortcuts"]}
-        self.assertIn("/AegeanWorks/play.html", shortcut_urls)
+        self.assertIn("/AegeanWorks/live.html", shortcut_urls)
         self.assertIn("/AegeanWorks/verify.html", shortcut_urls)
         sources = {icon["src"] for icon in manifest["icons"]}
         for expected in ("favicon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
@@ -1326,7 +1338,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("node tests/verify/run-tests.mjs", workflow)
         self.assertIn("node tests/atlas/run-tests.mjs", workflow)
         self.assertIn("node tests/project/run-tests.mjs", workflow)
-        self.assertIn("node tests/play/run-tests.mjs", workflow)
+        self.assertIn("node tests/live/run-tests.mjs", workflow)
 
     def test_snapshot_covers_every_public_repository(self):
         metadata = read_metadata()
@@ -1498,7 +1510,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIsNotNone(ET.fromstring(sitemap))
 
     def test_external_links_are_safe_on_every_page(self):
-        play = (ROOT / "docs" / "play.html").read_text(encoding="utf-8")
+        play = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")
         for page in (read_site(), read_verify(), play):
             for match in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", page):
                 with self.subTest(tag=match.group(0)[:80]):
@@ -1514,7 +1526,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "accessibility.html",
             "offline.html",
             "404.html",
-            "play.html",
+            "live.html",
         ):
             page = (ROOT / "docs" / name).read_text(encoding="utf-8")
             with self.subTest(page=name):

@@ -1,4 +1,4 @@
-name: playable
+name: live
 
 on:
   schedule:
@@ -7,13 +7,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "tools/sync_playable_games.py"
+      - "tools/sync_live_apps.py"
 
 permissions:
   contents: write
 
 concurrency:
-  group: playable-${{ github.ref }}
+  group: live-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -26,32 +26,32 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: AegeanWorks/Prism-Relay
-          path: .play-src/prism-relay
+          path: .app-src/prism-relay
           fetch-depth: 1
       - name: Check out Weft
         uses: actions/checkout@v4
         with:
           repository: AegeanWorks/Weft
-          path: .play-src/weft
+          path: .app-src/weft
           fetch-depth: 1
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate the browser game contract
-        run: python tools/sync_playable_games.py --source-root .play-src --check-source
-      - name: Refresh the playable builds
-        run: python tools/sync_playable_games.py --source-root .play-src --write
-      - name: Verify the playable catalog
-        run: python tools/sync_playable_games.py --check
-      - name: Commit when a game changed
+      - name: Validate the live app contract
+        run: python tools/sync_live_apps.py --source-root .app-src --check-source
+      - name: Refresh the live app builds
+        run: python tools/sync_live_apps.py --source-root .app-src --write
+      - name: Verify the live app catalog
+        run: python tools/sync_live_apps.py --check
+      - name: Commit when an app changed
         run: |
-          if [ -n "$(git status --porcelain docs/play docs/playable.json LICENSES/LicenseRef-AGL-1.1.txt)" ]; then
+          if [ -n "$(git status --porcelain docs/live docs/live.json LICENSES/LicenseRef-AGL-1.1.txt)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add docs/play docs/playable.json LICENSES/LicenseRef-AGL-1.1.txt
-            git commit -m "chore(play): refresh browser game builds"
+            git add docs/live docs/live.json LICENSES/LicenseRef-AGL-1.1.txt
+            git commit -m "chore(live): refresh browser app builds"
             git push
           else
-            echo "Playable games are already current."
+            echo "Live apps are already current."
           fi

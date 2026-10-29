@@ -1,55 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage19",
+    "task_id": "live-section-rename",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793306961.1403897,
+    "updated_at": 1793307836.449095,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The owner's UI decision added one project rule after stage 18",
-      "benefits": "The stopped run covers the policy commit with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 19",
-      "mitigation": "Reviewed the guideline line and committed only the audit state"
+      "why": "The section will host browser apps that are not games, so the Play naming and game-shaped catalog mislabelled it; the owner also wants it visible in the homepage flow",
+      "benefits": "A neutral Live section, an app-oriented manifest, a homepage showcase after Work, and a preserved old URL",
+      "risks": "contract: public URLs move to live.html/live.json/docs/live and the manifest becomes schema 2; dependency: none; concurrency: none; state: cached clients move to shell v13 and retained builds",
+      "mitigation": "Kept a play.html redirect, transformed the manifest before --write so retained builds survived, bumped the shell to v13, ran both parity suites and the gates, and browser-checked the homepage cards, both apps and the redirect"
     },
-    "completed_at": 1793306961.2869406
+    "completed_at": 1793307836.581682
   },
   "checkpoints": [
-    {
-      "task_id": "reforge-run-1-close",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-close' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793303413.3819113,
-      "timestamp_str": "2026-10-29 22:50:13",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 16",
-      "phase_num": 3,
-      "description": "Reforge stage 16: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793303821.283727,
-      "timestamp_str": "2026-10-29 22:57:01",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 17",
-      "phase_num": 3,
-      "description": "Reforge stage 17: window 107, 1 commit(s), 0 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793303830.424117,
-      "timestamp_str": "2026-10-29 22:57:10",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 17",
@@ -260,6 +228,50 @@
       "status": "completed",
       "timestamp": 1793306961.286942,
       "timestamp_str": "2026-10-29 23:49:21",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "live-section-rename",
+      "phase": "in_progress",
+      "phase_num": 2,
+      "description": "[1/5] Rename the Play section to Live: page, scripts, catalog, build directory, tool and workflow, with a play.html redirect; [2/5] move the catalog to schema 2 with apps/available; [3/5] update navigation, sitemap, webmanifest, service worker and version; [4/5] update tests, README, ADR and REUSE; [5/5] verify and push",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793307302.776991,
+      "timestamp_str": "2026-10-29 23:55:02",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The section will host browser apps that are not games, so Play and the game-shaped catalog mislabel it",
+        "benefits": "A neutral Live section, an app-oriented manifest, and a preserved redirect from the old play.html URL",
+        "risks": "contract: public URLs move and live.json becomes schema 2; dependency: none; concurrency: none; state: build directories move from docs/play to docs/live and cached clients move to shell v13",
+        "mitigation": "Keep a play.html redirect, transform the existing manifest before --write so the retained builds stay, bump the shell version, and run the sync checks, both suites and a live browser check"
+      }
+    },
+    {
+      "task_id": "live-section-rename",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[5/5] Live section shipped: live.html/live.js/live-core.js, live.json schema 2 with apps/available, docs/live builds, sync_live_apps.py, live.yml, tests/live, a catalog-driven homepage section after Work, and a play.html redirect preserving ?game= as ?app=; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793307836.449095,
+      "timestamp_str": "2026-10-30 00:03:56",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The section will host browser apps that are not games, so the Play naming and game-shaped catalog mislabelled it; the owner also wants it visible in the homepage flow",
+        "benefits": "A neutral Live section, an app-oriented manifest, a homepage showcase after Work, and a preserved old URL",
+        "risks": "contract: public URLs move to live.html/live.json/docs/live and the manifest becomes schema 2; dependency: none; concurrency: none; state: cached clients move to shell v13 and retained builds",
+        "mitigation": "Kept a play.html redirect, transformed the manifest before --write so retained builds survived, bumped the shell to v13, ran both parity suites and the gates, and browser-checked the homepage cards, both apps and the redirect"
+      }
+    },
+    {
+      "task_id": "live-section-rename",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'live-section-rename' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793307836.5816832,
+      "timestamp_str": "2026-10-30 00:03:56",
       "agent": "opencode:main"
     }
   ]

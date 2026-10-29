@@ -13,7 +13,7 @@ import {
   validRepoName,
 } from "./project-core.js";
 import { createLightbox } from "./lightbox.js";
-import { findGame } from "./play-core.js";
+import { findApp } from "./live-core.js";
 
 const params = new URLSearchParams(window.location.search);
 const requested = (params.get("repo") || "").trim();
@@ -109,17 +109,17 @@ async function loadMedia(repo) {
   renderGallery(repo, media.screenshots);
 }
 
-async function loadPlayable(repo) {
-  const raw = await fetchOptionalJson("playable.json");
-  const games = raw && Array.isArray(raw.games) ? raw.games : [];
-  const game = findGame(games, repo.name.toLowerCase());
-  if (!game || !game.playable) return;
+async function loadLive(repo) {
+  const raw = await fetchOptionalJson("live.json");
+  const apps = raw && Array.isArray(raw.apps) ? raw.apps : [];
+  const app = findApp(apps, repo.name.toLowerCase());
+  if (!app || !app.available) return;
   const actions = document.querySelector(".dossier-body .hero-actions");
   if (!actions) return;
   const link = document.createElement("a");
   link.className = "btn btn-primary";
-  link.href = "play.html?game=" + encodeURIComponent(game.slug);
-  link.textContent = "Play in browser";
+  link.href = "live.html?app=" + encodeURIComponent(app.slug);
+  link.textContent = "Open in browser";
   actions.insertBefore(link, actions.firstChild);
 }
 
@@ -399,7 +399,7 @@ async function boot() {
     const raw = await lookupRepository();
     const repo = normalizeRepo(raw);
     render(repo);
-    await Promise.all([loadReadme(repo), loadMedia(repo), loadPlayable(repo)]);
+    await Promise.all([loadReadme(repo), loadMedia(repo), loadLive(repo)]);
   } catch (error) {
     // hygiene: allow outbound fallback link, not a loaded dependency
     const github = "https://github.com/AegeanWorks/" + encodeURIComponent(requested);

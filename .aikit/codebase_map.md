@@ -10,7 +10,7 @@
 - **Total Classes**: `3`
 - **Total Top-Level Functions**: `65`
 - **Total Class Methods**: `88`
-- **Total Source Lines**: `2990`
+- **Total Source Lines**: `3002`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1551` lines (`71655` bytes)
+**Size**: `1563` lines (`72271` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -35,7 +35,7 @@
   - Method `.test_site_entry_points_exist()`
   - Method `.test_project_dossier_page_is_wired()`
   - Method `.test_screenshot_viewer_is_in_page_and_keyboard_ready()`
-  - Method `.test_playable_games_are_wired_and_current()`
+  - Method `.test_live_apps_are_wired_and_current()`
   - Method `.test_source_validator_covers_every_runtime_file()`
   - Method `.test_portfolio_cards_use_repository_logos()`
   - Method `.test_dossier_media_manifests_are_consistent()`
@@ -170,10 +170,10 @@
 
 ---
 
-### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
-> *Sync the static browser games and the playable-game manifest.*
+### [`tools/sync_live_apps.py`](tools/sync_live_apps.py)
+> *Sync the live browser apps and their catalog.*
 
-**Size**: `531` lines (`21236` bytes)
+**Size**: `531` lines (`21110` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

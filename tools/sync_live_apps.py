@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Sync the static browser games and the playable-game manifest.
+"""Sync the live browser apps and their catalog.
 
 Each browser build is self-contained, so its runtime files are copied under
-docs/play/ and versioned by commit. The source validator enforces the static
+docs/live/ and versioned by commit. The source validator enforces the static
 contract the website relies on before anything is copied. The current build and
 its two most recent predecessors are retained so a catalog cached by a returning
 visitor still resolves after a refresh.
@@ -25,7 +25,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DOCS = PROJECT_ROOT / "docs"
 DEFAULT_SOURCE_ROOT = PROJECT_ROOT.parent
 
-GAMES = (
+APPS = (
     {
         "slug": "prism-relay",
         "repo": "Prism-Relay",
@@ -48,11 +48,11 @@ GAMES = (
         "mode": "browser",
         "runtime": ("index.html", "src", "assets"),
         "version_file": "package.json",
-        "logo": "play/weft/logo.webp",
+        "logo": "live/weft/logo.webp",
     },
 )
 
-MANIFEST_REL = "docs/playable.json"
+MANIFEST_REL = "docs/live.json"
 COMMIT_RE = re.compile(r"^[0-9a-f]{7,40}$")
 KEEP_BUILDS = 3
 
@@ -153,8 +153,8 @@ def _copy_runtime(source: Path, target: Path, entries: tuple[str, ...]) -> None:
     if not (target / "index.html").is_file():
         raise SyncError(
             f"The browser build in {source} has no index.html.",
-            "the copied directory would open as a broken play page.",
-            "fix the game's runtime entries in tools/sync_playable_games.py.",
+            "the copied directory would open as a broken live page.",
+            "fix the app's runtime entries in tools/sync_live_apps.py.",
         )
 
 
@@ -252,7 +252,7 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
 
 def source_problems(source_root: Path) -> list[str]:
     problems: list[str] = []
-    for game in GAMES:
+    for game in APPS:
         problems.extend(validate_source(game, source_root))
     return problems
 
@@ -262,16 +262,16 @@ def _manifest_entry(slug: str) -> dict:
     if not (PROJECT_ROOT / MANIFEST_REL).is_file():
         return {}
     manifest = _read_manifest()
-    games = manifest.get("games")
-    if isinstance(games, list):
-        for game in games:
-            if isinstance(game, dict) and game.get("slug") == slug:
-                return game
+    apps = manifest.get("apps")
+    if isinstance(apps, list):
+        for app in apps:
+            if isinstance(app, dict) and app.get("slug") == slug:
+                return app
     return {}
 
 
 def _build_path_ok(slug: str, relative: str) -> bool:
-    return bool(re.match(rf"^play/{re.escape(slug)}/[0-9a-f]{{7,40}}/index\.html$", relative))
+    return bool(re.match(rf"^live/{re.escape(slug)}/[0-9a-f]{{7,40}}/index\.html$", relative))
 
 
 def _retained_paths(game: dict, base: Path, current: str) -> list[str]:
@@ -295,7 +295,7 @@ def _retained_paths(game: dict, base: Path, current: str) -> list[str]:
             if path.is_dir() and COMMIT_RE.match(path.name)
         ]
         extras.sort(key=lambda path: path.stat().st_mtime, reverse=True)
-        prior.extend(f"play/{game['slug']}/{path.name}/index.html" for path in extras)
+        prior.extend(f"live/{game['slug']}/{path.name}/index.html" for path in extras)
     builds = [current]
     for path in prior:
         if path not in builds and _build_path_ok(game["slug"], path) and (DOCS / path).is_file():
@@ -308,24 +308,24 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
     if not source.is_dir():
         raise SyncError(
             f"The {game['repo']} source is missing at {source}.",
-            "the playable build cannot be copied without its repository.",
+            "the live build cannot be copied without its repository.",
             "check out the game beside AegeanWorks or pass --source-root, then retry.",
         )
     commit = _git(source, "rev-parse", "HEAD")
     if not COMMIT_RE.match(commit):
         raise SyncError(
             f"The {game['repo']} commit is not a git SHA: {commit}",
-            "the play page would show an unverifiable version.",
+            "the live page would show an unverifiable version.",
             "check the source checkout, then retry.",
         )
     updated = _git(source, "show", "-s", "--format=%cs", "HEAD")
     short = commit[:12]
-    base = DOCS / "play" / game["slug"]
+    base = DOCS / "live" / game["slug"]
     target = base / short
     if target.is_dir():
         shutil.rmtree(target)
     _copy_runtime(source, target, tuple(game["runtime"]))
-    current = f"play/{game['slug']}/{short}/index.html"
+    current = f"live/{game['slug']}/{short}/index.html"
     builds = _retained_paths(game, base, current)
     keep = {path.split("/")[2] for path in builds}
     for old in (base.iterdir() if base.is_dir() else ()):
@@ -342,7 +342,7 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "repo": game["repo"],
         "title": game["title"],
         "description": game["description"],
-        "playable": True,
+        "available": True,
         "mode": "browser",
         "path": current,
         "source_url": f"https://github.com/AegeanWorks/{game['repo']}",
@@ -350,7 +350,7 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "commit": commit,
         "updated": updated,
         "license": game["license"],
-        "license_path": f"play/{game['slug']}/LICENSE",
+        "license_path": f"live/{game['slug']}/LICENSE",
         "digest": _digest(files, target),
         "builds": builds,
         "logo": game["logo"],
@@ -358,41 +358,41 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
 
 
 def build_manifest(source_root: Path) -> dict:
-    games = []
-    for game in GAMES:
-        games.append(_browser_entry(game, source_root))
-    return {"schema": 1, "games": games}
+    apps = []
+    for game in APPS:
+        apps.append(_browser_entry(game, source_root))
+    return {"schema": 2, "apps": apps}
 
 
 def _read_manifest() -> dict:
     path = PROJECT_ROOT / MANIFEST_REL
     if not path.is_file():
         raise SyncError(
-            "The playable manifest is missing.",
-            "the Play page has no catalog to render.",
-            "run `python tools/sync_playable_games.py --write`, then retry.",
+            "The live catalog is missing.",
+            "the Live page has no catalog to render.",
+            "run `python tools/sync_live_apps.py --write`, then retry.",
         )
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as error:
         raise SyncError(
-            "The playable manifest is not valid JSON.",
+            "The live catalog is not valid JSON.",
             str(error),
-            "fix docs/playable.json or regenerate it with --write.",
+            "fix docs/live.json or regenerate it with --write.",
         ) from error
 
 
 def check_manifest() -> list[str]:
     manifest = _read_manifest()
     problems: list[str] = []
-    if manifest.get("schema") != 1:
-        problems.append("docs/playable.json has an unknown schema")
-    games = manifest.get("games")
-    if not isinstance(games, list) or len(games) != len(GAMES):
-        problems.append("docs/playable.json does not list every playable game")
+    if manifest.get("schema") != 2:
+        problems.append("docs/live.json has an unknown schema")
+    apps = manifest.get("apps")
+    if not isinstance(apps, list) or len(apps) != len(APPS):
+        problems.append("docs/live.json does not list every live app")
         return problems
-    by_slug = {game.get("slug"): game for game in games if isinstance(game, dict)}
-    for spec in GAMES:
+    by_slug = {app.get("slug"): app for app in apps if isinstance(app, dict)}
+    for spec in APPS:
         game = by_slug.get(spec["slug"])
         if not game:
             problems.append(f"manifest is missing {spec['slug']}")
@@ -403,11 +403,11 @@ def check_manifest() -> list[str]:
             problems.append(f"{spec['slug']} has no valid commit date")
         if game.get("license") != spec["license"]:
             problems.append(f"{spec['slug']} has the wrong license label")
-        if not game.get("playable"):
-            problems.append(f"{spec['slug']} is not marked playable")
+        if not game.get("available"):
+            problems.append(f"{spec['slug']} is not marked available")
             continue
         relative = str(game.get("path", ""))
-        if not re.match(rf"^play/{spec['slug']}/[0-9a-f]{{7,40}}/index\.html$", relative):
+        if not re.match(rf"^live/{spec['slug']}/[0-9a-f]{{7,40}}/index\.html$", relative):
             problems.append(f"{spec['slug']} has an unsafe or unstable path")
             continue
         target = DOCS / relative
@@ -444,7 +444,7 @@ def check_manifest() -> list[str]:
             }
             actual_dirs = {
                 path.name
-                for path in (DOCS / "play" / spec["slug"]).iterdir()
+                for path in (DOCS / "live" / spec["slug"]).iterdir()
                 if path.is_dir() and COMMIT_RE.match(path.name)
             }
             if actual_dirs != listed:
@@ -458,18 +458,18 @@ def command_write(source_root: Path) -> int:
     problems = source_problems(source_root)
     if problems:
         raise SyncError(
-            "A playable game no longer satisfies the static contract.",
+            "A live app no longer satisfies the static contract.",
             "; ".join(problems),
-            "fix the game build or update tools/sync_playable_games.py, then retry.",
+            "fix the app build or update tools/sync_live_apps.py, then retry.",
         )
     manifest = build_manifest(source_root)
     payload = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
     path = PROJECT_ROOT / MANIFEST_REL
     if path.is_file() and path.read_text(encoding="utf-8") == payload:
-        print("[OK] Playable games are already current.")
+        print("[OK] Live apps are already current.")
         return 0
     _write_atomic(path, payload.encode("utf-8"))
-    print(f"[OK] Wrote {MANIFEST_REL} with {len(manifest['games'])} game(s).")
+    print(f"[OK] Wrote {MANIFEST_REL} with {len(manifest['apps'])} app(s).")
     return 0
 
 
@@ -484,31 +484,31 @@ def command_check_source(source_root: Path) -> int:
             file=sys.stderr,
         )
         return 1
-    print("[OK] Every playable game satisfies the static contract.")
+    print("[OK] Every live app satisfies the static contract.")
     return 0
 
 
 def command_check() -> int:
     problems = check_manifest()
     if problems:
-        print(f"[FAIL] {len(problems)} playable-game problem(s):", file=sys.stderr)
+        print(f"[FAIL] {len(problems)} live-app problem(s):", file=sys.stderr)
         for problem in problems:
             print(f"  - {problem}", file=sys.stderr)
-        print("Fix: run `python tools/sync_playable_games.py --write` after a game update, then retry.", file=sys.stderr)
+        print("Fix: run `python tools/sync_live_apps.py --write` after an app update, then retry.", file=sys.stderr)
         return 1
-    print("[OK] Playable catalog, copied build and digest are current.")
+    print("[OK] Live app catalog, copied builds and digests are current.")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, default=DEFAULT_SOURCE_ROOT)
-    parser.add_argument("--write", action="store_true", help="copy the games and rewrite docs/playable.json")
+    parser.add_argument("--write", action="store_true", help="copy the apps and rewrite docs/live.json")
     parser.add_argument("--check", action="store_true", help="verify the committed catalog and copied build")
     parser.add_argument(
         "--check-source",
         action="store_true",
-        help="verify a checked-out game build against the static playable contract",
+        help="verify a checked-out app build against the static live contract",
     )
     args = parser.parse_args(argv)
     if not args.write and not args.check and not args.check_source:

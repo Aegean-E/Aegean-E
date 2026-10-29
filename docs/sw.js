@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v12";
+const VERSION = "aegeanworks-shell-v13";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -20,10 +20,11 @@ const PRECACHE = [
   "project-core.js",
   "lightbox.js",
   "lightbox-core.js",
-  "play.html",
-  "play.js",
-  "play-core.js",
-  "playable.json",
+  "live.html",
+  "live.js",
+  "live-core.js",
+  "live-home.js",
+  "live.json",
   "verify.js",
   "verify-core.js",
   "atlas-snapshot.json",
@@ -132,7 +133,7 @@ self.addEventListener("fetch", function (event) {
   }
   if (url.origin === self.location.origin) {
     event.respondWith(
-      url.searchParams.has("v") || url.pathname.endsWith("/playable.json")
+      url.searchParams.has("v") || url.pathname.endsWith("/live.json")
         ? versionedFirst(request)
         : shellFirst(request)
     );

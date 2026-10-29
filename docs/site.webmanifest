@@ -11,10 +11,10 @@
   "display": "standalone",
   "shortcuts": [
     {
-      "name": "Play a game",
-      "short_name": "Play",
-      "url": "/AegeanWorks/play.html",
-      "description": "Open the playable browser game catalog."
+      "name": "Live apps",
+      "short_name": "Live",
+      "url": "/AegeanWorks/live.html",
+      "description": "Open the live browser app catalog."
     },
     {
       "name": "Verify a license",

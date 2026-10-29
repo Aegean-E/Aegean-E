@@ -1,48 +1,48 @@
 {
-  "schema": 1,
-  "games": [
+  "schema": 2,
+  "apps": [
     {
       "slug": "prism-relay",
       "repo": "Prism-Relay",
       "title": "Prism Relay",
       "description": "A neon light-routing puzzle: rotate mirrors and splitters, fold beams through portals, and charge every receiver across three episodes.",
-      "playable": true,
       "mode": "browser",
-      "path": "play/prism-relay/5d7fcbe3e7fc/index.html",
+      "path": "live/prism-relay/5d7fcbe3e7fc/index.html",
       "source_url": "https://github.com/AegeanWorks/Prism-Relay",
       "version": "0.3.0",
       "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
       "updated": "2026-10-29",
       "license": "AGL-1.1",
-      "license_path": "play/prism-relay/LICENSE",
+      "license_path": "live/prism-relay/LICENSE",
       "digest": "sha256:3dd307ccd69ab54593694e75f0852cf053902654eecfb1d39e9e75f1e854364c",
       "builds": [
-        "play/prism-relay/5d7fcbe3e7fc/index.html",
-        "play/prism-relay/e711443bde4f/index.html"
+        "live/prism-relay/5d7fcbe3e7fc/index.html",
+        "live/prism-relay/e711443bde4f/index.html"
       ],
-      "logo": "media/Prism-Relay/logo.webp"
+      "logo": "media/Prism-Relay/logo.webp",
+      "available": true
     },
     {
       "slug": "weft",
       "repo": "Weft",
       "title": "Weft",
       "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across twelve chambers.",
-      "playable": true,
       "mode": "browser",
-      "path": "play/weft/22beac25d364/index.html",
+      "path": "live/weft/22beac25d364/index.html",
       "source_url": "https://github.com/AegeanWorks/Weft",
       "version": "0.1.1",
       "commit": "22beac25d36421cd606215fde6631d6e69169f74",
       "updated": "2026-10-29",
       "license": "AGL-1.1",
-      "license_path": "play/weft/LICENSE",
+      "license_path": "live/weft/LICENSE",
       "digest": "sha256:a5783a92eb5612b98bbe5617d76e1cc104d24a6502818d44356c14f92a21f474",
       "builds": [
-        "play/weft/22beac25d364/index.html",
-        "play/weft/554c08c72671/index.html",
-        "play/weft/473fe346a986/index.html"
+        "live/weft/22beac25d364/index.html",
+        "live/weft/554c08c72671/index.html",
+        "live/weft/473fe346a986/index.html"
       ],
-      "logo": "play/weft/logo.webp"
+      "logo": "live/weft/logo.webp",
+      "available": true
     }
   ]
 }
