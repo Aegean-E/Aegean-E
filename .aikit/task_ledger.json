@@ -1,96 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "live-dossier-links",
+    "task_id": "reforge-run-1-stage27",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793311186.2152972,
+    "updated_at": 1793311224.6351228,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "Live cards linked to the app and repository but not to the project dossier, and Weft has no portfolio dossier yet",
-      "benefits": "Prism reaches its full dossier in one click and Weft reaches its public record; adding a dossier later is one catalog field",
-      "risks": "contract: live.json gains an optional dossier field, both card renderers change, shell v17; dependency: none; concurrency: none; state: none",
-      "mitigation": "Checked both cards on the homepage and Live page, confirmed Prism stays in the tab and Weft opens externally, and followed Prism's link to its seven-capture dossier"
+      "why": "The Live cards gained a dossier action and the catalog gained an optional field",
+      "benefits": "The stopped run covers the dossier links with no pending review",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 27",
+      "mitigation": "Reviewed the fourteen changed files, browser-checked both cards and the Prism dossier handoff, and committed only the audit state"
     },
-    "completed_at": 1793311186.3525386
+    "completed_at": 1793311224.7713351
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 24",
-      "phase_num": 3,
-      "description": "Reforge stage 24: window 121, 2 commit(s), 12 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 6 binary not analysed",
-      "files_affected": [
-        "docs/live/shots/prism-relay/01-title.png",
-        "docs/live/shots/prism-relay/02-circuits.png",
-        "docs/live/shots/prism-relay/03-solved.png",
-        "docs/live/shots/weft/01-title.png",
-        "docs/live/shots/weft/02-chambers.png",
-        "docs/live/shots/weft/03-loom.png"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793309388.5178237,
-      "timestamp_str": "2026-10-30 00:29:48",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 24",
-      "phase_num": 3,
-      "description": "Reforge stage 24: run stopped at stage 24; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793309398.6757,
-      "timestamp_str": "2026-10-30 00:29:58",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage24",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 24 audited the homepage screenshot sliders; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793309406.1571486,
-      "timestamp_str": "2026-10-30 00:30:06",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The Live cards gained the slider renderer, shot index and captured images",
-        "benefits": "The stopped run covers the slider with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 24",
-        "mitigation": "Reviewed the twelve text files, browser-checked the slider and open action, and committed only the audit state"
-      }
-    },
-    {
-      "task_id": "reforge-run-1-stage24",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage24' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793309406.2907152,
-      "timestamp_str": "2026-10-30 00:30:06",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "live-slider-expansion",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Expand the Live sliders to six Prism frames and five Weft frames, adding the episode index, Split Decision, completion, how-to-play and hint states in narrative order; require five frames per app; shell v15; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793309743.8254917,
-      "timestamp_str": "2026-10-30 00:35:43",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The first three frames did not show the episode index, later chamber, completion, manual or hint states that make the apps legible",
-        "benefits": "Each card now shows a complete first-run path, with the same slider and lazy loading",
-        "risks": "contract: shot index and image set grow, shell v15; dependency: none; concurrency: none; state: captures pinned to the current app commits",
-        "mitigation": "Captured each state from the published build, renamed in order, raised the suite minimum to five, and stepped through all six slides in the browser"
-      }
-    },
     {
       "task_id": "live-slider-expansion",
       "phase": "completed",
@@ -303,6 +230,66 @@
       "status": "completed",
       "timestamp": 1793311186.3525403,
       "timestamp_str": "2026-10-30 00:59:46",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 26",
+      "phase_num": 3,
+      "description": "Reforge stage 26: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793311197.9719493,
+      "timestamp_str": "2026-10-30 00:59:57",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 27",
+      "phase_num": 3,
+      "description": "Reforge stage 27: window 127, 2 commit(s), 14 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793311210.7391515,
+      "timestamp_str": "2026-10-30 01:00:10",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 27",
+      "phase_num": 3,
+      "description": "Reforge stage 27: run stopped at stage 27; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793311224.490249,
+      "timestamp_str": "2026-10-30 01:00:24",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage27",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 27 audited the Live dossier links; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793311224.6351228,
+      "timestamp_str": "2026-10-30 01:00:24",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The Live cards gained a dossier action and the catalog gained an optional field",
+        "benefits": "The stopped run covers the dossier links with no pending review",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 27",
+        "mitigation": "Reviewed the fourteen changed files, browser-checked both cards and the Prism dossier handoff, and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage27",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage27' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793311224.7713368,
+      "timestamp_str": "2026-10-30 01:00:24",
       "agent": "opencode:main"
     }
   ]
