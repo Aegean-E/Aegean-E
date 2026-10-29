@@ -1,91 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "nav-live-page-header",
+    "task_id": "reforge-run-1-stage23",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793308623.922922,
+    "updated_at": 1793308654.2740998,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The Live page marked its own link with aria-current, so the adjacent-pair swap missed that header",
-      "benefits": "Every page that carries both links now reads Work, Live, Projects",
-      "risks": "contract: play.html header and one test; dependency: none; concurrency: none; state: none",
-      "mitigation": "Added a second order assertion for play.html and ran the suite and gates"
+      "why": "The Live page header and its order assertion changed",
+      "benefits": "The stopped run covers the completed nav order with no pending review",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 23",
+      "mitigation": "Reviewed the three changed files and committed only the audit state"
     },
-    "completed_at": 1793308624.0525794
+    "completed_at": 1793308654.405879
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 20",
-      "phase_num": 3,
-      "description": "Reforge stage 20: window 113, 2 commit(s), 79 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
-      "files_affected": [
-        "docs/live/weft/logo.webp"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793307877.2363262,
-      "timestamp_str": "2026-10-30 00:04:37",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 20",
-      "phase_num": 3,
-      "description": "Reforge stage 20: run stopped at stage 20; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793307933.1618578,
-      "timestamp_str": "2026-10-30 00:05:33",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage20",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 20 audited the Live rename and homepage section; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793307938.536138,
-      "timestamp_str": "2026-10-30 00:05:38",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The rename commit moved the public section, catalog and build root",
-        "benefits": "The stopped run covers the Live rename with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 20",
-        "mitigation": "Reviewed the first-party changes, browser-checked the homepage cards, both apps and the redirect, and committed only the audit state"
-      }
-    },
-    {
-      "task_id": "reforge-run-1-stage20",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage20' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793307938.6783879,
-      "timestamp_str": "2026-10-30 00:05:38",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "live-address-restore",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Serve the full Live catalog at play.html and make live.html a noindex redirect preserving its query; point nav, homepage cards, sitemap, manifest and canonical at play.html; accept both ?app= and the old ?game=; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308244.0469656,
-      "timestamp_str": "2026-10-30 00:10:44",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The owner prefers the full-page design at the old bookmarked play.html address, while the Live name and app-oriented catalog stay",
-        "benefits": "Old and new links both land on the full-page catalog, and the homepage cards reach it directly",
-        "risks": "contract: the page and redirect addresses swap, canonical and sitemap move to play.html; dependency: none; concurrency: none; state: the Live catalog and builds keep their names",
-        "mitigation": "Kept live.html as a query-preserving redirect, added the old ?game= fallback, ran both parity suites and the gates, and browser-checked play.html, the live.html redirect and the ?game= URL"
-      }
-    },
     {
       "task_id": "live-address-restore",
       "phase": "completed",
@@ -268,6 +200,66 @@
       "status": "completed",
       "timestamp": 1793308624.0525806,
       "timestamp_str": "2026-10-30 00:17:04",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 22",
+      "phase_num": 3,
+      "description": "Reforge stage 22: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308632.0943093,
+      "timestamp_str": "2026-10-30 00:17:12",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 23",
+      "phase_num": 3,
+      "description": "Reforge stage 23: window 119, 2 commit(s), 3 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308643.8393261,
+      "timestamp_str": "2026-10-30 00:17:23",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 23",
+      "phase_num": 3,
+      "description": "Reforge stage 23: run stopped at stage 23; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793308648.3264935,
+      "timestamp_str": "2026-10-30 00:17:28",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage23",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 23 audited the completed nav swap; no findings; 87 Python tests and 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308654.2740998,
+      "timestamp_str": "2026-10-30 00:17:34",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The Live page header and its order assertion changed",
+        "benefits": "The stopped run covers the completed nav order with no pending review",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 23",
+        "mitigation": "Reviewed the three changed files and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage23",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage23' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793308654.4058802,
+      "timestamp_str": "2026-10-30 00:17:34",
       "agent": "opencode:main"
     }
   ]
