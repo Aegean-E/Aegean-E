@@ -1,67 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage14",
+    "task_id": "playable-build-retention",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793302500.0674596,
+    "updated_at": 1793303274.028598,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The new ten-second frame watchdog rejected a loaded game unless its document title contained the catalog title, a requirement the playable contract never states, so a future game would show a false failure panel over a working build",
-      "benefits": "A loaded game is recognised by the documented board markers first; the title match stays only as a fallback, so games with unrelated titles no longer trip the watchdog",
-      "risks": "contract: docs/play.js only; dependency: none; concurrency: none; state: reforge run-1 stage 14 is reviewed and applied",
-      "mitigation": "Current Prism-Relay and Weft titles still match; ran both parity suites, the source and manifest checks, the media check and all four gates"
+      "why": "ADR-043 keeps three builds so a cached catalog still resolves, but the sync ordered them by mtime; a fresh CI checkout gives every build directory the same checkout time, so the sort could delete the newest predecessor a cached client holds",
+      "benefits": "Retention is deterministic and survives a shallow checkout; the manifest names exactly which builds are kept, and --check rejects an unlisted or missing build directory",
+      "risks": "contract: playable.json gains a builds list and --check validates it; dependency: none; concurrency: none; state: the migration seeded the existing directories",
+      "mitigation": "Proved the recorded order beats reversed mtimes, checked the migration path, exercised the unlisted-directory failure, and ran both parity suites, the source/manifest checks, the media check and all four gates"
     },
-    "completed_at": 1793302514.4958236
+    "completed_at": 1793303274.1874757
   },
   "checkpoints": [
-    {
-      "task_id": "playable-contract",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Remove Crypt-Crawler from the Play catalog; enforce the Prism-Relay static contract in --check-source and --write; record web-specific guidelines in Prism-Relay; 86 Python tests, 14 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793296892.9560463,
-      "timestamp_str": "2026-10-29 21:01:32",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "Crypt-Crawler needs its Python API and cannot run on static Pages, so advertising it as playable would be misleading; future Prism-Relay changes must be checked against the website's static contract",
-        "benefits": "The Play page lists only a build that actually runs; Prism-Relay developers get explicit rules, a PLAYABLE.md contract and an enforceable check-source gate before the website copies a build",
-        "risks": "contract: playable manifest/workflow now one game and a stricter source validator; dependency: none; concurrency: none; state: copied Prism build unchanged",
-        "mitigation": "Run the source check, manifest check, full suites and gates; commit the Prism guidelines separately and keep the copied build's digest stable"
-      }
-    },
-    {
-      "task_id": "playable-contract",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'playable-contract' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793296893.111125,
-      "timestamp_str": "2026-10-29 21:01:33",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "playable-weft",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/4] Add Weft to the versioned Play catalog: sync contract, manifest, logo, workflow checkout, parity tests and the noscript fallback",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793297413.358812,
-      "timestamp_str": "2026-10-29 21:10:13",
-      "agent": "opencode:weft",
-      "impact_assessment": {
-        "why": "The Play page can serve any static browser build, but the catalog still lists only Prism Relay. Weft is finished, static and zero-dependency, so it can become the second playable title without a new server or page.",
-        "benefits": "Visitors get a second one-click game; the sync validator now proves two independent builds against the same static contract; the weekly workflow keeps both versions, commits and digests current.",
-        "risks": "contract: tools/sync_playable_games.py, the manifest and the workflow; dependency: the Weft repository must be published for the CI checkout; concurrency: the sync workflow writes docs/play, the manifest and the pinned AGL license; state: commit-versioned build directories and a digest.",
-        "mitigation": "Add one GAMES entry and one runtime tuple, validate the source against the existing static contract, generate the logo and manifest, update both parity suites, and keep the local build playable even before the repository is published."
-      }
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 11",
@@ -270,6 +226,50 @@
       "status": "completed",
       "timestamp": 1793302514.4958246,
       "timestamp_str": "2026-10-29 22:35:14",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "playable-build-retention",
+      "phase": "in_progress",
+      "phase_num": 2,
+      "description": "[1/1] Record retained Play builds in docs/playable.json and prune by that list instead of file mtimes; keep at most three builds per game, newest first",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303105.5186815,
+      "timestamp_str": "2026-10-29 22:45:05",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "ADR-043 keeps three builds so a cached catalog still resolves, but the sync ordered them by mtime; a fresh CI checkout gives every build directory the same checkout time, so the sort can delete the newest predecessor a cached client holds while keeping an older build",
+        "benefits": "Retention becomes deterministic and survives shallow checkouts; the manifest records exactly which builds are kept, and the current build stays first",
+        "risks": "contract: playable.json gains a builds list and --check validates it; dependency: none; concurrency: none; state: the first write migrates the existing directories into the list",
+        "mitigation": "Seed the list from the old manifest path plus existing commit directories, write it with --write, verify every listed build exists, and run both parity suites and the four gates"
+      }
+    },
+    {
+      "task_id": "playable-build-retention",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Record retained Play builds in docs/playable.json and prune by that list instead of mtimes; verified with reversed file times, a migration sample and an unlisted-directory failure; 86 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303274.028598,
+      "timestamp_str": "2026-10-29 22:47:54",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "ADR-043 keeps three builds so a cached catalog still resolves, but the sync ordered them by mtime; a fresh CI checkout gives every build directory the same checkout time, so the sort could delete the newest predecessor a cached client holds",
+        "benefits": "Retention is deterministic and survives a shallow checkout; the manifest names exactly which builds are kept, and --check rejects an unlisted or missing build directory",
+        "risks": "contract: playable.json gains a builds list and --check validates it; dependency: none; concurrency: none; state: the migration seeded the existing directories",
+        "mitigation": "Proved the recorded order beats reversed mtimes, checked the migration path, exercised the unlisted-directory failure, and ran both parity suites, the source/manifest checks, the media check and all four gates"
+      }
+    },
+    {
+      "task_id": "playable-build-retention",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'playable-build-retention' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793303274.1874774,
+      "timestamp_str": "2026-10-29 22:47:54",
       "agent": "opencode:main"
     }
   ]

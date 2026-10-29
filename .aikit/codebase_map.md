@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `3`
 - **Total Classes**: `3`
-- **Total Top-Level Functions**: `61`
+- **Total Top-Level Functions**: `64`
 - **Total Class Methods**: `87`
-- **Total Source Lines**: `2852`
+- **Total Source Lines**: `2930`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1497` lines (`69151` bytes)
+**Size**: `1507` lines (`69673` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -172,7 +172,7 @@
 ### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
 > *Sync the static browser games and the playable-game manifest.*
 
-**Size**: `447` lines (`17509` bytes)
+**Size**: `515` lines (`20667` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
@@ -189,6 +189,9 @@
 - `def _source_path(source, relative)` - *Resolve an index reference inside the source, or None when it escapes it.*
 - `def validate_source(game, source_root)` - *Check the static contract the website relies on before copying a build.*
 - `def source_problems(source_root)`
+- `def _manifest_entry(slug)` - *The previous manifest entry for one game, or an empty mapping.*
+- `def _build_path_ok(slug, relative)`
+- `def _retained_paths(game, base, current)` - *The current build plus the predecessors the previous catalog recorded.*
 - `def _browser_entry(game, source_root)`
 - `def build_manifest(source_root)`
 - `def _read_manifest()`

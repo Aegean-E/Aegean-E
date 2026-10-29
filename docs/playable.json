@@ -16,6 +16,10 @@
       "license": "AGL-1.1",
       "license_path": "play/prism-relay/LICENSE",
       "digest": "sha256:3dd307ccd69ab54593694e75f0852cf053902654eecfb1d39e9e75f1e854364c",
+      "builds": [
+        "play/prism-relay/5d7fcbe3e7fc/index.html",
+        "play/prism-relay/e711443bde4f/index.html"
+      ],
       "logo": "media/Prism-Relay/logo.webp"
     },
     {
@@ -33,6 +37,11 @@
       "license": "AGL-1.1",
       "license_path": "play/weft/LICENSE",
       "digest": "sha256:a5783a92eb5612b98bbe5617d76e1cc104d24a6502818d44356c14f92a21f474",
+      "builds": [
+        "play/weft/22beac25d364/index.html",
+        "play/weft/554c08c72671/index.html",
+        "play/weft/473fe346a986/index.html"
+      ],
       "logo": "play/weft/logo.webp"
     }
   ]

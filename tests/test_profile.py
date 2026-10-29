@@ -360,6 +360,11 @@ class ProfileIntegrityTests(unittest.TestCase):
         game_dir = (ROOT / "docs" / prism["path"]).parent
         self.assertTrue((game_dir / "src" / "styles.css").is_file())
         self.assertTrue((game_dir / "src" / "game" / "engine.js").is_file())
+        self.assertEqual(prism["builds"][0], prism["path"])
+        self.assertLessEqual(len(prism["builds"]), 3)
+        for build in prism["builds"]:
+            with self.subTest(build=build):
+                self.assertTrue((ROOT / "docs" / build).is_file())
 
         weft = games["weft"]
         self.assertTrue(weft["playable"])
@@ -376,6 +381,11 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertTrue((weft_dir / "src" / "ui" / "app.js").is_file())
         self.assertTrue((weft_dir / "src" / "game" / "engine.js").is_file())
         self.assertTrue((weft_dir / "assets" / "favicon.svg").is_file())
+        self.assertEqual(weft["builds"][0], weft["path"])
+        self.assertLessEqual(len(weft["builds"]), 3)
+        for build in weft["builds"]:
+            with self.subTest(build=build):
+                self.assertTrue((ROOT / "docs" / build).is_file())
 
         tool = ROOT / "tools" / "sync_playable_games.py"
         self.assertTrue(tool.is_file())

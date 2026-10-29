@@ -245,6 +245,52 @@ def source_problems(source_root: Path) -> list[str]:
     return problems
 
 
+def _manifest_entry(slug: str) -> dict:
+    """The previous manifest entry for one game, or an empty mapping."""
+    if not (PROJECT_ROOT / MANIFEST_REL).is_file():
+        return {}
+    manifest = _read_manifest()
+    games = manifest.get("games")
+    if isinstance(games, list):
+        for game in games:
+            if isinstance(game, dict) and game.get("slug") == slug:
+                return game
+    return {}
+
+
+def _build_path_ok(slug: str, relative: str) -> bool:
+    return bool(re.match(rf"^play/{re.escape(slug)}/[0-9a-f]{{7,40}}/index\.html$", relative))
+
+
+def _retained_paths(game: dict, base: Path, current: str) -> list[str]:
+    """The current build plus the predecessors the previous catalog recorded.
+
+    A fresh checkout gives every build directory the same mtime, so an mtime sort
+    cannot tell which build a cached catalog used. The manifest records the order.
+    """
+    entry = _manifest_entry(game["slug"])
+    recorded = entry.get("builds")
+    prior: list[str] = []
+    if isinstance(recorded, list) and recorded:
+        prior = [path for path in recorded if isinstance(path, str)]
+    else:
+        legacy = str(entry.get("path", ""))
+        if _build_path_ok(game["slug"], legacy):
+            prior.append(legacy)
+        extras = [
+            path
+            for path in (base.iterdir() if base.is_dir() else ())
+            if path.is_dir() and COMMIT_RE.match(path.name)
+        ]
+        extras.sort(key=lambda path: path.stat().st_mtime, reverse=True)
+        prior.extend(f"play/{game['slug']}/{path.name}/index.html" for path in extras)
+    builds = [current]
+    for path in prior:
+        if path not in builds and _build_path_ok(game["slug"], path) and (DOCS / path).is_file():
+            builds.append(path)
+    return builds[:KEEP_BUILDS]
+
+
 def _browser_entry(game: dict, source_root: Path) -> dict:
     source = source_root / game["source"]
     if not source.is_dir():
@@ -267,14 +313,12 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
     if target.is_dir():
         shutil.rmtree(target)
     _copy_runtime(source, target, tuple(game["runtime"]))
-    old_builds = [
-        old
-        for old in (base.iterdir() if base.is_dir() else ())
-        if old.is_dir() and old.name != short and COMMIT_RE.match(old.name)
-    ]
-    old_builds.sort(key=lambda path: path.stat().st_mtime, reverse=True)
-    for old in old_builds[KEEP_BUILDS - 1:]:
-        shutil.rmtree(old)
+    current = f"play/{game['slug']}/{short}/index.html"
+    builds = _retained_paths(game, base, current)
+    keep = {path.split("/")[2] for path in builds}
+    for old in (base.iterdir() if base.is_dir() else ()):
+        if old.is_dir() and COMMIT_RE.match(old.name) and old.name not in keep:
+            shutil.rmtree(old)
     license_source = source / "LICENSE"
     if license_source.is_file():
         _copy_file(license_source, base / "LICENSE")
@@ -288,7 +332,7 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "description": game["description"],
         "playable": True,
         "mode": "browser",
-        "path": f"play/{game['slug']}/{short}/index.html",
+        "path": current,
         "source_url": f"https://github.com/AegeanWorks/{game['repo']}",
         "version": version,
         "commit": commit,
@@ -296,6 +340,7 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "license": game["license"],
         "license_path": f"play/{game['slug']}/LICENSE",
         "digest": _digest(files, target),
+        "builds": builds,
         "logo": game["logo"],
     }
 
@@ -365,6 +410,29 @@ def check_manifest() -> list[str]:
         actual = _digest(_runtime_files(target.parent), target.parent)
         if actual != game.get("digest"):
             problems.append(f"{spec['slug']} digest does not match the copied build")
+        builds = game.get("builds")
+        if not isinstance(builds, list) or not builds:
+            problems.append(f"{spec['slug']} has no retained-build list")
+        else:
+            if len(builds) > KEEP_BUILDS:
+                problems.append(f"{spec['slug']} retains more than {KEEP_BUILDS} builds")
+            if builds[0] != relative:
+                problems.append(f"{spec['slug']} retained list does not start with the current build")
+            if len(set(map(str, builds))) != len(builds):
+                problems.append(f"{spec['slug']} repeats a retained build")
+            for build in builds:
+                if not isinstance(build, str) or not _build_path_ok(spec["slug"], build):
+                    problems.append(f"{spec['slug']} has an unsafe retained build path")
+                elif not (DOCS / build).is_file():
+                    problems.append(f"{spec['slug']} retained build is missing: {build}")
+            listed = {build.split("/")[2] for build in builds if isinstance(build, str)}
+            actual_dirs = {
+                path.name
+                for path in (DOCS / "play" / spec["slug"]).iterdir()
+                if path.is_dir() and COMMIT_RE.match(path.name)
+            }
+            if actual_dirs != listed:
+                problems.append(f"{spec['slug']} has build directories outside the retained list")
         if not (DOCS / str(game.get("logo", ""))).is_file():
             problems.append(f"{spec['slug']} logo is missing")
     return problems
