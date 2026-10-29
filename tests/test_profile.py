@@ -395,6 +395,8 @@ class ProfileIntegrityTests(unittest.TestCase):
             'id="play-frame"',
             'id="play-player"',
             'id="play-version"',
+            'id="play-frame-status"',
+            'id="play-retry"',
             "play.js",
             "playable.json",
             "frame-src 'self'",
@@ -405,7 +407,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         for token in (
             'from "./play-core.js"',
             "playable.json",
-            "game.path",
+            "gameFrameUrl",
+            "showFrameError",
             "versionLabel",
             "requestFullscreen",
             "URLSearchParams",

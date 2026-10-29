@@ -1,5 +1,6 @@
 import {
   findGame,
+  gameFrameUrl,
   gameStatus,
   gamesFromManifest,
   versionLabel,
@@ -15,9 +16,16 @@ const source = document.getElementById("play-source");
 const newTab = document.getElementById("play-newtab");
 const back = document.getElementById("play-back");
 const fullscreen = document.getElementById("play-fullscreen");
+const frameStatus = document.getElementById("play-frame-status");
+const frameMessage = document.getElementById("play-frame-message");
+const retryButton = document.getElementById("play-retry");
+const errorNewTab = document.getElementById("play-error-newtab");
 
 let games = [];
 let activeSlug = "";
+let activeGame = null;
+let loadSerial = 0;
+let loadTimer = null;
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -117,16 +125,89 @@ function updateFullscreen() {
   fullscreen.setAttribute("aria-pressed", active ? "true" : "false");
 }
 
-function openGame(slug, push) {
+function clearFrameError() {
+  if (frameStatus) frameStatus.hidden = true;
+}
+
+function showFrameError(game, message, url) {
+  if (!frameStatus) return;
+  frameStatus.hidden = false;
+  if (frameMessage) frameMessage.textContent = message;
+  if (errorNewTab) errorNewTab.href = url;
+  if (retryButton) {
+    retryButton.onclick = function () {
+      openGame(game.slug, false, true);
+    };
+  }
+}
+
+function frameLooksLoaded(game) {
+  try {
+    const doc = frame.contentDocument;
+    if (!doc || !doc.body) return false;
+    if (!String(doc.title || "").includes(game.title)) return false;
+    return Boolean(
+      doc.body.dataset.screen ||
+      doc.querySelector("#board, .loom, .wordmark, .board, .game-shell")
+    );
+  } catch (error) {
+    return false;
+  }
+}
+
+async function loadGame(game, retry) {
+  const serial = ++loadSerial;
+  clearTimeout(loadTimer);
+  clearFrameError();
+  const url = gameFrameUrl(game, retry ? Date.now() : 0);
+  if (!url) {
+    showFrameError(game, "This game has no build path in the catalog.", "");
+    return;
+  }
+  newTab.href = url;
+  frame.title = game.title + " game";
+  frame.src = "about:blank";
+  try {
+    const response = await window.fetch(url, { cache: "no-store" });
+    if (serial !== loadSerial) return;
+    if (!response.ok) {
+      showFrameError(
+        game,
+        "The " + game.title + " build returned HTTP " + response.status + ".",
+        url
+      );
+      return;
+    }
+  } catch (error) {
+    if (serial !== loadSerial) return;
+    showFrameError(
+      game,
+      "The " + game.title + " build could not be reached. Check the connection, then retry.",
+      url
+    );
+    return;
+  }
+  frame.src = url;
+  loadTimer = setTimeout(function () {
+    if (serial !== loadSerial) return;
+    if (!frameLooksLoaded(game)) {
+      showFrameError(
+        game,
+        "The game frame loaded but did not start. Open it in a new tab or retry.",
+        url
+      );
+    }
+  }, 10000);
+}
+
+function openGame(slug, push, retry) {
   const game = findGame(games, slug);
   if (!game || !game.playable) return;
   activeSlug = game.slug;
+  activeGame = game;
   title.textContent = game.title;
   version.textContent = versionLabel(game) + (game.updated ? " \u00b7 updated " + game.updated : "");
   source.href = game.source_url;
-  newTab.href = game.path;
-  frame.title = game.title + " game";
-  frame.src = game.path;
   note.textContent = "Synced from " + game.repo + " at commit " + String(game.commit).slice(0, 12) + ".";
   player.hidden = false;
   grid.hidden = true;
@@ -139,11 +220,16 @@ function openGame(slug, push) {
   }
   title.focus({ preventScroll: true });
   player.scrollIntoView({ block: "start", behavior: "smooth" });
+  loadGame(game, Boolean(retry));
 }
 
 function closeGame(push) {
   const previous = activeSlug;
   if (push) window.history.pushState({}, "", "play.html");
+  loadSerial += 1;
+  clearTimeout(loadTimer);
+  activeGame = null;
+  clearFrameError();
   frame.src = "about:blank";
   player.hidden = true;
   grid.hidden = false;
@@ -179,6 +265,13 @@ async function boot() {
   if (requested) openGame(requested.slug, false);
 }
 
+if (frame) frame.addEventListener("load", function () {
+  if (!activeGame) return;
+  if (frameLooksLoaded(activeGame)) {
+    clearTimeout(loadTimer);
+    clearFrameError();
+  }
+});
 if (back) back.addEventListener("click", function () { closeGame(true); });
 if (fullscreen) fullscreen.addEventListener("click", function () {
   if (document.fullscreenElement === player) {

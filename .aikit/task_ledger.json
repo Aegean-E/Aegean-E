@@ -1,57 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "play-cache-fix",
+    "task_id": "play-frame-fix",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793298904.8117945,
+    "updated_at": 1793299825.2794962,
     "owner": "opencode:weft",
     "started_by": "opencode:weft",
     "continuations": [],
-    "completed_at": 1793298905.3035016
+    "completed_at": 1793299825.649686
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 8",
-      "phase_num": 3,
-      "description": "Reforge stage 8: window 73, 10 commit(s), 13 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 4 binary not analysed",
-      "files_affected": [
-        "docs/apple-touch-icon.png",
-        "docs/icon-192.png",
-        "docs/icon-512.png",
-        "docs/og.png"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793294042.9043953,
-      "timestamp_str": "2026-10-29 20:14:02",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 9",
-      "phase_num": 3,
-      "description": "Reforge stage 9: window 83, 10 commit(s), 16 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
-      "files_affected": [
-        "docs/og.png"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793294086.0125124,
-      "timestamp_str": "2026-10-29 20:14:46",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 10",
-      "phase_num": 3,
-      "description": "Reforge stage 10: window 93, 10 commit(s), 3 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793294120.3521411,
-      "timestamp_str": "2026-10-29 20:15:20",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 11",
@@ -259,6 +219,44 @@
       "status": "completed",
       "timestamp": 1793298905.303503,
       "timestamp_str": "2026-10-29 21:35:05",
+      "agent": "opencode:weft"
+    },
+    {
+      "task_id": "play-frame-fix",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Cache-bust game frames, preflight each build and show a retry panel when the iframe fails",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793299815.5117412,
+      "timestamp_str": "2026-10-29 21:50:15",
+      "agent": "opencode:weft",
+      "impact_assessment": {
+        "why": "The Play toolbar loaded while the game frame stayed blank, so a missing or cached build failed silently and looked like an inert Play button.",
+        "benefits": "The frame URL is commit-versioned, a 404 or network failure becomes an actionable message with Retry and Open in new tab, and a ten-second start check catches a blocked or stalled frame.",
+        "risks": "contract: play.js, play-core.js and the Play page panel; dependency: one same-origin GET per opening; concurrency: service-worker and HTTP caches; state: shell v12.",
+        "mitigation": "Use cache no-store for the preflight, append a retry nonce, test the pure URL builder, simulate a 404 panel locally, and run both site suites before deployment."
+      }
+    },
+    {
+      "task_id": "play-frame-fix",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Versioned frame URL, build preflight, visible retry panel and ten-second start check delivered; checklists: passed; gates: test, hygiene, guidelines, secrets",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793299825.2794962,
+      "timestamp_str": "2026-10-29 21:50:25",
+      "agent": "opencode:weft"
+    },
+    {
+      "task_id": "play-frame-fix",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'play-frame-fix' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793299825.6496873,
+      "timestamp_str": "2026-10-29 21:50:25",
       "agent": "opencode:weft"
     }
   ]

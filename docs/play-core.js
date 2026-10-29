@@ -43,3 +43,19 @@ export function versionLabel(game) {
 export function gameStatus(game) {
   return game && game.playable ? "Play in browser" : "Run locally";
 }
+
+/**
+ * Build a cache-busted iframe URL. The commit keeps normal loads versioned;
+ * an optional nonce forces a retry past a cached 404.
+ */
+export function gameFrameUrl(game, nonce) {
+  const path = String((game && game.path) || "").trim();
+  if (!path) return "";
+  const params = new URLSearchParams();
+  const commit = String((game && game.commit) || "").trim().slice(0, 12);
+  if (commit) params.set("v", commit);
+  if (nonce) params.set("r", String(nonce));
+  const query = params.toString();
+  if (!query) return path;
+  return path + (path.includes("?") ? "&" : "?") + query;
+}
