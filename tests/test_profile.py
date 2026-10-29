@@ -775,7 +775,9 @@ class ProfileIntegrityTests(unittest.TestCase):
 
     def test_live_atlas_is_wired_to_the_github_api(self):
         html = read_site()
-        self.assertIn('<script type="module" src="atlas.js?v=10"></script>', html)
+        app_tag = re.search(r'<script src="app\.js\?v=(\d+)" defer></script>', html)
+        self.assertIsNotNone(app_tag, "index.html must request a versioned app.js")
+        self.assertIn(f'<script type="module" src="atlas.js?v={app_tag.group(1)}"></script>', html)
         self.assertIn('id="atlas-status"', html)
         self.assertIn('data-mode="snapshot"', html)
         self.assertEqual(html.count("data-project-count"), 2)

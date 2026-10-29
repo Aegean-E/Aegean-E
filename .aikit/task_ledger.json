@@ -1,89 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "playable-weft",
-    "last_phase": "phase 3",
+    "task_id": "play-cache-fix",
+    "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793297700.854151,
+    "updated_at": 1793298904.8117945,
     "owner": "opencode:weft",
     "started_by": "opencode:weft",
     "continuations": [],
-    "completed_at": 1793297736.6520193
+    "completed_at": 1793298905.3035016
   },
   "checkpoints": [
-    {
-      "task_id": "reforge-run-1-stage4",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage4' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793292593.8858378,
-      "timestamp_str": "2026-10-29 19:49:53",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 5",
-      "phase_num": 3,
-      "description": "Reforge stage 5: window 15, 3 commit(s), 49 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 5 binary not analysed",
-      "files_affected": [
-        "docs/media/AIKit/social-preview.webp",
-        "docs/media/NeuroCore/logo.jpg",
-        "docs/media/NeuroCore/social-preview.webp",
-        "docs/media/NoMoreClutter/logo.jpg",
-        "docs/media/NoMoreClutter/social-preview.webp"
-      ],
-      "status": "completed",
-      "timestamp": 1793292728.4986022,
-      "timestamp_str": "2026-10-29 19:52:08",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 6",
-      "phase_num": 3,
-      "description": "Reforge stage 6: window 53, 38 commit(s), 117 file(s) reviewed (unreviewed), 1 finding(s), 0 repaired, 130 binary not analysed (defect=1)",
-      "files_affected": [
-        "docs/media/Voidfarer.json",
-        "assets/artwork.jpg",
-        "assets/logo.jpg",
-        "assets/logo.png",
-        "assets/screenshots/2026-10-28-home.png",
-        "assets/social-preview.jpg",
-        "assets/social-preview.png",
-        "docs/media/AIKit/logo.webp",
-        "docs/media/AIKit/social-preview.webp",
-        "docs/media/Aegean-Licensing-Ops/2026-10-28-ui.png",
-        "docs/media/Aegean-Licensing-Ops/logo.jpg",
-        "docs/media/Aegean-Licensing-Ops/logo.png",
-        "docs/media/Aegean-Licensing/logo.jpg",
-        "docs/media/Aegean-Licensing/logo.png",
-        "docs/media/Aegean-Licensing/social-preview.webp",
-        "docs/media/Aegean-Reforge/logo.jpg",
-        "docs/media/Aegean-Reforge/logo.png",
-        "docs/media/Aegean-Reforge/social-preview.webp",
-        "docs/media/AegeanWorks/2026-10-28-home.png",
-        "docs/media/AegeanWorks/logo.jpg"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793293272.3780916,
-      "timestamp_str": "2026-10-29 20:01:12",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 7",
-      "phase_num": 3,
-      "description": "Reforge stage 7: window 63, 10 commit(s), 9 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
-      "files_affected": [
-        "docs/og.png"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793293982.7676058,
-      "timestamp_str": "2026-10-29 20:13:02",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 8",
@@ -280,6 +208,57 @@
       "status": "completed",
       "timestamp": 1793297736.6520205,
       "timestamp_str": "2026-10-29 21:15:36",
+      "agent": "opencode:weft"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 13",
+      "phase_num": 3,
+      "description": "Reforge stage 13: window 100, 1 commit(s), 30 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
+      "files_affected": [
+        "docs/play/weft/logo.webp"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793297949.1923141,
+      "timestamp_str": "2026-10-29 21:19:09",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "play-cache-fix",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Restore previous Prism-Relay and Weft builds, retain three builds per game, bump the shell to v11 and version the catalog request",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793298873.668893,
+      "timestamp_str": "2026-10-29 21:34:33",
+      "agent": "opencode:weft",
+      "impact_assessment": {
+        "why": "A returning visitor's cached catalog still pointed at build directories the sync had deleted, so the Play iframe opened a 404 while a fresh browser worked.",
+        "benefits": "Cached catalogs resolve for the last two releases; the v11 shell and versioned manifest request bypass stale caches; the weekly sync keeps a bounded history.",
+        "risks": "contract: build retention and the shell version; dependency: none beyond GitHub Pages; concurrency: weekly sync, service-worker clients and a background Reforge pass; state: extra commit-named build directories.",
+        "mitigation": "Restore the two deleted builds, keep the current plus two predecessors, version the catalog query, run all Python and Node suites, then verify the old and current live paths."
+      }
+    },
+    {
+      "task_id": "play-cache-fix",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Restore the deleted Prism-Relay and Weft builds, retain three builds per game, bump the shell to v11 and request a versioned catalog; checklists: passed; gates: test, hygiene, guidelines, secrets",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793298904.8117945,
+      "timestamp_str": "2026-10-29 21:35:04",
+      "agent": "opencode:weft"
+    },
+    {
+      "task_id": "play-cache-fix",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'play-cache-fix' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793298905.303503,
+      "timestamp_str": "2026-10-29 21:35:05",
       "agent": "opencode:weft"
     }
   ]

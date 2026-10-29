@@ -10,7 +10,7 @@
 - **Total Classes**: `3`
 - **Total Top-Level Functions**: `61`
 - **Total Class Methods**: `87`
-- **Total Source Lines**: `2836`
+- **Total Source Lines**: `2849`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1492` lines (`68863` bytes)
+**Size**: `1494` lines (`69049` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -172,7 +172,7 @@
 ### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
 > *Sync the static browser games and the playable-game manifest.*
 
-**Size**: `436` lines (`17023` bytes)
+**Size**: `447` lines (`17509` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

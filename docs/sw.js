@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v10";
+const VERSION = "aegeanworks-shell-v11";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [

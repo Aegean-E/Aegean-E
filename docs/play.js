@@ -171,7 +171,8 @@ async function boot() {
     games = gamesFromManifest(await response.json());
   } catch (error) {
     games = [];
-    grid.appendChild(element("p", "play-empty", error.message));
+    grid.replaceChildren(element("p", "play-empty", error.message));
+    return;
   }
   renderCatalog();
   const requested = initialGame();

@@ -3,7 +3,9 @@
 
 Each browser build is self-contained, so its runtime files are copied under
 docs/play/ and versioned by commit. The source validator enforces the static
-contract the website relies on before anything is copied.
+contract the website relies on before anything is copied. The current build and
+its two most recent predecessors are retained so a catalog cached by a returning
+visitor still resolves after a refresh.
 """
 
 from __future__ import annotations
@@ -52,6 +54,7 @@ GAMES = (
 
 MANIFEST_REL = "docs/playable.json"
 COMMIT_RE = re.compile(r"^[0-9a-f]{7,40}$")
+KEEP_BUILDS = 3
 
 
 class SyncError(Exception):
@@ -193,8 +196,20 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
         header = license_path.read_text(encoding="utf-8").splitlines()[:1]
         if not header or not header[0].startswith("# Aegean Game License 1.1"):
             problems.append(f"{game['repo']} LICENSE is not the AGL-1.1 text")
+    forbidden = (
+        "fetch(",
+        "XMLHttpRequest",
+        "WebSocket",
+        "navigator.serviceWorker",
+        "window.top",
+        "window.parent",
+        "top.location",
+    )
     text = index.read_text(encoding="utf-8")
-    for reference in re.findall(r'(?:src|href)\s*=\s*"([^"]+)"', text):
+    for token in forbidden:
+        if token in text:
+            problems.append(f"{game['repo']} index.html uses {token}; the website build must stay static")
+    for reference in re.findall(r"""(?:src|href)\s*=\s*["']([^"']+)["']""", text):
         if reference.startswith(("data:", "#", "mailto:")):
             continue
         if reference.startswith(("http://", "https://")):
@@ -207,15 +222,6 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
         target = _source_path(source, reference)
         if target is None or not target.is_file():
             problems.append(f"{game['repo']} index.html references a missing file: {reference}")
-    forbidden = (
-        "fetch(",
-        "XMLHttpRequest",
-        "WebSocket",
-        "navigator.serviceWorker",
-        "window.top",
-        "window.parent",
-        "top.location",
-    )
     for path in sorted((source / "src").rglob("*")):
         if not path.is_file() or path.suffix not in {".js", ".css"}:
             continue
@@ -261,9 +267,14 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
     if target.is_dir():
         shutil.rmtree(target)
     _copy_runtime(source, target, tuple(game["runtime"]))
-    for old in base.iterdir() if base.is_dir() else ():
-        if old.is_dir() and old.name != short and COMMIT_RE.match(old.name):
-            shutil.rmtree(old)
+    old_builds = [
+        old
+        for old in (base.iterdir() if base.is_dir() else ())
+        if old.is_dir() and old.name != short and COMMIT_RE.match(old.name)
+    ]
+    old_builds.sort(key=lambda path: path.stat().st_mtime, reverse=True)
+    for old in old_builds[KEEP_BUILDS - 1:]:
+        shutil.rmtree(old)
     license_source = source / "LICENSE"
     if license_source.is_file():
         _copy_file(license_source, base / "LICENSE")
