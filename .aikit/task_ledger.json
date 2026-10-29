@@ -1,88 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "live-section-rename",
+    "task_id": "reforge-run-1-stage20",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793307836.449095,
+    "updated_at": 1793307938.536138,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The section will host browser apps that are not games, so the Play naming and game-shaped catalog mislabelled it; the owner also wants it visible in the homepage flow",
-      "benefits": "A neutral Live section, an app-oriented manifest, a homepage showcase after Work, and a preserved old URL",
-      "risks": "contract: public URLs move to live.html/live.json/docs/live and the manifest becomes schema 2; dependency: none; concurrency: none; state: cached clients move to shell v13 and retained builds",
-      "mitigation": "Kept a play.html redirect, transformed the manifest before --write so retained builds survived, bumped the shell to v13, ran both parity suites and the gates, and browser-checked the homepage cards, both apps and the redirect"
+      "why": "The rename commit moved the public section, catalog and build root",
+      "benefits": "The stopped run covers the Live rename with no pending review",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 20",
+      "mitigation": "Reviewed the first-party changes, browser-checked the homepage cards, both apps and the redirect, and committed only the audit state"
     },
-    "completed_at": 1793307836.581682
+    "completed_at": 1793307938.6783864
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 17",
-      "phase_num": 3,
-      "description": "Reforge stage 17: run stopped at stage 17; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793303836.8173313,
-      "timestamp_str": "2026-10-29 22:57:16",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-final",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 17 audited the state-only commit; run-1 stopped with every current commit audited and no findings; 86 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793303844.4610891,
-      "timestamp_str": "2026-10-29 22:57:24",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The close-out commit that recorded stage 16 was itself the only unaudited commit",
-        "benefits": "The stopped run now covers HEAD, so a resume or a new run starts cleanly",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 17",
-        "mitigation": "Confirmed stage 17 reviewed the bookkeeping-only commit, the status shows HEAD audited and no pending findings, and committed only the audit state"
-      }
-    },
-    {
-      "task_id": "reforge-run-1-final",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-final' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793303844.586275,
-      "timestamp_str": "2026-10-29 22:57:24",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "playable-validator-coverage",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Scan every declared runtime entry (index.html, src, assets) for network tokens and external URLs, allow only real W3C namespace origins, and pin it with a fixture regression test; 87 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793304222.1079628,
-      "timestamp_str": "2026-10-29 23:03:42",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The contract check walked only src/ while Weft's runtime includes assets/, and the W3C allowance was a substring test that a query string could spoof",
-        "benefits": "A remote image, font or script in any runtime directory is refused before it is copied, and the namespace allowance can no longer be spoofed",
-        "risks": "contract: tools/sync_playable_games.py scans more files and tightens the URL allowance; dependency: none; concurrency: none; state: the copied builds are unchanged",
-        "mitigation": "Added a failing-first fixture with a remote SVG image and a W3C-lookalike host, confirmed both are reported, and confirmed the real Prism-Relay and Weft sources still pass"
-      }
-    },
-    {
-      "task_id": "playable-validator-coverage",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'playable-validator-coverage' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793304222.2673755,
-      "timestamp_str": "2026-10-29 23:03:42",
-      "agent": "opencode:main"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 17",
@@ -272,6 +207,68 @@
       "status": "completed",
       "timestamp": 1793307836.5816832,
       "timestamp_str": "2026-10-30 00:03:56",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 19",
+      "phase_num": 3,
+      "description": "Reforge stage 19: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793307859.2154331,
+      "timestamp_str": "2026-10-30 00:04:19",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 20",
+      "phase_num": 3,
+      "description": "Reforge stage 20: window 113, 2 commit(s), 79 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
+      "files_affected": [
+        "docs/live/weft/logo.webp"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793307877.2363262,
+      "timestamp_str": "2026-10-30 00:04:37",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 20",
+      "phase_num": 3,
+      "description": "Reforge stage 20: run stopped at stage 20; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793307933.1618578,
+      "timestamp_str": "2026-10-30 00:05:33",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage20",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 20 audited the Live rename and homepage section; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793307938.536138,
+      "timestamp_str": "2026-10-30 00:05:38",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The rename commit moved the public section, catalog and build root",
+        "benefits": "The stopped run covers the Live rename with no pending review",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 20",
+        "mitigation": "Reviewed the first-party changes, browser-checked the homepage cards, both apps and the redirect, and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage20",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage20' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793307938.6783879,
+      "timestamp_str": "2026-10-30 00:05:38",
       "agent": "opencode:main"
     }
   ]
