@@ -9,8 +9,8 @@
 - **Total Python Modules**: `2`
 - **Total Classes**: `2`
 - **Total Top-Level Functions**: `43`
-- **Total Class Methods**: `83`
-- **Total Source Lines**: `2160`
+- **Total Class Methods**: `84`
+- **Total Source Lines**: `2188`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1252` lines (`58370` bytes)
+**Size**: `1280` lines (`59840` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -46,6 +46,7 @@
   - Method `.test_privacy_table_labels_its_cells_for_narrow_screens()`
   - Method `.test_security_txt_is_valid()`
   - Method `.test_atlas_search_topic_sort_and_url_state()`
+  - Method `.test_portfolio_scripts_are_cache_coherent()` - *A new Status control must never run against an older cached app.js.*
   - Method `.test_live_atlas_is_wired_to_the_github_api()`
   - Method `.test_site_lists_every_public_repository_once()`
   - Method `.test_site_filters_are_topics_only()`

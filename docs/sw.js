@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v6";
+const VERSION = "aegeanworks-shell-v7";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -13,6 +13,7 @@ const PRECACHE = [
   "offline.html",
   "styles.css",
   "app.js",
+  "sw-client.js",
   "atlas.js",
   "atlas-core.js",
   "project.js",

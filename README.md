@@ -239,6 +239,7 @@ AegeanWorks/
 │   ├── atlas-core.js        <- Pure live-atlas validation, inference and sync planning
 │   ├── atlas.js             <- GitHub API fetch, cache and DOM reconciliation
 │   ├── app.js               <- Navigation, filtering, reveal and service-worker registration
+│   ├── sw-client.js         <- Shell update check, reload and stale-cache recovery
 │   ├── sw.js                <- Cached shell, offline fallback and API cache
 │   ├── offline.html         <- Branded offline page
 │   ├── styles.css           <- Zero-dependency design system

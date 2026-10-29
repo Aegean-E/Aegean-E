@@ -187,6 +187,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "index.html",
             "styles.css",
             "app.js",
+            "sw-client.js",
             "favicon.svg",
             "404.html",
             "robots.txt",
@@ -381,6 +382,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "atlas-snapshot.json",
             "styles.css",
             "app.js",
+            "sw-client.js",
             "atlas.js",
             "project.js",
             "verify.js",
@@ -541,9 +543,35 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, css)
 
+    def test_portfolio_scripts_are_cache_coherent(self):
+        """A new Status control must never run against an older cached app.js."""
+        html = read_site()
+        app_tag = re.search(r'<script src="app\.js\?v=(\d+)" defer></script>', html)
+        self.assertIsNotNone(app_tag, "index.html must request a versioned app.js")
+        atlas_tag = re.search(r'<script type="module" src="atlas\.js\?v=(\d+)"></script>', html)
+        self.assertIsNotNone(atlas_tag, "index.html must request a versioned atlas.js")
+        self.assertIn('<script src="sw-client.js" defer></script>', html)
+        version = app_tag.group(1)
+        self.assertEqual(atlas_tag.group(1), version)
+        app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
+        self.assertIn(f'root.dataset.appVersion = "{version}";', app)
+        client = (ROOT / "docs" / "sw-client.js").read_text(encoding="utf-8")
+        for token in (
+            f'var APP_VERSION = "{version}";',
+            "controllerchange",
+            "registration.update()",
+            "registration.unregister()",
+            "window.location.reload()",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, client)
+        sw = (ROOT / "docs" / "sw.js").read_text(encoding="utf-8")
+        self.assertIn(f'const VERSION = "aegeanworks-shell-v{version}";', sw)
+        self.assertIn('"sw-client.js"', sw)
+
     def test_live_atlas_is_wired_to_the_github_api(self):
         html = read_site()
-        self.assertIn('<script type="module" src="atlas.js"></script>', html)
+        self.assertIn('<script type="module" src="atlas.js?v=7"></script>', html)
         self.assertIn('id="atlas-status"', html)
         self.assertIn('data-mode="snapshot"', html)
         self.assertEqual(html.count("data-project-count"), 2)
