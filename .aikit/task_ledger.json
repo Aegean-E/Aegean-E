@@ -1,83 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "live-slider-expansion",
+    "task_id": "reforge-run-1-stage25",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793309743.8254917,
+    "updated_at": 1793309787.2402544,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The first three frames did not show the episode index, later chamber, completion, manual or hint states that make the apps legible",
-      "benefits": "Each card now shows a complete first-run path, with the same slider and lazy loading",
-      "risks": "contract: shot index and image set grow, shell v15; dependency: none; concurrency: none; state: captures pinned to the current app commits",
-      "mitigation": "Captured each state from the published build, renamed in order, raised the suite minimum to five, and stepped through all six slides in the browser"
+      "why": "The shot index and eight new frames changed the Live cards",
+      "benefits": "The stopped run covers the expanded sliders with no pending review",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 25",
+      "mitigation": "Reviewed the nine text files, stepped through all slides in the browser, and committed only the audit state"
     },
-    "completed_at": 1793309743.959405
+    "completed_at": 1793309787.4293709
   },
   "checkpoints": [
-    {
-      "task_id": "nav-live-before-projects",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'nav-live-before-projects' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793308493.5544868,
-      "timestamp_str": "2026-10-30 00:14:53",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 21",
-      "phase_num": 3,
-      "description": "Reforge stage 21: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308546.565135,
-      "timestamp_str": "2026-10-30 00:15:46",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 22",
-      "phase_num": 3,
-      "description": "Reforge stage 22: window 117, 2 commit(s), 5 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308557.6082304,
-      "timestamp_str": "2026-10-30 00:15:57",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 22",
-      "phase_num": 3,
-      "description": "Reforge stage 22: run stopped at stage 22; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793308562.2555566,
-      "timestamp_str": "2026-10-30 00:16:02",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage22",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 22 audited the Live-before-Projects nav swap; no findings; 87 Python tests and 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308567.649235,
-      "timestamp_str": "2026-10-30 00:16:07",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The primary nav order changed on the pages that carry both links",
-        "benefits": "The stopped run covers the nav order with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 22",
-        "mitigation": "Reviewed the five changed files and committed only the audit state"
-      }
-    },
     {
       "task_id": "reforge-run-1-stage22",
       "phase": "completed",
@@ -267,6 +207,75 @@
       "status": "completed",
       "timestamp": 1793309743.9594066,
       "timestamp_str": "2026-10-30 00:35:43",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 24",
+      "phase_num": 3,
+      "description": "Reforge stage 24: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793309755.641649,
+      "timestamp_str": "2026-10-30 00:35:55",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 25",
+      "phase_num": 3,
+      "description": "Reforge stage 25: window 123, 2 commit(s), 9 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 8 binary not analysed",
+      "files_affected": [
+        "docs/live/shots/prism-relay/02-episode-index.png",
+        "docs/live/shots/prism-relay/03-first-light.png",
+        "docs/live/shots/prism-relay/04-split-decision.png",
+        "docs/live/shots/prism-relay/05-first-light-complete.png",
+        "docs/live/shots/prism-relay/06-how-to-play.png",
+        "docs/live/shots/weft/03-first-thread.png",
+        "docs/live/shots/weft/04-hint.png",
+        "docs/live/shots/weft/05-how-to-play.png"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793309768.7449622,
+      "timestamp_str": "2026-10-30 00:36:08",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 25",
+      "phase_num": 3,
+      "description": "Reforge stage 25: run stopped at stage 25; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793309779.254184,
+      "timestamp_str": "2026-10-30 00:36:19",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage25",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 25 audited the expanded screenshot tours; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793309787.2402544,
+      "timestamp_str": "2026-10-30 00:36:27",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The shot index and eight new frames changed the Live cards",
+        "benefits": "The stopped run covers the expanded sliders with no pending review",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 25",
+        "mitigation": "Reviewed the nine text files, stepped through all slides in the browser, and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage25",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage25' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793309787.429372,
+      "timestamp_str": "2026-10-30 00:36:27",
       "agent": "opencode:main"
     }
   ]
