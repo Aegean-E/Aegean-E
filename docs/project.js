@@ -101,7 +101,7 @@ async function fetchOptionalJson(url) {
 
 async function loadMedia(repo) {
   const raw = await fetchOptionalJson(
-    "media/" + encodeURIComponent(repo.name) + ".json?v=16"
+    "media/" + encodeURIComponent(repo.name) + ".json?v=17"
   );
   const media = normalizeMedia(raw, repo.name);
   if (media.logo) renderLogo(repo, media.logo);

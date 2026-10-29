@@ -245,7 +245,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('from "./project-core.js"', script)
         self.assertIn('from "./atlas-core.js"', script)
         self.assertIn('fetchJson("atlas-snapshot.json")', script)
-        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json?v=16"', script)
+        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json?v=17"', script)
         self.assertIn("normalizeMedia", script)
         self.assertIn("renderLogo", script)
         self.assertIn("/commit/", script)
@@ -374,6 +374,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertTrue(weft["available"])
         self.assertEqual(weft["mode"], "browser")
         self.assertEqual(weft["license"], "AGL-1.1")
+        self.assertEqual(prism["dossier"], "project.html?repo=Prism-Relay")
+        self.assertFalse(weft.get("dossier"))
         self.assertRegex(weft["path"], r"^live/weft/[0-9a-f]{7,40}/index\.html$")
         self.assertTrue((ROOT / "docs" / weft["path"]).is_file())
         self.assertTrue((ROOT / "docs" / weft["license_path"]).is_file())
@@ -426,6 +428,8 @@ class ProfileIntegrityTests(unittest.TestCase):
             "versionLabel",
             "requestFullscreen",
             "URLSearchParams",
+            "Dossier",
+            "app.dossier",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, script)
@@ -459,7 +463,7 @@ class ProfileIntegrityTests(unittest.TestCase):
                     self.assertTrue(shot.get("alt"))
                     self.assertTrue((ROOT / "docs" / shot["src"]).is_file())
         home_script = (ROOT / "docs" / "live-home.js").read_text(encoding="utf-8")
-        for token in ("live-home-slider", "live-home-nav", "live/shots.json"):
+        for token in ("live-home-slider", "live-home-nav", "live/shots.json", "Dossier", "app.dossier"):
             with self.subTest(token=token):
                 self.assertIn(token, home_script)
         redirect = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")

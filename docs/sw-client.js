@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "16";
+  var APP_VERSION = "17";
   var RECOVERY_KEY = "aegean:sw-recovery";
 
   if (!("serviceWorker" in navigator)) return;

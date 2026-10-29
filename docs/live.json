@@ -6,6 +6,7 @@
       "repo": "Prism-Relay",
       "title": "Prism Relay",
       "description": "A neon light-routing puzzle: rotate mirrors and splitters, fold beams through portals, and charge every receiver across three episodes.",
+      "available": true,
       "mode": "browser",
       "path": "live/prism-relay/5d7fcbe3e7fc/index.html",
       "source_url": "https://github.com/AegeanWorks/Prism-Relay",
@@ -20,13 +21,14 @@
         "live/prism-relay/e711443bde4f/index.html"
       ],
       "logo": "media/Prism-Relay/logo.webp",
-      "available": true
+      "dossier": "project.html?repo=Prism-Relay"
     },
     {
       "slug": "weft",
       "repo": "Weft",
       "title": "Weft",
       "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across twelve chambers.",
+      "available": true,
       "mode": "browser",
       "path": "live/weft/22beac25d364/index.html",
       "source_url": "https://github.com/AegeanWorks/Weft",
@@ -42,7 +44,7 @@
         "live/weft/473fe346a986/index.html"
       ],
       "logo": "live/weft/logo.webp",
-      "available": true
+      "dossier": ""
     }
   ]
 }

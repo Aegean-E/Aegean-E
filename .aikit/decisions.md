@@ -398,3 +398,11 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Decision**: Render the manifest logo as a 40px badge beside the dossier kicker, hidden until `renderLogo` receives a valid logo, and replace the old negative assertion with a positive wiring check. The shell moves to v16 and the dossier media request gains `?v=16` so the new badge and manifests arrive together.
 - **Consequences**: Every dossier shows its logo, preview and any captures. A manifest without a logo simply leaves the kicker text; no empty frame is reserved.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the badge comes from the same manifest as the preview) and PRINCIPLE-011 (the dossier still explains itself when media is missing).
+
+### ADR-053: Live Cards Carry a Dossier Link
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: Live cards linked to the app and its repository but not to the project dossier. Prism-Relay already has a dossier with seven captures, a logo and a preview; Weft has no portfolio dossier yet.
+- **Decision**: Add an optional `dossier` field to each `GAMES` entry and manifest app. Prism points at `project.html?repo=Prism-Relay`; Weft leaves it empty so its Dossier link falls back to the public repository. Both the homepage card and the Live page card render the link; a relative target stays in the tab, an absolute target opens a new one. Move the shell to v17.
+- **Consequences**: Every Live card offers a Dossier action. Prism reaches the full project dossier; Weft reaches its repository until it joins the catalogue, at which point adding `dossier` is one field. The link cannot be mistaken for external because the test checks the raw catalog value, not the resolved URL.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the manifest names the dossier) and PRINCIPLE-011 (one click from an app to its public record).

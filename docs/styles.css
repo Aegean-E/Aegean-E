@@ -1741,9 +1741,14 @@ h1 .grad {
   font-size: 0.9rem;
   line-height: 1.55;
 }
-.live-home-open {
+.live-home-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   margin-top: auto;
   padding-top: 10px;
+}
+.live-home-open {
   color: var(--cyan);
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -1753,6 +1758,15 @@ h1 .grad {
 }
 .live-home-open::after { content: " \2192"; }
 .live-home-open:hover { text-decoration: underline; }
+.live-home-dossier {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.live-home-dossier:hover { color: var(--cyan); text-decoration: underline; }
 .live-home-fallback {
   color: var(--teal);
   text-decoration: underline;

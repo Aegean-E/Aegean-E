@@ -37,6 +37,7 @@ APPS = (
         "runtime": ("index.html", "src"),
         "version_file": "package.json",
         "logo": "media/Prism-Relay/logo.webp",
+        "dossier": "project.html?repo=Prism-Relay",
     },
     {
         "slug": "weft",
@@ -354,6 +355,7 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "digest": _digest(files, target),
         "builds": builds,
         "logo": game["logo"],
+        "dossier": game.get("dossier", ""),
     }
 
 

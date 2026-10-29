@@ -54,6 +54,17 @@ function sourceLink(app, label) {
   return link;
 }
 
+function dossierLink(app) {
+  const link = element("a", "btn btn-ghost", "Dossier");
+  const href = app.dossier || app.source_url;
+  link.href = href;
+  if (/^https?:/i.test(href)) {
+    link.target = "_blank";
+    link.rel = "noopener";
+  }
+  return link;
+}
+
 function renderCard(app) {
   const card = element("article", "live-card");
   card.dataset.slug = app.slug;
@@ -94,8 +105,10 @@ function renderCard(app) {
     });
     actions.appendChild(open);
     actions.appendChild(sourceLink(app, "Source"));
+    actions.appendChild(dossierLink(app));
   } else {
     actions.appendChild(sourceLink(app, "Get the app"));
+    actions.appendChild(dossierLink(app));
     const command = element("code", "live-command", app.command || "python run.py --open");
     card.appendChild(actions);
     card.appendChild(command);
