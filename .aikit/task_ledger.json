@@ -3,8 +3,8 @@
   "active_task": {
     "task_id": "live-tessera",
     "last_phase": "phase 2",
-    "active_phase": 2,
-    "status": "in_progress",
+    "active_phase": 5,
+    "status": "completed",
     "updated_at": 1793314829.9130747,
     "owner": "kilo:tessera",
     "started_by": "kilo:tessera",
@@ -14,20 +14,10 @@
       "benefits": "Apps and games share one Live catalog without relabeling either, and an unpublished optional source no longer fails the nightly refresh",
       "risks": "contract: manifest schema must stay 2 with per-entry license; dependency: none; concurrency: the site has a stopped reforge run and recent live commits, so stage only these files; state: docs/live.json, copied builds, shots.json and the service-worker asset versions",
       "mitigation": "Validate every build with the sync tool, run the full site suite and a browser e2e, keep the Tessera source optional until its repository exists, and stage explicit paths only"
-    }
+    },
+    "completed_at": 1793315006.1843874
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 27",
-      "phase_num": 3,
-      "description": "Reforge stage 27: window 127, 2 commit(s), 14 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311210.7391515,
-      "timestamp_str": "2026-10-30 01:00:10",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 27",
@@ -273,6 +263,16 @@
         "risks": "contract: manifest schema must stay 2 with per-entry license; dependency: none; concurrency: the site has a stopped reforge run and recent live commits, so stage only these files; state: docs/live.json, copied builds, shots.json and the service-worker asset versions",
         "mitigation": "Validate every build with the sync tool, run the full site suite and a browser e2e, keep the Tessera source optional until its repository exists, and stage explicit paths only"
       }
+    },
+    {
+      "task_id": "live-tessera",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'live-tessera' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793315006.1843886,
+      "timestamp_str": "2026-10-30 02:03:26",
+      "agent": "kilo:tessera"
     }
   ]
 }
