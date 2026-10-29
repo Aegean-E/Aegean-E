@@ -404,7 +404,10 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(tessera["mode"], "browser")
         self.assertEqual(tessera["license"], "AL-1.1")
         self.assertFalse(tessera.get("dossier"))
-        self.assertFalse(tessera.get("source_url"))
+        self.assertEqual(
+            tessera.get("source_url"),
+            "https://github.com/AegeanWorks/Tessera",
+        )
         self.assertRegex(tessera["path"], r"^live/tessera/[0-9a-f]{7,40}/index\.html$")
         self.assertTrue((ROOT / "docs" / tessera["path"]).is_file())
         self.assertTrue((ROOT / "docs" / tessera["license_path"]).is_file())
@@ -517,7 +520,6 @@ class ProfileIntegrityTests(unittest.TestCase):
             "Prism-Relay",
             "Weft",
             "Tessera",
-            "continue-on-error",
             "sync_live_apps.py",
             "--check-source",
             "actions/checkout@v4",

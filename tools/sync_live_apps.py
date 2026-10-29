@@ -62,8 +62,6 @@ APPS = (
         "runtime": ("index.html", "src"),
         "version_file": "package.json",
         "logo": "live/tessera/logo.svg",
-        "source_url": "",
-        "optional": True,
     },
 )
 

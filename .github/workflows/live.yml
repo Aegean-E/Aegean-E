@@ -36,7 +36,6 @@ jobs:
           fetch-depth: 1
       - name: Check out Tessera
         uses: actions/checkout@v4
-        continue-on-error: true
         with:
           repository: AegeanWorks/Tessera
           path: .app-src/tessera

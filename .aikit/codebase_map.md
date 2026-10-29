@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1653` lines (`76916` bytes)
+**Size**: `1655` lines (`76960` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -174,7 +174,7 @@
 ### [`tools/sync_live_apps.py`](tools/sync_live_apps.py)
 > *Sync the live browser apps and their catalog.*
 
-**Size**: `574` lines (`22777` bytes)
+**Size**: `572` lines (`22725` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

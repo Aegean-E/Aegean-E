@@ -425,8 +425,16 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 
 ### ADR-056: Live Accepts an AL-1.1 App and Keeps Optional Sources Stable
 - **Date**: 2026-10-30
-- **Status**: Accepted
-- **Context**: Tessera is a static browser design tool under AL-1.1, not a game, and its repository is not published yet. The Live sync previously required an AGL-1.1 header for every entry and failed the whole refresh when a source checkout was missing, so adding Tessera would either mislicense it or break the nightly job.
+- **Status**: Superseded by ADR-057
+- **Context**: Tessera is a static browser design tool under AL-1.1, not a game, and its repository was not published when this decision was taken. The Live sync previously required an AGL-1.1 header for every entry and failed the whole refresh when a source checkout was missing, so adding Tessera would either mislicense it or break the nightly job.
 - **Decision**: Give each `APPS` entry its own license label and validate the matching Aegean license header. Mark Tessera `optional`: a missing source checkout is skipped by `--check-source`, and `--write` keeps its last published manifest entry instead of rebuilding it. The Live page names the per-build license. The workflow checks out Tessera with `continue-on-error: true`.
 - **Consequences**: The Live catalog can show apps and games side by side without relabeling either, and the nightly refresh stays green while the Tessera repository is unpublished. The trade-off is that an optional app can lag its source silently until its checkout exists; the manifest still shows its last commit, and `--check` continues to verify every copied digest.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the license label and header agree), PRINCIPLE-006 (the catalog survives a missing optional source) and PRINCIPLE-011 (one catalog explains each build's license).
+
+### ADR-057: Publish Tessera and Make Every Live Source Mandatory
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: ADR-056 kept Tessera optional because its repository did not exist, which left its Live card without a Source link and its nightly refresh skipped. The repository is now public at `AegeanWorks/Tessera`, so the temporary exception no longer has a reason.
+- **Decision**: Remove Tessera's `optional` flag and empty `source_url` override, and drop `continue-on-error` from its workflow checkout. The optional-source mechanism stays available and tested for a future unpublished app, but no shipped entry uses it. The manifest now records the public source URL and the current build commit, and the screenshot tour points at that commit because only the ledger changed since capture.
+- **Consequences**: Every Live app now has a working Source link, and a broken checkout fails the refresh instead of silently freezing an app. The Live card for Tessera gains Source and falls back to the repository for Dossier until a portfolio dossier exists.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the manifest and workflow name the real source), PRINCIPLE-006 (the refresh fails loudly rather than hiding a missing build) and PRINCIPLE-018 (the published repository is the single origin for the synced build).
