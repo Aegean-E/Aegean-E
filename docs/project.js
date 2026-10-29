@@ -101,9 +101,10 @@ async function fetchOptionalJson(url) {
 
 async function loadMedia(repo) {
   const raw = await fetchOptionalJson(
-    "media/" + encodeURIComponent(repo.name) + ".json"
+    "media/" + encodeURIComponent(repo.name) + ".json?v=16"
   );
   const media = normalizeMedia(raw, repo.name);
+  if (media.logo) renderLogo(repo, media.logo);
   if (media.preview) renderPreview(repo, media.preview);
   if (!media.screenshots.length) return;
   renderGallery(repo, media.screenshots);
@@ -146,6 +147,16 @@ function viewerItem(repo, shot, fallback) {
     commitHref: shot.commit ? commitHref(repo, shot.commit) : "",
     rest: shot.commit ? screenshotMeta({ ...shot, commit: "" }) : "",
   };
+}
+
+function renderLogo(repo, logo) {
+  const image = document.getElementById("project-logo");
+  if (!image || !logo) return;
+  image.src = logo.src;
+  image.alt = logo.alt || repo.name + " logo";
+  image.width = 40;
+  image.height = 40;
+  image.hidden = false;
 }
 
 function renderPreview(repo, preview) {

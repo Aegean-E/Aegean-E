@@ -1,7 +1,41 @@
 {
   "schema": 2,
   "repo": "UI-Sandbox",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "media/UI-Sandbox/2026-10-30-default.webp",
+      "alt": "UI Sandbox default theme",
+      "caption": "UI Sandbox — default light surface",
+      "commit": "bb5c6e7709d96038ef10c734887b0b592f9aef7d",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:06125881ae25490cc09c85a4764839f5d685be16f84366e60b0870fbf604abbf"
+    },
+    {
+      "src": "media/UI-Sandbox/2026-10-30-aurora.webp",
+      "alt": "UI Sandbox Aurora accent",
+      "caption": "UI Sandbox — Aurora accent and counter",
+      "commit": "bb5c6e7709d96038ef10c734887b0b592f9aef7d",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:5d807908e1f682d0c4313edae80d3983344f15a23694d153052018c553c785e6"
+    },
+    {
+      "src": "media/UI-Sandbox/2026-10-30-outlines.webp",
+      "alt": "UI Sandbox outline mode",
+      "caption": "UI Sandbox — outlines and compact spacing",
+      "commit": "bb5c6e7709d96038ef10c734887b0b592f9aef7d",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:efb7dd05591661b914040f4945212453d1b4dfbd049d25ef65395ecf616c0557"
+    }
+  ],
   "logo": {
     "src": "media/UI-Sandbox/logo.webp",
     "alt": "UI-Sandbox logo",

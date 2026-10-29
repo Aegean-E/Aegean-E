@@ -11,6 +11,72 @@
       "viewport": "1440x900",
       "width": 1440,
       "height": 900
+    },
+    {
+      "src": "media/Prism-Relay/2026-10-30-title.webp",
+      "alt": "Prism Relay title screen",
+      "caption": "Prism Relay — title screen",
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:381c0b54933e91acb4d6ef7aec39f0357afc32adf7cc5d8104ff7753e26beb1e"
+    },
+    {
+      "src": "media/Prism-Relay/2026-10-30-episode-index.webp",
+      "alt": "Prism Relay episode index",
+      "caption": "Prism Relay — episode index",
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:b4c5d7f37952eb787bc06e03d5beb45a5418e6a848c3cfcc63604cd78b1bf37a"
+    },
+    {
+      "src": "media/Prism-Relay/2026-10-30-first-light.webp",
+      "alt": "Prism Relay First Light chamber",
+      "caption": "Prism Relay — First Light chamber",
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:6668ee81fd0b97a9a3fa45a6b5b654e97d7a1e4eaa7a87d3c6e4ed8b90656823"
+    },
+    {
+      "src": "media/Prism-Relay/2026-10-30-split-decision.webp",
+      "alt": "Prism Relay Split Decision chamber",
+      "caption": "Prism Relay — Split Decision chamber",
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:cec5f857309c8365ff75f8f57435e3de4e86153a0608e5663f43e647c7048035"
+    },
+    {
+      "src": "media/Prism-Relay/2026-10-30-complete.webp",
+      "alt": "Prism Relay First Light complete",
+      "caption": "Prism Relay — chamber complete",
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:ac1ed911daf2eda96a1040050b1367cfabd90c70b1cfd7475b2ab582f9097719"
+    },
+    {
+      "src": "media/Prism-Relay/2026-10-30-how-to-play.webp",
+      "alt": "Prism Relay how to play",
+      "caption": "Prism Relay — how to play",
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:a5d2d826155de0df07da8a54b67242496a7e517892fb762deb3c9d4ff3c58626"
     }
   ],
   "logo": {

@@ -37,6 +37,18 @@
       "height": 809,
       "digest": "sha256:5553b5f2dd53f61a7ebe25d2b383595ee384415a7fa9d04d08d0270485d63f75",
       "source": "NeuroCore:screenshots/memory_browser.png"
+    },
+    {
+      "src": "media/NeuroCore/2026-10-29-tools-library.webp",
+      "alt": "NeuroCore screenshot",
+      "caption": "NeuroCore — Tools Library",
+      "commit": "e43bd9d56d05d80a1ef714be65d7841c28018fe4",
+      "taken_at": "2026-10-29",
+      "viewport": "",
+      "width": 1440,
+      "height": 820,
+      "digest": "sha256:b0c143fee375bf621b6670a913118b9417dae5d6d9a77e8cc39992cdeb6b7275",
+      "source": "NeuroCore:screenshots/tools_library.png"
     }
   ],
   "logo": {

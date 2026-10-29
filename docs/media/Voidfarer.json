@@ -11,6 +11,39 @@
       "viewport": "1440x900",
       "width": 1440,
       "height": 900
+    },
+    {
+      "src": "media/Voidfarer/2026-10-30-slots.webp",
+      "alt": "Voidfarer save slots",
+      "caption": "Voidfarer — save slots",
+      "commit": "162d5efab77bd1c4327e8671014695840362db3e",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:af74d2be71b31f12a733602b4ec29379f0e91e92d683a26637f045336c411d15"
+    },
+    {
+      "src": "media/Voidfarer/2026-10-30-cockpit.webp",
+      "alt": "Voidfarer cockpit and character sheet",
+      "caption": "Voidfarer — cockpit and character sheet",
+      "commit": "162d5efab77bd1c4327e8671014695840362db3e",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:ad82324ea6074a5593cc95ad0eb94e237f54502bc9a7a2baef9aa7146d572298"
+    },
+    {
+      "src": "media/Voidfarer/2026-10-30-galaxy-map.webp",
+      "alt": "Voidfarer galaxy map",
+      "caption": "Voidfarer — Alpha Centauri galaxy map",
+      "commit": "162d5efab77bd1c4327e8671014695840362db3e",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:3c7e4f92661408427e6db795a6f8393d450c7ef353413fba760b35e9e53da453"
     }
   ],
   "logo": {

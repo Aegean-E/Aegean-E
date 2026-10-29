@@ -213,6 +213,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         for token in (
             'id="project-detail"',
             'id="project-title"',
+            'id="project-logo"',
             'id="project-language"',
             'id="project-license"',
             'id="project-pushed"',
@@ -244,8 +245,9 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('from "./project-core.js"', script)
         self.assertIn('from "./atlas-core.js"', script)
         self.assertIn('fetchJson("atlas-snapshot.json")', script)
-        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json"', script)
+        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json?v=16"', script)
         self.assertIn("normalizeMedia", script)
+        self.assertIn("renderLogo", script)
         self.assertIn("/commit/", script)
         self.assertIn("pre.tabIndex = 0;", script)
         for token in ("og:title", "og:description", "og:url", "twitter:title", "twitter:description"):
@@ -543,7 +545,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('window.addEventListener("atlas:changed", applyCardLogos)', script)
         self.assertIn("has-logo", script)
         project_page = (ROOT / "docs" / "project.html").read_text(encoding="utf-8")
-        self.assertNotIn('id="project-logo"', project_page)
+        self.assertIn('id="project-logo"', project_page)
         self.assertIn('id="project-preview"', project_page)
 
     def test_dossier_media_manifests_are_consistent(self):

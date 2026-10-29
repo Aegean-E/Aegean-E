@@ -1800,6 +1800,22 @@ h1 .grad {
   align-items: start;
 }
 .dossier-intro { grid-area: intro; padding-top: 6px; }
+.dossier-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+}
+.dossier-kicker .eyebrow { margin: 0; }
+.dossier-logo {
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: #05080f;
+  object-fit: contain;
+}
 .dossier-intro .eyebrow { margin: 0 0 14px; }
 .dossier-preview { grid-area: preview; }
 .dossier-body { grid-area: body; }

@@ -11,6 +11,39 @@
       "viewport": "1440x900",
       "width": 1440,
       "height": 900
+    },
+    {
+      "src": "media/Crypt-Crawler/2026-10-30-dungeon.webp",
+      "alt": "Crypt-Crawler dungeon",
+      "caption": "Crypt-Crawler — B1F dungeon",
+      "commit": "fa07f1afb313c2e371106d3871d17cbb259ce269",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:f8d4073028d8ba348c082b3035632c448afc83c510d1412dd529b521f971bcd3"
+    },
+    {
+      "src": "media/Crypt-Crawler/2026-10-30-advance.webp",
+      "alt": "Crypt-Crawler after advancing",
+      "caption": "Crypt-Crawler — exploration and combat",
+      "commit": "fa07f1afb313c2e371106d3871d17cbb259ce269",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:8bfe9f2d56d62b1d1f6d0aabcaa69b6d6a3aaefe3d447462ddacb7f5b3845b20"
+    },
+    {
+      "src": "media/Crypt-Crawler/2026-10-30-journal.webp",
+      "alt": "Crypt-Crawler journal",
+      "caption": "Crypt-Crawler — the Chronicle of the Crypt",
+      "commit": "fa07f1afb313c2e371106d3871d17cbb259ce269",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:8006593683d08ab3791838279bb049f696665d26f3222bff47e74c6e62008d3a"
     }
   ],
   "logo": {

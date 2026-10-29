@@ -1,7 +1,52 @@
 {
   "schema": 2,
   "repo": "MemoryReconstruction",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "media/MemoryReconstruction/2026-10-30-sanctuary.webp",
+      "alt": "MemoryReconstruction sanctuary",
+      "caption": "MemoryReconstruction — the Sanctuary",
+      "commit": "e585415826eaed21a258b4eaac154b4cf8492e03",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:44e3e060f4d3affd53dafdcb747c292229ad346b0c4ceabf33a3cf0e8bd56e98"
+    },
+    {
+      "src": "media/MemoryReconstruction/2026-10-30-set-out.webp",
+      "alt": "MemoryReconstruction expedition select",
+      "caption": "MemoryReconstruction — choosing a checkpoint",
+      "commit": "e585415826eaed21a258b4eaac154b4cf8492e03",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:522fe4adcf17c6b55c933efad55df9738dbc7cfd7f08eefdb8920cc839ff1f01"
+    },
+    {
+      "src": "media/MemoryReconstruction/2026-10-30-forgotten-ruins.webp",
+      "alt": "MemoryReconstruction Forgotten Ruins",
+      "caption": "MemoryReconstruction — Section 1, Forgotten Ruins",
+      "commit": "e585415826eaed21a258b4eaac154b4cf8492e03",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:a5bb9ff57ffc3c028b6a0ee3554bcc7cf661441a5e01c2a358011cb061fa449d"
+    },
+    {
+      "src": "media/MemoryReconstruction/2026-10-30-field.webp",
+      "alt": "MemoryReconstruction field progress",
+      "caption": "MemoryReconstruction — advancing through the ruins",
+      "commit": "e585415826eaed21a258b4eaac154b4cf8492e03",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:9aacbe7f49f12ba5841dddeec5f1c55cb3480d3e66e17f070ce2d9f52a146b9f"
+    }
+  ],
   "logo": {
     "src": "media/MemoryReconstruction/logo.webp",
     "alt": "MemoryReconstruction logo",

@@ -1,50 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage25",
+    "task_id": "dossier-media-completeness",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793309787.2402544,
+    "updated_at": 1793310772.1483457,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The shot index and eight new frames changed the Live cards",
-      "benefits": "The stopped run covers the expanded sliders with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 25",
-      "mitigation": "Reviewed the nine text files, stepped through all slides in the browser, and committed only the audit state"
+      "why": "Most dossiers carried only a logo and preview, and the dossier never used the logo that every manifest already had",
+      "benefits": "Dossiers now show real UI captures where a project is runnable and a visible logo everywhere, with previews unchanged",
+      "risks": "contract: new media files and manifests, a dossier logo element and shell v16; dependency: none; concurrency: none; state: captures pinned to the current project commits",
+      "mitigation": "Captured each runnable UI, kept provenance and dimensions, checked every manifest, browser-checked six dossiers for logo, preview and captures, and ran all suites and gates"
     },
-    "completed_at": 1793309787.4293709
+    "completed_at": 1793310772.2860584
   },
   "checkpoints": [
-    {
-      "task_id": "reforge-run-1-stage22",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage22' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793308567.7867365,
-      "timestamp_str": "2026-10-30 00:16:07",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "nav-live-page-header",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Complete the Live-before-Projects swap on the Live page header, whose aria-current link the first pass skipped, and pin both header orders in the live test; 87 Python tests and 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308623.922922,
-      "timestamp_str": "2026-10-30 00:17:03",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The Live page marked its own link with aria-current, so the adjacent-pair swap missed that header",
-        "benefits": "Every page that carries both links now reads Work, Live, Projects",
-        "risks": "contract: play.html header and one test; dependency: none; concurrency: none; state: none",
-        "mitigation": "Added a second order assertion for play.html and ran the suite and gates"
-      }
-    },
     {
       "task_id": "nav-live-page-header",
       "phase": "completed",
@@ -276,6 +249,33 @@
       "status": "completed",
       "timestamp": 1793309787.429372,
       "timestamp_str": "2026-10-30 00:36:27",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "dossier-media-completeness",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Fill dossier captures for Fold, UI-Sandbox, MemoryReconstruction, Crypt-Crawler, Voidfarer and Prism, add the remaining NeuroCore capture, and render each manifest logo beside the dossier kicker; 35 screenshots across 12 projects, every manifest keeps its preview; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793310772.1483457,
+      "timestamp_str": "2026-10-30 00:52:52",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Most dossiers carried only a logo and preview, and the dossier never used the logo that every manifest already had",
+        "benefits": "Dossiers now show real UI captures where a project is runnable and a visible logo everywhere, with previews unchanged",
+        "risks": "contract: new media files and manifests, a dossier logo element and shell v16; dependency: none; concurrency: none; state: captures pinned to the current project commits",
+        "mitigation": "Captured each runnable UI, kept provenance and dimensions, checked every manifest, browser-checked six dossiers for logo, preview and captures, and ran all suites and gates"
+      }
+    },
+    {
+      "task_id": "dossier-media-completeness",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'dossier-media-completeness' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793310772.2860599,
+      "timestamp_str": "2026-10-30 00:52:52",
       "agent": "opencode:main"
     }
   ]

@@ -1,7 +1,41 @@
 {
   "schema": 2,
   "repo": "Fold",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "media/Fold/2026-10-30-start.webp",
+      "alt": "Fold start board",
+      "caption": "Fold — a fresh 4×4 board",
+      "commit": "5510b1f41b626fe964f8bcfc105e50e3d729b7a3",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x1250",
+      "width": 1440,
+      "height": 1250,
+      "digest": "sha256:16225d292303b041be48615d1f0bd7f13fdfee7adc919a1a20a5ae21c00a6e84"
+    },
+    {
+      "src": "media/Fold/2026-10-30-mid.webp",
+      "alt": "Fold mid-game board",
+      "caption": "Fold — merged tiles after 12 moves",
+      "commit": "5510b1f41b626fe964f8bcfc105e50e3d729b7a3",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x1250",
+      "width": 1440,
+      "height": 1250,
+      "digest": "sha256:0d53e5a43309947be29e72a030cbd0874c4fb400e8bdafa75405420a885a8e9c"
+    },
+    {
+      "src": "media/Fold/2026-10-30-later.webp",
+      "alt": "Fold later board",
+      "caption": "Fold — 64 tile after 48 moves",
+      "commit": "5510b1f41b626fe964f8bcfc105e50e3d729b7a3",
+      "taken_at": "2026-10-30",
+      "viewport": "1440x1250",
+      "width": 1440,
+      "height": 1250,
+      "digest": "sha256:84a27bc5bc5e703c2371783f5f04ad9839b88fd538182dab25bde1eefce4d9c8"
+    }
+  ],
   "logo": {
     "src": "media/Fold/logo.webp",
     "alt": "Fold logo",

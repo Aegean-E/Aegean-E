@@ -382,3 +382,19 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Decision**: Capture six Prism frames (title, episode index, First Light, Split Decision, chamber complete, how-to-play) and five Weft frames (title, chambers, First Thread, hint, how-to-play), name them in narrative order, and raise the suite's minimum to five frames per app. Bump the shell to v15 so the new shot index and images arrive with a fresh cache.
 - **Consequences**: The sliders now show a full first-run path rather than three isolated frames. Captures remain manual and pinned to the recorded commits, so a UI change still needs a fresh pass.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the recorded commit names the source), PRINCIPLE-010 (lazy images) and PRINCIPLE-014 (the suite pins the frame count and files).
+
+### ADR-051: Dossiers Carry Captures for the Runnable UIs
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: The portfolio had 12 screenshots across seven dossiers, while every dossier had a logo and a social preview. Several local browser UIs were runnable, and the repository screenshot folders held one more curated NeuroCore capture.
+- **Decision**: Fetch the remaining NeuroCore capture, capture Fold, UI-Sandbox, MemoryReconstruction, Crypt-Crawler and Voidfarer at desktop size, add the six Prism live frames to the Prism dossier, and write every capture as a WebP into its `media/<repo>/` folder with alt text, caption, source commit, date, viewport and digest. Keep the existing logo and preview in every manifest.
+- **Consequences**: The dossiers now carry 35 screenshots across twelve projects, showing real running interfaces. Projects without a curated capture or a runnable UI keep their logo and preview; captures remain manual and pinned to the recorded commits.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (each capture names its commit), PRINCIPLE-010 (WebP at display size) and PRINCIPLE-014 (the media checker validates every path).
+
+### ADR-052: Dossiers Show the Project Logo
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: The dossier deliberately used only the social preview, and the suite asserted that no `project-logo` element existed. The owner asked for dossiers to carry logos as well as screenshots and previews.
+- **Decision**: Render the manifest logo as a 40px badge beside the dossier kicker, hidden until `renderLogo` receives a valid logo, and replace the old negative assertion with a positive wiring check. The shell moves to v16 and the dossier media request gains `?v=16` so the new badge and manifests arrive together.
+- **Consequences**: Every dossier shows its logo, preview and any captures. A manifest without a logo simply leaves the kicker text; no empty frame is reserved.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the badge comes from the same manifest as the preview) and PRINCIPLE-011 (the dossier still explains itself when media is missing).
