@@ -1,50 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage24",
+    "task_id": "live-slider-expansion",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793309406.1571486,
+    "updated_at": 1793309743.8254917,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The Live cards gained the slider renderer, shot index and captured images",
-      "benefits": "The stopped run covers the slider with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 24",
-      "mitigation": "Reviewed the twelve text files, browser-checked the slider and open action, and committed only the audit state"
+      "why": "The first three frames did not show the episode index, later chamber, completion, manual or hint states that make the apps legible",
+      "benefits": "Each card now shows a complete first-run path, with the same slider and lazy loading",
+      "risks": "contract: shot index and image set grow, shell v15; dependency: none; concurrency: none; state: captures pinned to the current app commits",
+      "mitigation": "Captured each state from the published build, renamed in order, raised the suite minimum to five, and stepped through all six slides in the browser"
     },
-    "completed_at": 1793309406.2907135
+    "completed_at": 1793309743.959405
   },
   "checkpoints": [
-    {
-      "task_id": "reforge-run-1-stage21",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage21' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793308282.7933846,
-      "timestamp_str": "2026-10-30 00:11:22",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "nav-live-before-projects",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Place Live before Projects in the primary navigation on the pages that carry both, matching the Work to Live to Projects homepage order; the live test pins the order; 87 Python tests and 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793308493.4126487,
-      "timestamp_str": "2026-10-30 00:14:53",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The header read Work, Projects, Live while the page runs Work, Live, Projects, so the nav contradicted the visual order",
-        "benefits": "The nav mirrors the page flow and surfaces the runnable catalog before the full atlas",
-        "risks": "contract: header and no-script nav order on index, project and play; dependency: none; concurrency: none; state: none",
-        "mitigation": "Swapped only the adjacent Projects/Live pair, added an order assertion, and ran the test suite and gates"
-      }
-    },
     {
       "task_id": "nav-live-before-projects",
       "phase": "completed",
@@ -267,6 +240,33 @@
       "status": "completed",
       "timestamp": 1793309406.2907152,
       "timestamp_str": "2026-10-30 00:30:06",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "live-slider-expansion",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Expand the Live sliders to six Prism frames and five Weft frames, adding the episode index, Split Decision, completion, how-to-play and hint states in narrative order; require five frames per app; shell v15; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793309743.8254917,
+      "timestamp_str": "2026-10-30 00:35:43",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The first three frames did not show the episode index, later chamber, completion, manual or hint states that make the apps legible",
+        "benefits": "Each card now shows a complete first-run path, with the same slider and lazy loading",
+        "risks": "contract: shot index and image set grow, shell v15; dependency: none; concurrency: none; state: captures pinned to the current app commits",
+        "mitigation": "Captured each state from the published build, renamed in order, raised the suite minimum to five, and stepped through all six slides in the browser"
+      }
+    },
+    {
+      "task_id": "live-slider-expansion",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'live-slider-expansion' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793309743.9594066,
+      "timestamp_str": "2026-10-30 00:35:43",
       "agent": "opencode:main"
     }
   ]

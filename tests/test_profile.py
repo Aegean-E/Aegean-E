@@ -451,9 +451,10 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(shots["schema"], 1)
         for slug in ("prism-relay", "weft"):
             entry = shots["apps"][slug]
-            self.assertGreaterEqual(len(entry["screenshots"]), 2)
+            self.assertGreaterEqual(len(entry["screenshots"]), 5)
             for shot in entry["screenshots"]:
                 with self.subTest(slug=slug, shot=shot["src"]):
+                    self.assertTrue(shot.get("alt"))
                     self.assertTrue((ROOT / "docs" / shot["src"]).is_file())
         home_script = (ROOT / "docs" / "live-home.js").read_text(encoding="utf-8")
         for token in ("live-home-slider", "live-home-nav", "live/shots.json"):

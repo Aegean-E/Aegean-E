@@ -10,12 +10,24 @@
           "alt": "Prism Relay title screen"
         },
         {
-          "src": "live/shots/prism-relay/02-circuits.png",
+          "src": "live/shots/prism-relay/02-episode-index.png",
+          "alt": "Prism Relay episode index"
+        },
+        {
+          "src": "live/shots/prism-relay/03-first-light.png",
           "alt": "Prism Relay First Light chamber"
         },
         {
-          "src": "live/shots/prism-relay/03-solved.png",
-          "alt": "Prism Relay chamber complete"
+          "src": "live/shots/prism-relay/04-split-decision.png",
+          "alt": "Prism Relay Split Decision chamber"
+        },
+        {
+          "src": "live/shots/prism-relay/05-first-light-complete.png",
+          "alt": "Prism Relay First Light complete"
+        },
+        {
+          "src": "live/shots/prism-relay/06-how-to-play.png",
+          "alt": "Prism Relay how to play"
         }
       ]
     },
@@ -32,8 +44,16 @@
           "alt": "Weft chamber select"
         },
         {
-          "src": "live/shots/weft/03-loom.png",
+          "src": "live/shots/weft/03-first-thread.png",
           "alt": "Weft First Thread loom"
+        },
+        {
+          "src": "live/shots/weft/04-hint.png",
+          "alt": "Weft First Thread hint"
+        },
+        {
+          "src": "live/shots/weft/05-how-to-play.png",
+          "alt": "Weft how to play"
         }
       ]
     }

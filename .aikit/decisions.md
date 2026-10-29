@@ -374,3 +374,11 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Decision**: Capture three frames per app from the published build, store them under `docs/live/shots/<slug>/`, and index their alt text and source commit in `docs/live/shots.json`. `live-home.js` renders a scroll-snap slider with previous/next buttons, dots and arrow-key support; images load lazily and are not precached, while the small shot index is. A card without screenshots still renders as text, and a single screenshot renders without controls. Move the shell contract to v14 so the new markup, CSS and script arrive together.
 - **Consequences**: The homepage shows real interface frames before the portfolio atlas, and the slider degrades to text when the index or images are unavailable. Screenshots are manual captures of a specific commit; they must be refreshed when an app's UI changes, and the recorded commit makes that drift visible.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (each shot names its source commit), PRINCIPLE-010 (lazy images, no eager bulk download), PRINCIPLE-011 (a text fallback needs no JavaScript) and PRINCIPLE-014 (the suite pins the shot files and slider hooks).
+
+### ADR-050: Live Sliders Cover the Whole First-Run Path
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: ADR-049 shipped three frames per app. The apps also expose an episode index, a how-to-play manual, a second chamber and a hint overlay, which show the product far better than a title and one board.
+- **Decision**: Capture six Prism frames (title, episode index, First Light, Split Decision, chamber complete, how-to-play) and five Weft frames (title, chambers, First Thread, hint, how-to-play), name them in narrative order, and raise the suite's minimum to five frames per app. Bump the shell to v15 so the new shot index and images arrive with a fresh cache.
+- **Consequences**: The sliders now show a full first-run path rather than three isolated frames. Captures remain manual and pinned to the recorded commits, so a UI change still needs a fresh pass.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the recorded commit names the source), PRINCIPLE-010 (lazy images) and PRINCIPLE-014 (the suite pins the frame count and files).
