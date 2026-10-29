@@ -34,6 +34,13 @@ jobs:
           repository: AegeanWorks/Weft
           path: .app-src/weft
           fetch-depth: 1
+      - name: Check out Tessera
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          repository: AegeanWorks/Tessera
+          path: .app-src/tessera
+          fetch-depth: 1
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

@@ -47,7 +47,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser apps and games also appear on the [Live page](https://aegeanworks.github.io/AegeanWorks/play.html) with their version and commit; Prism-Relay and Weft run in the page.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser apps and games also appear on the [Live page](https://aegeanworks.github.io/AegeanWorks/play.html) with their version and commit; Prism-Relay, Weft and Tessera run in the page.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -166,7 +166,7 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 ## License
 
-AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). The browser app builds under `docs/live/` keep their AGL-1.1 license. Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md). A commercial certificate can be checked against the public register at [aegeanworks.github.io/AegeanWorks/verify.html](https://aegeanworks.github.io/AegeanWorks/verify.html).
+AegeanWorks publishes source-available and open-source projects. AL-1.1 for software, AGL-1.1 for games, ASL-1.1 for research, and the Aegean Commercial License 1.0 (ACL-1.0) for commercial use; see [COMMERCIAL.md](COMMERCIAL.md). The browser app builds under `docs/live/` keep their own license: AL-1.1 for apps and AGL-1.1 for games. Some repositories keep GNU AGPL-3.0, Apache-2.0 or MIT, and each repository's LICENSE governs. Versions published under GNU AGPL-3.0 keep that grant, including its commercial permissions. The canonical texts and tier table live in the [license catalog](https://github.com/AegeanWorks/Aegean-Licensing/blob/master/licenses/CATALOG.md). A commercial certificate can be checked against the public register at [aegeanworks.github.io/AegeanWorks/verify.html](https://aegeanworks.github.io/AegeanWorks/verify.html).
 
 ---
 
@@ -220,7 +220,7 @@ AegeanWorks/
 ├── COMMERCIAL.md            <- Licensing tiers and ACL-1.0 commercial terms
 ├── LICENSES/                <- Pinned license text for REUSE metadata
 │   ├── LicenseRef-AL-1.1.txt
-│   └── LicenseRef-AGL-1.1.txt <- Live app builds
+│   └── LicenseRef-AGL-1.1.txt <- Live app and game builds
 ├── REUSE.toml               <- REUSE aggregate license annotations
 ├── .gitignore               <- Git and AIKit transient-state exclusions
 ├── package.json             <- Node module marker for the browser-core parity suites

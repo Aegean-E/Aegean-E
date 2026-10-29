@@ -51,11 +51,29 @@ APPS = (
         "version_file": "package.json",
         "logo": "live/weft/logo.webp",
     },
+    {
+        "slug": "tessera",
+        "repo": "Tessera",
+        "source": "tessera",
+        "title": "Tessera",
+        "description": "A seamless pattern studio: compose geometric tiles in the browser, tune every line, and export crisp editable SVG.",
+        "license": "AL-1.1",
+        "mode": "browser",
+        "runtime": ("index.html", "src"),
+        "version_file": "package.json",
+        "logo": "live/tessera/logo.svg",
+        "source_url": "",
+        "optional": True,
+    },
 )
 
 MANIFEST_REL = "docs/live.json"
 COMMIT_RE = re.compile(r"^[0-9a-f]{7,40}$")
 KEEP_BUILDS = 3
+LICENSE_HEADERS = {
+    "AGL-1.1": "# Aegean Game License 1.1",
+    "AL-1.1": "# Aegean License 1.1",
+}
 
 
 class SyncError(Exception):
@@ -196,12 +214,16 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
     if not re.match(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$", version):
         problems.append(f"{game['repo']} needs a semver package.json version")
     license_path = source / "LICENSE"
-    if not license_path.is_file():
-        problems.append(f"{game['repo']} needs its AGL-1.1 LICENSE")
+    license_label = str(game.get("license") or "AGL-1.1")
+    expected_header = LICENSE_HEADERS.get(license_label)
+    if expected_header is None:
+        problems.append(f"{game['repo']} has an unknown license label: {license_label}")
+    elif not license_path.is_file():
+        problems.append(f"{game['repo']} needs its {license_label} LICENSE")
     else:
         header = license_path.read_text(encoding="utf-8").splitlines()[:1]
-        if not header or not header[0].startswith("# Aegean Game License 1.1"):
-            problems.append(f"{game['repo']} LICENSE is not the AGL-1.1 text")
+        if not header or not header[0].startswith(expected_header):
+            problems.append(f"{game['repo']} LICENSE is not the {license_label} text")
     forbidden = (
         "fetch(",
         "XMLHttpRequest",
@@ -254,6 +276,8 @@ def validate_source(game: dict, source_root: Path) -> list[str]:
 def source_problems(source_root: Path) -> list[str]:
     problems: list[str] = []
     for game in APPS:
+        if game.get("optional") and not (source_root / game["source"]).is_dir():
+            continue
         problems.extend(validate_source(game, source_root))
     return problems
 
@@ -333,9 +357,13 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         if old.is_dir() and COMMIT_RE.match(old.name) and old.name not in keep:
             shutil.rmtree(old)
     license_source = source / "LICENSE"
+    license_label = str(game.get("license") or "AGL-1.1")
     if license_source.is_file():
         _copy_file(license_source, base / "LICENSE")
-        _copy_file(license_source, PROJECT_ROOT / "LICENSES" / "LicenseRef-AGL-1.1.txt")
+        _copy_file(
+            license_source,
+            PROJECT_ROOT / "LICENSES" / f"LicenseRef-{license_label}.txt",
+        )
     files = _runtime_files(target)
     version = _version(source, game["version_file"])
     return {
@@ -346,7 +374,10 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "available": True,
         "mode": "browser",
         "path": current,
-        "source_url": f"https://github.com/AegeanWorks/{game['repo']}",
+        "source_url": game.get(
+            "source_url",
+            f"https://github.com/AegeanWorks/{game['repo']}",
+        ),
         "version": version,
         "commit": commit,
         "updated": updated,
@@ -360,8 +391,18 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
 
 
 def build_manifest(source_root: Path) -> dict:
+    previous = _read_manifest().get("apps", []) if (PROJECT_ROOT / MANIFEST_REL).is_file() else []
+    recorded = {
+        app.get("slug"): app
+        for app in previous
+        if isinstance(app, dict) and isinstance(app.get("slug"), str)
+    }
     apps = []
     for game in APPS:
+        if game.get("optional") and not (source_root / game["source"]).is_dir():
+            if game["slug"] in recorded:
+                apps.append(recorded[game["slug"]])
+            continue
         apps.append(_browser_entry(game, source_root))
     return {"schema": 2, "apps": apps}
 
@@ -419,8 +460,8 @@ def check_manifest() -> list[str]:
         license_path = DOCS / str(game.get("license_path", ""))
         if not license_path.is_file():
             problems.append(f"{spec['slug']} license is missing")
-        if not (PROJECT_ROOT / "LICENSES" / "LicenseRef-AGL-1.1.txt").is_file():
-            problems.append("the pinned AGL-1.1 license is missing")
+        if not (PROJECT_ROOT / "LICENSES" / f"LicenseRef-{spec['license']}.txt").is_file():
+            problems.append(f"the pinned {spec['license']} license is missing")
         actual = _digest(_runtime_files(target.parent), target.parent)
         if actual != game.get("digest"):
             problems.append(f"{spec['slug']} digest does not match the copied build")

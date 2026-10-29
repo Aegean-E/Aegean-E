@@ -125,14 +125,17 @@ function card(app, shots) {
   const links = element("div", "live-home-links");
   const open = element("a", "live-home-open", "Open app");
   open.href = "play.html?app=" + encodeURIComponent(app.slug);
-  const dossier = element("a", "live-home-dossier", "Dossier");
+  links.appendChild(open);
   const dossierHref = app.dossier || app.source_url;
-  dossier.href = dossierHref;
-  if (/^https?:/i.test(dossierHref)) {
-    dossier.target = "_blank";
-    dossier.rel = "noopener";
+  if (dossierHref) {
+    const dossier = element("a", "live-home-dossier", "Dossier");
+    dossier.href = dossierHref;
+    if (/^https?:/i.test(dossierHref)) {
+      dossier.target = "_blank";
+      dossier.rel = "noopener";
+    }
+    links.appendChild(dossier);
   }
-  links.append(open, dossier);
   body.appendChild(links);
 
   article.appendChild(body);

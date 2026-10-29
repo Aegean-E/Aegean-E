@@ -47,6 +47,7 @@ function initials(app) {
 }
 
 function sourceLink(app, label) {
+  if (!app.source_url) return null;
   const link = element("a", "btn btn-ghost", label);
   link.href = app.source_url;
   link.target = "_blank";
@@ -55,14 +56,19 @@ function sourceLink(app, label) {
 }
 
 function dossierLink(app) {
-  const link = element("a", "btn btn-ghost", "Dossier");
   const href = app.dossier || app.source_url;
+  if (!href) return null;
+  const link = element("a", "btn btn-ghost", "Dossier");
   link.href = href;
   if (/^https?:/i.test(href)) {
     link.target = "_blank";
     link.rel = "noopener";
   }
   return link;
+}
+
+function appendLink(actions, link) {
+  if (link) actions.appendChild(link);
 }
 
 function renderCard(app) {
@@ -104,11 +110,11 @@ function renderCard(app) {
       openApp(app.slug, true);
     });
     actions.appendChild(open);
-    actions.appendChild(sourceLink(app, "Source"));
-    actions.appendChild(dossierLink(app));
+    appendLink(actions, sourceLink(app, "Source"));
+    appendLink(actions, dossierLink(app));
   } else {
-    actions.appendChild(sourceLink(app, "Get the app"));
-    actions.appendChild(dossierLink(app));
+    appendLink(actions, sourceLink(app, "Get the app"));
+    appendLink(actions, dossierLink(app));
     const command = element("code", "live-command", app.command || "python run.py --open");
     card.appendChild(actions);
     card.appendChild(command);
@@ -222,7 +228,13 @@ function openApp(slug, push, retry) {
   activeApp = app;
   title.textContent = app.title;
   version.textContent = versionLabel(app) + (app.updated ? " \u00b7 updated " + app.updated : "");
-  source.href = app.source_url;
+  if (app.source_url) {
+    source.href = app.source_url;
+    source.hidden = false;
+  } else {
+    source.removeAttribute("href");
+    source.hidden = true;
+  }
   note.textContent = "Synced from " + app.repo + " at commit " + String(app.commit).slice(0, 12) + ".";
   player.hidden = false;
   grid.hidden = true;

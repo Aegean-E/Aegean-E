@@ -9,8 +9,8 @@
 - **Total Python Modules**: `3`
 - **Total Classes**: `3`
 - **Total Top-Level Functions**: `65`
-- **Total Class Methods**: `88`
-- **Total Source Lines**: `3039`
+- **Total Class Methods**: `89`
+- **Total Source Lines**: `3135`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1598` lines (`74224` bytes)
+**Size**: `1653` lines (`76916` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -37,6 +37,7 @@
   - Method `.test_screenshot_viewer_is_in_page_and_keyboard_ready()`
   - Method `.test_live_apps_are_wired_and_current()`
   - Method `.test_source_validator_covers_every_runtime_file()`
+  - Method `.test_optional_live_source_can_be_absent()`
   - Method `.test_portfolio_cards_use_repository_logos()`
   - Method `.test_dossier_media_manifests_are_consistent()`
   - Method `.test_dossier_media_manifest_is_documented()`
@@ -173,7 +174,7 @@
 ### [`tools/sync_live_apps.py`](tools/sync_live_apps.py)
 > *Sync the live browser apps and their catalog.*
 
-**Size**: `533` lines (`21206` bytes)
+**Size**: `574` lines (`22777` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

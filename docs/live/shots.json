@@ -56,6 +56,32 @@
           "alt": "Weft how to play"
         }
       ]
+    },
+    "tessera": {
+      "commit": "8e624d38bdbaa769217f3da9ca1bb925fd379b26",
+      "taken_at": "2026-10-30",
+      "screenshots": [
+        {
+          "src": "live/shots/tessera/01-aegean-tide.png",
+          "alt": "Tessera wave motif in the Aegean palette"
+        },
+        {
+          "src": "live/shots/tessera/02-kilim-ridge.png",
+          "alt": "Tessera ridge motif in the Kilim palette"
+        },
+        {
+          "src": "live/shots/tessera/03-riso-comb.png",
+          "alt": "Tessera comb motif in the Riso palette"
+        },
+        {
+          "src": "live/shots/tessera/04-sage-mosaic.png",
+          "alt": "Tessera mosaic motif in the Sage palette"
+        },
+        {
+          "src": "live/shots/tessera/05-nocturne-pinwheel.png",
+          "alt": "Tessera pinwheel motif in the Nocturne palette with tile guides"
+        }
+      ]
     }
   }
 }

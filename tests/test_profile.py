@@ -354,7 +354,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], 2)
         apps = {app["slug"]: app for app in manifest["apps"]}
-        self.assertEqual(set(apps), {"prism-relay", "weft"})
+        self.assertEqual(set(apps), {"prism-relay", "weft", "tessera"})
 
         prism = apps["prism-relay"]
         self.assertTrue(prism["available"])
@@ -399,6 +399,30 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(build=build):
                 self.assertTrue((ROOT / "docs" / build).is_file())
 
+        tessera = apps["tessera"]
+        self.assertTrue(tessera["available"])
+        self.assertEqual(tessera["mode"], "browser")
+        self.assertEqual(tessera["license"], "AL-1.1")
+        self.assertFalse(tessera.get("dossier"))
+        self.assertFalse(tessera.get("source_url"))
+        self.assertRegex(tessera["path"], r"^live/tessera/[0-9a-f]{7,40}/index\.html$")
+        self.assertTrue((ROOT / "docs" / tessera["path"]).is_file())
+        self.assertTrue((ROOT / "docs" / tessera["license_path"]).is_file())
+        self.assertTrue((ROOT / "LICENSES" / "LicenseRef-AL-1.1.txt").is_file())
+        self.assertRegex(tessera["commit"], r"^[0-9a-f]{7,40}$")
+        self.assertRegex(tessera["updated"], r"^\d{4}-\d{2}-\d{2}$")
+        self.assertRegex(tessera["digest"], r"^sha256:[0-9a-f]{64}$")
+        self.assertTrue((ROOT / "docs" / tessera["logo"]).is_file())
+        tessera_dir = (ROOT / "docs" / tessera["path"]).parent
+        self.assertTrue((tessera_dir / "src" / "studio" / "svg.js").is_file())
+        self.assertTrue((tessera_dir / "src" / "ui" / "app.js").is_file())
+        self.assertTrue((tessera_dir / "src" / "theme.css").is_file())
+        self.assertEqual(tessera["builds"][0], tessera["path"])
+        self.assertLessEqual(len(tessera["builds"]), 3)
+        for build in tessera["builds"]:
+            with self.subTest(build=build):
+                self.assertTrue((ROOT / "docs" / build).is_file())
+
         tool = ROOT / "tools" / "sync_live_apps.py"
         self.assertTrue(tool.is_file())
         result = subprocess.run(
@@ -422,6 +446,8 @@ class ProfileIntegrityTests(unittest.TestCase):
             "live.js",
             "live.json",
             "frame-src 'self'",
+            "Each live build keeps its own license",
+            "AL-1.1 for apps",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, page)
@@ -461,7 +487,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertLess(live_nav.index(">Live</a>"), live_nav.index(">Projects</a>"))
         shots = json.loads((ROOT / "docs" / "live" / "shots.json").read_text(encoding="utf-8"))
         self.assertEqual(shots["schema"], 1)
-        for slug in ("prism-relay", "weft"):
+        for slug in ("prism-relay", "weft", "tessera"):
             entry = shots["apps"][slug]
             self.assertGreaterEqual(len(entry["screenshots"]), 5)
             for shot in entry["screenshots"]:
@@ -490,6 +516,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         for token in (
             "Prism-Relay",
             "Weft",
+            "Tessera",
+            "continue-on-error",
             "sync_live_apps.py",
             "--check-source",
             "actions/checkout@v4",
@@ -540,6 +568,33 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertFalse(
             any("www.w3.org/2000/svg" in problem for problem in problems), problems
         )
+
+    def test_optional_live_source_can_be_absent(self):
+        import importlib.util
+        import tempfile
+
+        tool = ROOT / "tools" / "sync_live_apps.py"
+        spec = importlib.util.spec_from_file_location("sync_live_apps_optional", tool)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.APPS = (
+            {
+                "slug": "optional",
+                "repo": "Optional",
+                "source": "optional",
+                "license": "AL-1.1",
+                "mode": "browser",
+                "runtime": ("index.html", "src"),
+                "version_file": "package.json",
+                "logo": "live/optional/logo.svg",
+                "optional": True,
+            },
+        )
+        with tempfile.TemporaryDirectory() as temp:
+            self.assertEqual(module.source_problems(Path(temp)), [])
+            (Path(temp) / "optional").mkdir()
+            problems = module.source_problems(Path(temp))
+        self.assertTrue(any("no root index.html" in problem for problem in problems), problems)
 
     def test_portfolio_cards_use_repository_logos(self):
         index = (ROOT / "docs" / "media" / "logos.json").read_text(encoding="utf-8")

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Tessera logo</title>
+  <desc id="desc">Four interlocking mosaic tiles in cyan, violet, pink and cream on a deep navy field.</desc>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0" stop-color="#0a1120"/>
+      <stop offset="1" stop-color="#05070d"/>
+    </linearGradient>
+    <linearGradient id="tileCyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#67e8f9"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="tileViolet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c4b5fd"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="tilePink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9a8d4"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.34" r="0.6">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="228" fill="url(#field)"/>
+  <rect width="1024" height="1024" rx="228" fill="url(#halo)"/>
+  <g fill="#94a3b8" opacity="0.1">
+    <path d="M128 0V1024M320 0V1024M512 0V1024M704 0V1024M896 0V1024"/>
+    <path d="M0 128H1024M0 320H1024M0 512H1024M0 704H1024M0 896H1024"/>
+  </g>
+  <g transform="translate(300 168)">
+    <path d="M0 0H190Q212 0 212 22V190Q212 212 190 212H22Q0 212 0 190Z" fill="url(#tileCyan)"/>
+    <path d="M236 0H426Q448 0 448 22V190Q448 212 426 212H258Q236 212 236 190Z" fill="url(#tileViolet)"/>
+    <path d="M236 236H426Q448 236 448 258V426Q448 448 426 448H258Q236 448 236 426Z" fill="url(#tilePink)"/>
+    <path d="M0 236H190Q212 236 212 258V426Q212 448 190 448H22Q0 448 0 426Z" fill="#e6edf7"/>
+    <path d="M212 22H236M212 426H236M22 212V236M426 212V236" stroke="#05070d" stroke-width="16" stroke-linecap="round"/>
+    <g fill="#05070d" opacity="0.8">
+      <circle cx="224" cy="224" r="15"/>
+      <circle cx="106" cy="106" r="7"/>
+      <circle cx="342" cy="106" r="7"/>
+      <circle cx="342" cy="342" r="7"/>
+      <circle cx="106" cy="342" r="7"/>
+    </g>
+  </g>
+  <text x="512" y="756" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="88" font-weight="700" letter-spacing="12" fill="#e6edf7">TESSERA</text>
+  <text x="512" y="820" text-anchor="middle" font-family="Cascadia Code, Consolas, monospace" font-size="24" letter-spacing="8" fill="#67e8f9">SEAMLESS PATTERN STUDIO</text>
+</svg>

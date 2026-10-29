@@ -1,44 +1,22 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage29",
-    "last_phase": "in_progress",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793312338.351511,
-    "owner": "opencode:main",
-    "started_by": "opencode:main",
+    "task_id": "live-tessera",
+    "last_phase": "phase 2",
+    "active_phase": 2,
+    "status": "in_progress",
+    "updated_at": 1793314829.9130747,
+    "owner": "kilo:tessera",
+    "started_by": "kilo:tessera",
     "continuations": [],
     "impact_assessment": {
-      "why": "The v19 cache fix changed project.html, project.js and the shell version",
-      "benefits": "The audit history reaches the deployed fix; no pending findings",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: run-1 stopped at stage 29",
-      "mitigation": "Reviewed the packet, submitted an empty findings answer, and stopped the run; only audit state is staged"
-    },
-    "completed_at": 1793312338.470859
+      "why": "The owner asked for a new static demo project shown on the website like Prism-Relay, and Tessera is AL-1.1 rather than a game",
+      "benefits": "Apps and games share one Live catalog without relabeling either, and an unpublished optional source no longer fails the nightly refresh",
+      "risks": "contract: manifest schema must stay 2 with per-entry license; dependency: none; concurrency: the site has a stopped reforge run and recent live commits, so stage only these files; state: docs/live.json, copied builds, shots.json and the service-worker asset versions",
+      "mitigation": "Validate every build with the sync tool, run the full site suite and a browser e2e, keep the Tessera source optional until its repository exists, and stage explicit paths only"
+    }
   },
   "checkpoints": [
-    {
-      "task_id": "live-dossier-links",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'live-dossier-links' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793311186.3525403,
-      "timestamp_str": "2026-10-30 00:59:46",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 26",
-      "phase_num": 3,
-      "description": "Reforge stage 26: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311197.9719493,
-      "timestamp_str": "2026-10-30 00:59:57",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 27",
@@ -261,6 +239,40 @@
       "timestamp": 1793312338.4708605,
       "timestamp_str": "2026-10-30 01:18:58",
       "agent": "opencode:main"
+    },
+    {
+      "task_id": "live-tessera",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[3/3] Tessera added to the Live catalog as an AL-1.1 app: per-entry license validation, optional source handling, versioned builds and logo, five-shot homepage tour, per-build license copy, and 88/88 tests plus 4/4 gates. checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793314817.1061838,
+      "timestamp_str": "2026-10-30 02:00:17",
+      "agent": "kilo:tessera",
+      "handoff": {
+        "state": "website changes uncommitted",
+        "next": "commit the staged Tessera Live changes after reviewing git status",
+        "open": "publish AegeanWorks/Tessera so the nightly checkout stops being optional",
+        "evidence": "sync --check OK, browser e2e shows Tessera card, iframe stage render, 5 homepage slides, no console errors."
+      }
+    },
+    {
+      "task_id": "live-tessera",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Plan Tessera on the Live page: per-app licensing, optional unpublished source, synced AL-1.1 build, and a five-shot homepage tour",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793314829.9130747,
+      "timestamp_str": "2026-10-30 02:00:29",
+      "agent": "kilo:tessera",
+      "impact_assessment": {
+        "why": "The owner asked for a new static demo project shown on the website like Prism-Relay, and Tessera is AL-1.1 rather than a game",
+        "benefits": "Apps and games share one Live catalog without relabeling either, and an unpublished optional source no longer fails the nightly refresh",
+        "risks": "contract: manifest schema must stay 2 with per-entry license; dependency: none; concurrency: the site has a stopped reforge run and recent live commits, so stage only these files; state: docs/live.json, copied builds, shots.json and the service-worker asset versions",
+        "mitigation": "Validate every build with the sync tool, run the full site suite and a browser e2e, keep the Tessera source optional until its repository exists, and stage explicit paths only"
+      }
     }
   ]
 }
