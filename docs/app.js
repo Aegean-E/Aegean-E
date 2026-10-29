@@ -307,6 +307,7 @@
     var visible = showAllTopics ? topics : topics.slice(0, TOPIC_LIMIT);
     var expandable = topics.length > TOPIC_LIMIT;
     var expanded = expandable && showAllTopics;
+    var restoreToggleFocus = document.activeElement && document.activeElement.classList.contains("topic-more");
     if (state.topic && !visible.some(function (entry) { return entry[0] === state.topic; })) {
       var active = topics.find(function (entry) { return entry[0] === state.topic; });
       if (active) visible.push(active);
@@ -314,12 +315,22 @@
     topicContainer.classList.toggle("is-expanded", expanded);
     topicContainer.replaceChildren();
     makeTopicChip("", "Any topic");
-    if (expanded) makeTopicToggle(topics.length);
+    if (expanded) {
+      makeTopicToggle(topics.length);
+      if (restoreToggleFocus) {
+        var expandedToggle = topicContainer.querySelector(".topic-more");
+        if (expandedToggle) expandedToggle.focus();
+      }
+    }
     visible.forEach(function (entry) {
       makeTopicChip(entry[0], entry[0]);
     });
     if (expandable && !expanded) {
       makeTopicToggle(topics.length);
+      if (restoreToggleFocus) {
+        var collapsedToggle = topicContainer.querySelector(".topic-more");
+        if (collapsedToggle) collapsedToggle.focus();
+      }
     }
     if (state.topic && !counts.has(state.topic)) {
       makeTopicChip(state.topic, state.topic);

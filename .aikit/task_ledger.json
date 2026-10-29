@@ -1,66 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "review-fixes",
+    "task_id": "reforge-run-1",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793291144.6417985,
+    "updated_at": 1793291723.374672,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
-    "completed_at": 1793291149.7440214
+    "impact_assessment": {
+      "why": "Reforge stage 1 found that rebuilding the topic shelf dropped keyboard focus and that versionedFirst left cache.put rejections unhandled",
+      "benefits": "Show all/Show fewer keeps focus on the rebuilt toggle, and a failed cache write no longer becomes an unhandled service-worker rejection",
+      "risks": "contract: reforge state and ledger plus app.js and sw.js; dependency: none; concurrency: service-worker cache writes; state: run-1 remains active for stage 2",
+      "mitigation": "Run the project suite and gates, verify both toggle directions in the browser, and record the reforge findings in .aikit/reforge.json"
+    },
+    "completed_at": 1793291723.5409012
   },
   "checkpoints": [
-    {
-      "task_id": "media-automation",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[4/4] 83 Python tests, 69 project, 65 atlas and 58 verifier assertions; media check 0 problems on 35 manifests and 11 repository captures; axe-core 0 violations on eight pages at 1440px and 480px; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793208508.0571246,
-      "timestamp_str": "2026-10-28 20:28:28",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "media-automation",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'media-automation' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793208508.3115003,
-      "timestamp_str": "2026-10-28 20:28:28",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "archived-filter",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Add an archive status filter to the portfolio search toolbar and expose each card's archived state to the live atlas",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793218403.0505767,
-      "timestamp_str": "2026-10-28 23:13:23",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The site shows archived repositories in the portfolio but offers no way to isolate them, and the live atlas knows the archived flag without rendering it",
-        "benefits": "Visitors can switch between all, active and archived repositories from the existing search section, including with a shareable URL",
-        "risks": "contract: card data attributes and URL filter state; dependency: none; concurrency: none; state: archive query parameter only, no persisted state",
-        "mitigation": "Default to all projects so existing behaviour is unchanged; set data-archived on static and live cards; pin filtering, URL state and card attributes in tests"
-      }
-    },
-    {
-      "task_id": "archived-filter",
-      "phase": "phase 3",
-      "phase_num": 3,
-      "description": "[2/2] Implemented archive status filter: data-archived on all 35 cards, Status select with all/active/archived, archive URL state, live atlas writes data-archived; ADR-035, README, Python and atlas parity tests updated. Blocked before Phase 4: full suite 83 tests, 1 pre-existing failure in test_dossier_media_manifests_are_consistent from uncommitted schema-1 media manifests.",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793276744.68518,
-      "timestamp_str": "2026-10-29 15:25:44",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "archived-filter",
       "phase": "phase 4",
@@ -267,6 +224,55 @@
       "status": "completed",
       "timestamp": 1793291149.7440238,
       "timestamp_str": "2026-10-29 19:25:49",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge run",
+      "phase_num": 3,
+      "description": "run started (start=3, step=3, stop=15)",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793291419.4801745,
+      "timestamp_str": "2026-10-29 19:30:19",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 1",
+      "phase_num": 3,
+      "description": "Reforge stage 1: window 3, 3 commit(s), 16 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793291430.784545,
+      "timestamp_str": "2026-10-29 19:30:30",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge run-1 stage 1 audited the newest 3 commits, reviewed 16 files, accepted 4 improvements and repaired them; 85 Python tests, 88 project, 67 atlas and 58 verifier assertions; media check 0 problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793291723.374672,
+      "timestamp_str": "2026-10-29 19:35:23",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Reforge stage 1 found that rebuilding the topic shelf dropped keyboard focus and that versionedFirst left cache.put rejections unhandled",
+        "benefits": "Show all/Show fewer keeps focus on the rebuilt toggle, and a failed cache write no longer becomes an unhandled service-worker rejection",
+        "risks": "contract: reforge state and ledger plus app.js and sw.js; dependency: none; concurrency: service-worker cache writes; state: run-1 remains active for stage 2",
+        "mitigation": "Run the project suite and gates, verify both toggle directions in the browser, and record the reforge findings in .aikit/reforge.json"
+      }
+    },
+    {
+      "task_id": "reforge-run-1",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793291723.5409024,
+      "timestamp_str": "2026-10-29 19:35:23",
       "agent": "opencode:main"
     }
   ]

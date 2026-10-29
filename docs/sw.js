@@ -91,7 +91,7 @@ async function versionedFirst(request) {
   const cache = await caches.open(SHELL_CACHE);
   try {
     const response = await fetch(request);
-    if (response.ok) cache.put(request, response.clone());
+    if (response.ok) cache.put(request, response.clone()).catch(function () {});
     return response;
   } catch (error) {
     return (await cache.match(request, { ignoreSearch: true })) || Response.error();
