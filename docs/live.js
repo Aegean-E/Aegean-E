@@ -217,7 +217,7 @@ function openApp(slug, push, retry) {
     window.history.pushState(
       { app: app.slug },
       "",
-      "live.html?app=" + encodeURIComponent(app.slug)
+      "play.html?app=" + encodeURIComponent(app.slug)
     );
   }
   title.focus({ preventScroll: true });
@@ -227,7 +227,7 @@ function openApp(slug, push, retry) {
 
 function closeApp(push) {
   const previous = activeSlug;
-  if (push) window.history.pushState({}, "", "live.html");
+  if (push) window.history.pushState({}, "", "play.html");
   loadSerial += 1;
   clearTimeout(loadTimer);
   activeApp = null;
@@ -247,7 +247,7 @@ function closeApp(push) {
 
 function initialApp() {
   const params = new URLSearchParams(window.location.search);
-  return findApp(apps, params.get("app"));
+  return findApp(apps, params.get("app") || params.get("game"));
 }
 
 async function boot() {

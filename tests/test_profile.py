@@ -188,7 +188,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "styles.css",
             "app.js",
             "sw-client.js",
-            "live.html",
+            "play.html",
             "live.js",
             "live-core.js",
             "live-home.js",
@@ -400,7 +400,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 
-        page = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")
+        page = (ROOT / "docs" / "play.html").read_text(encoding="utf-8")
         for token in (
             'id="live-grid"',
             'id="live-frame"',
@@ -427,24 +427,24 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, script)
         project_script = (ROOT / "docs" / "project.js").read_text(encoding="utf-8")
-        for token in ("live.json", "live.html?app=", "Open"):
+        for token in ("live.json", "play.html?app=", "Open"):
             with self.subTest(token=token):
                 self.assertIn(token, project_script)
         for name in ("index.html", "project.html"):
             with self.subTest(page=name):
-                self.assertIn('href="live.html"', (ROOT / "docs" / name).read_text(encoding="utf-8"))
+                self.assertIn('href="play.html"', (ROOT / "docs" / name).read_text(encoding="utf-8"))
         home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
         self.assertIn('id="live"', home)
         self.assertIn('id="live-home-grid"', home)
         self.assertIn("live-home.js", home)
         self.assertLess(home.index('id="work"'), home.index('id="live"'))
         self.assertLess(home.index('id="live"'), home.index('id="projects"'))
-        redirect = (ROOT / "docs" / "play.html").read_text(encoding="utf-8")
-        self.assertIn('content="0; url=live.html"', redirect)
+        redirect = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")
+        self.assertIn('content="0; url=play.html"', redirect)
         self.assertIn('name="robots" content="noindex"', redirect)
-        self.assertIn("live.html", redirect)
+        self.assertIn("play.html", redirect)
         sw = (ROOT / "docs" / "sw.js").read_text(encoding="utf-8")
-        for entry in ("live.html", "live.js", "live-core.js", "live-home.js", "live.json"):
+        for entry in ("play.html", "live.html", "live.js", "live-core.js", "live-home.js", "live.json"):
             with self.subTest(entry=entry):
                 self.assertIn(f'"{entry}"', sw)
         css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
@@ -639,6 +639,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "project.js",
             "lightbox.js",
             "lightbox-core.js",
+            "play.html",
             "live.html",
             "live.js",
             "live-core.js",
@@ -692,7 +693,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("WCAG 2.2 Level AA", access)
         self.assertIn("Known limitations", access)
         self.assertIn("axe-core", access)
-        for name in ("index.html", "verify.html", "project.html", "live.html"):
+        for name in ("index.html", "verify.html", "project.html", "play.html"):
             page = (docs / name).read_text(encoding="utf-8")
             for link in ("security.html", "privacy.html", "accessibility.html"):
                 with self.subTest(page=name, link=link):
@@ -708,7 +709,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(link=link):
                 self.assertIn(link, not_found)
         sitemap = (docs / "sitemap.xml").read_text(encoding="utf-8")
-        for page in ("security.html", "privacy.html", "accessibility.html", "live.html"):
+        for page in ("security.html", "privacy.html", "accessibility.html", "play.html"):
             self.assertIn(f"https://aegeanworks.github.io/AegeanWorks/{page}", sitemap)
 
     def test_trust_pages_share_the_full_legal_footer(self):
@@ -718,7 +719,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "index.html",
             "project.html",
             "verify.html",
-            "live.html",
+            "play.html",
             "security.html",
             "privacy.html",
             "accessibility.html",
@@ -1140,7 +1141,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("productivity", manifest["categories"])
         self.assertEqual(manifest["display"], "standalone")
         shortcut_urls = {shortcut["url"] for shortcut in manifest["shortcuts"]}
-        self.assertIn("/AegeanWorks/live.html", shortcut_urls)
+        self.assertIn("/AegeanWorks/play.html", shortcut_urls)
         self.assertIn("/AegeanWorks/verify.html", shortcut_urls)
         sources = {icon["src"] for icon in manifest["icons"]}
         for expected in ("favicon.svg", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
@@ -1510,7 +1511,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIsNotNone(ET.fromstring(sitemap))
 
     def test_external_links_are_safe_on_every_page(self):
-        play = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")
+        play = (ROOT / "docs" / "play.html").read_text(encoding="utf-8")
         for page in (read_site(), read_verify(), play):
             for match in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", page):
                 with self.subTest(tag=match.group(0)[:80]):
@@ -1526,7 +1527,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "accessibility.html",
             "offline.html",
             "404.html",
-            "live.html",
+            "play.html",
         ):
             page = (ROOT / "docs" / name).read_text(encoding="utf-8")
             with self.subTest(page=name):

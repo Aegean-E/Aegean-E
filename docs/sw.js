@@ -20,6 +20,7 @@ const PRECACHE = [
   "project-core.js",
   "lightbox.js",
   "lightbox-core.js",
+  "play.html",
   "live.html",
   "live.js",
   "live-core.js",

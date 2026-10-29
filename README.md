@@ -47,7 +47,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser apps and games also appear on the [Live page](https://aegeanworks.github.io/AegeanWorks/live.html) with their version and commit; Prism-Relay and Weft run in the page.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser apps and games also appear on the [Live page](https://aegeanworks.github.io/AegeanWorks/play.html) with their version and commit; Prism-Relay and Weft run in the page.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -234,11 +234,12 @@ AegeanWorks/
 │   ├── project.js           <- Dossier fetch and safe text rendering
 │   ├── lightbox-core.js     <- Pure viewer index and counter rules
 │   ├── lightbox.js          <- Dialog viewer: navigation, focus and metadata
-│   ├── live.html            <- Live app catalog and fullscreen player
+│   ├── live.html            <- Redirect to the play.html address
 │   ├── live-core.js         <- Pure manifest, lookup and version-label rules
 │   ├── live.js              <- Catalog rendering, player and URL state
 │   ├── live-home.js         <- Homepage live app cards
 │   ├── live.json            <- Synced app versions, commits and digests
+│   ├── play.html            <- Live app catalog and fullscreen player
 │   ├── live/                <- Versioned browser app builds
 │   ├── media/               <- Dossier logos, social previews and screenshots
 │   ├── atlas-snapshot.json  <- Static fallback for the atlas and dossiers

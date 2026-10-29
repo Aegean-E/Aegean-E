@@ -118,7 +118,7 @@ async function loadLive(repo) {
   if (!actions) return;
   const link = document.createElement("a");
   link.className = "btn btn-primary";
-  link.href = "live.html?app=" + encodeURIComponent(app.slug);
+  link.href = "play.html?app=" + encodeURIComponent(app.slug);
   link.textContent = "Open in browser";
   actions.insertBefore(link, actions.firstChild);
 }

@@ -5,7 +5,7 @@ const grid = document.getElementById("live-home-grid");
 function card(app) {
   const link = document.createElement("a");
   link.className = "live-home-card";
-  link.href = "live.html?app=" + encodeURIComponent(app.slug);
+  link.href = "play.html?app=" + encodeURIComponent(app.slug);
   const name = document.createElement("span");
   name.className = "live-home-name";
   name.textContent = app.title;
