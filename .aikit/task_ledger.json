@@ -1,110 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "dossier-cache-v19",
+    "task_id": "reforge-run-1-stage29",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793312197.229109,
+    "updated_at": 1793312338.351511,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "A returning visitor could receive the new project.html with the old cache-first project.js and see no gallery",
-      "benefits": "Cache transitions no longer break the dossier; the old grid markup upgrades itself to the slider",
-      "risks": "contract: project.html/project.js/sw.js and shell v19; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: none",
-      "mitigation": "Reproduced old markup plus new renderer in a browser (7 dots, image loaded, no errors) and ran every suite and gate; staging is explicit so Tessera is not committed"
+      "why": "The v19 cache fix changed project.html, project.js and the shell version",
+      "benefits": "The audit history reaches the deployed fix; no pending findings",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: run-1 stopped at stage 29",
+      "mitigation": "Reviewed the packet, submitted an empty findings answer, and stopped the run; only audit state is staged"
     },
-    "completed_at": 1793312197.3543153
+    "completed_at": 1793312338.470859
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 26",
-      "phase_num": 3,
-      "description": "Reforge stage 26: window 125, 2 commit(s), 18 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 23 binary not analysed",
-      "files_affected": [
-        "docs/media/Crypt-Crawler/2026-10-30-advance.webp",
-        "docs/media/Crypt-Crawler/2026-10-30-dungeon.webp",
-        "docs/media/Crypt-Crawler/2026-10-30-journal.webp",
-        "docs/media/Fold/2026-10-30-later.webp",
-        "docs/media/Fold/2026-10-30-mid.webp",
-        "docs/media/Fold/2026-10-30-start.webp",
-        "docs/media/MemoryReconstruction/2026-10-30-field.webp",
-        "docs/media/MemoryReconstruction/2026-10-30-forgotten-ruins.webp",
-        "docs/media/MemoryReconstruction/2026-10-30-sanctuary.webp",
-        "docs/media/MemoryReconstruction/2026-10-30-set-out.webp",
-        "docs/media/NeuroCore/2026-10-29-tools-library.webp",
-        "docs/media/Prism-Relay/2026-10-30-complete.webp",
-        "docs/media/Prism-Relay/2026-10-30-episode-index.webp",
-        "docs/media/Prism-Relay/2026-10-30-first-light.webp",
-        "docs/media/Prism-Relay/2026-10-30-how-to-play.webp",
-        "docs/media/Prism-Relay/2026-10-30-split-decision.webp",
-        "docs/media/Prism-Relay/2026-10-30-title.webp",
-        "docs/media/UI-Sandbox/2026-10-30-aurora.webp",
-        "docs/media/UI-Sandbox/2026-10-30-default.webp",
-        "docs/media/UI-Sandbox/2026-10-30-outlines.webp"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793310811.522357,
-      "timestamp_str": "2026-10-30 00:53:31",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 26",
-      "phase_num": 3,
-      "description": "Reforge stage 26: run stopped at stage 26; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793310823.3534756,
-      "timestamp_str": "2026-10-30 00:53:43",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage26",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 26 audited the dossier screenshot, preview and logo work; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793310834.4818811,
-      "timestamp_str": "2026-10-30 00:53:54",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "Dossier media and the dossier logo badge changed",
-        "benefits": "The stopped run covers the media completeness work with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 26",
-        "mitigation": "Reviewed the eighteen text files, browser-checked six dossiers, and committed only the audit state"
-      }
-    },
-    {
-      "task_id": "reforge-run-1-stage26",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage26' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793310834.6366196,
-      "timestamp_str": "2026-10-30 00:53:54",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "live-dossier-links",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Add a Dossier action to every Live card: Prism-Relay opens its project dossier, Weft opens its public repository; the catalog gains an optional dossier field; shell v17; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311186.2152972,
-      "timestamp_str": "2026-10-30 00:59:46",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "Live cards linked to the app and repository but not to the project dossier, and Weft has no portfolio dossier yet",
-        "benefits": "Prism reaches its full dossier in one click and Weft reaches its public record; adding a dossier later is one catalog field",
-        "risks": "contract: live.json gains an optional dossier field, both card renderers change, shell v17; dependency: none; concurrency: none; state: none",
-        "mitigation": "Checked both cards on the homepage and Live page, confirmed Prism stays in the tab and Weft opens externally, and followed Prism's link to its seven-capture dossier"
-      }
-    },
     {
       "task_id": "live-dossier-links",
       "phase": "completed",
@@ -287,6 +200,66 @@
       "status": "completed",
       "timestamp": 1793312197.3543167,
       "timestamp_str": "2026-10-30 01:16:37",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 28",
+      "phase_num": 3,
+      "description": "Reforge stage 28: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793312291.0934389,
+      "timestamp_str": "2026-10-30 01:18:11",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 29",
+      "phase_num": 3,
+      "description": "Reforge stage 29: window 131, 2 commit(s), 9 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793312304.4288845,
+      "timestamp_str": "2026-10-30 01:18:24",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 29",
+      "phase_num": 3,
+      "description": "Reforge stage 29: run stopped at stage 29; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793312329.7974274,
+      "timestamp_str": "2026-10-30 01:18:49",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage29",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 29 audited the v19 dossier cache fix; 9 files reviewed, no findings, no repairs; run-1 stopped at stage 29; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793312338.351511,
+      "timestamp_str": "2026-10-30 01:18:58",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The v19 cache fix changed project.html, project.js and the shell version",
+        "benefits": "The audit history reaches the deployed fix; no pending findings",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: run-1 stopped at stage 29",
+        "mitigation": "Reviewed the packet, submitted an empty findings answer, and stopped the run; only audit state is staged"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage29",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage29' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793312338.4708605,
+      "timestamp_str": "2026-10-30 01:18:58",
       "agent": "opencode:main"
     }
   ]
