@@ -1,49 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "play-weft-refresh",
-    "last_phase": "phase 4",
+    "task_id": "reforge-run-1-stage14",
+    "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793301121.7729917,
-    "owner": "opencode:weft",
-    "started_by": "opencode:weft",
+    "updated_at": 1793302500.0674596,
+    "owner": "opencode:main",
+    "started_by": "opencode:main",
     "continuations": [],
-    "completed_at": 1793301122.2304158
+    "impact_assessment": {
+      "why": "The new ten-second frame watchdog rejected a loaded game unless its document title contained the catalog title, a requirement the playable contract never states, so a future game would show a false failure panel over a working build",
+      "benefits": "A loaded game is recognised by the documented board markers first; the title match stays only as a fallback, so games with unrelated titles no longer trip the watchdog",
+      "risks": "contract: docs/play.js only; dependency: none; concurrency: none; state: reforge run-1 stage 14 is reviewed and applied",
+      "mitigation": "Current Prism-Relay and Weft titles still match; ran both parity suites, the source and manifest checks, the media check and all four gates"
+    },
+    "completed_at": 1793302514.4958236
   },
   "checkpoints": [
-    {
-      "task_id": "playable-games",
-      "phase": "in_progress",
-      "phase_num": 3,
-      "description": "[2-3/5] Play manifest, synced Prism-Relay build, Play page with version/commit player, dossier Play button, navigation, cache v10 and the daily sync workflow; Crypt-Crawler is a local-run card because its Python API cannot run on static Pages",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793296423.786939,
-      "timestamp_str": "2026-10-29 20:53:43",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "playable-games",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[5/5] 86 Python tests, 14 play/88 project/67 atlas/58 verifier assertions; media check 0 problems; sync check 0 problems; axe-core 0 WCAG A/AA violations on Play catalog/player desktop and mobile plus the Prism dossier; browser checks online play, direct URL, back navigation, dossier Play button and offline game reload; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793296423.9407637,
-      "timestamp_str": "2026-10-29 20:53:43",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "playable-games",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'playable-games' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793296430.3130295,
-      "timestamp_str": "2026-10-29 20:53:50",
-      "agent": "opencode:main"
-    },
     {
       "task_id": "playable-contract",
       "phase": "in_progress",
@@ -257,6 +231,46 @@
       "timestamp": 1793301122.2304175,
       "timestamp_str": "2026-10-29 22:12:02",
       "agent": "opencode:weft"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 14",
+      "phase_num": 3,
+      "description": "Reforge stage 14: window 103, 4 commit(s), 68 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
+      "files_affected": [
+        "docs/play/weft/logo.webp"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793302307.6722658,
+      "timestamp_str": "2026-10-29 22:31:47",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage14",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 14: keep body-marker detection ahead of the title fallback in the Play frame watchdog; 86 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793302500.0674596,
+      "timestamp_str": "2026-10-29 22:35:00",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The new ten-second frame watchdog rejected a loaded game unless its document title contained the catalog title, a requirement the playable contract never states, so a future game would show a false failure panel over a working build",
+        "benefits": "A loaded game is recognised by the documented board markers first; the title match stays only as a fallback, so games with unrelated titles no longer trip the watchdog",
+        "risks": "contract: docs/play.js only; dependency: none; concurrency: none; state: reforge run-1 stage 14 is reviewed and applied",
+        "mitigation": "Current Prism-Relay and Weft titles still match; ran both parity suites, the source and manifest checks, the media check and all four gates"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage14",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage14' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793302514.4958246,
+      "timestamp_str": "2026-10-29 22:35:14",
+      "agent": "opencode:main"
     }
   ]
 }

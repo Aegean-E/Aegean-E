@@ -145,11 +145,13 @@ function frameLooksLoaded(game) {
   try {
     const doc = frame.contentDocument;
     if (!doc || !doc.body) return false;
-    if (!String(doc.title || "").includes(game.title)) return false;
-    return Boolean(
+    if (
       doc.body.dataset.screen ||
       doc.querySelector("#board, .loom, .wordmark, .board, .game-shell")
-    );
+    ) {
+      return true;
+    }
+    return String(doc.title || "").includes(game.title);
   } catch (error) {
     return false;
   }
