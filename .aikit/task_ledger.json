@@ -1,44 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage22",
+    "task_id": "nav-live-page-header",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793308567.649235,
+    "updated_at": 1793308623.922922,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The primary nav order changed on the pages that carry both links",
-      "benefits": "The stopped run covers the nav order with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 22",
-      "mitigation": "Reviewed the five changed files and committed only the audit state"
+      "why": "The Live page marked its own link with aria-current, so the adjacent-pair swap missed that header",
+      "benefits": "Every page that carries both links now reads Work, Live, Projects",
+      "risks": "contract: play.html header and one test; dependency: none; concurrency: none; state: none",
+      "mitigation": "Added a second order assertion for play.html and ran the suite and gates"
     },
-    "completed_at": 1793308567.786735
+    "completed_at": 1793308624.0525794
   },
   "checkpoints": [
-    {
-      "task_id": "live-section-rename",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'live-section-rename' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793307836.5816832,
-      "timestamp_str": "2026-10-30 00:03:56",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 19",
-      "phase_num": 3,
-      "description": "Reforge stage 19: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793307859.2154331,
-      "timestamp_str": "2026-10-30 00:04:19",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 20",
@@ -262,6 +241,33 @@
       "status": "completed",
       "timestamp": 1793308567.7867365,
       "timestamp_str": "2026-10-30 00:16:07",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "nav-live-page-header",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Complete the Live-before-Projects swap on the Live page header, whose aria-current link the first pass skipped, and pin both header orders in the live test; 87 Python tests and 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308623.922922,
+      "timestamp_str": "2026-10-30 00:17:03",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The Live page marked its own link with aria-current, so the adjacent-pair swap missed that header",
+        "benefits": "Every page that carries both links now reads Work, Live, Projects",
+        "risks": "contract: play.html header and one test; dependency: none; concurrency: none; state: none",
+        "mitigation": "Added a second order assertion for play.html and ran the suite and gates"
+      }
+    },
+    {
+      "task_id": "nav-live-page-header",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'nav-live-page-header' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793308624.0525806,
+      "timestamp_str": "2026-10-30 00:17:04",
       "agent": "opencode:main"
     }
   ]
