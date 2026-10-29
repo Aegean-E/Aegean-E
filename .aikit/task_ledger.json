@@ -1,56 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "play-frame-fix",
+    "task_id": "play-weft-refresh",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793299825.2794962,
+    "updated_at": 1793301121.7729917,
     "owner": "opencode:weft",
     "started_by": "opencode:weft",
     "continuations": [],
-    "completed_at": 1793299825.649686
+    "completed_at": 1793301122.2304158
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 11",
-      "phase_num": 3,
-      "description": "Reforge stage 11: window 95, 2 commit(s), 1 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793294145.8971531,
-      "timestamp_str": "2026-10-29 20:15:45",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 11",
-      "phase_num": 3,
-      "description": "Reforge stage 11: run stopped at stage 11; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793294174.8503866,
-      "timestamp_str": "2026-10-29 20:16:14",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "playable-games",
-      "phase": "in_progress",
-      "phase_num": 2,
-      "description": "[1/5] Add a Play surface for browser games: auto-synced Prism-Relay build, a local-play card for Crypt-Crawler, version/commit display, dossier Play buttons and a cache-coherent shell",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793295143.3480678,
-      "timestamp_str": "2026-10-29 20:32:23",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The portfolio can show a game but cannot start it; visitors must clone a repository to try a playable project",
-        "benefits": "One click from a game dossier or the Play page starts Prism-Relay in the browser, shows its exact version and commit, and the weekly sync keeps it current without hand-copying files",
-        "risks": "contract: new Play page/manifest, Django? no; dependency: only standard library plus a weekly Actions checkout; concurrency: sync workflow versus site edits; state: versioned game directories and the shell cache",
-        "mitigation": "Version the copied build by commit, write a digest manifest, add a check mode and CI workflow, keep Crypt-Crawler as an explicit local-run card because its Python API cannot run on static Pages, and pin all new files in tests"
-      }
-    },
     {
       "task_id": "playable-games",
       "phase": "in_progress",
@@ -257,6 +218,44 @@
       "status": "completed",
       "timestamp": 1793299825.6496873,
       "timestamp_str": "2026-10-29 21:50:25",
+      "agent": "opencode:weft"
+    },
+    {
+      "task_id": "play-weft-refresh",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Refresh the Weft Play build to 0.1.1 with the body-hide screen fix",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793301114.7620363,
+      "timestamp_str": "2026-10-29 22:11:54",
+      "agent": "opencode:weft",
+      "impact_assessment": {
+        "why": "The deployed Weft 0.1.0 build hid the body on the first screen change, so the chamber index and board were inside display:none after Play and the page looked blank.",
+        "benefits": "The site now serves commit 22beac2: the title, chamber index and board stay visible and start at the top; the previous builds remain for cached catalogs.",
+        "risks": "contract: manifest path, version and digest; dependency: the public Weft repository; concurrency: cached manifests and the service worker; state: one new commit-named build directory.",
+        "mitigation": "Sync only the fixed Weft build, keep the previous builds, run the full Python and Node suites, then verify the mobile title -> chambers -> board flow before pushing."
+      }
+    },
+    {
+      "task_id": "play-weft-refresh",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Weft 0.1.1 build 22beac25d364 synced, manifest and digest verified; checklists: passed; gates: test, hygiene, guidelines, secrets",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793301121.7729917,
+      "timestamp_str": "2026-10-29 22:12:01",
+      "agent": "opencode:weft"
+    },
+    {
+      "task_id": "play-weft-refresh",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'play-weft-refresh' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793301122.2304175,
+      "timestamp_str": "2026-10-29 22:12:02",
       "agent": "opencode:weft"
     }
   ]

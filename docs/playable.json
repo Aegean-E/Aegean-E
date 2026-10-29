@@ -25,14 +25,14 @@
       "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across twelve chambers.",
       "playable": true,
       "mode": "browser",
-      "path": "play/weft/554c08c72671/index.html",
+      "path": "play/weft/22beac25d364/index.html",
       "source_url": "https://github.com/AegeanWorks/Weft",
-      "version": "0.1.0",
-      "commit": "554c08c726712ce54f1dbc8c70408998e63b9939",
+      "version": "0.1.1",
+      "commit": "22beac25d36421cd606215fde6631d6e69169f74",
       "updated": "2026-10-29",
       "license": "AGL-1.1",
       "license_path": "play/weft/LICENSE",
-      "digest": "sha256:da5d073d3ad0813b14019cb1b5a6ce8dbbf1a3cb6f5a59bd57b97cfb4bfcc0a7",
+      "digest": "sha256:a5783a92eb5612b98bbe5617d76e1cc104d24a6502818d44356c14f92a21f474",
       "logo": "play/weft/logo.webp"
     }
   ]
