@@ -19,94 +19,6 @@
   },
   "checkpoints": [
     {
-      "task_id": "screenshot-viewer",
-      "phase": "in_progress",
-      "phase_num": 2,
-      "description": "[1/4] Replace raw-image new-tab clicks with an in-page dialog viewer: navigable shots, captions, commit metadata and keyboard support, without changing the masonry layout",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793287614.4913464,
-      "timestamp_str": "2026-10-29 18:26:54",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "Clicking a dossier screenshot leaves the site for a bare image file, losing the caption, commit context and gallery position; the masonry layout itself is good and should stay",
-        "benefits": "One consistent in-page viewer for gallery captures and the social preview, with previous/next, counter, caption/commit metadata, Escape/arrow keys, focus restoration and an explicit original-file link",
-        "risks": "contract: dossier markup and project.js change, service-worker precache must include new modules; dependency: none, zero-dependency modules only; concurrency: none; state: modal open/close and focus-restore state per page",
-        "mitigation": "Native dialog with feature-detected fallback to the existing link, pure index helpers unit-tested, static wiring tests, axe/Playwright review at desktop and mobile widths"
-      }
-    },
-    {
-      "task_id": "screenshot-viewer",
-      "phase": "in_progress",
-      "phase_num": 3,
-      "description": "[2-3/4] Lightbox core and viewer modules, dialog markup, responsive styles, gallery/preview wiring and service-worker v8; masonry layout unchanged",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793288347.0719423,
-      "timestamp_str": "2026-10-29 18:39:07",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "screenshot-viewer",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[4/4] 85 Python tests, 84 project, 67 atlas and 58 verifier assertions; media check 0 problems; axe-core 0 WCAG A/AA violations on the closed gallery and open viewer at 1440px and 390px; browser checks desktop/mobile, keyboard, focus restore, preview, single-capture and offline; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793288347.2147286,
-      "timestamp_str": "2026-10-29 18:39:07",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "screenshot-viewer",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'screenshot-viewer' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793288352.4387724,
-      "timestamp_str": "2026-10-29 18:39:12",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "review-fixes",
-      "phase": "in_progress",
-      "phase_num": 2,
-      "description": "[1/4] Review the last three commits and harden the gaps they left: versioned-asset cache coherence, the expanded topic shelf, dialog fallback hiding and screen-reader feedback in the screenshot viewer",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793290675.131533,
-      "timestamp_str": "2026-10-29 19:17:55",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The archive/topic and screenshot-viewer work exposed three residual gaps: a controlled page can still receive an older app.js from the service-worker cache even when the HTML asks for a versioned URL, expanding 317 live topics creates a 3,564px shelf with Show fewer at the far end, and the viewer announces a position change without the new caption",
-        "benefits": "A versioned asset bypasses an older shell cache, the expanded topic shelf stays bounded with its collapse control first, the viewer announces position plus caption, and browsers without dialog support never show an empty viewer shell",
-        "risks": "contract: index/project markup, app.js and the sw/sw-client version markers; dependency: none; concurrency: worker activation and reload; state: shell cache keys, session recovery flag, topic shelf expansion",
-        "mitigation": "Bump the shell contract together to v9, add static and browser tests for every changed contract, keep the offline fallback, and run axe plus the full project gates before pushing"
-      }
-    },
-    {
-      "task_id": "review-fixes",
-      "phase": "in_progress",
-      "phase_num": 3,
-      "description": "[2-3/4] Versioned-first shell cache with v9 markers and script-derived recovery, bounded expanded topic shelf with collapse first, and viewer live announcements plus closed-dialog fallback",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793291144.2740421,
-      "timestamp_str": "2026-10-29 19:25:44",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "review-fixes",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[4/4] 85 Python tests, 88 project, 67 atlas and 58 verifier assertions; media check 0 problems; axe-core 0 WCAG A/AA violations on the collapsed and expanded portfolio and the mobile viewer; browser checks stale-cache bypass, offline shell and viewer, v9 recovery flag, bounded 317-topic shelf and live announcements; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793291144.6417985,
-      "timestamp_str": "2026-10-29 19:25:44",
-      "agent": "opencode:main"
-    },
-    {
       "task_id": "review-fixes",
       "phase": "completed",
       "phase_num": 5,
@@ -288,6 +200,113 @@
       "status": "completed",
       "timestamp": 1793292728.4986022,
       "timestamp_str": "2026-10-29 19:52:08",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 6",
+      "phase_num": 3,
+      "description": "Reforge stage 6: window 53, 38 commit(s), 117 file(s) reviewed (unreviewed), 1 finding(s), 0 repaired, 130 binary not analysed (defect=1)",
+      "files_affected": [
+        "docs/media/Voidfarer.json",
+        "assets/artwork.jpg",
+        "assets/logo.jpg",
+        "assets/logo.png",
+        "assets/screenshots/2026-10-28-home.png",
+        "assets/social-preview.jpg",
+        "assets/social-preview.png",
+        "docs/media/AIKit/logo.webp",
+        "docs/media/AIKit/social-preview.webp",
+        "docs/media/Aegean-Licensing-Ops/2026-10-28-ui.png",
+        "docs/media/Aegean-Licensing-Ops/logo.jpg",
+        "docs/media/Aegean-Licensing-Ops/logo.png",
+        "docs/media/Aegean-Licensing/logo.jpg",
+        "docs/media/Aegean-Licensing/logo.png",
+        "docs/media/Aegean-Licensing/social-preview.webp",
+        "docs/media/Aegean-Reforge/logo.jpg",
+        "docs/media/Aegean-Reforge/logo.png",
+        "docs/media/Aegean-Reforge/social-preview.webp",
+        "docs/media/AegeanWorks/2026-10-28-home.png",
+        "docs/media/AegeanWorks/logo.jpg"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793293272.3780916,
+      "timestamp_str": "2026-10-29 20:01:12",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 7",
+      "phase_num": 3,
+      "description": "Reforge stage 7: window 63, 10 commit(s), 9 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
+      "files_affected": [
+        "docs/og.png"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793293982.7676058,
+      "timestamp_str": "2026-10-29 20:13:02",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 8",
+      "phase_num": 3,
+      "description": "Reforge stage 8: window 73, 10 commit(s), 13 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 4 binary not analysed",
+      "files_affected": [
+        "docs/apple-touch-icon.png",
+        "docs/icon-192.png",
+        "docs/icon-512.png",
+        "docs/og.png"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793294042.9043953,
+      "timestamp_str": "2026-10-29 20:14:02",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 9",
+      "phase_num": 3,
+      "description": "Reforge stage 9: window 83, 10 commit(s), 16 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
+      "files_affected": [
+        "docs/og.png"
+      ],
+      "status": "in_progress",
+      "timestamp": 1793294086.0125124,
+      "timestamp_str": "2026-10-29 20:14:46",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 10",
+      "phase_num": 3,
+      "description": "Reforge stage 10: window 93, 10 commit(s), 3 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793294120.3521411,
+      "timestamp_str": "2026-10-29 20:15:20",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 11",
+      "phase_num": 3,
+      "description": "Reforge stage 11: window 95, 2 commit(s), 1 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793294145.8971531,
+      "timestamp_str": "2026-10-29 20:15:45",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 11",
+      "phase_num": 3,
+      "description": "Reforge stage 11: run stopped at stage 11; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793294174.8503866,
+      "timestamp_str": "2026-10-29 20:16:14",
       "agent": "opencode"
     }
   ]
