@@ -19,16 +19,6 @@
   },
   "checkpoints": [
     {
-      "task_id": "filter-cache",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'filter-cache' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793284733.3895059,
-      "timestamp_str": "2026-10-29 17:38:53",
-      "agent": "opencode:main"
-    },
-    {
       "task_id": "screenshot-viewer",
       "phase": "in_progress",
       "phase_num": 2,
@@ -282,6 +272,23 @@
       "timestamp": 1793292593.8858378,
       "timestamp_str": "2026-10-29 19:49:53",
       "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 5",
+      "phase_num": 3,
+      "description": "Reforge stage 5: window 15, 3 commit(s), 49 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 5 binary not analysed",
+      "files_affected": [
+        "docs/media/AIKit/social-preview.webp",
+        "docs/media/NeuroCore/logo.jpg",
+        "docs/media/NeuroCore/social-preview.webp",
+        "docs/media/NoMoreClutter/logo.jpg",
+        "docs/media/NoMoreClutter/social-preview.webp"
+      ],
+      "status": "completed",
+      "timestamp": 1793292728.4986022,
+      "timestamp_str": "2026-10-29 19:52:08",
+      "agent": "opencode"
     }
   ]
 }
