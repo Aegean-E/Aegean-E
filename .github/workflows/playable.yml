@@ -28,16 +28,12 @@ jobs:
           repository: AegeanWorks/Prism-Relay
           path: .play-src/prism-relay
           fetch-depth: 1
-      - name: Check out Crypt-Crawler
-        uses: actions/checkout@v4
-        with:
-          repository: AegeanWorks/Crypt-Crawler
-          path: .play-src/crypt-crawler
-          fetch-depth: 1
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Validate the Prism-Relay static contract
+        run: python tools/sync_playable_games.py --source-root .play-src --check-source
       - name: Refresh the playable builds
         run: python tools/sync_playable_games.py --source-root .play-src --write
       - name: Verify the playable catalog

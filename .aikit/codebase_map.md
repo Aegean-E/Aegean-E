@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `3`
 - **Total Classes**: `3`
-- **Total Top-Level Functions**: `58`
+- **Total Top-Level Functions**: `61`
 - **Total Class Methods**: `87`
-- **Total Source Lines**: `2747`
+- **Total Source Lines**: `2807`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1481` lines (`68166` bytes)
+**Size**: `1475` lines (`67898` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -172,7 +172,7 @@
 ### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
 > *Sync the static browser game and the playable-game manifest.*
 
-**Size**: `358` lines (`13461` bytes)
+**Size**: `424` lines (`16570` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
@@ -186,12 +186,15 @@
 - `def _copy_file(source, target)`
 - `def _copy_runtime(source, target, entries)`
 - `def _runtime_files(target)`
+- `def _source_path(source, relative)` - *Resolve an index reference inside the source, or None when it escapes it.*
+- `def validate_source(game, source_root)` - *Check the static contract the website relies on before copying a build.*
+- `def source_problems(source_root)`
 - `def _browser_entry(game, source_root)`
-- `def _local_entry(game, source_root)`
 - `def build_manifest(source_root)`
 - `def _read_manifest()`
 - `def check_manifest()`
 - `def command_write(source_root)`
+- `def command_check_source(source_root)`
 - `def command_check()`
 - `def main(argv)`
 

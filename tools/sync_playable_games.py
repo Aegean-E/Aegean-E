@@ -2,9 +2,8 @@
 """Sync the static browser game and the playable-game manifest.
 
 Prism-Relay is a self-contained browser build, so its runtime files are copied
-under docs/play/ and versioned by commit. Crypt-Crawler needs its Python API,
-so the catalog records it as a local-run title instead of serving a broken
-iframe.
+under docs/play/ and versioned by commit. The source validator enforces the
+static contract the website relies on before anything is copied.
 """
 
 from __future__ import annotations
@@ -35,17 +34,6 @@ GAMES = (
         "mode": "browser",
         "runtime": ("index.html", "src"),
         "version_file": "package.json",
-    },
-    {
-        "slug": "crypt-crawler",
-        "repo": "Crypt-Crawler",
-        "source": "crypt-crawler",
-        "title": "Crypt-Crawler",
-        "description": "A tactical turn-based dungeon crawler with procedural floors, loot, lore and boss fights.",
-        "license": "AGL-1.1",
-        "mode": "local",
-        "version_file": "crawler/server.py",
-        "reason": "The Python server owns dungeon generation and lore; run `python run.py --open` in the repository.",
     },
 )
 
@@ -159,6 +147,86 @@ def _runtime_files(target: Path) -> list[Path]:
     return [path for path in target.rglob("*") if path.is_file()]
 
 
+def _source_path(source: Path, relative: str) -> Path | None:
+    """Resolve an index reference inside the source, or None when it escapes it."""
+    clean = relative.split("#", 1)[0].split("?", 1)[0].strip()
+    if not clean or clean.startswith(("data:", "mailto:", "http://", "https://", "#", "/")):
+        return None
+    if clean.startswith("../") or "/../" in clean:
+        return None
+    return (source / clean.lstrip("./")).resolve()
+
+
+def validate_source(game: dict, source_root: Path) -> list[str]:
+    """Check the static contract the website relies on before copying a build."""
+    problems: list[str] = []
+    source = source_root / game["source"]
+    index = source / "index.html"
+    if not source.is_dir():
+        return [f"{game['repo']} source is missing at {source}"]
+    if not index.is_file():
+        return [f"{game['repo']} has no root index.html"]
+    try:
+        package = json.loads((source / "package.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        package = {}
+        problems.append(f"{game['repo']} needs a readable package.json")
+    version = str(package.get("version", "")).strip()
+    if not re.match(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$", version):
+        problems.append(f"{game['repo']} needs a semver package.json version")
+    license_path = source / "LICENSE"
+    if not license_path.is_file():
+        problems.append(f"{game['repo']} needs its AGL-1.1 LICENSE")
+    else:
+        header = license_path.read_text(encoding="utf-8").splitlines()[:1]
+        if not header or not header[0].startswith("# Aegean Game License 1.1"):
+            problems.append(f"{game['repo']} LICENSE is not the AGL-1.1 text")
+    text = index.read_text(encoding="utf-8")
+    for reference in re.findall(r'(?:src|href)\s*=\s*"([^"]+)"', text):
+        if reference.startswith(("data:", "#", "mailto:")):
+            continue
+        if reference.startswith(("http://", "https://")):
+            if "www.w3.org" not in reference:
+                problems.append(f"{game['repo']} index.html loads an external resource: {reference}")
+            continue
+        if reference.startswith("/") or ".." in reference.split("/"):
+            problems.append(f"{game['repo']} index.html uses a non-portable path: {reference}")
+            continue
+        target = _source_path(source, reference)
+        if target is None or not target.is_file():
+            problems.append(f"{game['repo']} index.html references a missing file: {reference}")
+    forbidden = (
+        "fetch(",
+        "XMLHttpRequest",
+        "WebSocket",
+        "navigator.serviceWorker",
+        "window.top",
+        "window.parent",
+        "top.location",
+    )
+    for path in sorted((source / "src").rglob("*")):
+        if not path.is_file() or path.suffix not in {".js", ".css"}:
+            continue
+        source_text = path.read_text(encoding="utf-8")
+        relative = path.relative_to(source).as_posix()
+        for token in forbidden:
+            if token in source_text:
+                problems.append(f"{game['repo']} {relative} uses {token}; the website build must stay static")
+        for url in re.findall(r"https?://[^\s\"'<>)]+", source_text):
+            if "www.w3.org" not in url:
+                problems.append(f"{game['repo']} {relative} loads an external URL: {url}")
+        if path.suffix == ".css" and re.search(r"@import|url\(\s*['\"]?https?://", source_text):
+            problems.append(f"{game['repo']} {relative} imports an external stylesheet")
+    return problems
+
+
+def source_problems(source_root: Path) -> list[str]:
+    problems: list[str] = []
+    for game in GAMES:
+        problems.extend(validate_source(game, source_root))
+    return problems
+
+
 def _browser_entry(game: dict, source_root: Path) -> dict:
     source = source_root / game["source"]
     if not source.is_dir():
@@ -209,41 +277,10 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
     }
 
 
-def _local_entry(game: dict, source_root: Path) -> dict:
-    source = source_root / game["source"]
-    if not source.is_dir():
-        raise SyncError(
-            f"The {game['repo']} source is missing at {source}.",
-            "its version and commit cannot be recorded without the repository.",
-            "check out the game beside AegeanWorks or pass --source-root, then retry.",
-        )
-    commit = _git(source, "rev-parse", "HEAD")
-    updated = _git(source, "show", "-s", "--format=%cs", "HEAD")
-    return {
-        "slug": game["slug"],
-        "repo": game["repo"],
-        "title": game["title"],
-        "description": game["description"],
-        "playable": False,
-        "mode": "local",
-        "source_url": f"https://github.com/AegeanWorks/{game['repo']}",
-        "version": _version(source, game["version_file"]),
-        "commit": commit,
-        "updated": updated,
-        "license": game["license"],
-        "reason": game["reason"],
-        "command": "python run.py --open",
-        "logo": MEDIA_REL % game["repo"],
-    }
-
-
 def build_manifest(source_root: Path) -> dict:
     games = []
     for game in GAMES:
-        if game["mode"] == "browser":
-            games.append(_browser_entry(game, source_root))
-        else:
-            games.append(_local_entry(game, source_root))
+        games.append(_browser_entry(game, source_root))
     return {"schema": 1, "games": games}
 
 
@@ -286,31 +323,38 @@ def check_manifest() -> list[str]:
             problems.append(f"{spec['slug']} has no valid commit date")
         if game.get("license") != spec["license"]:
             problems.append(f"{spec['slug']} has the wrong license label")
-        if game.get("playable"):
-            relative = str(game.get("path", ""))
-            if not re.match(rf"^play/{spec['slug']}/[0-9a-f]{{7,40}}/index\.html$", relative):
-                problems.append(f"{spec['slug']} has an unsafe or unstable path")
-                continue
-            target = DOCS / relative
-            if not target.is_file():
-                problems.append(f"{spec['slug']} build is missing: {relative}")
-                continue
-            license_path = DOCS / str(game.get("license_path", ""))
-            if not license_path.is_file():
-                problems.append(f"{spec['slug']} license is missing")
-            if not (PROJECT_ROOT / "LICENSES" / "LicenseRef-AGL-1.1.txt").is_file():
-                problems.append("the pinned AGL-1.1 license is missing")
-            actual = _digest(_runtime_files(target.parent), target.parent)
-            if actual != game.get("digest"):
-                problems.append(f"{spec['slug']} digest does not match the copied build")
-        elif spec["mode"] != "local":
-            problems.append(f"{spec['slug']} is neither playable nor local")
+        if not game.get("playable"):
+            problems.append(f"{spec['slug']} is not marked playable")
+            continue
+        relative = str(game.get("path", ""))
+        if not re.match(rf"^play/{spec['slug']}/[0-9a-f]{{7,40}}/index\.html$", relative):
+            problems.append(f"{spec['slug']} has an unsafe or unstable path")
+            continue
+        target = DOCS / relative
+        if not target.is_file():
+            problems.append(f"{spec['slug']} build is missing: {relative}")
+            continue
+        license_path = DOCS / str(game.get("license_path", ""))
+        if not license_path.is_file():
+            problems.append(f"{spec['slug']} license is missing")
+        if not (PROJECT_ROOT / "LICENSES" / "LicenseRef-AGL-1.1.txt").is_file():
+            problems.append("the pinned AGL-1.1 license is missing")
+        actual = _digest(_runtime_files(target.parent), target.parent)
+        if actual != game.get("digest"):
+            problems.append(f"{spec['slug']} digest does not match the copied build")
         if not (DOCS / str(game.get("logo", ""))).is_file():
             problems.append(f"{spec['slug']} logo is missing")
     return problems
 
 
 def command_write(source_root: Path) -> int:
+    problems = source_problems(source_root)
+    if problems:
+        raise SyncError(
+            "Prism-Relay no longer satisfies the static playable contract.",
+            "; ".join(problems),
+            "fix the game build or update tools/sync_playable_games.py, then retry.",
+        )
     manifest = build_manifest(source_root)
     payload = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
     path = PROJECT_ROOT / MANIFEST_REL
@@ -319,6 +363,21 @@ def command_write(source_root: Path) -> int:
         return 0
     _write_atomic(path, payload.encode("utf-8"))
     print(f"[OK] Wrote {MANIFEST_REL} with {len(manifest['games'])} game(s).")
+    return 0
+
+
+def command_check_source(source_root: Path) -> int:
+    problems = source_problems(source_root)
+    if problems:
+        print(f"[FAIL] {len(problems)} source compatibility problem(s):", file=sys.stderr)
+        for problem in problems:
+            print(f"  - {problem}", file=sys.stderr)
+        print(
+            "Fix: keep the build static, relative and self-contained; see Prism-Relay/PLAYABLE.md.",
+            file=sys.stderr,
+        )
+        return 1
+    print("[OK] Prism-Relay satisfies the static playable contract.")
     return 0
 
 
@@ -339,13 +398,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--source-root", type=Path, default=DEFAULT_SOURCE_ROOT)
     parser.add_argument("--write", action="store_true", help="copy the games and rewrite docs/playable.json")
     parser.add_argument("--check", action="store_true", help="verify the committed catalog and copied build")
+    parser.add_argument(
+        "--check-source",
+        action="store_true",
+        help="verify a checked-out game build against the static playable contract",
+    )
     args = parser.parse_args(argv)
-    if not args.write and not args.check:
-        parser.error("choose --write or --check")
+    if not args.write and not args.check and not args.check_source:
+        parser.error("choose --write, --check or --check-source")
     source_root = args.source_root.resolve()
     try:
         if args.write:
             return command_write(source_root)
+        if args.check_source:
+            return command_check_source(source_root)
         return command_check()
     except SyncError as error:
         print(f"Error: {error.what}", file=sys.stderr)

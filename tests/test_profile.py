@@ -344,7 +344,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], 1)
         games = {game["slug"]: game for game in manifest["games"]}
-        self.assertEqual(set(games), {"prism-relay", "crypt-crawler"})
+        self.assertEqual(set(games), {"prism-relay"})
 
         prism = games["prism-relay"]
         self.assertTrue(prism["playable"])
@@ -360,12 +360,6 @@ class ProfileIntegrityTests(unittest.TestCase):
         game_dir = (ROOT / "docs" / prism["path"]).parent
         self.assertTrue((game_dir / "src" / "styles.css").is_file())
         self.assertTrue((game_dir / "src" / "game" / "engine.js").is_file())
-
-        crypt = games["crypt-crawler"]
-        self.assertFalse(crypt["playable"])
-        self.assertEqual(crypt["mode"], "local")
-        self.assertIn("python run.py", crypt["reason"])
-        self.assertRegex(crypt["version"], r"^\d+\.\d+\.\d+$")
 
         tool = ROOT / "tools" / "sync_playable_games.py"
         self.assertTrue(tool.is_file())
@@ -422,8 +416,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         )
         for token in (
             "Prism-Relay",
-            "Crypt-Crawler",
             "sync_playable_games.py",
+            "--check-source",
             "actions/checkout@v4",
         ):
             with self.subTest(token=token):

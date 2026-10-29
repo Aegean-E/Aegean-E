@@ -47,7 +47,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser games also appear on the [Play page](https://aegeanworks.github.io/AegeanWorks/play.html) with their version and commit; Prism-Relay runs in the page, while titles that need a local server say so.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from a bounded, scrollable topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away. Browser games also appear on the [Play page](https://aegeanworks.github.io/AegeanWorks/play.html) with their version and commit; Prism-Relay runs in the page.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -209,7 +209,7 @@ node tests/atlas/run-tests.mjs
 node tests/project/run-tests.mjs
 ```
 
-All five suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier, the live GitHub atlas, the README renderer and the playable catalog to the same rules as the Python code. A scheduled `media.yml` run pulls logos, social previews and repository captures, regenerates the manifests and commits them when a repository changed. A scheduled `playable.yml` run copies the Prism-Relay browser build and records its version and commit, while Crypt-Crawler stays a local-run title because its Python API cannot run on static Pages.
+All five suites run in GitHub Actions on every push and pull request (`.github/workflows/tests.yml`). The Node suites pin the browser verifier, the live GitHub atlas, the README renderer and the playable catalog to the same rules as the Python code. A scheduled `media.yml` run pulls logos, social previews and repository captures, regenerates the manifests and commits them when a repository changed. A scheduled `playable.yml` run copies the Prism-Relay browser build, enforces its static contract, and records its version and commit.
 
 ### What's Inside
 

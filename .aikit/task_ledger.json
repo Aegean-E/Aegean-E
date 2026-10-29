@@ -1,38 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "playable-games",
+    "task_id": "playable-contract",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793296423.9407637,
+    "updated_at": 1793296892.9560463,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
-    "completed_at": 1793296430.3130279
+    "impact_assessment": {
+      "why": "Crypt-Crawler needs its Python API and cannot run on static Pages, so advertising it as playable would be misleading; future Prism-Relay changes must be checked against the website's static contract",
+      "benefits": "The Play page lists only a build that actually runs; Prism-Relay developers get explicit rules, a PLAYABLE.md contract and an enforceable check-source gate before the website copies a build",
+      "risks": "contract: playable manifest/workflow now one game and a stricter source validator; dependency: none; concurrency: none; state: copied Prism build unchanged",
+      "mitigation": "Run the source check, manifest check, full suites and gates; commit the Prism guidelines separately and keep the copied build's digest stable"
+    },
+    "completed_at": 1793296893.1111238
   },
   "checkpoints": [
-    {
-      "task_id": "reforge-run-1",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793291723.5409024,
-      "timestamp_str": "2026-10-29 19:35:23",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 2",
-      "phase_num": 3,
-      "description": "Reforge stage 2: window 6, 3 commit(s), 12 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793291848.9299195,
-      "timestamp_str": "2026-10-29 19:37:28",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 3",
@@ -301,6 +286,33 @@
       "status": "completed",
       "timestamp": 1793296430.3130295,
       "timestamp_str": "2026-10-29 20:53:50",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "playable-contract",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Remove Crypt-Crawler from the Play catalog; enforce the Prism-Relay static contract in --check-source and --write; record web-specific guidelines in Prism-Relay; 86 Python tests, 14 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793296892.9560463,
+      "timestamp_str": "2026-10-29 21:01:32",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Crypt-Crawler needs its Python API and cannot run on static Pages, so advertising it as playable would be misleading; future Prism-Relay changes must be checked against the website's static contract",
+        "benefits": "The Play page lists only a build that actually runs; Prism-Relay developers get explicit rules, a PLAYABLE.md contract and an enforceable check-source gate before the website copies a build",
+        "risks": "contract: playable manifest/workflow now one game and a stricter source validator; dependency: none; concurrency: none; state: copied Prism build unchanged",
+        "mitigation": "Run the source check, manifest check, full suites and gates; commit the Prism guidelines separately and keep the copied build's digest stable"
+      }
+    },
+    {
+      "task_id": "playable-contract",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'playable-contract' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793296893.111125,
+      "timestamp_str": "2026-10-29 21:01:33",
       "agent": "opencode:main"
     }
   ]
