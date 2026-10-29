@@ -345,6 +345,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         self.assertIn('window.fetch("media/logos.json"', script)
         self.assertIn("applyCardLogos", script)
+        self.assertIn('window.addEventListener("atlas:changed", applyCardLogos)', script)
         self.assertIn("has-logo", script)
         project_page = (ROOT / "docs" / "project.html").read_text(encoding="utf-8")
         self.assertNotIn('id="project-logo"', project_page)

@@ -195,6 +195,7 @@
       .catch(function () {
         /* monograms stay */
       });
+    window.addEventListener("atlas:changed", applyCardLogos);
   }
 
   function cardTitle(card) {
