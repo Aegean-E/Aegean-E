@@ -193,6 +193,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "live-core.js",
             "live-home.js",
             "live.json",
+            "live/shots.json",
             "favicon.svg",
             "404.html",
             "robots.txt",
@@ -446,6 +447,18 @@ class ProfileIntegrityTests(unittest.TestCase):
         live_nav = re.search(r'<nav class="site-nav".*?</nav>', live_page, re.S).group(0)
         self.assertLess(live_nav.index(">Work</a>"), live_nav.index(">Live</a>"))
         self.assertLess(live_nav.index(">Live</a>"), live_nav.index(">Projects</a>"))
+        shots = json.loads((ROOT / "docs" / "live" / "shots.json").read_text(encoding="utf-8"))
+        self.assertEqual(shots["schema"], 1)
+        for slug in ("prism-relay", "weft"):
+            entry = shots["apps"][slug]
+            self.assertGreaterEqual(len(entry["screenshots"]), 2)
+            for shot in entry["screenshots"]:
+                with self.subTest(slug=slug, shot=shot["src"]):
+                    self.assertTrue((ROOT / "docs" / shot["src"]).is_file())
+        home_script = (ROOT / "docs" / "live-home.js").read_text(encoding="utf-8")
+        for token in ("live-home-slider", "live-home-nav", "live/shots.json"):
+            with self.subTest(token=token):
+                self.assertIn(token, home_script)
         redirect = (ROOT / "docs" / "live.html").read_text(encoding="utf-8")
         self.assertIn('content="0; url=play.html"', redirect)
         self.assertIn('name="robots" content="noindex"', redirect)
@@ -652,6 +665,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "live-core.js",
             "live-home.js",
             "live.json",
+            "live/shots.json",
             "verify.js",
         ):
             with self.subTest(entry=needed):

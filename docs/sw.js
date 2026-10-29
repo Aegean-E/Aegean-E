@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v13";
+const VERSION = "aegeanworks-shell-v14";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -26,6 +26,7 @@ const PRECACHE = [
   "live-core.js",
   "live-home.js",
   "live.json",
+  "live/shots.json",
   "verify.js",
   "verify-core.js",
   "atlas-snapshot.json",

@@ -366,3 +366,11 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Decision**: Serve the full catalog at `play.html` and make `live.html` the noindex redirect, preserving its query. Point the navigation, homepage cards, sitemap, webmanifest and canonical URL at `play.html`. Keep the Live catalog names (`live.json`, `docs/live/`, `sync_live_apps.py`, `live.yml`, `tests/live/`) and accept both `?app=` and the old `?game=` on the page.
 - **Consequences**: Old bookmarks and every new Live link land on the full-page design, while `live.html` still resolves for the address introduced by ADR-047. The internal catalog keeps the app-oriented name; only the public page address is `play.html`.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-006 (both old URLs recover), PRINCIPLE-011 (the homepage still reaches a running app) and PRINCIPLE-014 (the page and redirect tests pin both addresses).
+
+### ADR-049: Homepage Live Cards Carry Screenshot Sliders
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: The homepage Live section was text-only. The apps are visual, and a title, version and description do not show what the visitor will actually run.
+- **Decision**: Capture three frames per app from the published build, store them under `docs/live/shots/<slug>/`, and index their alt text and source commit in `docs/live/shots.json`. `live-home.js` renders a scroll-snap slider with previous/next buttons, dots and arrow-key support; images load lazily and are not precached, while the small shot index is. A card without screenshots still renders as text, and a single screenshot renders without controls. Move the shell contract to v14 so the new markup, CSS and script arrive together.
+- **Consequences**: The homepage shows real interface frames before the portfolio atlas, and the slider degrades to text when the index or images are unavailable. Screenshots are manual captures of a specific commit; they must be refreshed when an app's UI changes, and the recorded commit makes that drift visible.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (each shot names its source commit), PRINCIPLE-010 (lazy images, no eager bulk download), PRINCIPLE-011 (a text fallback needs no JavaScript) and PRINCIPLE-014 (the suite pins the shot files and slider hooks).

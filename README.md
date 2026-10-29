@@ -240,7 +240,7 @@ AegeanWorks/
 │   ├── live-home.js         <- Homepage live app cards
 │   ├── live.json            <- Synced app versions, commits and digests
 │   ├── play.html            <- Live app catalog and fullscreen player
-│   ├── live/                <- Versioned browser app builds
+│   ├── live/                <- Versioned builds, screenshots and slider data
 │   ├── media/               <- Dossier logos, social previews and screenshots
 │   ├── atlas-snapshot.json  <- Static fallback for the atlas and dossiers
 │   ├── verify.html          <- Public certificate verifier (certificate stays local)

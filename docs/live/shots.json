@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "apps": {
+    "prism-relay": {
+      "commit": "5d7fcbe3e7fcb9763aaa753b3759a71981ec2ce6",
+      "taken_at": "2026-10-30",
+      "screenshots": [
+        {
+          "src": "live/shots/prism-relay/01-title.png",
+          "alt": "Prism Relay title screen"
+        },
+        {
+          "src": "live/shots/prism-relay/02-circuits.png",
+          "alt": "Prism Relay First Light chamber"
+        },
+        {
+          "src": "live/shots/prism-relay/03-solved.png",
+          "alt": "Prism Relay chamber complete"
+        }
+      ]
+    },
+    "weft": {
+      "commit": "22beac25d36421cd606215fde6631d6e69169f74",
+      "taken_at": "2026-10-30",
+      "screenshots": [
+        {
+          "src": "live/shots/weft/01-title.png",
+          "alt": "Weft title screen"
+        },
+        {
+          "src": "live/shots/weft/02-chambers.png",
+          "alt": "Weft chamber select"
+        },
+        {
+          "src": "live/shots/weft/03-loom.png",
+          "alt": "Weft First Thread loom"
+        }
+      ]
+    }
+  }
+}
