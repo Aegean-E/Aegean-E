@@ -1,74 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage15",
+    "task_id": "reforge-run-1-close",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793303355.4582472,
+    "updated_at": 1793303413.2513845,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The new retained-build validation built its directory set from every string in builds, so a malformed entry crashed the check with a traceback instead of naming the unsafe path",
-      "benefits": "A corrupt or hand-edited catalog now fails with the same Why/Fix report as every other validation problem, and valid builds still pass",
-      "risks": "contract: tools/sync_playable_games.py only; dependency: none; concurrency: none; state: reforge stage 15 reviewed",
-      "mitigation": "Reproduced the malformed-manifest crash before the change and the clean three-problem report after it, then ran both parity suites, the catalog and source checks, the media check and all four gates"
+      "why": "Run-1 reached HEAD after the retention and check hardening commits and has no new code to audit",
+      "benefits": "The project keeps a stopped run with its full stage history and a clean working tree",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 16",
+      "mitigation": "Verified the status shows no active run, 107 commits audited and no fixable findings before committing the state"
     },
-    "completed_at": 1793303355.6015518
+    "completed_at": 1793303413.3819098
   },
   "checkpoints": [
-    {
-      "task_id": "playable-weft",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'playable-weft' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793297736.6520205,
-      "timestamp_str": "2026-10-29 21:15:36",
-      "agent": "opencode:weft"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 13",
-      "phase_num": 3,
-      "description": "Reforge stage 13: window 100, 1 commit(s), 30 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired, 1 binary not analysed",
-      "files_affected": [
-        "docs/play/weft/logo.webp"
-      ],
-      "status": "in_progress",
-      "timestamp": 1793297949.1923141,
-      "timestamp_str": "2026-10-29 21:19:09",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "play-cache-fix",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Restore previous Prism-Relay and Weft builds, retain three builds per game, bump the shell to v11 and version the catalog request",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793298873.668893,
-      "timestamp_str": "2026-10-29 21:34:33",
-      "agent": "opencode:weft",
-      "impact_assessment": {
-        "why": "A returning visitor's cached catalog still pointed at build directories the sync had deleted, so the Play iframe opened a 404 while a fresh browser worked.",
-        "benefits": "Cached catalogs resolve for the last two releases; the v11 shell and versioned manifest request bypass stale caches; the weekly sync keeps a bounded history.",
-        "risks": "contract: build retention and the shell version; dependency: none beyond GitHub Pages; concurrency: weekly sync, service-worker clients and a background Reforge pass; state: extra commit-named build directories.",
-        "mitigation": "Restore the two deleted builds, keep the current plus two predecessors, version the catalog query, run all Python and Node suites, then verify the old and current live paths."
-      }
-    },
-    {
-      "task_id": "play-cache-fix",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Restore the deleted Prism-Relay and Weft builds, retain three builds per game, bump the shell to v11 and request a versioned catalog; checklists: passed; gates: test, hygiene, guidelines, secrets",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793298904.8117945,
-      "timestamp_str": "2026-10-29 21:35:04",
-      "agent": "opencode:weft"
-    },
     {
       "task_id": "play-cache-fix",
       "phase": "completed",
@@ -275,6 +224,55 @@
       "status": "completed",
       "timestamp": 1793303355.6015532,
       "timestamp_str": "2026-10-29 22:49:15",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 16",
+      "phase_num": 3,
+      "description": "Reforge stage 16: window 106, 1 commit(s), 2 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303397.086168,
+      "timestamp_str": "2026-10-29 22:49:57",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 16",
+      "phase_num": 3,
+      "description": "Reforge stage 16: run stopped at stage 16; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793303402.8717184,
+      "timestamp_str": "2026-10-29 22:50:02",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-close",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Close reforge run-1 after stage 16: whole history audited, repairs applied and pushed, no pending findings; 86 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303413.2513845,
+      "timestamp_str": "2026-10-29 22:50:13",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Run-1 reached HEAD after the retention and check hardening commits and has no new code to audit",
+        "benefits": "The project keeps a stopped run with its full stage history and a clean working tree",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 16",
+        "mitigation": "Verified the status shows no active run, 107 commits audited and no fixable findings before committing the state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-close",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-close' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793303413.3819113,
+      "timestamp_str": "2026-10-29 22:50:13",
       "agent": "opencode:main"
     }
   ]
