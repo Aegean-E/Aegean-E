@@ -406,3 +406,11 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 - **Decision**: Add an optional `dossier` field to each `GAMES` entry and manifest app. Prism points at `project.html?repo=Prism-Relay`; Weft leaves it empty so its Dossier link falls back to the public repository. Both the homepage card and the Live page card render the link; a relative target stays in the tab, an absolute target opens a new one. Move the shell to v17.
 - **Consequences**: Every Live card offers a Dossier action. Prism reaches the full project dossier; Weft reaches its repository until it joins the catalogue, at which point adding `dossier` is one field. The link cannot be mistaken for external because the test checks the raw catalog value, not the resolved URL.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the manifest names the dossier) and PRINCIPLE-011 (one click from an app to its public record).
+
+### ADR-054: Dossier Galleries Are Sliders
+- **Date**: 2026-10-30
+- **Status**: Accepted
+- **Context**: A dossier with seven captures rendered as a masonry grid, which turned the page into a wall of thumbnails and made the individual frames small. The Live cards already proved a one-frame slider is easier to read.
+- **Decision**: Replace the gallery grid with a single 16:10 stage, previous/next buttons, clickable dots, a caption and commit line, and arrow-key support. Keep the existing lightbox on image click. Hide the arrows and dots when a dossier has one capture, and move the shell to v18.
+- **Consequences**: Every dossier shows one frame at a time with a `1 / N` counter and enlarges on demand. The seven Prism captures, the four Crypt/Voidfarer/Memory captures and the three Fold/UI-Sandbox captures all share the same control surface.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-010 (one full-size image instead of seven lazy thumbnails), PRINCIPLE-011 (keyboard and button controls with a clear counter) and PRINCIPLE-014 (the page test pins the slider hooks).

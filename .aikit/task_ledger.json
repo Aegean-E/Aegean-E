@@ -1,44 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage27",
+    "task_id": "dossier-gallery-slider",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793311224.6351228,
+    "updated_at": 1793311553.1359286,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The Live cards gained a dossier action and the catalog gained an optional field",
-      "benefits": "The stopped run covers the dossier links with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 27",
-      "mitigation": "Reviewed the fourteen changed files, browser-checked both cards and the Prism dossier handoff, and committed only the audit state"
+      "why": "Seven thumbnails in a masonry grid turned the Prism dossier into a wall and made each frame small",
+      "benefits": "One readable frame at a time with a 1/N counter, full-size on demand, and the same control surface in every dossier",
+      "risks": "contract: project.html/project.js/styles and shell v18; dependency: none; concurrency: none; state: none",
+      "mitigation": "Browser-checked Prism's seven frames and Fold's three, including next, active dot, caption and lightbox open/close, then ran all suites and gates"
     },
-    "completed_at": 1793311224.7713351
+    "completed_at": 1793311553.2697523
   },
   "checkpoints": [
-    {
-      "task_id": "live-slider-expansion",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'live-slider-expansion' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793309743.9594066,
-      "timestamp_str": "2026-10-30 00:35:43",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 24",
-      "phase_num": 3,
-      "description": "Reforge stage 24: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793309755.641649,
-      "timestamp_str": "2026-10-30 00:35:55",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 25",
@@ -290,6 +269,33 @@
       "status": "completed",
       "timestamp": 1793311224.7713368,
       "timestamp_str": "2026-10-30 01:00:24",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "dossier-gallery-slider",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Replace the dossier screenshot grid with a single-stage slider: previous/next, dots, caption and commit line, arrow keys, and the existing lightbox on click; single-capture dossiers hide the controls; shell v18; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793311553.1359286,
+      "timestamp_str": "2026-10-30 01:05:53",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Seven thumbnails in a masonry grid turned the Prism dossier into a wall and made each frame small",
+        "benefits": "One readable frame at a time with a 1/N counter, full-size on demand, and the same control surface in every dossier",
+        "risks": "contract: project.html/project.js/styles and shell v18; dependency: none; concurrency: none; state: none",
+        "mitigation": "Browser-checked Prism's seven frames and Fold's three, including next, active dot, caption and lightbox open/close, then ran all suites and gates"
+      }
+    },
+    {
+      "task_id": "dossier-gallery-slider",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'dossier-gallery-slider' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793311553.269754,
+      "timestamp_str": "2026-10-30 01:05:53",
       "agent": "opencode:main"
     }
   ]

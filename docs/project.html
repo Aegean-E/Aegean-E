@@ -155,7 +155,20 @@
             <h2 id="gallery-title">Screenshots</h2>
             <p class="gallery-note" id="gallery-note"></p>
           </div>
-          <div class="gallery-grid" id="gallery-grid"></div>
+          <div class="gallery-slider" id="gallery-slider" tabindex="0">
+            <div class="gallery-stage">
+              <button class="gallery-open" id="gallery-open" type="button" aria-label="Open screenshot">
+                <img id="gallery-image" alt="" loading="lazy" decoding="async">
+              </button>
+              <button class="gallery-nav gallery-prev" id="gallery-prev" type="button" aria-label="Previous screenshot">&#8249;</button>
+              <button class="gallery-nav gallery-next" id="gallery-next" type="button" aria-label="Next screenshot">&#8250;</button>
+            </div>
+            <div class="gallery-dots" id="gallery-dots"></div>
+            <div class="gallery-caption-row">
+              <p class="gallery-caption" id="gallery-caption"></p>
+              <p class="gallery-meta" id="gallery-meta"></p>
+            </div>
+          </div>
         </section>
 
         <section class="readme-card" aria-labelledby="readme-title">
