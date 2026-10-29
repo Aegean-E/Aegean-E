@@ -1,88 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-close",
+    "task_id": "reforge-run-1-final",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793303413.2513845,
+    "updated_at": 1793303844.4610891,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "Run-1 reached HEAD after the retention and check hardening commits and has no new code to audit",
-      "benefits": "The project keeps a stopped run with its full stage history and a clean working tree",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 16",
-      "mitigation": "Verified the status shows no active run, 107 commits audited and no fixable findings before committing the state"
+      "why": "The close-out commit that recorded stage 16 was itself the only unaudited commit",
+      "benefits": "The stopped run now covers HEAD, so a resume or a new run starts cleanly",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 17",
+      "mitigation": "Confirmed stage 17 reviewed the bookkeeping-only commit, the status shows HEAD audited and no pending findings, and committed only the audit state"
     },
-    "completed_at": 1793303413.3819098
+    "completed_at": 1793303844.5862734
   },
   "checkpoints": [
-    {
-      "task_id": "play-cache-fix",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'play-cache-fix' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793298905.303503,
-      "timestamp_str": "2026-10-29 21:35:05",
-      "agent": "opencode:weft"
-    },
-    {
-      "task_id": "play-frame-fix",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Cache-bust game frames, preflight each build and show a retry panel when the iframe fails",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793299815.5117412,
-      "timestamp_str": "2026-10-29 21:50:15",
-      "agent": "opencode:weft",
-      "impact_assessment": {
-        "why": "The Play toolbar loaded while the game frame stayed blank, so a missing or cached build failed silently and looked like an inert Play button.",
-        "benefits": "The frame URL is commit-versioned, a 404 or network failure becomes an actionable message with Retry and Open in new tab, and a ten-second start check catches a blocked or stalled frame.",
-        "risks": "contract: play.js, play-core.js and the Play page panel; dependency: one same-origin GET per opening; concurrency: service-worker and HTTP caches; state: shell v12.",
-        "mitigation": "Use cache no-store for the preflight, append a retry nonce, test the pure URL builder, simulate a 404 panel locally, and run both site suites before deployment."
-      }
-    },
-    {
-      "task_id": "play-frame-fix",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] Versioned frame URL, build preflight, visible retry panel and ten-second start check delivered; checklists: passed; gates: test, hygiene, guidelines, secrets",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793299825.2794962,
-      "timestamp_str": "2026-10-29 21:50:25",
-      "agent": "opencode:weft"
-    },
-    {
-      "task_id": "play-frame-fix",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'play-frame-fix' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793299825.6496873,
-      "timestamp_str": "2026-10-29 21:50:25",
-      "agent": "opencode:weft"
-    },
-    {
-      "task_id": "play-weft-refresh",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Refresh the Weft Play build to 0.1.1 with the body-hide screen fix",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793301114.7620363,
-      "timestamp_str": "2026-10-29 22:11:54",
-      "agent": "opencode:weft",
-      "impact_assessment": {
-        "why": "The deployed Weft 0.1.0 build hid the body on the first screen change, so the chamber index and board were inside display:none after Play and the page looked blank.",
-        "benefits": "The site now serves commit 22beac2: the title, chamber index and board stay visible and start at the top; the previous builds remain for cached catalogs.",
-        "risks": "contract: manifest path, version and digest; dependency: the public Weft repository; concurrency: cached manifests and the service worker; state: one new commit-named build directory.",
-        "mitigation": "Sync only the fixed Weft build, keep the previous builds, run the full Python and Node suites, then verify the mobile title -> chambers -> board flow before pushing."
-      }
-    },
     {
       "task_id": "play-weft-refresh",
       "phase": "phase 4",
@@ -273,6 +208,66 @@
       "status": "completed",
       "timestamp": 1793303413.3819113,
       "timestamp_str": "2026-10-29 22:50:13",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 16",
+      "phase_num": 3,
+      "description": "Reforge stage 16: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303821.283727,
+      "timestamp_str": "2026-10-29 22:57:01",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 17",
+      "phase_num": 3,
+      "description": "Reforge stage 17: window 107, 1 commit(s), 0 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303830.424117,
+      "timestamp_str": "2026-10-29 22:57:10",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 17",
+      "phase_num": 3,
+      "description": "Reforge stage 17: run stopped at stage 17; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793303836.8173313,
+      "timestamp_str": "2026-10-29 22:57:16",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-final",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 17 audited the state-only commit; run-1 stopped with every current commit audited and no findings; 86 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303844.4610891,
+      "timestamp_str": "2026-10-29 22:57:24",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The close-out commit that recorded stage 16 was itself the only unaudited commit",
+        "benefits": "The stopped run now covers HEAD, so a resume or a new run starts cleanly",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 17",
+        "mitigation": "Confirmed stage 17 reviewed the bookkeeping-only commit, the status shows HEAD audited and no pending findings, and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-final",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-final' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793303844.586275,
+      "timestamp_str": "2026-10-29 22:57:24",
       "agent": "opencode:main"
     }
   ]
