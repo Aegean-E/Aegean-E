@@ -344,7 +344,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], 1)
         games = {game["slug"]: game for game in manifest["games"]}
-        self.assertEqual(set(games), {"prism-relay"})
+        self.assertEqual(set(games), {"prism-relay", "weft"})
 
         prism = games["prism-relay"]
         self.assertTrue(prism["playable"])
@@ -360,6 +360,22 @@ class ProfileIntegrityTests(unittest.TestCase):
         game_dir = (ROOT / "docs" / prism["path"]).parent
         self.assertTrue((game_dir / "src" / "styles.css").is_file())
         self.assertTrue((game_dir / "src" / "game" / "engine.js").is_file())
+
+        weft = games["weft"]
+        self.assertTrue(weft["playable"])
+        self.assertEqual(weft["mode"], "browser")
+        self.assertEqual(weft["license"], "AGL-1.1")
+        self.assertRegex(weft["path"], r"^play/weft/[0-9a-f]{7,40}/index\.html$")
+        self.assertTrue((ROOT / "docs" / weft["path"]).is_file())
+        self.assertTrue((ROOT / "docs" / weft["license_path"]).is_file())
+        self.assertRegex(weft["commit"], r"^[0-9a-f]{7,40}$")
+        self.assertRegex(weft["updated"], r"^\d{4}-\d{2}-\d{2}$")
+        self.assertRegex(weft["digest"], r"^sha256:[0-9a-f]{64}$")
+        self.assertTrue((ROOT / "docs" / weft["logo"]).is_file())
+        weft_dir = (ROOT / "docs" / weft["path"]).parent
+        self.assertTrue((weft_dir / "src" / "ui" / "app.js").is_file())
+        self.assertTrue((weft_dir / "src" / "game" / "engine.js").is_file())
+        self.assertTrue((weft_dir / "assets" / "favicon.svg").is_file())
 
         tool = ROOT / "tools" / "sync_playable_games.py"
         self.assertTrue(tool.is_file())
@@ -416,6 +432,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         )
         for token in (
             "Prism-Relay",
+            "Weft",
             "sync_playable_games.py",
             "--check-source",
             "actions/checkout@v4",

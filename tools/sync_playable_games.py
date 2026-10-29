@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Sync the static browser game and the playable-game manifest.
+"""Sync the static browser games and the playable-game manifest.
 
-Prism-Relay is a self-contained browser build, so its runtime files are copied
-under docs/play/ and versioned by commit. The source validator enforces the
-static contract the website relies on before anything is copied.
+Each browser build is self-contained, so its runtime files are copied under
+docs/play/ and versioned by commit. The source validator enforces the static
+contract the website relies on before anything is copied.
 """
 
 from __future__ import annotations
@@ -34,11 +34,23 @@ GAMES = (
         "mode": "browser",
         "runtime": ("index.html", "src"),
         "version_file": "package.json",
+        "logo": "media/Prism-Relay/logo.webp",
+    },
+    {
+        "slug": "weft",
+        "repo": "Weft",
+        "source": "weft",
+        "title": "Weft",
+        "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across twelve chambers.",
+        "license": "AGL-1.1",
+        "mode": "browser",
+        "runtime": ("index.html", "src", "assets"),
+        "version_file": "package.json",
+        "logo": "play/weft/logo.webp",
     },
 )
 
 MANIFEST_REL = "docs/playable.json"
-MEDIA_REL = "media/%s/logo.webp"
 COMMIT_RE = re.compile(r"^[0-9a-f]{7,40}$")
 
 
@@ -273,7 +285,7 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
         "license": game["license"],
         "license_path": f"play/{game['slug']}/LICENSE",
         "digest": _digest(files, target),
-        "logo": MEDIA_REL % game["repo"],
+        "logo": game["logo"],
     }
 
 
@@ -351,7 +363,7 @@ def command_write(source_root: Path) -> int:
     problems = source_problems(source_root)
     if problems:
         raise SyncError(
-            "Prism-Relay no longer satisfies the static playable contract.",
+            "A playable game no longer satisfies the static contract.",
             "; ".join(problems),
             "fix the game build or update tools/sync_playable_games.py, then retry.",
         )
@@ -373,11 +385,11 @@ def command_check_source(source_root: Path) -> int:
         for problem in problems:
             print(f"  - {problem}", file=sys.stderr)
         print(
-            "Fix: keep the build static, relative and self-contained; see Prism-Relay/PLAYABLE.md.",
+            "Fix: keep the build static, relative and self-contained; see each game's README.",
             file=sys.stderr,
         )
         return 1
-    print("[OK] Prism-Relay satisfies the static playable contract.")
+    print("[OK] Every playable game satisfies the static contract.")
     return 0
 
 

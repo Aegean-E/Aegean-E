@@ -29,6 +29,13 @@ const games = [
     version: "1.0.0",
     commit: "1234567abcdef",
   },
+  {
+    slug: "weft",
+    title: "Weft",
+    playable: true,
+    version: "0.1.0",
+    commit: "fedcba9876543210",
+  },
 ];
 
 equal(findGame(games, "prism-relay").title, "Prism Relay", "slug lookup");
@@ -41,7 +48,10 @@ equal(versionLabel({ commit: "abcdef123456" }), "commit abcdef1", "commit withou
 equal(versionLabel(null), "", "missing game has no label");
 equal(gameStatus(games[0]), "Play in browser", "browser game status");
 equal(gameStatus(games[1]), "Run locally", "local game status");
-equal(gamesFromManifest({ schema: 1, games }).length, 2, "manifest games kept");
+equal(findGame(games, "weft").title, "Weft", "second browser game lookup");
+equal(versionLabel(games[2]), "v0.1.0 \u00b7 fedcba9", "second game version and commit");
+equal(gameStatus(games[2]), "Play in browser", "second browser game status");
+equal(gamesFromManifest({ schema: 1, games }).length, 3, "manifest games kept");
 equal(gamesFromManifest({ schema: 1, games: [null, { slug: "Bad Slug" }] }), [], "invalid entries dropped");
 equal(gamesFromManifest({ schema: 2, games }), [], "unknown schema ignored");
 equal(gamesFromManifest(null), [], "missing manifest ignored");
