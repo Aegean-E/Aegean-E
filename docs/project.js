@@ -12,6 +12,7 @@ import {
   screenshotMeta,
   validRepoName,
 } from "./project-core.js";
+import { createLightbox } from "./lightbox.js";
 
 const params = new URLSearchParams(window.location.search);
 const requested = (params.get("repo") || "").trim();
@@ -29,6 +30,7 @@ const previewCard = document.getElementById("project-preview-card");
 const previewImage = document.getElementById("project-preview");
 const previewLink = document.getElementById("project-preview-link");
 const previewMeta = document.getElementById("project-preview-meta");
+const viewer = createLightbox(document.getElementById("gallery-lightbox"));
 
 function setText(id, value) {
   const element = document.getElementById(id);
@@ -106,13 +108,57 @@ async function loadMedia(repo) {
   renderGallery(repo, media.screenshots);
 }
 
+function commitHref(repo, commit) {
+  return (
+    // hygiene: allow canonical commit link, not a loaded dependency
+    "https://github.com/AegeanWorks/" +
+    encodeURIComponent(repo.name) +
+    "/commit/" +
+    commit
+  );
+}
+
+function viewerItem(repo, shot, fallback) {
+  const meta = screenshotMeta(shot);
+  return {
+    src: shot.src,
+    alt: shot.alt || fallback,
+    caption: shot.caption || fallback,
+    width: shot.width,
+    height: shot.height,
+    meta: meta,
+    commit: shot.commit,
+    commitHref: shot.commit ? commitHref(repo, shot.commit) : "",
+    rest: shot.commit ? screenshotMeta({ ...shot, commit: "" }) : "",
+  };
+}
+
 function renderPreview(repo, preview) {
   if (!previewCard || !previewImage) return;
   previewImage.src = preview.src;
   previewImage.alt = preview.alt || repo.name + " social preview";
   previewImage.width = preview.width || 1200;
   previewImage.height = preview.height || 600;
-  if (previewLink) previewLink.href = preview.src;
+  if (previewLink) {
+    previewLink.href = preview.src;
+    previewLink.setAttribute("aria-label", "Open social preview");
+    if (viewer) {
+      previewLink.setAttribute("aria-haspopup", "dialog");
+      previewLink.addEventListener("click", function (event) {
+        if (
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        event.preventDefault();
+        viewer.open([viewerItem(repo, preview, "Social preview")], 0);
+      });
+    }
+  }
   if (previewMeta) {
     // hygiene: allow canonical commit link, not a loaded dependency
     previewMeta.textContent = screenshotMeta(preview) || "Social preview";
@@ -123,13 +169,29 @@ function renderPreview(repo, preview) {
 function renderGallery(repo, shots) {
   if (!galleryEl || !galleryGrid) return;
   galleryGrid.replaceChildren();
-  shots.forEach(function (shot) {
+  const viewerItems = shots.map(function (shot) {
+    return viewerItem(repo, shot, "Screenshot");
+  });
+  shots.forEach(function (shot, shotIndex) {
     const figure = document.createElement("figure");
     figure.className = "gallery-item";
-    const link = document.createElement("a");
-    link.href = shot.src;
-    link.target = "_blank";
-    link.rel = "noopener";
+    const trigger = viewer
+      ? document.createElement("button")
+      : document.createElement("a");
+    if (viewer) {
+      trigger.type = "button";
+      trigger.className = "gallery-open";
+      trigger.setAttribute("aria-haspopup", "dialog");
+      const label = shot.caption || shot.alt;
+      trigger.setAttribute("aria-label", label ? "Open " + label : "Open screenshot");
+      trigger.addEventListener("click", function () {
+        viewer.open(viewerItems, shotIndex);
+      });
+    } else {
+      trigger.href = shot.src;
+      trigger.target = "_blank";
+      trigger.rel = "noopener";
+    }
     const image = document.createElement("img");
     image.src = shot.src;
     image.alt = shot.alt;
@@ -139,8 +201,15 @@ function renderGallery(repo, shots) {
       image.width = shot.width;
       image.height = shot.height;
     }
-    link.appendChild(image);
-    figure.appendChild(link);
+    trigger.appendChild(image);
+    if (viewer) {
+      const badge = document.createElement("span");
+      badge.className = "gallery-zoom";
+      badge.setAttribute("aria-hidden", "true");
+      badge.textContent = "View";
+      trigger.appendChild(badge);
+    }
+    figure.appendChild(trigger);
     if (shot.caption || shot.commit || shot.taken_at) {
       const caption = document.createElement("figcaption");
       if (shot.caption) {
@@ -154,12 +223,7 @@ function renderGallery(repo, shots) {
       meta.textContent = screenshotMeta(shot);
       if (shot.commit) {
         const source = document.createElement("a");
-        source.href =
-          // hygiene: allow canonical commit link, not a loaded dependency
-          "https://github.com/AegeanWorks/" +
-          encodeURIComponent(repo.name) +
-          "/commit/" +
-          shot.commit;
+        source.href = commitHref(repo, shot.commit);
         source.target = "_blank";
         source.rel = "noopener";
         source.textContent = "commit " + shot.commit;
@@ -173,8 +237,9 @@ function renderGallery(repo, shots) {
     galleryGrid.appendChild(figure);
   });
   if (galleryNote) {
-    galleryNote.textContent =
+    const count =
       shots.length === 1 ? "1 capture" : shots.length + " captures";
+    galleryNote.textContent = viewer ? count + " \u00b7 open any to enlarge" : count;
   }
   galleryEl.hidden = false;
 }

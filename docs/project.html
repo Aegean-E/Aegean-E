@@ -160,6 +160,39 @@
           <p class="readme-credit">Rendered as text from the public README; links and formatting are simplified.</p>
         </section>
       </article>
+
+      <dialog class="gallery-lightbox" id="gallery-lightbox" aria-modal="true" aria-labelledby="lightbox-caption" aria-describedby="lightbox-meta">
+        <div class="lightbox-shell">
+          <header class="lightbox-top">
+            <p class="lightbox-kicker">Image viewer</p>
+            <span class="lightbox-counter" id="lightbox-counter" aria-live="polite" data-lightbox-counter></span>
+            <button class="lightbox-button lightbox-close" id="lightbox-close" type="button" aria-label="Close image viewer" data-lightbox-close>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+          </header>
+          <div class="lightbox-stage">
+            <button class="lightbox-nav" id="lightbox-prev" type="button" aria-label="Previous image" data-lightbox-prev>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg>
+            </button>
+            <figure class="lightbox-figure">
+              <img class="lightbox-image" id="lightbox-image" alt="" decoding="async" data-lightbox-image>
+            </figure>
+            <button class="lightbox-nav" id="lightbox-next" type="button" aria-label="Next image" data-lightbox-next>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9.5 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+          <footer class="lightbox-bottom">
+            <div class="lightbox-copy">
+              <p class="lightbox-caption" id="lightbox-caption" data-lightbox-caption></p>
+              <p class="lightbox-meta" id="lightbox-meta" data-lightbox-meta></p>
+            </div>
+            <a class="lightbox-original" id="lightbox-original" href="#" target="_blank" rel="noopener" data-lightbox-original>
+              <span>Open original</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16 16 8M9 8h7v7"/></svg>
+            </a>
+          </footer>
+        </div>
+      </dialog>
     </div>
 
     <noscript>

@@ -47,7 +47,7 @@ A mathematically precise neuro-acoustic desktop app for binaural, monaural, and 
 
 ## Public project atlas
 
-Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from its topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt, while the repository link remains one click away.
+Every project repository below is public. Browse the full set on [GitHub](https://github.com/AegeanWorks?tab=repositories). The website's live atlas reads public repository titles, descriptions and topics from the GitHub API at page load; this snapshot remains the fallback for no-JavaScript readers and API failures. The portfolio toolbar filters by search, topic and archive status, keeps that view in the URL, and can reveal every topic in the catalogue from its topic shelf. Each portfolio card carries the repository's own logo, and opens a local dossier with its social preview, metadata, commit-stamped screenshots when media exists, and a README excerpt. Captures open in an in-page viewer with previous/next, captions and commit provenance, while the repository link remains one click away.
 
 <details>
 <summary><b>Cognitive AI &amp; Agent Infrastructure</b></summary>
@@ -231,6 +231,8 @@ AegeanWorks/
 │   ├── project.html         <- Local project dossier (metadata and README excerpt)
 │   ├── project-core.js      <- Pure README block and repository lookup rules
 │   ├── project.js           <- Dossier fetch and safe text rendering
+│   ├── lightbox-core.js     <- Pure viewer index and counter rules
+│   ├── lightbox.js          <- Dialog viewer: navigation, focus and metadata
 │   ├── media/               <- Dossier logos, social previews and screenshots
 │   ├── atlas-snapshot.json  <- Static fallback for the atlas and dossiers
 │   ├── verify.html          <- Public certificate verifier (certificate stays local)

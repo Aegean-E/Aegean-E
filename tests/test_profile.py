@@ -260,6 +260,73 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("export function findRepo", core)
         self.assertIn("export function validRepoName", core)
 
+    def test_screenshot_viewer_is_in_page_and_keyboard_ready(self):
+        page = (ROOT / "docs" / "project.html").read_text(encoding="utf-8")
+        for token in (
+            '<dialog class="gallery-lightbox" id="gallery-lightbox"',
+            'aria-labelledby="lightbox-caption"',
+            'aria-describedby="lightbox-meta"',
+            'id="lightbox-image"',
+            'id="lightbox-caption"',
+            'id="lightbox-meta"',
+            'id="lightbox-counter"',
+            'id="lightbox-prev"',
+            'id="lightbox-next"',
+            'id="lightbox-close"',
+            'id="lightbox-original"',
+            'aria-live="polite"',
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, page)
+        script = (ROOT / "docs" / "project.js").read_text(encoding="utf-8")
+        for token in (
+            'from "./lightbox.js"',
+            "createLightbox",
+            "viewerItem",
+            "gallery-open",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, script)
+        viewer = (ROOT / "docs" / "lightbox.js").read_text(encoding="utf-8")
+        for token in (
+            'from "./lightbox-core.js"',
+            "showModal",
+            "previouslyFocused",
+            "lightbox-open",
+            "addEventListener(\"cancel\"",
+            "addEventListener(\"keydown\"",
+            "ArrowRight",
+            "ArrowLeft",
+            "Home",
+            "End",
+            "replaceChildren",
+            "textContent",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, viewer)
+        for source in (script, viewer):
+            for token in ("innerHTML", "outerHTML", "document.write", "eval(", "new Function"):
+                with self.subTest(source=source[:16], token=token):
+                    self.assertNotIn(token, source)
+        core = (ROOT / "docs" / "lightbox-core.js").read_text(encoding="utf-8")
+        for token in (
+            "export function clampIndex",
+            "export function counterText",
+            "export function stepIndex",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, core)
+        css = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        for token in (
+            ".gallery-lightbox",
+            ".lightbox-stage",
+            ".gallery-lightbox::backdrop",
+            "body.lightbox-open",
+            ".gallery-open",
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, css)
+
     def test_portfolio_cards_use_repository_logos(self):
         index = (ROOT / "docs" / "media" / "logos.json").read_text(encoding="utf-8")
         data = json.loads(index)
@@ -385,6 +452,8 @@ class ProfileIntegrityTests(unittest.TestCase):
             "sw-client.js",
             "atlas.js",
             "project.js",
+            "lightbox.js",
+            "lightbox-core.js",
             "verify.js",
         ):
             with self.subTest(entry=needed):
@@ -571,7 +640,7 @@ class ProfileIntegrityTests(unittest.TestCase):
 
     def test_live_atlas_is_wired_to_the_github_api(self):
         html = read_site()
-        self.assertIn('<script type="module" src="atlas.js?v=7"></script>', html)
+        self.assertIn('<script type="module" src="atlas.js?v=8"></script>', html)
         self.assertIn('id="atlas-status"', html)
         self.assertIn('data-mode="snapshot"', html)
         self.assertEqual(html.count("data-project-count"), 2)

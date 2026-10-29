@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v7";
+const VERSION = "aegeanworks-shell-v8";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -18,6 +18,8 @@ const PRECACHE = [
   "atlas-core.js",
   "project.js",
   "project-core.js",
+  "lightbox.js",
+  "lightbox-core.js",
   "verify.js",
   "verify-core.js",
   "atlas-snapshot.json",

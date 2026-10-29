@@ -17,7 +17,9 @@ manifests. Nothing is generated at build time.
   a 1200px-wide WebP. It is the image at the top of the **dossier**.
 - `screenshots` come from the repository's `assets/screenshots/` or
   `screenshots/` folders (`fetch --screenshots`, up to three new captures per
-  run) or from `ingest`, each tied to the commit it shows.
+  run) or from `ingest`, each tied to the commit it shows. On the dossier they
+  open in an in-page viewer with previous/next, captions and commit metadata;
+  the original file stays one link away.
 - A repository with no `assets/` images gets a generated branded card, marked
   `"generated": true`, so the dossier never falls back to a remote image.
 

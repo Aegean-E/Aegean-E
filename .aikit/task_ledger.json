@@ -1,66 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "filter-cache",
-    "last_phase": "verification",
+    "task_id": "screenshot-viewer",
+    "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793284716.9730442,
+    "updated_at": 1793288347.2147286,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
-    "completed_at": 1793284733.3895042
+    "completed_at": 1793288352.4387705
   },
   "checkpoints": [
-    {
-      "task_id": "dossier-media",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[3/3] ADR-032 and ADR-033; 82 Python tests, 69 project, 65 atlas and 58 verifier assertions; axe-core 0 WCAG A/AA violations on four dossier variants at 1440px and 480px; media check 0 problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793204216.632,
-      "timestamp_str": "2026-10-28 19:16:56",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "dossier-media",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'dossier-media' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793204216.9007025,
-      "timestamp_str": "2026-10-28 19:16:56",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "dossier-media-case",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Record exact repository casing for two media folders/manifests in git and make the media checker reject case-mismatched paths",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793204593.7641175,
-      "timestamp_str": "2026-10-28 19:23:13",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "Git missed the case-only renames, so GitHub Pages served Neurocore.json while the dossier requested NeuroCore.json",
-        "benefits": "Media resolves on case-sensitive hosting; the checker catches the class of bug on Windows too",
-        "risks": "contract: none; dependency: none; concurrency: none; state: two renames",
-        "mitigation": "Two-step git mv, exact-path validation, offline check run"
-      }
-    },
-    {
-      "task_id": "dossier-media-case",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] 82 Python tests, 69 project assertions and media check pass; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793204594.0325568,
-      "timestamp_str": "2026-10-28 19:23:14",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "dossier-media-case",
       "phase": "completed",
@@ -267,6 +218,55 @@
       "status": "completed",
       "timestamp": 1793284733.3895059,
       "timestamp_str": "2026-10-29 17:38:53",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "screenshot-viewer",
+      "phase": "in_progress",
+      "phase_num": 2,
+      "description": "[1/4] Replace raw-image new-tab clicks with an in-page dialog viewer: navigable shots, captions, commit metadata and keyboard support, without changing the masonry layout",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793287614.4913464,
+      "timestamp_str": "2026-10-29 18:26:54",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "Clicking a dossier screenshot leaves the site for a bare image file, losing the caption, commit context and gallery position; the masonry layout itself is good and should stay",
+        "benefits": "One consistent in-page viewer for gallery captures and the social preview, with previous/next, counter, caption/commit metadata, Escape/arrow keys, focus restoration and an explicit original-file link",
+        "risks": "contract: dossier markup and project.js change, service-worker precache must include new modules; dependency: none, zero-dependency modules only; concurrency: none; state: modal open/close and focus-restore state per page",
+        "mitigation": "Native dialog with feature-detected fallback to the existing link, pure index helpers unit-tested, static wiring tests, axe/Playwright review at desktop and mobile widths"
+      }
+    },
+    {
+      "task_id": "screenshot-viewer",
+      "phase": "in_progress",
+      "phase_num": 3,
+      "description": "[2-3/4] Lightbox core and viewer modules, dialog markup, responsive styles, gallery/preview wiring and service-worker v8; masonry layout unchanged",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793288347.0719423,
+      "timestamp_str": "2026-10-29 18:39:07",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "screenshot-viewer",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[4/4] 85 Python tests, 84 project, 67 atlas and 58 verifier assertions; media check 0 problems; axe-core 0 WCAG A/AA violations on the closed gallery and open viewer at 1440px and 390px; browser checks desktop/mobile, keyboard, focus restore, preview, single-capture and offline; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793288347.2147286,
+      "timestamp_str": "2026-10-29 18:39:07",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "screenshot-viewer",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'screenshot-viewer' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793288352.4387724,
+      "timestamp_str": "2026-10-29 18:39:12",
       "agent": "opencode:main"
     }
   ]

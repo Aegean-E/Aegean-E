@@ -10,6 +10,11 @@ import {
   takenAt,
   validRepoName,
 } from "../../docs/project-core.js";
+import {
+  clampIndex,
+  counterText,
+  stepIndex,
+} from "../../docs/lightbox-core.js";
 
 let assertions = 0;
 
@@ -195,6 +200,22 @@ const many = normalizeMedia(
   "AIKit"
 );
 equal(many.screenshots.length, 12, "screenshot cap");
+
+equal(clampIndex(-2, 3), 0, "negative index clamps to the first shot");
+equal(clampIndex(9, 3), 2, "overflow index clamps to the last shot");
+equal(clampIndex(1.9, 3), 1, "fractional index truncates");
+equal(counterText(0, 3), "1 / 3", "counter starts at one");
+equal(counterText(2, 3), "3 / 3", "counter ends at the count");
+equal(counterText(8, 3), "3 / 3", "counter clamps");
+equal(counterText(0, 0), "", "empty gallery has no counter");
+equal(stepIndex(0, 3, 1), 1, "next step");
+equal(stepIndex(2, 3, 1), 0, "next wraps to the first shot");
+equal(stepIndex(0, 3, -1), 2, "previous wraps to the last shot");
+equal(stepIndex(1, 4, 2), 3, "multi-step next");
+equal(stepIndex(3, 4, 2), 1, "multi-step next wraps");
+equal(stepIndex(0, 1, 1), 0, "single shot cannot step");
+equal(stepIndex(0, 0, 1), 0, "empty gallery cannot step");
+equal(stepIndex(1, 3, Number.NaN), 1, "non-numeric step is ignored");
 
 console.log(`ok ${assertions} project-page assertions`);
 
