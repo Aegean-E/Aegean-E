@@ -1,88 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "live-address-restore",
+    "task_id": "reforge-run-1-stage21",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793308244.0469656,
+    "updated_at": 1793308282.6579857,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The owner prefers the full-page design at the old bookmarked play.html address, while the Live name and app-oriented catalog stay",
-      "benefits": "Old and new links both land on the full-page catalog, and the homepage cards reach it directly",
-      "risks": "contract: the page and redirect addresses swap, canonical and sitemap move to play.html; dependency: none; concurrency: none; state: the Live catalog and builds keep their names",
-      "mitigation": "Kept live.html as a query-preserving redirect, added the old ?game= fallback, ran both parity suites and the gates, and browser-checked play.html, the live.html redirect and the ?game= URL"
+      "why": "The full catalog moved back to play.html and live.html became a redirect",
+      "benefits": "The stopped run covers the address swap with no pending review",
+      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 21",
+      "mitigation": "Reviewed the fourteen changed files and committed only the audit state"
     },
-    "completed_at": 1793308244.183606
+    "completed_at": 1793308282.7933824
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 18",
-      "phase_num": 3,
-      "description": "Reforge stage 18: run stopped at stage 18; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793304266.3526497,
-      "timestamp_str": "2026-10-29 23:04:26",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage18",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 18 audited the runtime-validator coverage change and the prior close-out; no findings; 87 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793304271.7053287,
-      "timestamp_str": "2026-10-29 23:04:31",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The runtime validator and its regression test were the newest code after stage 17",
-        "benefits": "The stopped run again covers HEAD with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 18",
-        "mitigation": "Reviewed the four changed files, confirmed the real sources pass, and committed only the audit state"
-      }
-    },
-    {
-      "task_id": "reforge-run-1-stage18",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'reforge-run-1-stage18' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793304271.8418393,
-      "timestamp_str": "2026-10-29 23:04:31",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "ui-review-policy",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Record G-001: the owner declines UI review, so .aikit/ui.json is never adopted and the automated Python/Node suites remain the UI proof; 87 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793306927.6211042,
-      "timestamp_str": "2026-10-29 23:48:47",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "AIKit's UI contract can only be closed with a human --reviewed attestation, and the owner has declined to give one; adopting it would leave a permanently open task",
-        "benefits": "Future agents stop re-opening the UI adoption, and the remaining advisory is an explicit, owner-approved policy instead of an unexplained warning",
-        "risks": "contract: one project guideline; dependency: none; concurrency: none; state: the UI contract stays absent",
-        "mitigation": "Confirmed the guidelines gate accepts G-001 and all four gates pass without the UI contract"
-      }
-    },
-    {
-      "task_id": "ui-review-policy",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'ui-review-policy' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793306927.7665682,
-      "timestamp_str": "2026-10-29 23:48:47",
-      "agent": "opencode:main"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 18",
@@ -274,6 +209,66 @@
       "status": "completed",
       "timestamp": 1793308244.1836076,
       "timestamp_str": "2026-10-30 00:10:44",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 20",
+      "phase_num": 3,
+      "description": "Reforge stage 20: run resumed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308256.552885,
+      "timestamp_str": "2026-10-30 00:10:56",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 21",
+      "phase_num": 3,
+      "description": "Reforge stage 21: window 115, 2 commit(s), 14 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308268.817514,
+      "timestamp_str": "2026-10-30 00:11:08",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 21",
+      "phase_num": 3,
+      "description": "Reforge stage 21: run stopped at stage 21; resume it with `reforge resume`",
+      "files_affected": [],
+      "status": "suspended",
+      "timestamp": 1793308277.9469926,
+      "timestamp_str": "2026-10-30 00:11:17",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage21",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 21 audited the play.html address restore; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793308282.6579857,
+      "timestamp_str": "2026-10-30 00:11:22",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The full catalog moved back to play.html and live.html became a redirect",
+        "benefits": "The stopped run covers the address swap with no pending review",
+        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 21",
+        "mitigation": "Reviewed the fourteen changed files and committed only the audit state"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage21",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage21' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793308282.7933846,
+      "timestamp_str": "2026-10-30 00:11:22",
       "agent": "opencode:main"
     }
   ]
