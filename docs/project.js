@@ -25,14 +25,6 @@ const readmeEl = document.getElementById("readme-content");
 const readmeStatus = document.getElementById("readme-status");
 const readmeLink = document.getElementById("readme-link");
 const galleryEl = document.getElementById("project-gallery");
-const gallerySlider = document.getElementById("gallery-slider");
-const galleryImage = document.getElementById("gallery-image");
-const galleryOpen = document.getElementById("gallery-open");
-const galleryPrev = document.getElementById("gallery-prev");
-const galleryNext = document.getElementById("gallery-next");
-const galleryDots = document.getElementById("gallery-dots");
-const galleryCaption = document.getElementById("gallery-caption");
-const galleryMeta = document.getElementById("gallery-meta");
 const galleryNote = document.getElementById("gallery-note");
 const previewCard = document.getElementById("project-preview-card");
 const previewImage = document.getElementById("project-preview");
@@ -108,7 +100,7 @@ async function fetchOptionalJson(url) {
 
 async function loadMedia(repo) {
   const raw = await fetchOptionalJson(
-    "media/" + encodeURIComponent(repo.name) + ".json?v=18"
+    "media/" + encodeURIComponent(repo.name) + ".json?v=19"
   );
   const media = normalizeMedia(raw, repo.name);
   if (media.logo) renderLogo(repo, media.logo);
@@ -200,13 +192,76 @@ function renderPreview(repo, preview) {
   previewCard.hidden = false;
 }
 
+function galleryButton(id, className, label, glyph) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.id = id;
+  button.className = className;
+  button.setAttribute("aria-label", label);
+  if (glyph) button.textContent = glyph;
+  return button;
+}
+
+function buildGallerySlider(gallery) {
+  const legacy = document.getElementById("gallery-grid");
+  if (legacy) legacy.remove();
+  const slider = document.createElement("div");
+  slider.className = "gallery-slider";
+  slider.id = "gallery-slider";
+  slider.tabIndex = 0;
+
+  const stage = document.createElement("div");
+  stage.className = "gallery-stage";
+  const open = galleryButton("gallery-open", "gallery-open", "Open screenshot");
+  const image = document.createElement("img");
+  image.id = "gallery-image";
+  image.alt = "";
+  image.loading = "lazy";
+  image.decoding = "async";
+  open.appendChild(image);
+  stage.append(
+    open,
+    galleryButton("gallery-prev", "gallery-nav gallery-prev", "Previous screenshot", "\u2039"),
+    galleryButton("gallery-next", "gallery-nav gallery-next", "Next screenshot", "\u203a"),
+  );
+
+  const dots = document.createElement("div");
+  dots.className = "gallery-dots";
+  dots.id = "gallery-dots";
+
+  const captionRow = document.createElement("div");
+  captionRow.className = "gallery-caption-row";
+  const caption = document.createElement("p");
+  caption.className = "gallery-caption";
+  caption.id = "gallery-caption";
+  const meta = document.createElement("p");
+  meta.className = "gallery-meta";
+  meta.id = "gallery-meta";
+  captionRow.append(caption, meta);
+
+  slider.append(stage, dots, captionRow);
+  gallery.appendChild(slider);
+  return slider;
+}
+
 function renderGallery(repo, shots) {
-  if (!galleryEl || !gallerySlider || !galleryImage || !shots.length) return;
+  if (!galleryEl || !shots.length) return;
+  let slider = document.getElementById("gallery-slider");
+  if (!slider) slider = buildGallerySlider(galleryEl);
+  const image = document.getElementById("gallery-image");
+  const open = document.getElementById("gallery-open");
+  const previous = document.getElementById("gallery-prev");
+  const next = document.getElementById("gallery-next");
+  const dots = document.getElementById("gallery-dots");
+  const caption = document.getElementById("gallery-caption");
+  const meta = document.getElementById("gallery-meta");
+  if (!slider || !image || !dots) return;
+
   const viewerItems = shots.map(function (shot) {
     return viewerItem(repo, shot, "Screenshot");
   });
   let active = 0;
-  galleryDots.replaceChildren();
+  dots.replaceChildren();
   const dotButtons = shots.map(function (_, index) {
     const dot = document.createElement("button");
     dot.type = "button";
@@ -215,37 +270,37 @@ function renderGallery(repo, shots) {
     dot.addEventListener("click", function () {
       show(index);
     });
-    galleryDots.appendChild(dot);
+    dots.appendChild(dot);
     return dot;
   });
   if (shots.length < 2) {
-    galleryPrev.hidden = true;
-    galleryNext.hidden = true;
-    galleryDots.hidden = true;
+    if (previous) previous.hidden = true;
+    if (next) next.hidden = true;
+    dots.hidden = true;
   }
   function show(index) {
     active = (index + shots.length) % shots.length;
     const shot = shots[active];
-    galleryImage.src = shot.src;
-    galleryImage.alt = shot.alt || "Screenshot";
+    image.src = shot.src;
+    image.alt = shot.alt || "Screenshot";
     if (shot.width && shot.height) {
-      galleryImage.width = shot.width;
-      galleryImage.height = shot.height;
+      image.width = shot.width;
+      image.height = shot.height;
     }
-    if (galleryCaption) galleryCaption.textContent = shot.caption || shot.alt || "";
-    if (galleryMeta) {
-      galleryMeta.replaceChildren();
+    if (caption) caption.textContent = shot.caption || shot.alt || "";
+    if (meta) {
+      meta.replaceChildren();
       if (shot.commit) {
         const source = document.createElement("a");
         source.href = commitHref(repo, shot.commit);
         source.target = "_blank";
         source.rel = "noopener";
         source.textContent = "commit " + shot.commit;
-        galleryMeta.appendChild(source);
+        meta.appendChild(source);
         const rest = screenshotMeta({ ...shot, commit: "" });
-        if (rest) galleryMeta.append(" \u00b7 " + rest);
+        if (rest) meta.append(" \u00b7 " + rest);
       } else {
-        galleryMeta.textContent = screenshotMeta(shot);
+        meta.textContent = screenshotMeta(shot);
       }
     }
     dotButtons.forEach(function (dot, index) {
@@ -257,20 +312,24 @@ function renderGallery(repo, shots) {
       galleryNote.textContent =
         active + 1 + " / " + shots.length + (viewer ? " \u00b7 open to enlarge" : "");
     }
-    if (galleryOpen) {
-      galleryOpen.setAttribute("aria-haspopup", "dialog");
-      galleryOpen.setAttribute("aria-controls", "gallery-lightbox");
+    if (open) {
+      open.setAttribute("aria-haspopup", "dialog");
+      open.setAttribute("aria-controls", "gallery-lightbox");
       const label = shot.caption || shot.alt;
-      galleryOpen.setAttribute("aria-label", label ? "Open " + label : "Open screenshot");
+      open.setAttribute("aria-label", label ? "Open " + label : "Open screenshot");
     }
   }
-  galleryPrev.addEventListener("click", function () {
-    show(active - 1);
-  });
-  galleryNext.addEventListener("click", function () {
-    show(active + 1);
-  });
-  gallerySlider.addEventListener("keydown", function (event) {
+  if (previous) {
+    previous.addEventListener("click", function () {
+      show(active - 1);
+    });
+  }
+  if (next) {
+    next.addEventListener("click", function () {
+      show(active + 1);
+    });
+  }
+  slider.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       show(active - 1);
@@ -280,8 +339,8 @@ function renderGallery(repo, shots) {
       show(active + 1);
     }
   });
-  if (galleryOpen) {
-    galleryOpen.addEventListener("click", function () {
+  if (open) {
+    open.addEventListener("click", function () {
       if (viewer) viewer.open(viewerItems, active);
       else window.open(shots[active].src, "_blank", "noopener");
     });

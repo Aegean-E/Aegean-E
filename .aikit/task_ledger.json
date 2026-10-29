@@ -1,44 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "reforge-run-1-stage28",
+    "task_id": "dossier-cache-v19",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793311616.9279842,
+    "updated_at": 1793312197.229109,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "The dossier gallery changed from a grid to a single-stage slider",
-      "benefits": "The stopped run covers the slider with no pending review",
-      "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 28",
-      "mitigation": "Reviewed the eleven changed files, browser-checked Prism and Fold, and committed only the audit state"
+      "why": "A returning visitor could receive the new project.html with the old cache-first project.js and see no gallery",
+      "benefits": "Cache transitions no longer break the dossier; the old grid markup upgrades itself to the slider",
+      "risks": "contract: project.html/project.js/sw.js and shell v19; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: none",
+      "mitigation": "Reproduced old markup plus new renderer in a browser (7 dots, image loaded, no errors) and ran every suite and gate; staging is explicit so Tessera is not committed"
     },
-    "completed_at": 1793311617.060335
+    "completed_at": 1793312197.3543153
   },
   "checkpoints": [
-    {
-      "task_id": "dossier-media-completeness",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'dossier-media-completeness' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793310772.2860599,
-      "timestamp_str": "2026-10-30 00:52:52",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 25",
-      "phase_num": 3,
-      "description": "Reforge stage 25: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793310795.6970503,
-      "timestamp_str": "2026-10-30 00:53:15",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 26",
@@ -281,6 +260,33 @@
       "status": "completed",
       "timestamp": 1793311617.060336,
       "timestamp_str": "2026-10-30 01:06:57",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "dossier-cache-v19",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Version the dossier assets to v19 and rebuild the slider from old markup: project.html requests styles.css/app.js/project.js with ?v=19; renderGallery recreates the slider via createElement when #gallery-slider is missing and removes legacy #gallery-grid; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793312197.229109,
+      "timestamp_str": "2026-10-30 01:16:37",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "A returning visitor could receive the new project.html with the old cache-first project.js and see no gallery",
+        "benefits": "Cache transitions no longer break the dossier; the old grid markup upgrades itself to the slider",
+        "risks": "contract: project.html/project.js/sw.js and shell v19; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: none",
+        "mitigation": "Reproduced old markup plus new renderer in a browser (7 dots, image loaded, no errors) and ran every suite and gate; staging is explicit so Tessera is not committed"
+      }
+    },
+    {
+      "task_id": "dossier-cache-v19",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'dossier-cache-v19' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793312197.3543167,
+      "timestamp_str": "2026-10-30 01:16:37",
       "agent": "opencode:main"
     }
   ]

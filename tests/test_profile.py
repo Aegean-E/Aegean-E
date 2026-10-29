@@ -251,7 +251,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn('from "./project-core.js"', script)
         self.assertIn('from "./atlas-core.js"', script)
         self.assertIn('fetchJson("atlas-snapshot.json")', script)
-        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json?v=18"', script)
+        self.assertIn('"media/" + encodeURIComponent(repo.name) + ".json?v=19"', script)
         self.assertIn("normalizeMedia", script)
         self.assertIn("renderLogo", script)
         self.assertIn("/commit/", script)
