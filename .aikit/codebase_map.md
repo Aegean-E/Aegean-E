@@ -10,7 +10,7 @@
 - **Total Classes**: `3`
 - **Total Top-Level Functions**: `64`
 - **Total Class Methods**: `87`
-- **Total Source Lines**: `2930`
+- **Total Source Lines**: `2934`
 
 ---
 
@@ -172,7 +172,7 @@
 ### [`tools/sync_playable_games.py`](tools/sync_playable_games.py)
 > *Sync the static browser games and the playable-game manifest.*
 
-**Size**: `515` lines (`20667` bytes)
+**Size**: `519` lines (`20769` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

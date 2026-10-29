@@ -1,56 +1,23 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "playable-build-retention",
+    "task_id": "reforge-run-1-stage15",
     "last_phase": "in_progress",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793303274.028598,
+    "updated_at": 1793303355.4582472,
     "owner": "opencode:main",
     "started_by": "opencode:main",
     "continuations": [],
     "impact_assessment": {
-      "why": "ADR-043 keeps three builds so a cached catalog still resolves, but the sync ordered them by mtime; a fresh CI checkout gives every build directory the same checkout time, so the sort could delete the newest predecessor a cached client holds",
-      "benefits": "Retention is deterministic and survives a shallow checkout; the manifest names exactly which builds are kept, and --check rejects an unlisted or missing build directory",
-      "risks": "contract: playable.json gains a builds list and --check validates it; dependency: none; concurrency: none; state: the migration seeded the existing directories",
-      "mitigation": "Proved the recorded order beats reversed mtimes, checked the migration path, exercised the unlisted-directory failure, and ran both parity suites, the source/manifest checks, the media check and all four gates"
+      "why": "The new retained-build validation built its directory set from every string in builds, so a malformed entry crashed the check with a traceback instead of naming the unsafe path",
+      "benefits": "A corrupt or hand-edited catalog now fails with the same Why/Fix report as every other validation problem, and valid builds still pass",
+      "risks": "contract: tools/sync_playable_games.py only; dependency: none; concurrency: none; state: reforge stage 15 reviewed",
+      "mitigation": "Reproduced the malformed-manifest crash before the change and the clean three-problem report after it, then ran both parity suites, the catalog and source checks, the media check and all four gates"
     },
-    "completed_at": 1793303274.1874757
+    "completed_at": 1793303355.6015518
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 11",
-      "phase_num": 3,
-      "description": "Reforge stage 11: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793297549.5607932,
-      "timestamp_str": "2026-10-29 21:12:29",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 12",
-      "phase_num": 3,
-      "description": "Reforge stage 12: window 99, 4 commit(s), 37 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793297566.879364,
-      "timestamp_str": "2026-10-29 21:12:46",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "playable-weft",
-      "phase": "phase 3",
-      "phase_num": 3,
-      "description": "[2/4] Add Weft to the sync contract, manifest, logo, workflow, parity tests and no-JS fallback; checklists: passed; gates: test, hygiene, guidelines, secrets",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793297700.854151,
-      "timestamp_str": "2026-10-29 21:15:00",
-      "agent": "opencode:weft"
-    },
     {
       "task_id": "playable-weft",
       "phase": "completed",
@@ -270,6 +237,44 @@
       "status": "completed",
       "timestamp": 1793303274.1874774,
       "timestamp_str": "2026-10-29 22:47:54",
+      "agent": "opencode:main"
+    },
+    {
+      "task_id": "reforge:run-1",
+      "phase": "reforge stage 15",
+      "phase_num": 3,
+      "description": "Reforge stage 15: window 105, 2 commit(s), 6 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303303.392018,
+      "timestamp_str": "2026-10-29 22:48:23",
+      "agent": "opencode"
+    },
+    {
+      "task_id": "reforge-run-1-stage15",
+      "phase": "in_progress",
+      "phase_num": 4,
+      "description": "[1/1] Reforge stage 15: --check reports an unsafe retained build path instead of raising IndexError, proved with a malformed manifest; 86 Python tests, 20 play, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793303355.4582472,
+      "timestamp_str": "2026-10-29 22:49:15",
+      "agent": "opencode:main",
+      "impact_assessment": {
+        "why": "The new retained-build validation built its directory set from every string in builds, so a malformed entry crashed the check with a traceback instead of naming the unsafe path",
+        "benefits": "A corrupt or hand-edited catalog now fails with the same Why/Fix report as every other validation problem, and valid builds still pass",
+        "risks": "contract: tools/sync_playable_games.py only; dependency: none; concurrency: none; state: reforge stage 15 reviewed",
+        "mitigation": "Reproduced the malformed-manifest crash before the change and the clean three-problem report after it, then ran both parity suites, the catalog and source checks, the media check and all four gates"
+      }
+    },
+    {
+      "task_id": "reforge-run-1-stage15",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'reforge-run-1-stage15' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793303355.6015532,
+      "timestamp_str": "2026-10-29 22:49:15",
       "agent": "opencode:main"
     }
   ]

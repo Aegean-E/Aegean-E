@@ -425,7 +425,11 @@ def check_manifest() -> list[str]:
                     problems.append(f"{spec['slug']} has an unsafe retained build path")
                 elif not (DOCS / build).is_file():
                     problems.append(f"{spec['slug']} retained build is missing: {build}")
-            listed = {build.split("/")[2] for build in builds if isinstance(build, str)}
+            listed = {
+                build.split("/")[2]
+                for build in builds
+                if isinstance(build, str) and _build_path_ok(spec["slug"], build)
+            }
             actual_dirs = {
                 path.name
                 for path in (DOCS / "play" / spec["slug"]).iterdir()
