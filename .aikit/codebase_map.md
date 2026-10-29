@@ -10,7 +10,7 @@
 - **Total Classes**: `2`
 - **Total Top-Level Functions**: `43`
 - **Total Class Methods**: `83`
-- **Total Source Lines**: `2147`
+- **Total Source Lines**: `2160`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1239` lines (`57678` bytes)
+**Size**: `1252` lines (`58370` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*

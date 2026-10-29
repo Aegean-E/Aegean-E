@@ -830,11 +830,21 @@ h1 .grad {
   color: var(--text);
   border-color: rgba(103, 232, 249, 0.35);
 }
+.topic-chip:focus-visible,
+.sort-wrap select:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
 .topic-chip.is-active {
   color: #04121a;
   border-style: solid;
   border-color: transparent;
   background: linear-gradient(100deg, #8ef0fb, #b9a4fd);
+}
+.topic-chip.topic-more {
+  border-color: rgba(103, 232, 249, 0.35);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .project-toolbar {

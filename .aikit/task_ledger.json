@@ -1,93 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "media-automation",
+    "task_id": "archived-filter",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793208508.0571246,
+    "updated_at": 1793280661.0853176,
     "owner": "kilo:main",
     "started_by": "kilo:main",
     "continuations": [],
-    "completed_at": 1793208508.3114986
+    "completed_at": 1793280688.3609076
   },
   "checkpoints": [
-    {
-      "task_id": "site-audit",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-audit' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793143188.9795191,
-      "timestamp_str": "2026-10-28 02:19:48",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-audit-polish",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Close residual narrow-screen gaps: wrap README code blocks below 640px instead of clipping them, enlarge gallery metadata, remove the empty offline footer block and make the 404 link row wrap without literal separators",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793144690.3312774,
-      "timestamp_str": "2026-10-28 02:44:50",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "The 390px review still found clipped directory trees, tiny capture metadata, an empty bordered footer block and a dangling separator",
-        "benefits": "Dossiers are readable at phone width; offline and 404 pages look intentional",
-        "risks": "contract: narrow-width code rendering changes; dependency: none; concurrency: none; state: none",
-        "mitigation": "Python tests pin the wrap rule, the slim footer and the separator removal; screenshots and axe re-run at 390px and 1440px"
-      }
-    },
-    {
-      "task_id": "site-audit-polish",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] ADR-030 records the wrap, gallery, offline-footer and 404-link fixes; 81 Python tests, 65 atlas, 57 project and 58 verifier assertions pass; axe-core 0 violations on eight pages at 1440px and 480px; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793144755.2301433,
-      "timestamp_str": "2026-10-28 02:45:55",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "site-audit-polish",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'site-audit-polish' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793144755.4355545,
-      "timestamp_str": "2026-10-28 02:45:55",
-      "agent": "kilo:main"
-    },
-    {
-      "task_id": "render-fixes",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Keep wrapped and indented README lines inside their list item, and let mobile topic chips wrap instead of clipping behind a hidden scrollbar",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793147909.8463175,
-      "timestamp_str": "2026-10-28 03:38:29",
-      "agent": "kilo:main",
-      "impact_assessment": {
-        "why": "Bullet continuations rendered as stray paragraphs and half the topic filters were unreachable at 390px",
-        "benefits": "Dossiers mirror the README structure; every filter is visible on a phone",
-        "risks": "contract: README block parsing and narrow-width chip layout; dependency: none; concurrency: none; state: none",
-        "mitigation": "Node assertions for wrapped, indented and blank-line continuations; screenshots at 390px; axe re-run"
-      }
-    },
-    {
-      "task_id": "render-fixes",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "[2/2] ADR-031; 81 Python tests, 65 atlas, 64 project and 58 verifier assertions; axe-core 0 violations at 1440px and 480px; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793147910.0628898,
-      "timestamp_str": "2026-10-28 03:38:30",
-      "agent": "kilo:main"
-    },
     {
       "task_id": "render-fixes",
       "phase": "completed",
@@ -254,6 +178,95 @@
       "status": "completed",
       "timestamp": 1793208508.3115003,
       "timestamp_str": "2026-10-28 20:28:28",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "archived-filter",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Add an archive status filter to the portfolio search toolbar and expose each card's archived state to the live atlas",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793218403.0505767,
+      "timestamp_str": "2026-10-28 23:13:23",
+      "agent": "kilo:main",
+      "impact_assessment": {
+        "why": "The site shows archived repositories in the portfolio but offers no way to isolate them, and the live atlas knows the archived flag without rendering it",
+        "benefits": "Visitors can switch between all, active and archived repositories from the existing search section, including with a shareable URL",
+        "risks": "contract: card data attributes and URL filter state; dependency: none; concurrency: none; state: archive query parameter only, no persisted state",
+        "mitigation": "Default to all projects so existing behaviour is unchanged; set data-archived on static and live cards; pin filtering, URL state and card attributes in tests"
+      }
+    },
+    {
+      "task_id": "archived-filter",
+      "phase": "phase 3",
+      "phase_num": 3,
+      "description": "[2/2] Implemented archive status filter: data-archived on all 35 cards, Status select with all/active/archived, archive URL state, live atlas writes data-archived; ADR-035, README, Python and atlas parity tests updated. Blocked before Phase 4: full suite 83 tests, 1 pre-existing failure in test_dossier_media_manifests_are_consistent from uncommitted schema-1 media manifests.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793276744.68518,
+      "timestamp_str": "2026-10-29 15:25:44",
+      "agent": "kilo:main"
+    },
+    {
+      "task_id": "archived-filter",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Gate attempt: hygiene and secrets pass; guidelines pass after refreshing .aikit/codebase_map.md; test gate fails 1 of 83 on test_dossier_media_manifests_are_consistent from uncommitted schema-1 docs/media manifests written 2026-10-28 21:40, before this task. Archive filter work itself passes its targeted tests and all 67 atlas assertions. Not complete.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793276925.2153873,
+      "timestamp_str": "2026-10-29 15:28:45",
+      "agent": "kilo:main",
+      "handoff": {
+        "state": "data-archived on 35 cards, Status select and archive URL state in docs/app.js, live atlas writes data-archived, ADR-035 added",
+        "next": "resolve the unrelated media manifest drift, then rerun python aikit.py check AegeanWorks",
+        "failed": "test gate (media manifests), 3/4 gates pass",
+        "open": "uncommitted media files are not part of archived-filter",
+        "evidence": "83 tests 1 failure, node tests 67 assertions OK, targeted archive/atlas/card tests OK"
+      }
+    },
+    {
+      "task_id": "archived-filter",
+      "phase": "phase 3",
+      "phase_num": 3,
+      "description": "[2/2] Fixed the search topic shelf: default still shows 12 chips, new 'Show all N topics' toggle reveals every catalogued topic and collapses to 'Show fewer'; toggle carries aria-expanded and is excluded from selected-chip state. ADR-036 added, README updated, Python tokens pinned. Targeted atlas/profile tests and 67 node assertions pass; full suite still fails only on the pre-existing uncommitted media manifests.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793278166.442002,
+      "timestamp_str": "2026-10-29 15:49:26",
+      "agent": "kilo:main",
+      "handoff": {
+        "state": "archive filter + full topic shelf in docs/app.js, docs/styles.css, ADR-035/036",
+        "next": "resolve unrelated docs/media drift, then rerun python aikit.py check AegeanWorks",
+        "failed": "test gate only (media manifests)",
+        "evidence": "83 tests 1 failure, node 67 assertions OK"
+      }
+    },
+    {
+      "task_id": "archived-filter",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[2/2] Verified: 83 project tests pass, 67 atlas assertions pass, 4/4 gates pass (test, hygiene, guidelines, secrets); checklists: passed",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793280661.0853176,
+      "timestamp_str": "2026-10-29 16:31:01",
+      "agent": "kilo:main",
+      "handoff": {
+        "state": "archive Status filter, Show all topics shelf, atlas cache v3, service worker shell v6, ADR-035/036/037",
+        "next": "none, task complete",
+        "evidence": "python aikit.py check AegeanWorks -> 4/4, node tests/atlas/run-tests.mjs -> 67 assertions"
+      }
+    },
+    {
+      "task_id": "archived-filter",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'archived-filter' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793280688.3609092,
+      "timestamp_str": "2026-10-29 16:31:28",
       "agent": "kilo:main"
     }
   ]

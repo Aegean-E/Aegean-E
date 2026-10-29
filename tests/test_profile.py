@@ -510,6 +510,9 @@ class ProfileIntegrityTests(unittest.TestCase):
             self.assertIn(f'<option value="{value}">', html)
         self.assertIn('id="clear-filters"', html)
         self.assertIn('id="topic-filters"', html)
+        self.assertIn('id="project-archive"', html)
+        for value in ("all", "active", "archived"):
+            self.assertIn(f'<option value="{value}">', html)
         self.assertIn('aria-label="Filter by topic"', html)
         self.assertIn("Search projects, topics, languages", html)
         app = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
@@ -518,10 +521,16 @@ class ProfileIntegrityTests(unittest.TestCase):
             "history.replaceState",
             'params.get("q")',
             'params.get("topic")',
+            'params.get("archive")',
             'params.get("sort")',
             "dataset.pushedAt",
             "card.dataset.topics",
+            "card.dataset.archived",
+            "archiveSelect",
             "function buildTopicChips",
+            "showAllTopics",
+            "topic-more",
+            'button.setAttribute("aria-expanded"',
             "aria-pressed",
             'event.key !== "/"',
         ):
@@ -544,7 +553,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn(
             'export const API_ROOT = "https://api.github.com/users/AegeanWorks/repos";', core
         )
-        self.assertIn('export const CACHE_KEY = "aegean:atlas:v2";', core)
+        self.assertIn('export const CACHE_KEY = "aegean:atlas:v3";', core)
         self.assertIn("CACHE_TTL_MS = 10 * 60 * 1000", core)
         self.assertIn("export function planSync", core)
         self.assertIn("export async function fetchAllRepos", core)
@@ -554,6 +563,8 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertIn("controller.abort()", ui)
         self.assertIn("window.clearTimeout(timer)", ui)
         self.assertIn("title.textContent = repo.name", ui)
+        self.assertIn('element.dataset.archived = repo.archived ? "true" : "false";', ui)
+        self.assertIn('anchor.dataset.archived = repo.archived ? "true" : "false";', ui)
         self.assertIn(
             'window.addEventListener("atlas:changed"',
             (ROOT / "docs" / "app.js").read_text(encoding="utf-8"),
@@ -1069,6 +1080,8 @@ class ProfileIntegrityTests(unittest.TestCase):
                     f'<p>{html_escape(repo["description"], quote=False)}</p>', block
                 )
                 self.assertIn('data-topics="' + ",".join(repo["topics"]) + '"', block)
+                archived = "true" if repo.get("archived") else "false"
+                self.assertIn(f'data-archived="{archived}"', block)
                 expected = [topic for topic in repo["topics"] if topic not in omitted][:6]
                 self.assertEqual(
                     re.findall(r'<span class="tag">([^<]+)</span>', block), expected

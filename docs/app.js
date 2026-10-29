@@ -100,9 +100,11 @@
   var grid = document.getElementById("project-grid");
   var searchInput = document.getElementById("project-search");
   var sortSelect = document.getElementById("project-sort");
+  var archiveSelect = document.getElementById("project-archive");
   var clearButton = document.getElementById("clear-filters");
   var topicContainer = document.getElementById("topic-filters");
   var SORT_VALUES = ["curated", "recent", "name"];
+  var ARCHIVE_VALUES = ["all", "active", "archived"];
   var TOPIC_LIMIT = 12;
   var BOILERPLATE_TOPICS = {
     aikit: true,
@@ -112,9 +114,10 @@
     "drm-free": true,
     "zero-dependencies": true,
   };
-  var state = { q: "", topic: "", sort: "curated" };
+  var state = { q: "", topic: "", archive: "all", sort: "curated" };
   var curatedOrder = new Map();
   var topicChips = [];
+  var showAllTopics = false;
   var focusSearch = false;
   var logoIndex = null;
 
@@ -131,7 +134,7 @@
   }
 
   function hasNarrowing() {
-    return Boolean(state.q || state.topic);
+    return Boolean(state.q || state.topic || state.archive !== "all");
   }
 
   function hasViewChange() {
@@ -207,6 +210,7 @@
       card.dataset.topics || "",
       card.dataset.language || "",
       card.dataset.license || "",
+      card.dataset.archived === "true" ? "archived" : "",
       facts ? facts.textContent : "",
     ].join(" ").toLowerCase();
   }
@@ -263,6 +267,17 @@
     topicContainer.appendChild(button);
   }
 
+  function makeTopicToggle(totalTopics) {
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "topic-chip topic-more";
+    button.setAttribute("aria-expanded", showAllTopics ? "true" : "false");
+    button.textContent = showAllTopics
+      ? "Show fewer"
+      : "Show all " + totalTopics + " topics";
+    topicContainer.appendChild(button);
+  }
+
   // Counts only rank the chips; they are not printed, so the shelf stays quiet.
   function buildTopicChips() {
     if (!topicContainer) return;
@@ -288,7 +303,7 @@
       if (left[1] !== right[1]) return right[1] - left[1];
       return left[0].localeCompare(right[0]);
     });
-    var visible = topics.slice(0, TOPIC_LIMIT);
+    var visible = showAllTopics ? topics : topics.slice(0, TOPIC_LIMIT);
     if (state.topic && !visible.some(function (entry) { return entry[0] === state.topic; })) {
       var active = topics.find(function (entry) { return entry[0] === state.topic; });
       if (active) visible.push(active);
@@ -298,12 +313,17 @@
     visible.forEach(function (entry) {
       makeTopicChip(entry[0], entry[0]);
     });
+    if (topics.length > TOPIC_LIMIT) {
+      makeTopicToggle(topics.length);
+    }
     if (state.topic && !counts.has(state.topic)) {
       makeTopicChip(state.topic, state.topic);
     }
     topicChips = Array.prototype.slice.call(
       topicContainer.querySelectorAll(".topic-chip")
-    );
+    ).filter(function (chip) {
+      return !chip.classList.contains("topic-more");
+    });
     updateTopicChips();
   }
 
@@ -314,6 +334,8 @@
       else params.delete("q");
       if (state.topic) params.set("topic", state.topic);
       else params.delete("topic");
+      if (state.archive !== "all") params.set("archive", state.archive);
+      else params.delete("archive");
       if (state.sort !== "curated") params.set("sort", state.sort);
       else params.delete("sort");
       params.delete("focus");
@@ -332,11 +354,14 @@
     var params = new URLSearchParams(window.location.search);
     state.q = (params.get("q") || "").trim().slice(0, 100);
     state.topic = (params.get("topic") || "").trim().toLowerCase().slice(0, 80);
+    var archive = params.get("archive") || "all";
+    state.archive = ARCHIVE_VALUES.indexOf(archive) === -1 ? "all" : archive;
     var sort = params.get("sort") || "curated";
     state.sort = SORT_VALUES.indexOf(sort) === -1 ? "curated" : sort;
     focusSearch = params.get("focus") === "search";
     if (searchInput) searchInput.value = state.q;
     if (sortSelect) sortSelect.value = state.sort;
+    if (archiveSelect) archiveSelect.value = state.archive;
   }
 
   function applyView() {
@@ -349,11 +374,15 @@
     cards.forEach(function (card) {
       var topics = (card.dataset.topics || "").toLowerCase().split(",");
       var topicMatch = !state.topic || topics.indexOf(state.topic) !== -1;
+      var archived = card.dataset.archived === "true";
+      var archiveMatch =
+        state.archive === "all" ||
+        (state.archive === "archived" ? archived : !archived);
       var haystack = projectHaystack(card);
       var queryMatch = terms.every(function (term) {
         return haystack.indexOf(term) !== -1;
       });
-      var match = topicMatch && queryMatch;
+      var match = topicMatch && archiveMatch && queryMatch;
       card.classList.toggle("is-hidden", !match);
       if (match) {
         shown += 1;
@@ -375,8 +404,10 @@
   function clearFilters() {
     state.q = "";
     state.topic = "";
+    state.archive = "all";
     state.sort = "curated";
     if (searchInput) searchInput.value = "";
+    if (archiveSelect) archiveSelect.value = "all";
     if (sortSelect) sortSelect.value = "curated";
     updateTopicChips();
     applyView();
@@ -393,6 +424,11 @@
     topicContainer.addEventListener("click", function (event) {
       var chip = event.target.closest(".topic-chip");
       if (!chip) return;
+      if (chip.classList.contains("topic-more")) {
+        showAllTopics = !showAllTopics;
+        buildTopicChips();
+        return;
+      }
       var value = chip.dataset.topic || "";
       state.topic = value === state.topic ? "" : value;
       applyView();
@@ -420,6 +456,13 @@
   if (sortSelect) {
     sortSelect.addEventListener("change", function () {
       state.sort = sortSelect.value;
+      applyView();
+    });
+  }
+
+  if (archiveSelect) {
+    archiveSelect.addEventListener("change", function () {
+      state.archive = archiveSelect.value;
       applyView();
     });
   }

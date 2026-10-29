@@ -48,6 +48,8 @@ function repo(id, name, extra = {}) {
 const one = normalizeRepo(repo(101, "NeuroCore", { topics: ["ai", "ai", "rag"] }));
 equal(one.html_url, "https://github.com/AegeanWorks/NeuroCore", "URL is rebuilt");
 equal(one.topics, ["ai", "rag"], "topics deduplicate");
+equal(normalizeRepo(repo(102, "Old", { archived: true })).archived, true, "archived flag is kept");
+equal(normalizeRepo(repo(103, "New")).archived, false, "missing archived flag is false");
 assert.throws(() => normalizeRepo(repo(0, "Bad")), AtlasFetchError);
 assertions += 1;
 assert.throws(() => normalizeRepo(repo(1, "../escape")), AtlasFetchError);
@@ -146,11 +148,11 @@ const cached = parseCache(cache, 2000, 5000);
 equal(cached.repos[0].name, "Cached", "cache roundtrip");
 equal(parseCache(cache, 9000, 5000), null, "expired cache ignored");
 const bumped = JSON.parse(cache);
-bumped.version = 3;
-equal(parseCache(JSON.stringify(bumped), 2000, 5000), null, "cache version checked");
+bumped.version = 2;
+equal(parseCache(JSON.stringify(bumped), 2000, 5000), null, "older cache version rejected");
 equal(parseCache("not json", 2000, 5000), null, "bad cache ignored");
-equal(JSON.parse(cache).version, 2, "cache version stored");
-equal(CACHE_KEY, "aegean:atlas:v2", "cache key");
+equal(JSON.parse(cache).version, 3, "cache version stored");
+equal(CACHE_KEY, "aegean:atlas:v3", "cache key");
 
 const counted = countCards([
   { cat: "ai" },

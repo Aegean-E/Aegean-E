@@ -4,8 +4,8 @@
 
 /* hygiene: allow canonical public API fetch, not a loaded third-party resource */
 export const API_ROOT = "https://api.github.com/users/AegeanWorks/repos";
-export const CACHE_KEY = "aegean:atlas:v2";
-export const CACHE_VERSION = 2;
+export const CACHE_KEY = "aegean:atlas:v3";
+export const CACHE_VERSION = 3;
 export const CACHE_TTL_MS = 10 * 60 * 1000;
 export const MAX_PAGES = 5;
 export const CATEGORY_ORDER = ["ai", "research", "health", "tools", "play"];

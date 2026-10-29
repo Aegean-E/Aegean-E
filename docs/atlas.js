@@ -62,6 +62,7 @@ function updateCard(element, repo) {
   element.dataset.language = repo.language;
   element.dataset.license = repo.license_family || repo.license;
   element.dataset.pushedAt = repo.pushed_at;
+  element.dataset.archived = repo.archived ? "true" : "false";
   if (element.getAttribute("href") !== repo.project_url) {
     element.setAttribute("href", repo.project_url);
   }
@@ -104,6 +105,7 @@ function createCard(repo) {
   anchor.dataset.language = repo.language;
   anchor.dataset.license = repo.license_family || repo.license;
   anchor.dataset.pushedAt = repo.pushed_at;
+  anchor.dataset.archived = repo.archived ? "true" : "false";
   anchor.setAttribute("href", repo.project_url);
   anchor.setAttribute("rel", "noopener");
 
