@@ -53,18 +53,18 @@
       "description": "A neon color-mixing puzzle: route red, green and blue beams through rotating mirrors and dye cells, blend exact hues, and light every receiver across three episodes.",
       "available": true,
       "mode": "browser",
-      "path": "live/iris/65c26d1e9b83/index.html",
+      "path": "live/iris/e53876b656f1/index.html",
       "source_url": "https://github.com/AegeanWorks/Iris",
       "version": "0.1.0",
-      "commit": "65c26d1e9b839880c63c93c1c5d14404e2c4b380",
+      "commit": "e53876b656f14ccc029570cf3b3982f97c267abb",
       "updated": "2026-10-30",
       "license": "AGL-1.1",
       "license_path": "live/iris/LICENSE",
       "digest": "sha256:f1f205937598d82552c661cf4941b159577d8ac531453e4aa69dbeac76a4cc2b",
       "builds": [
+        "live/iris/e53876b656f1/index.html",
         "live/iris/65c26d1e9b83/index.html",
-        "live/iris/b1255ec3ea30/index.html",
-        "live/iris/fa020321803d/index.html"
+        "live/iris/b1255ec3ea30/index.html"
       ],
       "logo": "live/iris/logo.svg",
       "dossier": ""
