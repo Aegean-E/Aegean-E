@@ -6,20 +6,20 @@
     "alt": "AIKit logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:9391e9d0807a76741f50d07a2d86adc58a3408b9bfb6b68a8ed16ad760cbf4bd",
-    "commit": "476c05c0879c922c6bfcc3b16a82cb7bfd7b40ae",
-    "taken_at": "2026-10-28",
-    "generated": true
+    "digest": "sha256:50f2cc8e3272853892a4b9fa90943d590ad4df970cee60a7b5d570bfc4d05f35",
+    "commit": "e21e5699a6076d71007e5808b8e3c452f72e5211",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/AIKit/e21e5699a6076d71007e5808b8e3c452f72e5211/assets/logo.jpg"
   },
   "preview": {
     "src": "media/AIKit/social-preview.webp",
     "alt": "AIKit social preview",
     "width": 1200,
     "height": 600,
-    "digest": "sha256:529f0b44bf342b12007f41cfa8fbf3f2d4798ede17ce7b4597a3326e35b7144f",
-    "commit": "476c05c0879c922c6bfcc3b16a82cb7bfd7b40ae",
-    "taken_at": "2026-10-28",
-    "generated": true
+    "digest": "sha256:fa997ad9b1cd145d54cdbe90f082681c78ddba7cd0e65c2e1b7d296965ee1a2c",
+    "commit": "e21e5699a6076d71007e5808b8e3c452f72e5211",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/AIKit/e21e5699a6076d71007e5808b8e3c452f72e5211/assets/social-preview.png"
   },
   "screenshots": []
 }

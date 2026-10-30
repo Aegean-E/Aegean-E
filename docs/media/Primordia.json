@@ -7,10 +7,10 @@
     "alt": "Primordia logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:edbdb244572206fba36be6251d4bf149dff8c41358f83c8c2e65436c8bfbf27f",
-    "commit": "1c0a6449717bbb10a35a3a648aad8ba6e461568c",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/1c0a6449717bbb10a35a3a648aad8ba6e461568c/assets/logo.jpg"
+    "digest": "sha256:b6c264c32c11a3f85d5a024d0cd44d09e698649d85c78e4f1751c65f89472d04",
+    "commit": "4b22927ffba58e614a6956fa67b7a5f3d241d75c",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/4b22927ffba58e614a6956fa67b7a5f3d241d75c/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Primordia/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:369020eccc190f11f773e72c9710cac3269fb094db503382e1c5ee22a433974c",
-    "commit": "1c0a6449717bbb10a35a3a648aad8ba6e461568c",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/1c0a6449717bbb10a35a3a648aad8ba6e461568c/assets/social-preview.png"
+    "commit": "4b22927ffba58e614a6956fa67b7a5f3d241d75c",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Primordia/4b22927ffba58e614a6956fa67b7a5f3d241d75c/assets/social-preview.png"
   }
 }

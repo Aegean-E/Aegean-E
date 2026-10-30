@@ -41,10 +41,10 @@
     "alt": "Fold logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:604dc7d2e510f7c9295f903cbba8ee86242561a4503c69c28489a9772500e5bf",
-    "commit": "ec4f46484593c9ba2de6e32ddb6769fe2fc5d1fe",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/ec4f46484593c9ba2de6e32ddb6769fe2fc5d1fe/assets/logo.jpg"
+    "digest": "sha256:dea2115e9bf0dce4bfdceafbe3e4f73b8a7805dda284f78408fe63fa959eb955",
+    "commit": "5510b1f41b626fe964f8bcfc105e50e3d729b7a3",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/5510b1f41b626fe964f8bcfc105e50e3d729b7a3/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Fold/social-preview.webp",
@@ -52,8 +52,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:7d6f349d60265f4c728d199a2ed256d85439dc400e5d67b8e11398ee60bac7af",
-    "commit": "ec4f46484593c9ba2de6e32ddb6769fe2fc5d1fe",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/ec4f46484593c9ba2de6e32ddb6769fe2fc5d1fe/assets/social-preview.png"
+    "commit": "5510b1f41b626fe964f8bcfc105e50e3d729b7a3",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/5510b1f41b626fe964f8bcfc105e50e3d729b7a3/assets/social-preview.png"
   }
 }

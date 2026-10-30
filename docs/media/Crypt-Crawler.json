@@ -51,19 +51,19 @@
     "alt": "Crypt-Crawler logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:de093ae33046cfcf24df8c661ef829b0a79aff19565bf05772485399381354b0",
-    "commit": "f91f45c3d393d2a32fd74cef217a0349c29d9811",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Crypt-Crawler/f91f45c3d393d2a32fd74cef217a0349c29d9811/assets/logo.jpg"
+    "digest": "sha256:51705216d1048b5bb161a7224dd5c66252270ae47fb0c7dc7a95b834ab22ddf3",
+    "commit": "1b9f612ba4d4950d0025aaff349d8e1ccc2bce53",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Crypt-Crawler/1b9f612ba4d4950d0025aaff349d8e1ccc2bce53/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Crypt-Crawler/social-preview.webp",
     "alt": "Crypt-Crawler social preview",
     "width": 1200,
     "height": 600,
-    "digest": "sha256:37c1b5ebc07d6ec6b9be2192f95265197fbde57fd1d6042c99608fc2a7c8f612",
-    "commit": "f91f45c3d393d2a32fd74cef217a0349c29d9811",
-    "taken_at": "2026-10-28",
-    "generated": true
+    "digest": "sha256:fb68d070345ca3bfc825918b572c350e5b32a0e7a6f3382c007a5b91f4ad43b4",
+    "commit": "1b9f612ba4d4950d0025aaff349d8e1ccc2bce53",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Crypt-Crawler/1b9f612ba4d4950d0025aaff349d8e1ccc2bce53/assets/social-preview.png"
   }
 }

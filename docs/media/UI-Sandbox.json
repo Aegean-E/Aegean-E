@@ -41,10 +41,10 @@
     "alt": "UI-Sandbox logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:774d7c122b4096886fffb89b8e003dfd20497fbd9bd808956a8c056c90697ddf",
-    "commit": "04591e64fa019f01a6b63d1bc033353e4f17b22d",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/UI-Sandbox/04591e64fa019f01a6b63d1bc033353e4f17b22d/assets/logo.jpg"
+    "digest": "sha256:c9782620c0dbbc19cab30e33f85352829fb43b74ccb9e7c7760d88e6576a3771",
+    "commit": "bb5c6e7709d96038ef10c734887b0b592f9aef7d",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/UI-Sandbox/bb5c6e7709d96038ef10c734887b0b592f9aef7d/assets/logo.jpg"
   },
   "preview": {
     "src": "media/UI-Sandbox/social-preview.webp",
@@ -52,8 +52,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:554e48706763fa1cf61582185fde9ca21cfc7b93ff672b0e7dacce119221a568",
-    "commit": "04591e64fa019f01a6b63d1bc033353e4f17b22d",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/UI-Sandbox/04591e64fa019f01a6b63d1bc033353e4f17b22d/assets/social-preview.png"
+    "commit": "bb5c6e7709d96038ef10c734887b0b592f9aef7d",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/UI-Sandbox/bb5c6e7709d96038ef10c734887b0b592f9aef7d/assets/social-preview.png"
   }
 }

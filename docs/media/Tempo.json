@@ -7,10 +7,10 @@
     "alt": "Tempo logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:8ab394c4abb05a8ac466ddb8d8725433a6e807eeafcc08cc230b2eb269ee18ef",
-    "commit": "3102691730780d2e66429dfa95cc49d625a65332",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/3102691730780d2e66429dfa95cc49d625a65332/assets/logo.jpg"
+    "digest": "sha256:253c950f72084a0c4ab3ba977090e54e6509ef8bc070a154d8b9b46527942475",
+    "commit": "d93bb373f884672ef429986a0c4a0f417a6699ac",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/d93bb373f884672ef429986a0c4a0f417a6699ac/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Tempo/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:32cd8ab28b29043508563be89e9ebf5a6dea8e224851e321b29a7cd2ef197bc3",
-    "commit": "3102691730780d2e66429dfa95cc49d625a65332",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/3102691730780d2e66429dfa95cc49d625a65332/assets/social-preview.png"
+    "commit": "d93bb373f884672ef429986a0c4a0f417a6699ac",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/d93bb373f884672ef429986a0c4a0f417a6699ac/assets/social-preview.png"
   }
 }

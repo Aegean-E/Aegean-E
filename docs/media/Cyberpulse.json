@@ -18,10 +18,10 @@
     "alt": "Cyberpulse logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:019c11ea61c23791da9b752237b8bbf342dc023ec701ba6469b852d5ca46bc05",
-    "commit": "7385e6571f4fe947aba7373d9844e8e9370ed309",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/7385e6571f4fe947aba7373d9844e8e9370ed309/assets/logo.jpg"
+    "digest": "sha256:9747ef541a18a8a45d872be1a6cc2703db48f3c19c19c539ef72b7e870f97db3",
+    "commit": "ce22469a411311126b09669ad01e780383657600",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/ce22469a411311126b09669ad01e780383657600/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Cyberpulse/social-preview.webp",
@@ -29,8 +29,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:df4720a9c80f77cb202355bd8370a9328f2aaf397c8747ac20edebd89fdb6593",
-    "commit": "7385e6571f4fe947aba7373d9844e8e9370ed309",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/7385e6571f4fe947aba7373d9844e8e9370ed309/assets/social-preview.png"
+    "commit": "ce22469a411311126b09669ad01e780383657600",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Cyberpulse/ce22469a411311126b09669ad01e780383657600/assets/social-preview.png"
   }
 }

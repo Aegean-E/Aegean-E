@@ -7,10 +7,10 @@
     "alt": "N1-Engine logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:abfb8bb9b77e05c6cd8493880f897b07fbdaaba762d9742a323c1099757e20a8",
-    "commit": "9892c52827eaf1b55d3db0b82c98ce3a7535ab37",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/N1-Engine/9892c52827eaf1b55d3db0b82c98ce3a7535ab37/assets/logo.jpg"
+    "digest": "sha256:cc713e242cf541d880a6b6f53148970c76679647b7537baafb7e4a0f4bd3f6a1",
+    "commit": "7a87947d149e8ba5fda9536e6620e1d87ed0b778",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/N1-Engine/7a87947d149e8ba5fda9536e6620e1d87ed0b778/assets/logo.jpg"
   },
   "preview": {
     "src": "media/N1-Engine/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 568,
     "digest": "sha256:bcec49b795ad6538a6133670f9e8ca4348ba500deffd3dbec86bc1acec8b9035",
-    "commit": "9892c52827eaf1b55d3db0b82c98ce3a7535ab37",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/N1-Engine/9892c52827eaf1b55d3db0b82c98ce3a7535ab37/assets/social-preview.png"
+    "commit": "7a87947d149e8ba5fda9536e6620e1d87ed0b778",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/N1-Engine/7a87947d149e8ba5fda9536e6620e1d87ed0b778/assets/social-preview.png"
   }
 }

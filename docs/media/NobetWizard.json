@@ -7,10 +7,10 @@
     "alt": "NobetWizard logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:04fe797199745812fada206ef0ca0d9462e823dc57decc486bfb687037966b0b",
-    "commit": "7f36232fe246d3d6cbc4544fb9c847d9c363d0ee",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NobetWizard/7f36232fe246d3d6cbc4544fb9c847d9c363d0ee/assets/logo.jpg"
+    "digest": "sha256:a61a0aa5d4acf8132629eb9c5a1b2c3e96b67533e8a588bc49a842f99092ef77",
+    "commit": "7a66868085dda5a410c708a2ea902c43cc78ebf7",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NobetWizard/7a66868085dda5a410c708a2ea902c43cc78ebf7/assets/logo.jpg"
   },
   "preview": {
     "src": "media/NobetWizard/social-preview.webp",
@@ -18,8 +18,8 @@
     "width": 1200,
     "height": 584,
     "digest": "sha256:67a30f8be4e6c8ce12af9a592e0b10292f70885b10faf75b0533e9eab32da9d3",
-    "commit": "7f36232fe246d3d6cbc4544fb9c847d9c363d0ee",
-    "taken_at": "2026-10-28",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/NobetWizard/7f36232fe246d3d6cbc4544fb9c847d9c363d0ee/assets/social-preview.jpg"
+    "commit": "7a66868085dda5a410c708a2ea902c43cc78ebf7",
+    "taken_at": "2026-10-30",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/NobetWizard/7a66868085dda5a410c708a2ea902c43cc78ebf7/assets/social-preview.jpg"
   }
 }
