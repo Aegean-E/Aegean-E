@@ -72,6 +72,7 @@ const refs = {
   winBest: required("win-best"),
   btnPlay: required("btn-play"),
   btnHow: required("btn-how"),
+  btnHelpGame: required("btn-help-game"),
   btnBackTitle: required("btn-back-title"),
   btnChambers: required("btn-chambers"),
   btnUndo: required("btn-undo"),
@@ -681,6 +682,11 @@ function moveFocus(x, y, delta) {
   target?.focus();
 }
 
+function openHelp() {
+  refs.btnHelpClose.textContent = state.screen === "game" ? "Back to the board" : "Begin";
+  refs.helpDialog.showModal();
+}
+
 function wireEvents() {
   refs.btnPlay.addEventListener("click", () => {
     audio.unlock();
@@ -691,7 +697,8 @@ function wireEvents() {
       showChambers();
     }
   });
-  refs.btnHow.addEventListener("click", () => refs.helpDialog.showModal());
+  refs.btnHow.addEventListener("click", openHelp);
+  refs.btnHelpGame.addEventListener("click", openHelp);
   refs.btnHelpClose.addEventListener("click", () => refs.helpDialog.close());
   refs.btnBackTitle.addEventListener("click", showTitle);
   refs.btnChambers.addEventListener("click", () => showChambers());
@@ -761,7 +768,7 @@ function applyPreview() {
       finishLevel({ preview: true });
     }
     if (previewParam === "howto") {
-      refs.helpDialog.showModal();
+      openHelp();
     }
     return;
   }
@@ -771,7 +778,7 @@ function applyPreview() {
   }
   showTitle();
   if (previewParam === "howto") {
-    refs.helpDialog.showModal();
+    openHelp();
   }
 }
 
