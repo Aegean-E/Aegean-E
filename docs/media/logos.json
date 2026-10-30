@@ -71,6 +71,11 @@
       "width": 256,
       "height": 256
     },
+    "Meridian": {
+      "src": "media/Meridian/logo.webp",
+      "width": 256,
+      "height": 256
+    },
     "Mnemo": {
       "src": "media/Mnemo/logo.webp",
       "width": 256,

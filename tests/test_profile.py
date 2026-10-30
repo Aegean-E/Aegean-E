@@ -28,6 +28,7 @@ PUBLIC_REPOS = {
     "Lacon",
     "Lattice",
     "MemoryReconstruction",
+    "Meridian",
     "Mnemo",
     "Muse",
     "N1-Engine",
@@ -354,7 +355,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], 2)
         apps = {app["slug"]: app for app in manifest["apps"]}
-        self.assertEqual(set(apps), {"prism-relay", "weft", "iris", "tessera"})
+        self.assertEqual(set(apps), {"prism-relay", "weft", "iris", "tessera", "meridian"})
 
         prism = apps["prism-relay"]
         self.assertTrue(prism["available"])
@@ -450,6 +451,33 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(tessera["builds"][0], tessera["path"])
         self.assertLessEqual(len(tessera["builds"]), 3)
         for build in tessera["builds"]:
+            with self.subTest(build=build):
+                self.assertTrue((ROOT / "docs" / build).is_file())
+
+        meridian = apps["meridian"]
+        self.assertTrue(meridian["available"])
+        self.assertEqual(meridian["mode"], "browser")
+        self.assertEqual(meridian["license"], "AL-1.1")
+        self.assertEqual(meridian["dossier"], "project.html?repo=Meridian")
+        self.assertEqual(
+            meridian.get("source_url"),
+            "https://github.com/AegeanWorks/Meridian",
+        )
+        self.assertRegex(meridian["path"], r"^live/meridian/[0-9a-f]{7,40}/index\.html$")
+        self.assertTrue((ROOT / "docs" / meridian["path"]).is_file())
+        self.assertTrue((ROOT / "docs" / meridian["license_path"]).is_file())
+        self.assertRegex(meridian["commit"], r"^[0-9a-f]{7,40}$")
+        self.assertRegex(meridian["updated"], r"^\d{4}-\d{2}-\d{2}$")
+        self.assertRegex(meridian["digest"], r"^sha256:[0-9a-f]{64}$")
+        self.assertTrue((ROOT / "docs" / meridian["logo"]).is_file())
+        meridian_dir = (ROOT / "docs" / meridian["path"]).parent
+        self.assertTrue((meridian_dir / "src" / "ui" / "main.js").is_file())
+        self.assertTrue((meridian_dir / "src" / "core" / "schedule.js").is_file())
+        self.assertTrue((meridian_dir / "assets" / "logo.svg").is_file())
+        self.assertTrue((meridian_dir / "LICENSE").is_file())
+        self.assertEqual(meridian["builds"][0], meridian["path"])
+        self.assertLessEqual(len(meridian["builds"]), 3)
+        for build in meridian["builds"]:
             with self.subTest(build=build):
                 self.assertTrue((ROOT / "docs" / build).is_file())
 

@@ -75,6 +75,19 @@ APPS = (
         "version_file": "package.json",
         "logo": "live/tessera/logo.svg",
     },
+    {
+        "slug": "meridian",
+        "repo": "Meridian",
+        "source": "meridian",
+        "title": "Meridian",
+        "description": 'A zero-dependency time zone meeting planner that runs entirely in the browser: add people and cities, compare every local hour side by side, find the overlap that works for everyone, then share it as a link or a calendar file.',
+        "license": "AL-1.1",
+        "mode": "browser",
+        "runtime": ("index.html", "src", "assets/logo.svg", "LICENSE"),
+        "version_file": "package.json",
+        "logo": "media/Meridian/logo.webp",
+        "dossier": "project.html?repo=Meridian",
+    },
 )
 
 MANIFEST_REL = "docs/live.json"

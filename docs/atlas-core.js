@@ -114,6 +114,7 @@ export const REPO_LICENSES = Object.freeze({
   lacon: "AL",
   lattice: "AL",
   memoryreconstruction: "AGL",
+  meridian: "AL",
   mnemo: "AL",
   muse: "AL",
   "n1-engine": "AL",
