@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc" data-motif="additive-light">
+  <title id="title">Iris social preview</title>
+  <desc id="desc">Three overlapping red, green and blue discs over a refracted beam beside the Iris wordmark and its one-line description.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070510"/>
+      <stop offset="0.55" stop-color="#0b0818"/>
+      <stop offset="1" stop-color="#1f1740"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.28" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#7fdcff" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#7fdcff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.9" cy="0.1" r="0.55">
+      <stop offset="0" stop-color="#e05cff" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#e05cff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff536b"/>
+      <stop offset="0.5" stop-color="#b48cff"/>
+      <stop offset="1" stop-color="#7fdcff"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7fdcff"/>
+      <stop offset="1" stop-color="#e05cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+  <rect width="1280" height="640" fill="url(#glow2)"/>
+  <g opacity="0.4" stroke="#7fdcff" stroke-width="1">
+    <path d="M0 128H1280M0 256H1280M0 384H1280M0 512H1280" stroke-opacity="0.13"/>
+    <path d="M128 0V640M256 0V640M384 0V640M512 0V640M640 0V640M768 0V640M896 0V640M1024 0V640M1152 0V640" stroke-opacity="0.13"/>
+  </g>
+  <g>
+    <circle cx="356" cy="330" r="150" fill="none" stroke="#7fdcff" stroke-opacity="0.18" stroke-width="2"/>
+    <circle cx="356" cy="330" r="196" fill="none" stroke="#b48cff" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M118 352H292" stroke="url(#beam)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M292 352L356 246" stroke="url(#beam)" stroke-width="9" stroke-linecap="round" opacity="0.85"/>
+    <g style="mix-blend-mode:screen">
+      <circle cx="320" cy="286" r="96" fill="#ff536b" fill-opacity="0.6"/>
+      <circle cx="392" cy="286" r="96" fill="#45e58a" fill-opacity="0.6"/>
+      <circle cx="356" cy="352" r="96" fill="#4f8dff" fill-opacity="0.6"/>
+    </g>
+    <circle cx="356" cy="310" r="32" fill="#fff8f2" fill-opacity="0.94"/>
+    <circle cx="356" cy="310" r="52" fill="none" stroke="#fff8f2" stroke-opacity="0.26" stroke-width="2"/>
+  </g>
+  <text x="576" y="238" font-family="Optima, Palatino Linotype, Georgia, serif" font-size="104" font-weight="600" letter-spacing="6" fill="url(#word)">Iris</text>
+  <text x="580" y="284" font-family="Segoe UI, Arial, sans-serif" font-size="19" letter-spacing="6" fill="#7fdcff">AEGEANWORKS · AN ADDITIVE-LIGHT PUZZLE</text>
+  <text x="580" y="350" font-family="Segoe UI, Arial, sans-serif" font-size="29" fill="#f1edff" fill-opacity="0.8">Route red, green and blue beams through rotating</text>
+  <text x="580" y="392" font-family="Segoe UI, Arial, sans-serif" font-size="29" fill="#f1edff" fill-opacity="0.8">mirrors and dye cells, blend exact hues, and light</text>
+  <text x="580" y="434" font-family="Segoe UI, Arial, sans-serif" font-size="29" fill="#f1edff" fill-opacity="0.8">every receiver across twelve chambers.</text>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#f1edff" fill-opacity="0.86">
+    <rect x="580" y="486" width="98" height="40" rx="20" fill="#0b0818" fill-opacity="0.6" stroke="#7fdcff" stroke-opacity="0.4"/>
+    <text x="629" y="512" text-anchor="middle">puzzle</text>
+    <rect x="690" y="486" width="146" height="40" rx="20" fill="#0b0818" fill-opacity="0.6" stroke="#7fdcff" stroke-opacity="0.4"/>
+    <text x="763" y="512" text-anchor="middle">browser game</text>
+    <rect x="848" y="486" width="124" height="40" rx="20" fill="#0b0818" fill-opacity="0.6" stroke="#7fdcff" stroke-opacity="0.4"/>
+    <text x="910" y="512" text-anchor="middle">DRM-free</text>
+    <rect x="984" y="486" width="160" height="40" rx="20" fill="#0b0818" fill-opacity="0.6" stroke="#7fdcff" stroke-opacity="0.4"/>
+    <text x="1064" y="512" text-anchor="middle">no dependencies</text>
+  </g>
+  <text x="72" y="588" font-family="Segoe UI, Arial, sans-serif" font-size="18" letter-spacing="7" fill="#f1edff" fill-opacity="0.5">AEGEANWORKS</text>
+  <text x="1208" y="588" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#7fdcff">github.com/AegeanWorks/Iris</text>
+</svg>
