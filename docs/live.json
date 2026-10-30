@@ -37,7 +37,7 @@
       "updated": "2026-10-30",
       "license": "AGL-1.1",
       "license_path": "live/weft/LICENSE",
-      "digest": "sha256:b0b9c08df662e58c35e92816940a41ac283ecadc9575c29acd526e93b27324e5",
+      "digest": "sha256:4bc5b7ecb83329ee0a8f9640aa9a985ba004c69d28bedc1b70c3290a8d846df9",
       "builds": [
         "live/weft/12221b516493/index.html",
         "live/weft/22beac25d364/index.html",
@@ -60,7 +60,7 @@
       "updated": "2026-10-30",
       "license": "AL-1.1",
       "license_path": "live/tessera/LICENSE",
-      "digest": "sha256:219cd16ff6514b3ba1d0d8078576a665cb6a19082c888f18c0886e339d2cea11",
+      "digest": "sha256:74024ad5c485117fd21a4e75ec1d09aa6f287b16e7abe4226864b7fffda80341",
       "builds": [
         "live/tessera/91afc0bc2546/index.html",
         "live/tessera/730b80ad10e4/index.html",

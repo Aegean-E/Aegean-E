@@ -224,8 +224,6 @@ kbd {
 .motif-button:focus-visible,
 .palette-button:focus-visible,
 .preset-button:focus-visible,
-.gallery-open:focus-visible,
-.gallery-delete:focus-visible,
 select:focus-visible,
 input:focus-visible {
   outline: 2px solid var(--focus);
@@ -747,106 +745,6 @@ select:hover {
   line-height: 1.5;
 }
 
-.gallery-actions {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.gallery-actions .btn {
-  padding: 0 10px;
-}
-
-.gallery-list {
-  margin-top: 12px;
-}
-
-.gallery-items {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.gallery-item {
-  position: relative;
-}
-
-.gallery-open {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--text-soft);
-  background: var(--bg-raised);
-  cursor: pointer;
-  text-align: left;
-  transition:
-    border-color var(--fast) var(--ease),
-    background var(--fast) var(--ease);
-}
-
-.gallery-open:hover {
-  border-color: var(--line-bright);
-  background: var(--bg-control);
-}
-
-.gallery-thumb {
-  display: block;
-  overflow: hidden;
-  border-radius: 6px;
-  background: var(--bg-deep);
-}
-
-.gallery-thumb svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.gallery-name {
-  overflow: hidden;
-  font-size: 11px;
-  font-weight: 600;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.gallery-delete {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--muted);
-  background: var(--panel-soft);
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.gallery-delete:hover {
-  border-color: var(--line-bright);
-  color: var(--text);
-}
-
-.gallery-empty {
-  margin: 0;
-  color: var(--muted-dim);
-  font-size: 11px;
-  line-height: 1.5;
-}
-
 .footer {
   position: relative;
   z-index: 1;
@@ -953,10 +851,6 @@ select:hover {
   .controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .control-block:last-child {
-    grid-column: 1 / -1;
-  }
 }
 
 @media (max-width: 640px) {
@@ -1005,10 +899,6 @@ select:hover {
 
   .controls {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .control-block:last-child {
-    grid-column: auto;
   }
 
   .footer {
