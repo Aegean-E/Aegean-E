@@ -53,18 +53,18 @@
       "description": "A seamless pattern studio: compose geometric tiles in the browser, tune every line, and export crisp editable SVG.",
       "available": true,
       "mode": "browser",
-      "path": "live/tessera/91afc0bc2546/index.html",
+      "path": "live/tessera/e044882ea35a/index.html",
       "source_url": "https://github.com/AegeanWorks/Tessera",
-      "version": "0.2.0",
-      "commit": "91afc0bc2546a786b5b08de9a6bce2056c3f932d",
+      "version": "0.3.0",
+      "commit": "e044882ea35ad0fd058c5b90c9ec17d1ce91cf57",
       "updated": "2026-10-30",
       "license": "AL-1.1",
       "license_path": "live/tessera/LICENSE",
-      "digest": "sha256:74024ad5c485117fd21a4e75ec1d09aa6f287b16e7abe4226864b7fffda80341",
+      "digest": "sha256:4011bd533e6dd3ca197ccec8f73b30b90b3182757ba1ba8cbbf18dd5e8485127",
       "builds": [
+        "live/tessera/e044882ea35a/index.html",
         "live/tessera/91afc0bc2546/index.html",
-        "live/tessera/730b80ad10e4/index.html",
-        "live/tessera/8e624d38bdba/index.html"
+        "live/tessera/730b80ad10e4/index.html"
       ],
       "logo": "live/tessera/logo.svg",
       "dossier": ""
