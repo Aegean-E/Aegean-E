@@ -9,9 +9,11 @@ import { createAudio } from "./audio.js";
 import {
   dailyStreak,
   loadDaily,
+  recentDays,
   recordDaily,
   saveDaily,
 } from "./daily.js";
+import { applyPattern } from "./threads.js";
 import {
   MAX_STARS,
   isUnlocked,
@@ -76,6 +78,7 @@ const refs = {
   btnDailyTitle: required("btn-daily-title"),
   btnDailyLevels: required("btn-daily-levels"),
   dailyCopy: required("daily-copy"),
+  dailyHistory: required("daily-history"),
 };
 
 const audio = createAudio();
@@ -252,11 +255,31 @@ function renderTitleProgress() {
   }
 }
 
+function renderDailyHistory(today) {
+  refs.dailyHistory.replaceChildren();
+  for (const { key, entry } of recentDays(state.dailyProgress, today)) {
+    const chip = element("li", "daily-day");
+    chip.dataset.state = entry ? "solved" : "missed";
+    chip.dataset.today = String(key === today);
+    chip.append(element("span", "daily-day-number", String(Number(key.slice(8)))));
+    const stars = entry ? "★".repeat(entry.stars) : "·";
+    const starsNode = element("span", "daily-day-stars", stars);
+    starsNode.setAttribute("aria-hidden", "true");
+    chip.append(starsNode);
+    chip.setAttribute(
+      "aria-label",
+      `${dailyLabel(key)}: ${entry ? `${entry.stars} of ${MAX_STARS} stars` : "not woven"}`,
+    );
+    refs.dailyHistory.append(chip);
+  }
+}
+
 function renderDaily() {
   const key = dateKey();
   const entry = state.dailyProgress.days[key];
   const streak = dailyStreak(state.dailyProgress, key);
   const label = dailyLabel(key);
+  renderDailyHistory(key);
   if (entry) {
     const stars = "★".repeat(entry.stars) + "☆".repeat(MAX_STARS - entry.stars);
     refs.dailyCopy.textContent = `${label} · ${stars} · best ${formatTime(entry.bestMs)} · ${streak}-day streak`;
@@ -388,6 +411,7 @@ function appendThread(svg, cells, color) {
   core.setAttribute("d", d);
   core.setAttribute("stroke", colorVar(color));
   core.setAttribute("stroke-width", "0.14");
+  applyPattern(core, color);
 
   svg.append(glow, core);
 }
@@ -401,6 +425,7 @@ function appendDraft(svg, cells, color) {
   path.setAttribute("d", pathData(cells));
   path.setAttribute("stroke", colorVar(color));
   path.setAttribute("stroke-width", "0.14");
+  applyPattern(path, color);
   svg.append(path);
 }
 
@@ -431,6 +456,7 @@ function appendSpool(svg, [x, y], color) {
   ring.setAttribute("cy", String(cy));
   ring.setAttribute("r", "0.22");
   ring.setAttribute("stroke", colorVar(color));
+  applyPattern(ring, color);
 
   const core = document.createElementNS(SVG_NS, "circle");
   core.setAttribute("class", "spool-core");
