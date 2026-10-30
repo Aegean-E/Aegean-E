@@ -105,8 +105,9 @@ export function decodeSearch(search = "") {
     if (params.has(key)) patch[key] = params.get(key);
   }
   return {
-    hasState: hasStateParams(search),
+    hasState: Object.keys(patch).length > 0,
     preset: params.get("preset") || "",
+    patch,
     state: normalizeState({ ...DEFAULTS, ...patch }),
   };
 }

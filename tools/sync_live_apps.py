@@ -44,7 +44,7 @@ APPS = (
         "repo": "Weft",
         "source": "weft",
         "title": "Weft",
-        "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across twelve chambers.",
+        "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across eighteen chambers.",
         "license": "AGL-1.1",
         "mode": "browser",
         "runtime": ("index.html", "src", "assets"),

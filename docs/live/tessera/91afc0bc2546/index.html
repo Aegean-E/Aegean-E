@@ -131,12 +131,44 @@
       <div class="preset-list" id="preset-list"></div>
       <button class="btn btn-small preset-reset" id="reset" type="button" data-ui="reset">Reset studio</button>
     </section>
+
+    <section class="control-block">
+      <div class="control-heading">
+        <h2>Export</h2>
+        <span class="control-index">06</span>
+      </div>
+      <div class="select-field">
+        <label class="select-label" for="png-size">PNG size</label>
+        <select id="png-size" data-ui="png-size"></select>
+      </div>
+      <button class="btn btn-small export-png" id="export-png" type="button" data-ui="export-png">
+        Download PNG <kbd aria-hidden="true">P</kbd>
+      </button>
+      <p class="control-note">Renders the current look at the selected pixel size.</p>
+    </section>
+
+    <section class="control-block">
+      <div class="control-heading">
+        <h2>Gallery</h2>
+        <span class="control-index">07</span>
+      </div>
+      <div class="gallery-actions">
+        <button class="btn btn-small" id="save-look" type="button" data-ui="save-look">
+          Save look <kbd aria-hidden="true">S</kbd>
+        </button>
+        <button class="btn btn-small" id="copy-link" type="button" data-ui="copy-link">
+          Copy link <kbd aria-hidden="true">L</kbd>
+        </button>
+      </div>
+      <div class="gallery-list" id="gallery-list"></div>
+      <p class="control-note">Saved on this device only. Up to 12 looks.</p>
+    </section>
   </aside>
 </main>
 
 <footer class="footer">
   <p>Runs entirely on this device. No uploads, no tracking, no network.</p>
-  <p class="footer-meta">Tessera <span id="version">0.1.0</span> · AL-1.1</p>
+  <p class="footer-meta">Tessera <span id="version">0.2.0</span> · AL-1.1</p>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-cue="status" hidden></div>

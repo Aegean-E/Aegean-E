@@ -68,7 +68,7 @@ function validatePathCells(path, level, color, label) {
     if (index > 0) {
       assertOrthogonal(path[index - 1], path[index], `${label} cell ${index}`);
     }
-    const key = pointKey(path[index]);
+    const key = pointKey(path[index]); // aikit:allow-secret a two-integer cell coordinate, not a credential
     assert(!seen.has(key), `${label} visits ${key} twice.`);
     seen.add(key);
   }
