@@ -127,7 +127,13 @@ def _digest(files: list[Path], root: Path) -> str:
     for path in sorted(files):
         digest.update(path.relative_to(root).as_posix().encode("utf-8"))
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        data = path.read_bytes()
+        # Git stores text as LF, but a Windows checkout can hand the sync a
+        # CRLF tree. Hash the served content so Linux CI validates the same
+        # digest; binary files keep their exact bytes.
+        if b"\0" not in data:
+            data = data.replace(b"\r\n", b"\n")
+        digest.update(data)
         digest.update(b"\0")
     return "sha256:" + digest.hexdigest()
 
