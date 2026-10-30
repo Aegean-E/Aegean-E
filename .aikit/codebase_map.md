@@ -6,11 +6,11 @@
 ---
 
 ## 📊 Codebase Metrics
-- **Total Python Modules**: `4`
-- **Total Classes**: `4`
-- **Total Top-Level Functions**: `74`
-- **Total Class Methods**: `91`
-- **Total Source Lines**: `3407`
+- **Total Python Modules**: `5`
+- **Total Classes**: `5`
+- **Total Top-Level Functions**: `75`
+- **Total Class Methods**: `93`
+- **Total Source Lines**: `3504`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1721` lines (`79932` bytes)
+**Size**: `1752` lines (`81640` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -122,6 +122,19 @@
 
 ---
 
+### [`tests/test_sync_live_digest.py`](tests/test_sync_live_digest.py)
+**Size**: `48` lines (`1645` bytes)
+
+**Classes:**
+- `class LiveBuildDigestTests`
+  - Method `.test_line_endings_do_not_change_the_digest()`
+  - Method `.test_binary_files_are_hashed_byte_for_byte()`
+
+**Functions:**
+- `def load_sync_tool()`
+
+---
+
 ### [`tools/build_dossier_media.py`](tools/build_dossier_media.py)
 > *Build and verify the dossier media (logo, social preview, screenshots).*
 
@@ -197,7 +210,7 @@
 ### [`tools/sync_live_apps.py`](tools/sync_live_apps.py)
 > *Sync the live browser apps and their catalog.*
 
-**Size**: `572` lines (`22725` bytes)
+**Size**: `590` lines (`23523` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

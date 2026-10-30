@@ -1,44 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "editor-integration",
+    "task_id": "live-iris",
     "last_phase": "phase 4",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793323075.7929862,
-    "owner": "kilo:palette",
-    "started_by": "kilo:palette",
-    "continuations": [],
-    "completed_at": 1793323076.1571221
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793349132.514066,
+    "owner": "kilo:iris",
+    "started_by": "kilo:iris",
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "dossier-gallery-slider",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Replace the dossier screenshot grid with a single-stage slider: previous/next, dots, caption and commit line, arrow keys, and the existing lightbox on click; single-capture dossiers hide the controls; shell v18; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311553.1359286,
-      "timestamp_str": "2026-10-30 01:05:53",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "Seven thumbnails in a masonry grid turned the Prism dossier into a wall and made each frame small",
-        "benefits": "One readable frame at a time with a 1/N counter, full-size on demand, and the same control surface in every dossier",
-        "risks": "contract: project.html/project.js/styles and shell v18; dependency: none; concurrency: none; state: none",
-        "mitigation": "Browser-checked Prism's seven frames and Fold's three, including next, active dot, caption and lightbox open/close, then ran all suites and gates"
-      }
-    },
-    {
-      "task_id": "dossier-gallery-slider",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'dossier-gallery-slider' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793311553.269754,
-      "timestamp_str": "2026-10-30 01:05:53",
-      "agent": "opencode:main"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 27",
@@ -273,6 +245,41 @@
       "timestamp": 1793323076.1571236,
       "timestamp_str": "2026-10-30 04:17:56",
       "agent": "kilo:palette"
+    },
+    {
+      "task_id": "live-iris",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Add Iris to the Live app catalog, workflow checkout, no-script list and tests. [2/2] Sync the commit-named build with its license and logo, verify the site suites and the in-page boot, then push the catalog refresh.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793349049.5104394,
+      "timestamp_str": "2026-10-30 11:30:49",
+      "agent": "kilo:iris",
+      "impact_assessment": {
+        "why": "Iris is now published at AegeanWorks/Iris and must appear and run on the AegeanWorks Live page through the same commit-named, contract-checked build pipeline as its siblings.",
+        "benefits": "A fourth playable title on the Live page, with version, commit and digest shown, plus a reproducible sync path and regression tests covering the card, copied runtime and license.",
+        "risks": "contract: validate_source now covers a fourth runtime tree; dependency: the daily workflow gains an Iris checkout; concurrency: the live sync also refreshes Tessera from its newer commit; state: docs/live.json and the copied builds change together.",
+        "mitigation": "Run --check-source before --write, keep only three builds per app, assert the manifest and copied files in test_profile.py, run all five suites, and boot the Live page in a headless browser before pushing."
+      }
+    },
+    {
+      "task_id": "live-iris",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[1/2]-[2/2] Iris is in the Live catalog and its commit-named build is synced; checklists: passed; site tests 91/91, verify 58, project 88, live 20, sync --check-source/--write/--check and a headless Live-page boot solving a chamber all pass",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793349132.514066,
+      "timestamp_str": "2026-10-30 11:32:12",
+      "agent": "kilo:iris",
+      "handoff": {
+        "state": "18 modified and 2 untracked paths including the Iris build and a Tessera build refresh",
+        "next": "commit the catalog refresh and push main",
+        "failed": "none",
+        "open": "none",
+        "evidence": "test_profile 91 pass, all Node suites pass, sync checks pass, in-page Iris solved at 1 move with 3 stars"
+      }
     }
   ]
 }

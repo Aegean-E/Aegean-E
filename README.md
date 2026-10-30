@@ -288,6 +288,7 @@ AegeanWorks/
 │   └── sync_live_apps.py  <- Copies and verifies the browser app builds
 └── tests/
     ├── test_profile.py      <- Content, metadata and link integrity tests
+    ├── test_sync_live_digest.py <- Live build digest and retention tests
     ├── live/
     │   └── run-tests.mjs     <- Live catalog and version-label parity
     ├── metadata/

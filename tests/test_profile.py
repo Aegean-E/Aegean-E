@@ -354,7 +354,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], 2)
         apps = {app["slug"]: app for app in manifest["apps"]}
-        self.assertEqual(set(apps), {"prism-relay", "weft", "tessera"})
+        self.assertEqual(set(apps), {"prism-relay", "weft", "iris", "tessera"})
 
         prism = apps["prism-relay"]
         self.assertTrue(prism["available"])
@@ -396,6 +396,33 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(weft["builds"][0], weft["path"])
         self.assertLessEqual(len(weft["builds"]), 3)
         for build in weft["builds"]:
+            with self.subTest(build=build):
+                self.assertTrue((ROOT / "docs" / build).is_file())
+
+        iris = apps["iris"]
+        self.assertTrue(iris["available"])
+        self.assertEqual(iris["mode"], "browser")
+        self.assertEqual(iris["license"], "AGL-1.1")
+        self.assertFalse(iris.get("dossier"))
+        self.assertEqual(
+            iris.get("source_url"),
+            "https://github.com/AegeanWorks/Iris",
+        )
+        self.assertRegex(iris["path"], r"^live/iris/[0-9a-f]{7,40}/index\.html$")
+        self.assertTrue((ROOT / "docs" / iris["path"]).is_file())
+        self.assertTrue((ROOT / "docs" / iris["license_path"]).is_file())
+        self.assertRegex(iris["commit"], r"^[0-9a-f]{7,40}$")
+        self.assertRegex(iris["updated"], r"^\d{4}-\d{2}-\d{2}$")
+        self.assertRegex(iris["digest"], r"^sha256:[0-9a-f]{64}$")
+        self.assertTrue((ROOT / "docs" / iris["logo"]).is_file())
+        iris_dir = (ROOT / "docs" / iris["path"]).parent
+        self.assertTrue((iris_dir / "src" / "ui" / "app.js").is_file())
+        self.assertTrue((iris_dir / "src" / "game" / "engine.js").is_file())
+        self.assertTrue((iris_dir / "src" / "game" / "levels.js").is_file())
+        self.assertTrue((iris_dir / "assets" / "favicon.svg").is_file())
+        self.assertEqual(iris["builds"][0], iris["path"])
+        self.assertLessEqual(len(iris["builds"]), 3)
+        for build in iris["builds"]:
             with self.subTest(build=build):
                 self.assertTrue((ROOT / "docs" / build).is_file())
 
@@ -519,6 +546,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         for token in (
             "Prism-Relay",
             "Weft",
+            "Iris",
             "Tessera",
             "sync_live_apps.py",
             "--check-source",

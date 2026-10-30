@@ -47,6 +47,27 @@
       "dossier": ""
     },
     {
+      "slug": "iris",
+      "repo": "Iris",
+      "title": "Iris",
+      "description": "A neon color-mixing puzzle: route red, green and blue beams through rotating mirrors and dye cells, blend exact hues, and light every receiver across three episodes.",
+      "available": true,
+      "mode": "browser",
+      "path": "live/iris/fa020321803d/index.html",
+      "source_url": "https://github.com/AegeanWorks/Iris",
+      "version": "0.1.0",
+      "commit": "fa020321803d5cee71b991f4d2e372ecf246448c",
+      "updated": "2026-10-30",
+      "license": "AGL-1.1",
+      "license_path": "live/iris/LICENSE",
+      "digest": "sha256:f1f205937598d82552c661cf4941b159577d8ac531453e4aa69dbeac76a4cc2b",
+      "builds": [
+        "live/iris/fa020321803d/index.html"
+      ],
+      "logo": "live/iris/logo.svg",
+      "dossier": ""
+    },
+    {
       "slug": "tessera",
       "repo": "Tessera",
       "title": "Tessera",

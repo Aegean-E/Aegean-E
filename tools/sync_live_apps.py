@@ -52,6 +52,18 @@ APPS = (
         "logo": "live/weft/logo.webp",
     },
     {
+        "slug": "iris",
+        "repo": "Iris",
+        "source": "iris",
+        "title": "Iris",
+        "description": "A neon color-mixing puzzle: route red, green and blue beams through rotating mirrors and dye cells, blend exact hues, and light every receiver across three episodes.",
+        "license": "AGL-1.1",
+        "mode": "browser",
+        "runtime": ("index.html", "src", "assets"),
+        "version_file": "package.json",
+        "logo": "live/iris/logo.svg",
+    },
+    {
         "slug": "tessera",
         "repo": "Tessera",
         "source": "tessera",

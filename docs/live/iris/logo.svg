@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc" data-motif="additive-light">
+  <title id="title">Iris logo</title>
+  <desc id="desc">Three overlapping red, green and blue discs over a beam, from the Iris color puzzle; AegeanWorks identity.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070510"/>
+      <stop offset="1" stop-color="#1f1740"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.62">
+      <stop offset="0" stop-color="#7fdcff" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#7fdcff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff536b"/>
+      <stop offset="0.5" stop-color="#b48cff"/>
+      <stop offset="1" stop-color="#7fdcff"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7fdcff"/>
+      <stop offset="1" stop-color="#e05cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+  <g opacity="0.35" stroke="#7fdcff" stroke-width="1">
+    <path d="M64 128H448M64 192H448M64 256H448M64 320H448M64 384H448" stroke-opacity="0.18"/>
+    <path d="M128 64V448M192 64V448M256 64V448M320 64V448M384 64V448" stroke-opacity="0.18"/>
+  </g>
+  <path d="M64 300H196" stroke="url(#beam)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M196 300L256 216" stroke="url(#beam)" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+  <g style="mix-blend-mode:screen">
+    <circle cx="236" cy="196" r="74" fill="#ff536b" fill-opacity="0.62"/>
+    <circle cx="294" cy="196" r="74" fill="#45e58a" fill-opacity="0.62"/>
+    <circle cx="265" cy="248" r="74" fill="#4f8dff" fill-opacity="0.62"/>
+  </g>
+  <circle cx="265" cy="216" r="26" fill="#fff8f2" fill-opacity="0.92"/>
+  <circle cx="265" cy="216" r="40" fill="none" stroke="#fff8f2" stroke-opacity="0.28" stroke-width="2"/>
+  <text x="256" y="396" text-anchor="middle" font-family="Optima, Palatino Linotype, Georgia, serif" font-size="62" font-weight="600" letter-spacing="10" fill="url(#word)">IRIS</text>
+  <text x="256" y="436" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" letter-spacing="7" fill="#f1edff" fill-opacity="0.55">AEGEANWORKS</text>
+</svg>

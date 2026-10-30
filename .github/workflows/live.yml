@@ -34,6 +34,12 @@ jobs:
           repository: AegeanWorks/Weft
           path: .app-src/weft
           fetch-depth: 1
+      - name: Check out Iris
+        uses: actions/checkout@v4
+        with:
+          repository: AegeanWorks/Iris
+          path: .app-src/iris
+          fetch-depth: 1
       - name: Check out Tessera
         uses: actions/checkout@v4
         with:
