@@ -12,6 +12,7 @@ import {
   recordDaily,
   saveDaily,
 } from "./daily.js";
+import { applyPattern } from "./threads.js";
 import {
   MAX_STARS,
   isUnlocked,
@@ -47,6 +48,7 @@ const refs = {
   status: required("status"),
   levelKicker: required("level-kicker"),
   levelName: required("level-name"),
+  best: required("best"),
   titleProgress: required("title-progress"),
   levelsProgress: required("levels-progress"),
   levelGrid: required("level-grid"),
@@ -55,6 +57,7 @@ const refs = {
   winKicker: required("win-kicker"),
   winSummary: required("win-summary"),
   winStars: required("win-stars"),
+  dailyShare: required("daily-share"),
   winTime: required("win-time"),
   winMoves: required("win-moves"),
   winHints: required("win-hints"),
@@ -123,6 +126,28 @@ function renderStars(target, stars) {
     star.setAttribute("aria-hidden", "true");
     target.append(star);
   }
+}
+
+function bestEntry() {
+  if (!state.level) {
+    return null;
+  }
+  return state.daily
+    ? state.dailyProgress.days[state.daily.key]
+    : state.progress.solved[state.level.id];
+}
+
+function dailyResultText() {
+  if (!state.daily) {
+    return "";
+  }
+  const entry = state.dailyProgress.days[state.daily.key];
+  if (!entry) {
+    return "";
+  }
+  const stars = "★".repeat(entry.stars) + "☆".repeat(MAX_STARS - entry.stars);
+  const hints = entry.hints === 1 ? "1 hint" : `${entry.hints} hints`;
+  return `Weft daily ${state.daily.key} · ${stars} · ${formatTime(entry.bestMs)} · ${hints}`;
 }
 
 function colorVar(color) {
@@ -364,6 +389,7 @@ function appendThread(svg, cells, color) {
   core.setAttribute("d", d);
   core.setAttribute("stroke", colorVar(color));
   core.setAttribute("stroke-width", "0.14");
+  applyPattern(core, color);
 
   svg.append(glow, core);
 }
@@ -377,6 +403,7 @@ function appendDraft(svg, cells, color) {
   path.setAttribute("d", pathData(cells));
   path.setAttribute("stroke", colorVar(color));
   path.setAttribute("stroke-width", "0.14");
+  applyPattern(path, color);
   svg.append(path);
 }
 
@@ -407,6 +434,7 @@ function appendSpool(svg, [x, y], color) {
   ring.setAttribute("cy", String(cy));
   ring.setAttribute("r", "0.22");
   ring.setAttribute("stroke", colorVar(color));
+  applyPattern(ring, color);
 
   const core = document.createElementNS(SVG_NS, "circle");
   core.setAttribute("class", "spool-core");
@@ -511,6 +539,18 @@ function updateHud() {
   refs.levelName.textContent = state.level.name;
   refs.moveCount.textContent = String(state.moves);
   refs.timer.textContent = formatTime(currentElapsed());
+  const best = bestEntry();
+  refs.best.textContent = best
+    ? `${formatTime(best.bestMs)} · ${best.stars}/${MAX_STARS}★`
+    : "—";
+  if (best) {
+    refs.best.setAttribute(
+      "aria-label",
+      `Best ${formatTime(best.bestMs)}, ${best.stars} of ${MAX_STARS} stars`,
+    );
+  } else {
+    refs.best.removeAttribute("aria-label");
+  }
   const complete = state.level.pairs.filter(
     (pair) => state.game.paths[pair.color].length >= 2,
   ).length;
@@ -797,27 +837,24 @@ function showWinDialog(elapsed) {
   refs.winMoves.textContent = String(state.moves);
   refs.winHints.textContent = String(state.hints);
   renderStars(refs.winStars, runStars);
+  const shareText = dailyResultText();
+  refs.dailyShare.hidden = !shareText;
+  refs.dailyShare.textContent = shareText;
   refs.btnNext.hidden = !next;
   refs.btnNext.dataset.next = next?.id ?? "";
-  refs.btnShare.hidden = !state.daily;
+  refs.btnShare.hidden = !shareText;
   if (!refs.winDialog.open) {
     refs.winDialog.showModal();
   }
 }
 
 function shareDailyResult() {
-  if (!state.daily) {
+  const text = dailyResultText();
+  if (!text) {
     return;
   }
-  const entry = state.dailyProgress.days[state.daily.key];
-  if (!entry) {
-    return;
-  }
-  const stars = "★".repeat(entry.stars) + "☆".repeat(MAX_STARS - entry.stars);
-  const hints = entry.hints === 1 ? "1 hint" : `${entry.hints} hints`;
-  const text = `Weft daily ${state.daily.key} · ${stars} · ${formatTime(entry.bestMs)} · ${hints}`;
   if (!navigator.clipboard?.writeText) {
-    refs.status.textContent = text;
+    refs.status.textContent = "Copy unavailable; select the result line above.";
     return;
   }
   navigator.clipboard.writeText(text).then(
@@ -828,7 +865,7 @@ function shareDailyResult() {
       }, 2000);
     },
     () => {
-      refs.status.textContent = text;
+      refs.status.textContent = "Copy unavailable; select the result line above.";
     },
   );
 }
@@ -915,8 +952,9 @@ function openLevel(id, options = {}) {
   openBoard(level, options);
 }
 
-function openDaily(key = dateKey()) {
+function openDaily(key = dateKey(), options = {}) {
   openBoard(createDailyLevel(key), {
+    ...options,
     daily: { key, label: dailyLabel(key) },
   });
 }
@@ -1069,6 +1107,17 @@ function bindEvents() {
   });
 
   window.addEventListener("keydown", (event) => {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      !event.altKey &&
+      event.key.toLowerCase() === "z"
+    ) {
+      if (state.screen === "game" && !state.won) {
+        event.preventDefault();
+        undo();
+      }
+      return;
+    }
     if (event.key === "Escape" && state.draft) {
       event.preventDefault();
       cancelDraft();
@@ -1101,7 +1150,7 @@ function boot() {
   const preview = params.get("preview");
   const dailyParam = params.get("daily");
   if (dailyParam) {
-    openDaily(dailyParam === "1" ? dateKey() : dailyParam);
+    openDaily(dailyParam === "1" ? dateKey() : dailyParam, { preview });
     return;
   }
   const levelId = params.get("level");
