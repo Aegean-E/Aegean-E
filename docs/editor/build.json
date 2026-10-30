@@ -1,0 +1,24 @@
+{
+  "files": {
+    "LICENSE": "5ccc2c8395fa958c7df98017256f8b06a79439177b6ac2f2b18253dea331a4f7",
+    "assets/favicon.svg": "9ab9f262d574ca9eac7970f5c80dfd50a7ad9e3a7b0192995adc681f6363dc96",
+    "index.html": "6e3c9967628649703518f7823dea057d0719f6694d474bd69639780c4e2cee34",
+    "src/core/color.js": "bdf14bf3dafe9218a47d749a91236a22d97a7dfb21912f2d4b9882034bf38c5d",
+    "src/core/document.js": "b5a5fde25b78473ba60ef977d09829deff1f5098b3232237e9cf4b69a5b5b5fa",
+    "src/core/export.js": "f0d417abb7e601b9825802899872bdc6b81a8afbfc1bdb5c872b7259c1c94505",
+    "src/core/filters.js": "dbbd6fa8e7f7251caa60980009d15e50aeccecf6ef6e93c308e224b760e97dd5",
+    "src/core/geometry.js": "46d208b77fe068e2b926a306d91f3eb72b3adcf77b67dfcf1357ba1030920205",
+    "src/core/history.js": "7351ef707f87006fe259f84a447c85df086ad2c6a8ccb723a9e7037b552a8e01",
+    "src/core/project.js": "926d44749fda099790e2899b5a9a36d4fad11f6c5a495b0b1b9a9ebac35bb1e6",
+    "src/styles.css": "76a26efa4530ef55ac8c366971a7ea466f498a34aad28d21db552677576a018a",
+    "src/theme.css": "d4ca849c04e7e49031e62c2eebf713c90d6998bbce997b0190757655ec079643",
+    "src/ui/canvas.js": "8219ddf9e34115a3a9ea1a9e2cc5a2171009b0387013c23f1353be67984a32d4",
+    "src/ui/editor.js": "b7288536850d3af709799414bf52a75480ac46b82f28b2973b569ead75d19f56",
+    "src/ui/main.js": "ad50ea5c00250e5497186e99b114d5ab678da60e8bf736b614309b6db2320253",
+    "src/ui/paint.js": "d5a8281d13e8f41c3a9e581cca1a86d9bebe6ace4c99ef6573c7be2fbe6c76af"
+  },
+  "name": "palette",
+  "schema": 1,
+  "source_sha256": "7ced6c86c4aaa2e4ab8a462691d4272c31606db6457aaeaeda4e7b733df7468c",
+  "version": "0.1.0"
+}

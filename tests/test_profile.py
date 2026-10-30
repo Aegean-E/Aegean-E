@@ -527,6 +527,74 @@ class ProfileIntegrityTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, workflow)
 
+    def test_editor_page_is_wired_and_synced(self):
+        docs = ROOT / "docs"
+        page = (docs / "editor.html").read_text(encoding="utf-8")
+        for token in (
+            'id="main"',
+            'id="palette-frame"',
+            'src="editor/index.html"',
+            'title="Palette — a local-first image editor"',
+            "frame-src 'self'",
+            'class="skip"',
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token, page)
+        for asset in re.findall(r'(?:src|href)="([^"]+)"', page):
+            if asset.startswith(("http://", "https://", "#", "mailto:", "editor/")):
+                continue
+            with self.subTest(asset=asset):
+                self.assertTrue((docs / asset.split("#")[0].split("?")[0]).exists())
+
+        manifest = json.loads((docs / "editor" / "build.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["schema"], 1)
+        self.assertEqual(manifest["name"], "palette")
+        self.assertTrue(manifest["source_sha256"])
+        files = manifest["files"]
+        self.assertGreaterEqual(len(files), 16)
+        for relative, digest in files.items():
+            with self.subTest(file=relative):
+                target = docs / "editor" / relative
+                self.assertTrue(target.is_file())
+                self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), digest)
+
+        shell = (docs / "editor" / "index.html").read_text(encoding="utf-8")
+        for token in ('src="./src/ui/main.js"', "Content-Security-Policy", "Palette"):
+            with self.subTest(shell=token):
+                self.assertIn(token, shell)
+        self.assertNotRegex(shell, r'(?:src|href)="https?://(?:fonts|cdn|unpkg|jsdelivr)')
+
+        for name in (
+            "index.html",
+            "play.html",
+            "project.html",
+            "verify.html",
+            "security.html",
+            "privacy.html",
+            "accessibility.html",
+        ):
+            with self.subTest(page=name):
+                self.assertIn('href="editor.html"', (docs / name).read_text(encoding="utf-8"))
+        sitemap = (docs / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertIn("https://aegeanworks.github.io/AegeanWorks/editor.html", sitemap)
+        webmanifest = json.loads((docs / "site.webmanifest").read_text(encoding="utf-8"))
+        shortcut_urls = {shortcut["url"] for shortcut in webmanifest["shortcuts"]}
+        self.assertIn("/AegeanWorks/editor.html", shortcut_urls)
+
+        sw = (docs / "sw.js").read_text(encoding="utf-8")
+        block = sw.split("const PRECACHE = [", 1)[1].split("];", 1)[0]
+        entries = set(re.findall(r'"([^"]+)"', block))
+        self.assertIn("editor.html", entries)
+        for relative in files:
+            with self.subTest(precache=relative):
+                self.assertIn(f"editor/{relative}", entries)
+
+        css = (docs / "styles.css").read_text(encoding="utf-8")
+        for token in (".editor-page", ".editor-frame", ".editor-noscript"):
+            with self.subTest(css=token):
+                self.assertIn(token, css)
+        self.assertTrue((ROOT / "tools" / "sync_editor.py").is_file())
+
     def test_source_validator_covers_every_runtime_file(self):
         import importlib.util
         import tempfile
@@ -1619,6 +1687,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "offline.html",
             "404.html",
             "play.html",
+            "editor.html",
         ):
             page = (ROOT / "docs" / name).read_text(encoding="utf-8")
             with self.subTest(page=name):

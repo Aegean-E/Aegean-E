@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Palette — a browser image editor</title>
+<meta name="description" content="A zero-dependency, Photoshop-style image editor that runs entirely in your browser: layers, drawing tools, adjustments, filters, undo, and PNG, JPEG or WebP export.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#04060c">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./src/theme.css">
+<link rel="stylesheet" href="./src/styles.css">
+<script type="module" src="./src/ui/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#stage">Skip to the canvas</a>
+
+<div class="app" id="app">
+  <header class="app-bar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+      <span class="brand-text">
+        <strong>Palette</strong>
+        <small>local image editor</small>
+      </span>
+    </div>
+
+    <div class="doc-meta">
+      <label class="sr-only" for="doc-name">Document name</label>
+      <input id="doc-name" class="doc-name" type="text" value="Untitled" maxlength="80" autocomplete="off" spellcheck="false">
+      <span id="doc-size" class="doc-size">1280 × 800</span>
+    </div>
+
+    <nav class="file-actions" aria-label="File actions">
+      <button class="btn btn-ghost" id="btn-new" type="button" data-ui="new">New</button>
+      <button class="btn btn-ghost" id="btn-open" type="button" data-ui="open-image">Open</button>
+      <button class="btn btn-ghost" id="btn-open-project" type="button" data-ui="open-project">Open project</button>
+      <button class="btn btn-ghost" id="btn-save" type="button" data-ui="save-project">Save</button>
+      <button class="btn btn-primary" id="btn-export" type="button" data-ui="export">Export</button>
+    </nav>
+
+    <div class="history-actions">
+      <button class="icon-btn" id="btn-undo" type="button" aria-label="Undo" title="Undo (Ctrl+Z)" data-ui="undo" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5"/><path d="M4 12h9a6 6 0 0 1 6 6"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-redo" type="button" aria-label="Redo" title="Redo (Ctrl+Shift+Z)" data-ui="redo" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 7 5 5-5 5"/><path d="M20 12h-9a6 6 0 0 0-6 6"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-help" type="button" aria-label="Keyboard shortcuts" title="Keyboard shortcuts" data-ui="help">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.2 2.4c-.8.3-1.2 1-1.2 1.8v.2"/><path d="M11.6 17.1h.1"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <aside class="tool-rail" aria-label="Tools">
+      <button class="tool-btn" type="button" data-tool="move" data-ui="tool-move" aria-label="Move tool" title="Move (V)" aria-pressed="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/><path d="m9 6 3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="brush" data-ui="tool-brush" aria-label="Brush tool" title="Brush (B)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5 20 9 11 18H6.5L5 16.5V12l10.5-7.5Z"/><path d="M14 6.5 17.5 10"/><path d="M5 12c-2 1.5-2.5 4-1 7 3 1.5 5.5 1 7-1"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="eraser" data-ui="tool-eraser" aria-label="Eraser tool" title="Eraser (E)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 15 8-11 8 6-8 11H8l-4-6Z"/><path d="m9 19 4-5"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="crop" data-ui="tool-crop" aria-label="Crop tool" title="Crop (C)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v14h14"/><path d="M3 7h14v14"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="text" data-ui="tool-text" aria-label="Text tool" title="Text (T)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6V4h14v2"/><path d="M12 4v16"/><path d="M9 20h6"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="rect" data-ui="tool-rect" aria-label="Rectangle tool" title="Rectangle (R)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="ellipse" data-ui="tool-ellipse" aria-label="Ellipse tool" title="Ellipse (O)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="8.5" ry="7"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="line" data-ui="tool-line" aria-label="Line tool" title="Line (L)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><circle cx="5" cy="19" r="1.6"/><circle cx="19" cy="5" r="1.6"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="eyedropper" data-ui="tool-eyedropper" aria-label="Eyedropper tool" title="Eyedropper (I)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5"/><path d="M4 20l1-4 9-9 3 3-9 9-4 1Z"/><path d="M13 6l5 5"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="hand" data-ui="tool-hand" aria-label="Hand tool" title="Hand (H)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12V6a1.5 1.5 0 0 1 3 0v5"/><path d="M11 11V5a1.5 1.5 0 0 1 3 0v6"/><path d="M14 11V7a1.5 1.5 0 0 1 3 0v7"/><path d="M17 11.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1.5a5 5 0 0 1-4-2L5.5 15a1.5 1.5 0 0 1 2.4-1.8L8 14"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="zoom" data-ui="tool-zoom" aria-label="Zoom tool" title="Zoom (Z)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/><path d="M7.5 10.5h6M10.5 7.5v6"/></svg>
+      </button>
+      <div class="rail-separator" role="separator"></div>
+      <button class="tool-btn tool-btn-quiet" id="btn-zoom-out" type="button" aria-label="Zoom out" title="Zoom out" data-ui="zoom-out">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+      </button>
+      <button class="tool-btn tool-btn-quiet" id="btn-fit" type="button" aria-label="Fit to view" title="Fit (0)" data-ui="fit">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      </button>
+      <button class="tool-btn tool-btn-quiet" id="btn-zoom-in" type="button" aria-label="Zoom in" title="Zoom in" data-ui="zoom-in">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+      </button>
+    </aside>
+
+    <main class="stage-wrap" id="stage-wrap" aria-label="Canvas workspace">
+      <div class="doc-frame" id="doc-frame" aria-hidden="true"></div>
+      <canvas id="stage" class="stage" width="900" height="600" tabindex="0" aria-label="Image canvas"></canvas>
+      <canvas id="overlay" class="overlay" width="900" height="600" aria-hidden="true"></canvas>
+      <div class="text-editor" id="text-editor" hidden>
+        <label class="sr-only" for="text-input">Text to place</label>
+        <input id="text-input" type="text" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Type text">
+        <button class="btn btn-primary btn-small" id="text-commit" type="button" data-ui="text-commit">Add</button>
+        <button class="btn btn-ghost btn-small" id="text-cancel" type="button" data-ui="text-cancel">Cancel</button>
+      </div>
+      <div class="drop-hint" id="drop-hint" hidden>Drop an image to open it</div>
+      <p class="stage-note" id="stage-note">Open an image, drop one here, or start with New.</p>
+    </main>
+
+    <aside class="panel-column" aria-label="Editor panels">
+      <section class="panel" aria-labelledby="options-heading">
+        <header class="panel-head">
+          <h2 id="options-heading">Tool options</h2>
+          <p id="tool-hint" class="panel-note">Drag the active layer.</p>
+        </header>
+
+        <div class="color-row" id="color-row">
+          <label for="color-input">Color</label>
+          <input id="color-input" type="color" value="#22d3ee" aria-label="Active color">
+          <output id="color-hex" class="mono" for="color-input">#22d3ee</output>
+        </div>
+
+        <div class="options-group" id="options-brush" hidden>
+          <label class="field" for="brush-size">Size <output id="brush-size-value" for="brush-size">32</output> px</label>
+          <input id="brush-size" type="range" min="1" max="200" step="1" value="32">
+          <label class="field" for="brush-hardness">Hardness <output id="brush-hardness-value" for="brush-hardness">70</output>%</label>
+          <input id="brush-hardness" type="range" min="0" max="100" step="1" value="70">
+          <label class="field" for="brush-opacity">Opacity <output id="brush-opacity-value" for="brush-opacity">100</output>%</label>
+          <input id="brush-opacity" type="range" min="1" max="100" step="1" value="100">
+        </div>
+
+        <div class="options-group" id="options-eraser" hidden>
+          <label class="field" for="eraser-size">Size <output id="eraser-size-value" for="eraser-size">40</output> px</label>
+          <input id="eraser-size" type="range" min="1" max="200" step="1" value="40">
+          <label class="field" for="eraser-hardness">Hardness <output id="eraser-hardness-value" for="eraser-hardness">60</output>%</label>
+          <input id="eraser-hardness" type="range" min="0" max="100" step="1" value="60">
+          <label class="field" for="eraser-opacity">Opacity <output id="eraser-opacity-value" for="eraser-opacity">100</output>%</label>
+          <input id="eraser-opacity" type="range" min="1" max="100" step="1" value="100">
+        </div>
+
+        <div class="options-group" id="options-shape" hidden>
+          <label class="check"><input id="shape-fill" type="checkbox" checked> Fill</label>
+          <label class="check"><input id="shape-outline" type="checkbox" checked> Outline</label>
+          <div class="color-row">
+            <label for="shape-outline-color">Outline colour</label>
+            <input id="shape-outline-color" type="color" value="#e9eefb" aria-label="Outline colour">
+            <output id="shape-outline-hex" class="mono" for="shape-outline-color">#e9eefb</output>
+          </div>
+          <label class="field" for="shape-width">Outline width <output id="shape-width-value" for="shape-width">4</output> px</label>
+          <input id="shape-width" type="range" min="1" max="60" step="1" value="4">
+        </div>
+
+        <div class="options-group" id="options-text" hidden>
+          <label class="field" for="text-font">Font</label>
+          <select id="text-font">
+            <option value="system">System sans</option>
+            <option value="serif">Serif</option>
+            <option value="mono">Monospace</option>
+          </select>
+          <label class="field" for="text-size">Size <output id="text-size-value" for="text-size">48</output> px</label>
+          <input id="text-size" type="range" min="8" max="400" step="1" value="48">
+          <label class="field" for="text-weight">Weight</label>
+          <select id="text-weight">
+            <option value="400">Regular</option>
+            <option value="600" selected>Semibold</option>
+            <option value="700">Bold</option>
+          </select>
+        </div>
+
+        <div class="options-group" id="options-crop" hidden>
+          <p class="panel-note">Drag a region, then confirm.</p>
+          <div class="button-row">
+            <button class="btn btn-primary btn-small" id="crop-apply" type="button" data-ui="crop-apply" disabled>Apply crop</button>
+            <button class="btn btn-ghost btn-small" id="crop-cancel" type="button" data-ui="crop-cancel" disabled>Cancel</button>
+          </div>
+        </div>
+
+        <div class="options-group" id="options-move" hidden>
+          <p class="panel-note">Drag the active layer. Arrow keys nudge it.</p>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="layers-heading">
+        <header class="panel-head">
+          <h2 id="layers-heading">Layers</h2>
+          <div class="button-row compact">
+            <button class="icon-btn" id="btn-layer-add" type="button" aria-label="Add layer" title="Add layer" data-ui="layer-add">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-layer-duplicate" type="button" aria-label="Duplicate layer" title="Duplicate layer" data-ui="layer-duplicate">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="1.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4H5.5A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-layer-up" type="button" aria-label="Move layer up" title="Move layer up" data-ui="layer-up">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-layer-down" type="button" aria-label="Move layer down" title="Move layer down" data-ui="layer-down">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+            </button>
+            <button class="icon-btn icon-btn-danger" id="btn-layer-delete" type="button" aria-label="Delete layer" title="Delete layer" data-ui="layer-delete">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13"/><path d="M10 11v5M14 11v5"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="opacity-row">
+          <label for="layer-opacity">Opacity</label>
+          <input id="layer-opacity" type="range" min="0" max="100" step="1" value="100">
+          <output id="layer-opacity-value" for="layer-opacity">100%</output>
+        </div>
+        <ul class="layer-list" id="layer-list" aria-label="Layer stack"></ul>
+
+        <div class="document-actions">
+          <button class="btn btn-ghost btn-small" id="btn-resize" type="button" data-ui="resize">Resize</button>
+          <button class="btn btn-ghost btn-small" id="btn-flip-h" type="button" data-ui="flip-horizontal">Flip H</button>
+          <button class="btn btn-ghost btn-small" id="btn-flip-v" type="button" data-ui="flip-vertical">Flip V</button>
+          <button class="btn btn-ghost btn-small" id="btn-rotate" type="button" data-ui="rotate">Rotate 90°</button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="adjust-heading">
+        <header class="panel-head">
+          <h2 id="adjust-heading">Adjustments</h2>
+          <button class="btn btn-ghost btn-small" id="adjust-reset" type="button" data-ui="adjust-reset">Reset</button>
+        </header>
+        <div class="adjust-list">
+          <label class="field" for="adj-brightness">Brightness <output id="adj-brightness-value" for="adj-brightness">0</output></label>
+          <input id="adj-brightness" type="range" min="-100" max="100" step="1" value="0">
+          <label class="field" for="adj-contrast">Contrast <output id="adj-contrast-value" for="adj-contrast">0</output></label>
+          <input id="adj-contrast" type="range" min="-100" max="100" step="1" value="0">
+          <label class="field" for="adj-saturation">Saturation <output id="adj-saturation-value" for="adj-saturation">0</output></label>
+          <input id="adj-saturation" type="range" min="-100" max="100" step="1" value="0">
+          <label class="field" for="adj-hue">Hue <output id="adj-hue-value" for="adj-hue">0</output></label>
+          <input id="adj-hue" type="range" min="-180" max="180" step="1" value="0">
+          <label class="field" for="adj-grayscale">Grayscale <output id="adj-grayscale-value" for="adj-grayscale">0</output>%</label>
+          <input id="adj-grayscale" type="range" min="0" max="100" step="1" value="0">
+          <label class="field" for="adj-sepia">Sepia <output id="adj-sepia-value" for="adj-sepia">0</output>%</label>
+          <input id="adj-sepia" type="range" min="0" max="100" step="1" value="0">
+          <label class="field" for="adj-invert">Invert <output id="adj-invert-value" for="adj-invert">0</output>%</label>
+          <input id="adj-invert" type="range" min="0" max="100" step="1" value="0">
+          <label class="field" for="adj-blur">Blur <output id="adj-blur-value" for="adj-blur">0</output> px</label>
+          <input id="adj-blur" type="range" min="0" max="20" step="0.5" value="0">
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="filters-heading">
+        <header class="panel-head">
+          <h2 id="filters-heading">Filters</h2>
+          <p class="panel-note">Baked into the active layer.</p>
+        </header>
+        <div class="filter-grid">
+          <label class="field" for="filter-blur-radius">Blur <output id="filter-blur-value" for="filter-blur-radius">3</output> px</label>
+          <input id="filter-blur-radius" type="range" min="1" max="30" step="1" value="3">
+          <button class="btn btn-ghost btn-small" id="btn-filter-blur" type="button" data-ui="filter-blur">Apply blur</button>
+          <label class="field" for="filter-pixel-size">Pixelate <output id="filter-pixel-value" for="filter-pixel-size">8</output> px</label>
+          <input id="filter-pixel-size" type="range" min="2" max="64" step="1" value="8">
+          <button class="btn btn-ghost btn-small" id="btn-filter-pixelate" type="button" data-ui="filter-pixelate">Apply pixelate</button>
+          <button class="btn btn-ghost btn-small" id="btn-filter-sharpen" type="button" data-ui="filter-sharpen">Sharpen</button>
+          <button class="btn btn-ghost btn-small" id="btn-filter-vignette" type="button" data-ui="filter-vignette">Vignette</button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="status-bar">
+    <div class="status-left">
+      <span id="status-tool">Move</span>
+      <span class="status-divider" aria-hidden="true"></span>
+      <span id="status-message" role="status" aria-live="polite">Ready</span>
+    </div>
+    <div class="status-right">
+      <span id="status-cursor" class="mono">—, —</span>
+      <span class="status-divider" aria-hidden="true"></span>
+      <span id="status-zoom" class="mono">100%</span>
+      <button class="btn btn-ghost btn-small" id="btn-actual" type="button" data-ui="actual-size">100%</button>
+    </div>
+  </footer>
+</div>
+
+<input id="file-image" type="file" accept="image/*" hidden>
+<input id="file-project" type="file" accept=".palette,application/json" hidden>
+
+<dialog class="dialog" id="new-dialog" aria-labelledby="new-title">
+  <form method="dialog" id="new-form">
+    <h2 id="new-title">New document</h2>
+    <label class="field" for="new-name">Name</label>
+    <input id="new-name" type="text" value="Untitled" maxlength="80" autocomplete="off">
+    <div class="field-row">
+      <div>
+        <label class="field" for="new-width">Width</label>
+        <input id="new-width" type="number" min="1" max="8192" step="1" value="1280" required>
+      </div>
+      <div>
+        <label class="field" for="new-height">Height</label>
+        <input id="new-height" type="number" min="1" max="8192" step="1" value="800" required>
+      </div>
+    </div>
+    <fieldset class="radio-set">
+      <legend>Background</legend>
+      <label><input type="radio" name="new-background" value="white" checked> White</label>
+      <label><input type="radio" name="new-background" value="transparent"> Transparent</label>
+      <label class="inline"><input type="radio" name="new-background" value="color"> <input id="new-color" type="color" value="#0b1220" aria-label="Custom background colour"></label>
+    </fieldset>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" id="new-cancel" type="button" data-close>Cancel</button>
+      <button class="btn btn-primary" id="new-create" type="submit" value="create">Create</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="dialog" id="export-dialog" aria-labelledby="export-title">
+  <form method="dialog" id="export-form">
+    <h2 id="export-title">Export image</h2>
+    <label class="field" for="export-name">File name</label>
+    <input id="export-name" type="text" value="Untitled" maxlength="80" autocomplete="off">
+    <div class="field-row">
+      <div>
+        <label class="field" for="export-format">Format</label>
+        <select id="export-format">
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WebP</option>
+        </select>
+      </div>
+      <div id="export-quality-row" hidden>
+        <label class="field" for="export-quality">Quality <output id="export-quality-value" for="export-quality">92</output>%</label>
+        <input id="export-quality" type="range" min="5" max="100" step="1" value="92">
+      </div>
+    </div>
+    <p class="dialog-note" id="export-size">1280 × 800 pixels, transparent background.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" id="export-cancel" type="button" data-close>Cancel</button>
+      <button class="btn btn-primary" id="export-confirm" type="submit" value="export">Export</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="dialog" id="resize-dialog" aria-labelledby="resize-title">
+  <form method="dialog" id="resize-form">
+    <h2 id="resize-title">Resize image</h2>
+    <div class="field-row">
+      <div>
+        <label class="field" for="resize-width">Width</label>
+        <input id="resize-width" type="number" min="1" max="8192" step="1" required>
+      </div>
+      <div>
+        <label class="field" for="resize-height">Height</label>
+        <input id="resize-height" type="number" min="1" max="8192" step="1" required>
+      </div>
+    </div>
+    <label class="check"><input id="resize-lock" type="checkbox" checked> Keep aspect ratio</label>
+    <p class="dialog-note">Every layer is resampled with the high-quality browser filter.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" id="resize-cancel" type="button" data-close>Cancel</button>
+      <button class="btn btn-primary" id="resize-confirm" type="submit" value="resize">Resize</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="dialog" id="help-dialog" aria-labelledby="help-title">
+  <h2 id="help-title">Keyboard shortcuts</h2>
+  <dl class="shortcut-list">
+    <div><dt>V, B, E, C, T</dt><dd>Move, brush, eraser, crop, text</dd></div>
+    <div><dt>R, O, L, I, H, Z</dt><dd>Rectangle, ellipse, line, eyedropper, hand, zoom</dd></div>
+    <div><dt>Ctrl / Cmd + Z</dt><dd>Undo</dd></div>
+    <div><dt>Ctrl / Cmd + Shift + Z</dt><dd>Redo</dd></div>
+    <div><dt>Ctrl / Cmd + S</dt><dd>Save project</dd></div>
+    <div><dt>Ctrl / Cmd + O</dt><dd>Open an image</dd></div>
+    <div><dt>Ctrl / Cmd + E</dt><dd>Export</dd></div>
+    <div><dt>[ and ]</dt><dd>Brush or eraser size</dd></div>
+    <div><dt>0 and 1</dt><dd>Fit to view and 100%</dd></div>
+    <div><dt>Space + drag</dt><dd>Pan the canvas</dd></div>
+    <div><dt>Enter / Escape</dt><dd>Apply or cancel crop and text</dd></div>
+  </dl>
+  <div class="dialog-actions">
+    <button class="btn btn-primary" id="help-close" type="button" data-close>Close</button>
+  </div>
+</dialog>
+
+</body>
+</html>

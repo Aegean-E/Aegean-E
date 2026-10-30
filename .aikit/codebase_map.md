@@ -6,11 +6,11 @@
 ---
 
 ## 📊 Codebase Metrics
-- **Total Python Modules**: `3`
-- **Total Classes**: `3`
-- **Total Top-Level Functions**: `65`
-- **Total Class Methods**: `89`
-- **Total Source Lines**: `3135`
+- **Total Python Modules**: `4`
+- **Total Classes**: `4`
+- **Total Top-Level Functions**: `74`
+- **Total Class Methods**: `91`
+- **Total Source Lines**: `3407`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1655` lines (`76960` bytes)
+**Size**: `1721` lines (`79932` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -36,6 +36,7 @@
   - Method `.test_project_dossier_page_is_wired()`
   - Method `.test_screenshot_viewer_is_in_page_and_keyboard_ready()`
   - Method `.test_live_apps_are_wired_and_current()`
+  - Method `.test_editor_page_is_wired_and_synced()`
   - Method `.test_source_validator_covers_every_runtime_file()`
   - Method `.test_optional_live_source_can_be_absent()`
   - Method `.test_portfolio_cards_use_repository_logos()`
@@ -167,6 +168,28 @@
 - `def humanize(value)`
 - `def safe_slug(value)`
 - `def command_ingest(args)`
+- `def main(argv)`
+
+---
+
+### [`tools/sync_editor.py`](tools/sync_editor.py)
+> *Vendor the Palette image editor into the AegeanWorks site.*
+
+**Size**: `206` lines (`7736` bytes)
+
+**Classes:**
+- `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
+  - Method `.__init__(what, why, fix)`
+
+**Functions:**
+- `def _digest(path)`
+- `def _source_files(source)`
+- `def _source_hash(files, source)`
+- `def _manifest(source, files)`
+- `def _write_atomic(path, payload)`
+- `def command_write(source)`
+- `def _load_manifest()`
+- `def command_check(source)`
 - `def main(argv)`
 
 ---

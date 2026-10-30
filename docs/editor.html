@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- hygiene: allow same-origin app frames, not a loaded third-party resource -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Editor — AegeanWorks</title>
+<meta name="description" content="Palette is a local-first image editor in the browser: layers, brush, crop, text, shapes, adjustments, filters and PNG, JPEG or WebP export. Images never leave your device.">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#04060c">
+<link rel="canonical" href="https://aegeanworks.github.io/AegeanWorks/editor.html"> <!-- hygiene: allow canonical outbound link, not a loaded dependency -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="AegeanWorks">
+<meta property="og:title" content="Editor — AegeanWorks">
+<meta property="og:description" content="A local-first image editor in the browser: layers, brush, crop, text, shapes, adjustments, filters and export. Images never leave your device.">
+<meta property="og:url" content="https://aegeanworks.github.io/AegeanWorks/editor.html"> <!-- hygiene: allow canonical outbound link, not a loaded dependency -->
+<meta property="og:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow canonical outbound link, not a loaded dependency -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="AegeanWorks — software that thinks, remembers and explains itself">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Aegean_E">
+<meta name="twitter:creator" content="@Aegean_E">
+<meta name="twitter:title" content="Editor — AegeanWorks">
+<meta name="twitter:description" content="A local-first image editor in the browser. Layers, tools, adjustments and export without an upload.">
+<meta name="twitter:image" content="https://aegeanworks.github.io/AegeanWorks/og.png"> <!-- hygiene: allow canonical outbound link, not a loaded dependency -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js?v=20" defer></script>
+<script src="sw-client.js?v=20" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the editor</a>
+
+<div class="page-grid" aria-hidden="true"></div>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="AegeanWorks home">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#67e8f9"/>
+            <stop offset="0.55" stop-color="#22d3ee"/>
+            <stop offset="1" stop-color="#a78bfa"/>
+          </linearGradient>
+          <clipPath id="markClip"><circle cx="24" cy="24" r="15.5"/></clipPath>
+        </defs>
+        <circle cx="24" cy="24" r="22.5" fill="none" stroke="url(#markGrad)" stroke-opacity="0.35" stroke-width="1.2"/>
+        <g clip-path="url(#markClip)" fill="none" stroke="url(#markGrad)" stroke-linecap="round">
+          <path d="M6 18c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9"/>
+          <path d="M6 24c6-4 12 4 18 0s12 4 18 0" stroke-width="2.4" stroke-opacity="0.9"/>
+          <path d="M6 30c6-4 12 4 18 0s12 4 18 0" stroke-width="1.9" stroke-opacity="0.7"/>
+        </g>
+      </svg>
+      <span class="brand-word">Aegean<span>Works</span></span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Work</a>
+      <a href="play.html">Live</a>
+      <a href="editor.html" aria-current="page">Editor</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify</a>
+      <a class="nav-github" href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+
+    <a class="btn btn-ghost header-cta" href="https://github.com/AegeanWorks" target="_blank" rel="noopener"> <!-- hygiene: allow outbound link, not a loaded dependency -->
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      <span>GitHub</span>
+    </a>
+  </div>
+  <noscript>
+    <nav class="noscript-nav" aria-label="Primary">
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#work">Work</a>
+      <a href="play.html">Live</a>
+      <a href="editor.html">Editor</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#licensing">Licensing</a>
+      <a href="verify.html">Verify</a>
+      <a href="https://github.com/AegeanWorks" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&#8599;</span></a> <!-- hygiene: allow outbound link, not a loaded dependency -->
+    </nav>
+  </noscript>
+</header>
+
+<main id="main" tabindex="-1" class="editor-page">
+  <h1 class="sr-only">Palette image editor</h1>
+  <p class="sr-only" role="status" aria-live="polite">Palette runs locally. Images never leave this device.</p>
+  <iframe class="editor-frame" id="palette-frame" src="editor/index.html" title="Palette — a local-first image editor" loading="eager" referrerpolicy="no-referrer"></iframe>
+  <noscript>
+    <p class="editor-noscript">Palette needs JavaScript to edit images. <a href="editor/index.html">Open the editor directly</a>.</p>
+  </noscript>
+</main>
+
+</body>
+</html>

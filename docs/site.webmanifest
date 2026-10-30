@@ -17,6 +17,12 @@
       "description": "Open the live browser app catalog."
     },
     {
+      "name": "Image editor",
+      "short_name": "Editor",
+      "url": "/AegeanWorks/editor.html",
+      "description": "Open Palette, the local-first image editor."
+    },
+    {
       "name": "Verify a license",
       "short_name": "Verify",
       "url": "/AegeanWorks/verify.html",

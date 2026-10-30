@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v19";
+const VERSION = "aegeanworks-shell-v20";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -29,6 +29,24 @@ const PRECACHE = [
   "live/shots.json",
   "verify.js",
   "verify-core.js",
+  "editor.html",
+  "editor/index.html",
+  "editor/build.json",
+  "editor/LICENSE",
+  "editor/assets/favicon.svg",
+  "editor/src/theme.css",
+  "editor/src/styles.css",
+  "editor/src/core/color.js",
+  "editor/src/core/document.js",
+  "editor/src/core/export.js",
+  "editor/src/core/filters.js",
+  "editor/src/core/geometry.js",
+  "editor/src/core/history.js",
+  "editor/src/core/project.js",
+  "editor/src/ui/canvas.js",
+  "editor/src/ui/editor.js",
+  "editor/src/ui/main.js",
+  "editor/src/ui/paint.js",
   "atlas-snapshot.json",
   "site.webmanifest",
   "favicon.svg",
