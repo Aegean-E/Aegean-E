@@ -6,11 +6,11 @@
 ---
 
 ## 📊 Codebase Metrics
-- **Total Python Modules**: `5`
-- **Total Classes**: `5`
-- **Total Top-Level Functions**: `75`
-- **Total Class Methods**: `93`
-- **Total Source Lines**: `3504`
+- **Total Python Modules**: `6`
+- **Total Classes**: `6`
+- **Total Top-Level Functions**: `77`
+- **Total Class Methods**: `96`
+- **Total Source Lines**: `3570`
 
 ---
 
@@ -122,6 +122,20 @@
 
 ---
 
+### [`tests/test_sync_editor_digest.py`](tests/test_sync_editor_digest.py)
+**Size**: `57` lines (`2114` bytes)
+
+**Classes:**
+- `class EditorBuildDigestTests`
+  - Method `.test_line_endings_do_not_change_the_digest()`
+  - Method `.test_binary_files_are_hashed_byte_for_byte()`
+  - Method `.test_source_hash_matches_across_line_endings()`
+
+**Functions:**
+- `def load_sync_tool()`
+
+---
+
 ### [`tests/test_sync_live_digest.py`](tests/test_sync_live_digest.py)
 **Size**: `48` lines (`1645` bytes)
 
@@ -188,13 +202,14 @@
 ### [`tools/sync_editor.py`](tools/sync_editor.py)
 > *Vendor the Palette image editor into the AegeanWorks site.*
 
-**Size**: `206` lines (`7736` bytes)
+**Size**: `215` lines (`8000` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
   - Method `.__init__(what, why, fix)`
 
 **Functions:**
+- `def _payload(path)`
 - `def _digest(path)`
 - `def _source_files(source)`
 - `def _source_hash(files, source)`

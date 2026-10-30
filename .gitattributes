@@ -1,0 +1,5 @@
+# Hashed browser builds are copied verbatim and verified by SHA-256 over the
+# bytes on disk. Mark them as non-text so Git never rewrites their line endings
+# on checkout and a Windows worktree matches the manifest and the site copy.
+docs/editor/** -text
+docs/live/** -text

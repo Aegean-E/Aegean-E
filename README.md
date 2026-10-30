@@ -223,6 +223,7 @@ AegeanWorks/
 │   └── LicenseRef-AGL-1.1.txt <- Live app and game builds
 ├── REUSE.toml               <- REUSE aggregate license annotations
 ├── .gitignore               <- Git and AIKit transient-state exclusions
+├── .gitattributes           <- Byte-stable checkouts for hashed browser builds
 ├── package.json             <- Node module marker for the browser-core parity suites
 ├── assets/
 ├── docs/                    <- Static GitHub Pages site and its assets
@@ -289,6 +290,7 @@ AegeanWorks/
 └── tests/
     ├── test_profile.py      <- Content, metadata and link integrity tests
     ├── test_sync_live_digest.py <- Live build digest and retention tests
+    ├── test_sync_editor_digest.py <- Editor line-ending and binary digest tests
     ├── live/
     │   └── run-tests.mjs     <- Live catalog and version-label parity
     ├── metadata/

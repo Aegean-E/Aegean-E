@@ -1,6 +1,6 @@
 {
   "files": {
-    "LICENSE": "5ccc2c8395fa958c7df98017256f8b06a79439177b6ac2f2b18253dea331a4f7",
+    "LICENSE": "7e3473af99b8e2f157de2689adf5ab9d0d480bf08d58af3d3f151c7700c481e5",
     "assets/favicon.svg": "9ab9f262d574ca9eac7970f5c80dfd50a7ad9e3a7b0192995adc681f6363dc96",
     "index.html": "6e3c9967628649703518f7823dea057d0719f6694d474bd69639780c4e2cee34",
     "src/core/color.js": "bdf14bf3dafe9218a47d749a91236a22d97a7dfb21912f2d4b9882034bf38c5d",
@@ -19,6 +19,6 @@
   },
   "name": "palette",
   "schema": 1,
-  "source_sha256": "7ced6c86c4aaa2e4ab8a462691d4272c31606db6457aaeaeda4e7b733df7468c",
+  "source_sha256": "fd9bd000d2336569e099feef99f9c29046eab2a3172dc6e1b358db5e7e0fb32d",
   "version": "0.1.0"
 }

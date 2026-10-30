@@ -2,9 +2,11 @@
 """Vendor the Palette image editor into the AegeanWorks site.
 
 Palette is a separate AIKit project with no build step. Its runtime files are
-copied verbatim under docs/editor/ so the published GitHub Pages site is
-self-contained. A manifest records one SHA-256 per file plus a combined source
-hash, and `--check` fails when the copy drifts from the project.
+copied under docs/editor/ with text line endings normalized to LF (binary files
+are copied byte for byte) so the published GitHub Pages site is self-contained
+and the manifest is identical on Windows and Linux. A manifest records one
+SHA-256 per file plus a combined source hash, and `--check` fails when the copy
+drifts from the project.
 
 Exit codes:
   0 current    1 drift or invalid copy    2 CLI or source misuse
@@ -39,8 +41,15 @@ class SyncError(Exception):
         self.fix = fix
 
 
+def _payload(path: Path) -> bytes:
+    raw = path.read_bytes()
+    if b"\0" in raw[:8000]:
+        return raw
+    return raw.replace(b"\r\n", b"\n")
+
+
 def _digest(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(_payload(path)).hexdigest()
 
 
 def _source_files(source: Path) -> list[Path]:
@@ -72,7 +81,7 @@ def _source_hash(files: list[Path], source: Path) -> str:
     for path in files:
         digest.update(path.relative_to(source).as_posix().encode("utf-8"))
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        digest.update(_payload(path))
         digest.update(b"\0")
     return digest.hexdigest()
 
@@ -111,7 +120,7 @@ def command_write(source: Path) -> int:
     for path in files:
         target = DESTINATION / path.relative_to(source)
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(path.read_bytes())
+        target.write_bytes(_payload(path))
     payload = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     _write_atomic(DESTINATION / MANIFEST_NAME, payload.encode("utf-8"))
     print(f"[OK] Vendored {len(files)} Palette file(s) into docs/editor/.")
