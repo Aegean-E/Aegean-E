@@ -3,36 +3,15 @@
   "active_task": {
     "task_id": "live-iris",
     "last_phase": "phase 4",
-    "active_phase": 4,
-    "status": "in_progress",
-    "updated_at": 1793349132.514066,
+    "active_phase": 5,
+    "status": "completed",
+    "updated_at": 1793349804.246307,
     "owner": "kilo:iris",
     "started_by": "kilo:iris",
-    "continuations": []
+    "continuations": [],
+    "completed_at": 1793350178.9749792
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 27",
-      "phase_num": 3,
-      "description": "Reforge stage 27: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311588.996584,
-      "timestamp_str": "2026-10-30 01:06:28",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 28",
-      "phase_num": 3,
-      "description": "Reforge stage 28: window 129, 2 commit(s), 11 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311603.559013,
-      "timestamp_str": "2026-10-30 01:06:43",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge:run-1",
       "phase": "reforge stage 28",
@@ -280,6 +259,34 @@
         "open": "none",
         "evidence": "test_profile 91 pass, all Node suites pass, sync checks pass, in-page Iris solved at 1 move with 3 stars"
       }
+    },
+    {
+      "task_id": "live-iris",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "Final verification after rebasing onto the daily live refresh; checklists: passed; site tests 94/94, all four Node suites, strict project gates 4/4, sync_editor --check and sync_live_apps --check pass, and the Live page boots Iris and solves a chamber in a headless browser",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793349804.246307,
+      "timestamp_str": "2026-10-30 11:43:24",
+      "agent": "kilo:iris",
+      "handoff": {
+        "state": "clean tree, 3 commits ahead of the pre-task remote",
+        "next": "push main and complete the task",
+        "failed": "none",
+        "open": "none",
+        "evidence": "editor manifest now line-ending stable (fd9bd000), Iris build fa020321803d in live.json, Weft refreshed to f93d4f8c96fb, UI warning is pre-existing because this site has no UI contract"
+      }
+    },
+    {
+      "task_id": "live-iris",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'live-iris' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793350178.97498,
+      "timestamp_str": "2026-10-30 11:49:38",
+      "agent": "kilo:iris"
     }
   ]
 }
