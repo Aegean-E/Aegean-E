@@ -23,7 +23,8 @@ import {
   randomizeState,
   reseedState,
 } from "../studio/state.js";
-import { clearState, loadState, saveState } from "../studio/storage.js";
+import { addEntry, emptyGallery, isSaved, removeEntry, restoreEntry } from "../studio/gallery.js";
+import { clearState, loadGallery, loadState, saveGallery, saveState } from "../studio/storage.js";
 
 const stage = document.getElementById("stage");
 const motifGrid = document.getElementById("motif-grid");
@@ -32,6 +33,8 @@ const presetList = document.getElementById("preset-list");
 const repeatInput = document.getElementById("repeat");
 const weightInput = document.getElementById("weight");
 const warpInput = document.getElementById("warp");
+const rotateInput = document.getElementById("rotate");
+const flipInput = document.getElementById("flip");
 const repeatValue = document.getElementById("repeat-value");
 const weightValue = document.getElementById("weight-value");
 const warpValue = document.getElementById("warp-value");
@@ -44,11 +47,15 @@ const stageRepeat = document.getElementById("stage-repeat");
 const stageSeed = document.getElementById("stage-seed");
 const pngSizeInput = document.getElementById("png-size");
 const exportPngButton = document.getElementById("export-png");
+const galleryList = document.getElementById("gallery-list");
+const saveLookButton = document.getElementById("save-look");
+const copyLinkButton = document.getElementById("copy-link");
 const toast = document.getElementById("toast");
 
 let state = normalizeState(DEFAULTS);
 let lastPalette = state.palette;
 let pngSize = DEFAULT_EXPORT_SIZE;
+let gallery = emptyGallery();
 let toastTimer = 0;
 
 function storage() {
@@ -202,10 +209,92 @@ function buildPngSizes() {
   });
 }
 
+function renderGallery() {
+  if (!galleryList) return;
+  galleryList.replaceChildren();
+  if (!gallery.entries.length) {
+    const empty = document.createElement("p");
+    empty.className = "gallery-empty";
+    empty.textContent = "No saved looks yet. Save the current pattern to start a collection.";
+    galleryList.appendChild(empty);
+    return;
+  }
+  const list = document.createElement("ul");
+  list.className = "gallery-items";
+  for (const entry of gallery.entries) {
+    const item = document.createElement("li");
+    item.className = "gallery-item";
+
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "gallery-open";
+    open.dataset.galleryId = entry.id;
+    open.setAttribute("aria-label", `Load ${entry.name}`);
+
+    const thumb = document.createElement("span");
+    thumb.className = "gallery-thumb";
+    thumb.setAttribute("aria-hidden", "true");
+    thumb.innerHTML = renderSvg(entry.state, {
+      width: 160,
+      height: 100,
+      repeat: 2,
+      decorative: true,
+      idPrefix: `gallery-${entry.id}`,
+    });
+
+    const name = document.createElement("span");
+    name.className = "gallery-name";
+    name.textContent = entry.name;
+    open.append(thumb, name);
+    open.addEventListener("click", () => loadLook(entry.id));
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "gallery-delete";
+    remove.dataset.galleryDelete = entry.id;
+    remove.setAttribute("aria-label", `Delete ${entry.name}`);
+    remove.title = `Delete ${entry.name}`;
+    remove.textContent = "×";
+    remove.addEventListener("click", () => deleteLook(entry.id));
+
+    item.append(open, remove);
+    list.appendChild(item);
+  }
+  galleryList.appendChild(list);
+}
+
+function saveLook() {
+  const alreadySaved = isSaved(gallery, state);
+  gallery = addEntry(gallery, state);
+  saveGallery(storage(), gallery);
+  renderGallery();
+  const entry = gallery.entries[0];
+  announce(alreadySaved ? `Moved ${entry.name} to the front.` : `Saved ${entry.name}.`);
+}
+
+function loadLook(id) {
+  const entry = gallery.entries.find((item) => item.id === id);
+  if (!entry) return;
+  state = restoreEntry(entry, state);
+  update();
+  announce(`Loaded ${entry.name}.`);
+}
+
+function deleteLook(id) {
+  const entry = gallery.entries.find((item) => item.id === id);
+  if (!entry) return;
+  gallery = removeEntry(gallery, id);
+  saveGallery(storage(), gallery);
+  renderGallery();
+  announce(`Removed ${entry.name}.`);
+}
+
 function syncInputs() {
   if (repeatInput) repeatInput.value = String(state.repeat);
   if (weightInput) weightInput.value = String(state.weight);
   if (warpInput) warpInput.value = String(state.warp);
+  if (rotateInput) rotateInput.value = String(state.rotate);
+  if (flipInput) flipInput.value = state.flip;
   if (repeatValue) repeatValue.textContent = String(state.repeat);
   if (weightValue) weightValue.textContent = String(state.weight);
   if (warpValue) warpValue.textContent = `${state.warp}%`;
@@ -276,12 +365,11 @@ function svgText() {
   });
 }
 
-async function copySvg() {
-  const text = svgText();
+async function copyText(text, successMessage) {
   try {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(text);
-      announce("SVG copied to the clipboard.");
+      announce(successMessage);
       return;
     }
   } catch {
@@ -296,12 +384,28 @@ async function copySvg() {
   area.select();
   try {
     const copied = document.execCommand("copy");
-    announce(copied ? "SVG copied to the clipboard." : "Copy is unavailable in this browser.");
+    announce(copied ? successMessage : "Copy is unavailable in this browser.");
   } catch {
     announce("Copy is unavailable in this browser.");
   } finally {
     area.remove();
   }
+}
+
+async function copySvg() {
+  await copyText(svgText(), "SVG copied to the clipboard.");
+}
+
+function shareLink() {
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(encodeState(state));
+  params.delete("preset");
+  url.search = params.toString();
+  return url.href;
+}
+
+async function copyLink() {
+  await copyText(shareLink(), "Share link copied to the clipboard.");
 }
 
 function exportSvg() {
@@ -392,6 +496,14 @@ function bindSwitch(input, key) {
   });
 }
 
+function bindSelect(input, key) {
+  if (!input) return;
+  input.addEventListener("change", () => {
+    state = normalizeState({ ...state, [key]: input.value });
+    update();
+  });
+}
+
 function bindActions() {
   const randomize = document.getElementById("randomize");
   const reseed = document.getElementById("new-seed");
@@ -413,10 +525,14 @@ function bindActions() {
   copy?.addEventListener("click", copySvg);
   exportButton?.addEventListener("click", exportSvg);
   exportPngButton?.addEventListener("click", exportPng);
+  saveLookButton?.addEventListener("click", saveLook);
+  copyLinkButton?.addEventListener("click", copyLink);
 
   bindRange(repeatInput, "repeat");
   bindRange(weightInput, "weight");
   bindRange(warpInput, "warp");
+  bindSelect(rotateInput, "rotate");
+  bindSelect(flipInput, "flip");
   bindSwitch(motionInput, "motion");
   bindSwitch(guidesInput, "guides");
 }
@@ -444,6 +560,12 @@ function bindKeyboard() {
     } else if (key === "p") {
       event.preventDefault();
       exportPng();
+    } else if (key === "s") {
+      event.preventDefault();
+      saveLook();
+    } else if (key === "l") {
+      event.preventDefault();
+      copyLink();
     }
   });
 }
@@ -459,10 +581,12 @@ function initialState() {
 function mount() {
   state = initialState();
   lastPalette = state.palette;
+  gallery = loadGallery(storage()) || emptyGallery();
   buildMotifButtons();
   buildPaletteButtons();
   buildPresetButtons();
   buildPngSizes();
+  renderGallery();
   bindActions();
   bindKeyboard();
   update({ persist: false, url: false });

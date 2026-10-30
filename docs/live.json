@@ -30,18 +30,18 @@
       "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across eighteen chambers.",
       "available": true,
       "mode": "browser",
-      "path": "live/weft/8e21fc1f6671/index.html",
+      "path": "live/weft/cc1c443a2950/index.html",
       "source_url": "https://github.com/AegeanWorks/Weft",
-      "version": "0.6.0",
-      "commit": "8e21fc1f6671ec2f9daa7ea5ee1740e738b2f17c",
+      "version": "0.7.0",
+      "commit": "cc1c443a29500daffecc580f5fb674e00505e148",
       "updated": "2026-10-30",
       "license": "AGL-1.1",
       "license_path": "live/weft/LICENSE",
-      "digest": "sha256:869a3ef02c0a465b597786b2bec60d64185fbc4def222be388476ea07eea4dfa",
+      "digest": "sha256:38dfaa06de21f939bcf991e38d6b0de3feb620c9b0f302646147b7c28f7e0b71",
       "builds": [
+        "live/weft/cc1c443a2950/index.html",
         "live/weft/8e21fc1f6671/index.html",
-        "live/weft/3054f2794206/index.html",
-        "live/weft/fdc00280760e/index.html"
+        "live/weft/3054f2794206/index.html"
       ],
       "logo": "live/weft/logo.webp",
       "dossier": ""
@@ -76,18 +76,18 @@
       "description": "A seamless pattern studio: compose geometric tiles in the browser, tune every line, and export crisp editable SVG.",
       "available": true,
       "mode": "browser",
-      "path": "live/tessera/3ee3f4bbf7a3/index.html",
+      "path": "live/tessera/e1cfce7af19b/index.html",
       "source_url": "https://github.com/AegeanWorks/Tessera",
-      "version": "0.4.0",
-      "commit": "3ee3f4bbf7a3713a66fd1c866bd3e674a1de95f7",
+      "version": "0.5.0",
+      "commit": "e1cfce7af19baf547d05732e664ad5f7e3fe0bf1",
       "updated": "2026-10-30",
       "license": "AL-1.1",
       "license_path": "live/tessera/LICENSE",
-      "digest": "sha256:7f499472e3eb01c9cce313359685bb0115879621d8f770583cd1701869fcbd67",
+      "digest": "sha256:29be1d7518e1aee262b2a3cb8f8670a89593e64f281203e911fd53f0d5c8cbf7",
       "builds": [
+        "live/tessera/e1cfce7af19b/index.html",
         "live/tessera/3ee3f4bbf7a3/index.html",
-        "live/tessera/e044882ea35a/index.html",
-        "live/tessera/91afc0bc2546/index.html"
+        "live/tessera/e044882ea35a/index.html"
       ],
       "logo": "live/tessera/logo.svg",
       "dossier": ""
