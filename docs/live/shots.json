@@ -57,6 +57,36 @@
         }
       ]
     },
+    "iris": {
+      "commit": "fa020321803d5cee71b991f4d2e372ecf246448c",
+      "taken_at": "2026-10-30",
+      "screenshots": [
+        {
+          "src": "live/shots/iris/01-title.png",
+          "alt": "Iris title screen"
+        },
+        {
+          "src": "live/shots/iris/02-chambers.png",
+          "alt": "Iris chamber index"
+        },
+        {
+          "src": "live/shots/iris/03-first-light.png",
+          "alt": "Iris First Light chamber"
+        },
+        {
+          "src": "live/shots/iris/04-yellow-room.png",
+          "alt": "Iris Yellow Room mixing chamber"
+        },
+        {
+          "src": "live/shots/iris/05-victory.png",
+          "alt": "Iris The Vault victory dialog"
+        },
+        {
+          "src": "live/shots/iris/06-how-to-play.png",
+          "alt": "Iris how to play"
+        }
+      ]
+    },
     "tessera": {
       "commit": "730b80ad10e43610a8a81fe654f569bea177890d",
       "taken_at": "2026-10-30",

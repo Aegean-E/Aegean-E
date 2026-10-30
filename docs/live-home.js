@@ -157,8 +157,7 @@ async function boot() {
     const apps = appsFromManifest(await catalog.json())
       .filter(function (app) {
         return app.available;
-      })
-      .slice(0, 3);
+      });
     let shotsBySlug = {};
     if (shotsResponse && shotsResponse.ok) {
       const raw = await shotsResponse.json();

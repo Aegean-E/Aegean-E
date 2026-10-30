@@ -517,7 +517,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertLess(live_nav.index(">Live</a>"), live_nav.index(">Projects</a>"))
         shots = json.loads((ROOT / "docs" / "live" / "shots.json").read_text(encoding="utf-8"))
         self.assertEqual(shots["schema"], 1)
-        for slug in ("prism-relay", "weft", "tessera"):
+        for slug in ("prism-relay", "weft", "iris", "tessera"):
             entry = shots["apps"][slug]
             self.assertGreaterEqual(len(entry["screenshots"]), 5)
             for shot in entry["screenshots"]:
@@ -525,6 +525,7 @@ class ProfileIntegrityTests(unittest.TestCase):
                     self.assertTrue(shot.get("alt"))
                     self.assertTrue((ROOT / "docs" / shot["src"]).is_file())
         home_script = (ROOT / "docs" / "live-home.js").read_text(encoding="utf-8")
+        self.assertNotIn("slice(0, 3)", home_script)
         for token in ("live-home-slider", "live-home-nav", "live/shots.json", "Dossier", "app.dossier"):
             with self.subTest(token=token):
                 self.assertIn(token, home_script)

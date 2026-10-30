@@ -1,45 +1,16 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "live-iris",
+    "task_id": "live-iris-shots",
     "last_phase": "phase 4",
-    "active_phase": 5,
-    "status": "completed",
-    "updated_at": 1793349804.246307,
+    "active_phase": 4,
+    "status": "in_progress",
+    "updated_at": 1793351200.188847,
     "owner": "kilo:iris",
     "started_by": "kilo:iris",
-    "continuations": [],
-    "completed_at": 1793350178.9749792
+    "continuations": []
   },
   "checkpoints": [
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 28",
-      "phase_num": 3,
-      "description": "Reforge stage 28: run stopped at stage 28; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793311616.7780013,
-      "timestamp_str": "2026-10-30 01:06:56",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge-run-1-stage28",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Reforge stage 28 audited the dossier screenshot slider; no findings; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793311616.9279842,
-      "timestamp_str": "2026-10-30 01:06:56",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "The dossier gallery changed from a grid to a single-stage slider",
-        "benefits": "The stopped run covers the slider with no pending review",
-        "risks": "contract: .aikit state only; dependency: none; concurrency: none; state: run-1 stopped at stage 28",
-        "mitigation": "Reviewed the eleven changed files, browser-checked Prism and Fold, and committed only the audit state"
-      }
-    },
     {
       "task_id": "reforge-run-1-stage28",
       "phase": "completed",
@@ -287,6 +258,41 @@
       "timestamp": 1793350178.97498,
       "timestamp_str": "2026-10-30 11:49:38",
       "agent": "kilo:iris"
+    },
+    {
+      "task_id": "live-iris-shots",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Capture a 1440x900 Iris screenshot set for the home live slider. [2/2] Register the shots, cover Iris in the slider tests, verify the site suites and push.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793350867.3329334,
+      "timestamp_str": "2026-10-30 12:01:07",
+      "agent": "kilo:iris",
+      "impact_assessment": {
+        "why": "The home page live slider reads docs/live/shots.json and still lists only the three older apps, so Iris would be absent from the showcase even though its Live card works.",
+        "benefits": "Six reviewed Iris captures and a tested slider entry make the new game visible on the landing page and keep the parity check honest for every live app.",
+        "risks": "contract: the screenshots must show the commit-named build; dependency: none beyond the existing static build; concurrency: the daily live refresh may advance Weft/Tessera but not Iris; state: docs/live/shots.json and the PNG set change together.",
+        "mitigation": "Capture from the deployed build directory, record its commit, validate every alt and file in tests, and run the full suites plus the strict gate before pushing."
+      }
+    },
+    {
+      "task_id": "live-iris-shots",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "[1/2]-[2/2] Six Iris captures are registered and the home slider no longer truncates the catalog; checklists: passed; site tests 94/94, live 20, gates 4/4, and a headless home render shows four cards with six Iris screenshots",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793351200.188847,
+      "timestamp_str": "2026-10-30 12:06:40",
+      "agent": "kilo:iris",
+      "handoff": {
+        "state": "4 modified and 1 untracked path",
+        "next": "commit and push, then confirm the Pages deployment exposes the Iris shots",
+        "failed": "none",
+        "open": "none",
+        "evidence": "home-smoke OK, shots.json validated, every alt/file covered by tests"
+      }
     }
   ]
 }
