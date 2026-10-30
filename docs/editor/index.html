@@ -69,6 +69,9 @@
       <button class="tool-btn" type="button" data-tool="crop" data-ui="tool-crop" aria-label="Crop tool" title="Crop (C)" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v14h14"/><path d="M3 7h14v14"/></svg>
       </button>
+      <button class="tool-btn" type="button" data-tool="marquee" data-ui="tool-marquee" aria-label="Marquee selection tool" title="Marquee (M)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3"/><path d="M8 4h2M14 4h2M20 8v2M20 14v2M16 20h-2M10 20H8M4 16v-2M4 10V8"/></svg>
+      </button>
       <button class="tool-btn" type="button" data-tool="text" data-ui="tool-text" aria-label="Text tool" title="Text (T)" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6V4h14v2"/><path d="M12 4v16"/><path d="M9 20h6"/></svg>
       </button>
@@ -80,6 +83,9 @@
       </button>
       <button class="tool-btn" type="button" data-tool="line" data-ui="tool-line" aria-label="Line tool" title="Line (L)" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><circle cx="5" cy="19" r="1.6"/><circle cx="19" cy="5" r="1.6"/></svg>
+      </button>
+      <button class="tool-btn" type="button" data-tool="gradient" data-ui="tool-gradient" aria-label="Gradient tool" title="Gradient (G)" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 15 15 4M8 20 20 8M17 20l3-3"/></svg>
       </button>
       <button class="tool-btn" type="button" data-tool="eyedropper" data-ui="tool-eyedropper" aria-label="Eyedropper tool" title="Eyedropper (I)" aria-pressed="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5"/><path d="M4 20l1-4 9-9 3 3-9 9-4 1Z"/><path d="M13 6l5 5"/></svg>
@@ -159,6 +165,22 @@
           <input id="shape-width" type="range" min="1" max="60" step="1" value="4">
         </div>
 
+        <div class="options-group" id="options-gradient" hidden>
+          <label class="field" for="gradient-type">Type</label>
+          <select id="gradient-type">
+            <option value="linear">Linear</option>
+            <option value="radial">Radial</option>
+          </select>
+          <div class="color-row">
+            <label for="gradient-end">End colour</label>
+            <input id="gradient-end" type="color" value="#a78bfa" aria-label="Gradient end colour">
+            <output id="gradient-end-hex" class="mono" for="gradient-end">#a78bfa</output>
+          </div>
+          <label class="check"><input id="gradient-fade" type="checkbox" checked> Fade to transparent</label>
+          <label class="field" for="gradient-opacity">Opacity <output id="gradient-opacity-value" for="gradient-opacity">100</output>%</label>
+          <input id="gradient-opacity" type="range" min="1" max="100" step="1" value="100">
+        </div>
+
         <div class="options-group" id="options-text" hidden>
           <label class="field" for="text-font">Font</label>
           <select id="text-font">
@@ -176,7 +198,40 @@
           </select>
         </div>
 
+        <div class="options-group" id="options-marquee" hidden>
+          <label class="field" for="marquee-shape">Shape</label>
+          <select id="marquee-shape">
+            <option value="rect">Rectangle</option>
+            <option value="ellipse">Ellipse</option>
+          </select>
+          <div class="button-row">
+            <button class="btn btn-ghost btn-small" id="btn-select-all" type="button" data-ui="select-all">Select all</button>
+            <button class="btn btn-ghost btn-small" id="btn-deselect" type="button" data-ui="deselect" disabled>Deselect</button>
+            <button class="btn btn-ghost btn-small" id="btn-invert-selection" type="button" data-ui="invert-selection" aria-pressed="false">Invert</button>
+            <button class="btn btn-ghost btn-small" id="btn-crop-selection" type="button" data-ui="crop-selection" disabled>Crop to selection</button>
+          </div>
+          <div class="button-row">
+            <button class="btn btn-ghost btn-small" id="btn-copy" type="button" data-ui="copy">Copy</button>
+            <button class="btn btn-ghost btn-small" id="btn-cut" type="button" data-ui="cut">Cut</button>
+            <button class="btn btn-ghost btn-small" id="btn-paste" type="button" data-ui="paste" disabled>Paste</button>
+          </div>
+          <div class="button-row">
+            <button class="btn btn-ghost btn-small" id="btn-layer-via-copy" type="button" data-ui="layer-via-copy">Layer via copy</button>
+            <button class="btn btn-ghost btn-small" id="btn-layer-via-cut" type="button" data-ui="layer-via-cut">Layer via cut</button>
+          </div>
+          <p class="panel-note">Copy/Cut use the selection or the whole layer. Paint, shapes, text, gradients and filters follow the selection; adjustments stay layer-wide.</p>
+        </div>
+
         <div class="options-group" id="options-crop" hidden>
+          <label class="field" for="crop-aspect">Ratio</label>
+          <select id="crop-aspect">
+            <option value="free">Free</option>
+            <option value="1">1:1</option>
+            <option value="1.3333333333">4:3</option>
+            <option value="1.5">3:2</option>
+            <option value="1.7777777778">16:9</option>
+            <option value="0.5625">9:16</option>
+          </select>
           <p class="panel-note">Drag a region, then confirm.</p>
           <div class="button-row">
             <button class="btn btn-primary btn-small" id="crop-apply" type="button" data-ui="crop-apply" disabled>Apply crop</button>
@@ -196,8 +251,17 @@
             <button class="icon-btn" id="btn-layer-add" type="button" aria-label="Add layer" title="Add layer" data-ui="layer-add">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
             </button>
+            <button class="icon-btn" id="btn-layer-image" type="button" aria-label="Add image as layer" title="Add image as layer" data-ui="layer-image">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="m4 17 4.5-4.5 3.5 3 3-2.5 5 4"/></svg>
+            </button>
             <button class="icon-btn" id="btn-layer-duplicate" type="button" aria-label="Duplicate layer" title="Duplicate layer" data-ui="layer-duplicate">
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="1.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4H5.5A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-layer-merge" type="button" aria-label="Merge layer down" title="Merge layer down" data-ui="layer-merge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M5 17h14"/><path d="M5 21h14"/></svg>
+            </button>
+            <button class="icon-btn" id="btn-layer-lock" type="button" aria-label="Lock layer" title="Lock layer" aria-pressed="false" data-ui="layer-lock">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
             </button>
             <button class="icon-btn" id="btn-layer-up" type="button" aria-label="Move layer up" title="Move layer up" data-ui="layer-up">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
@@ -216,13 +280,37 @@
           <input id="layer-opacity" type="range" min="0" max="100" step="1" value="100">
           <output id="layer-opacity-value" for="layer-opacity">100%</output>
         </div>
+        <div class="blend-row">
+          <label for="layer-blend">Blend</label>
+          <select id="layer-blend">
+            <option value="normal">Normal</option>
+            <option value="multiply">Multiply</option>
+            <option value="screen">Screen</option>
+            <option value="overlay">Overlay</option>
+            <option value="darken">Darken</option>
+            <option value="lighten">Lighten</option>
+            <option value="color-dodge">Color dodge</option>
+            <option value="color-burn">Color burn</option>
+            <option value="hard-light">Hard light</option>
+            <option value="soft-light">Soft light</option>
+            <option value="difference">Difference</option>
+            <option value="exclusion">Exclusion</option>
+            <option value="hue">Hue</option>
+            <option value="saturation">Saturation</option>
+            <option value="color">Color</option>
+            <option value="luminosity">Luminosity</option>
+          </select>
+        </div>
         <ul class="layer-list" id="layer-list" aria-label="Layer stack"></ul>
 
         <div class="document-actions">
           <button class="btn btn-ghost btn-small" id="btn-resize" type="button" data-ui="resize">Resize</button>
+          <button class="btn btn-ghost btn-small" id="btn-canvas-size" type="button" data-ui="canvas-size">Canvas size</button>
+          <button class="btn btn-ghost btn-small" id="btn-transform" type="button" data-ui="transform-layer">Transform</button>
           <button class="btn btn-ghost btn-small" id="btn-flip-h" type="button" data-ui="flip-horizontal">Flip H</button>
           <button class="btn btn-ghost btn-small" id="btn-flip-v" type="button" data-ui="flip-vertical">Flip V</button>
           <button class="btn btn-ghost btn-small" id="btn-rotate" type="button" data-ui="rotate">Rotate 90°</button>
+          <button class="btn btn-ghost btn-small" id="btn-flatten" type="button" data-ui="flatten">Flatten</button>
         </div>
       </section>
 
@@ -231,6 +319,13 @@
           <h2 id="adjust-heading">Adjustments</h2>
           <button class="btn btn-ghost btn-small" id="adjust-reset" type="button" data-ui="adjust-reset">Reset</button>
         </header>
+        <div class="histogram-panel">
+          <canvas id="histogram" width="256" height="64" aria-label="Active layer luminance histogram"></canvas>
+          <div class="histogram-meta">
+            <span id="histogram-range" class="mono">0–255</span>
+            <button class="btn btn-ghost btn-small" id="btn-auto-levels" type="button" data-ui="auto-levels">Auto levels</button>
+          </div>
+        </div>
         <div class="adjust-list">
           <label class="field" for="adj-brightness">Brightness <output id="adj-brightness-value" for="adj-brightness">0</output></label>
           <input id="adj-brightness" type="range" min="-100" max="100" step="1" value="0">
@@ -265,6 +360,13 @@
           <button class="btn btn-ghost btn-small" id="btn-filter-pixelate" type="button" data-ui="filter-pixelate">Apply pixelate</button>
           <button class="btn btn-ghost btn-small" id="btn-filter-sharpen" type="button" data-ui="filter-sharpen">Sharpen</button>
           <button class="btn btn-ghost btn-small" id="btn-filter-vignette" type="button" data-ui="filter-vignette">Vignette</button>
+          <label class="field" for="level-black">Levels black <output id="level-black-value" for="level-black">0</output></label>
+          <input id="level-black" type="range" min="0" max="254" step="1" value="0">
+          <label class="field" for="level-white">Levels white <output id="level-white-value" for="level-white">255</output></label>
+          <input id="level-white" type="range" min="1" max="255" step="1" value="255">
+          <label class="field" for="level-gamma">Gamma <output id="level-gamma-value" for="level-gamma">1.0</output></label>
+          <input id="level-gamma" type="range" min="0.1" max="3" step="0.1" value="1">
+          <button class="btn btn-ghost btn-small" id="btn-filter-levels" type="button" data-ui="filter-levels">Apply levels</button>
         </div>
       </section>
     </aside>
@@ -277,6 +379,7 @@
       <span id="status-message" role="status" aria-live="polite">Ready</span>
     </div>
     <div class="status-right">
+      <span id="status-autosave" class="status-autosave" data-tone="muted" title="Autosave status">Autosave…</span>
       <span id="status-cursor" class="mono">—, —</span>
       <span class="status-divider" aria-hidden="true"></span>
       <span id="status-zoom" class="mono">100%</span>
@@ -286,6 +389,7 @@
 </div>
 
 <input id="file-image" type="file" accept="image/*" hidden>
+<input id="file-layer" type="file" accept="image/*" hidden>
 <input id="file-project" type="file" accept=".palette,application/json" hidden>
 
 <dialog class="dialog" id="new-dialog" aria-labelledby="new-title">
@@ -335,7 +439,24 @@
         <input id="export-quality" type="range" min="5" max="100" step="1" value="92">
       </div>
     </div>
-    <p class="dialog-note" id="export-size">1280 × 800 pixels, transparent background.</p>
+    <div class="field-row">
+      <div>
+        <label class="field" for="export-scale">Scale</label>
+        <select id="export-scale">
+          <option value="0.25">25%</option>
+          <option value="0.5">50%</option>
+          <option value="1" selected>100%</option>
+          <option value="1.5">150%</option>
+          <option value="2">200%</option>
+          <option value="3">300%</option>
+          <option value="4">400%</option>
+        </select>
+      </div>
+      <div>
+        <label class="field">Output</label>
+        <p class="dialog-note" id="export-size">1280 × 800 pixels, transparent background.</p>
+      </div>
+    </div>
     <div class="dialog-actions">
       <button class="btn btn-ghost" id="export-cancel" type="button" data-close>Cancel</button>
       <button class="btn btn-primary" id="export-confirm" type="submit" value="export">Export</button>
@@ -365,11 +486,85 @@
   </form>
 </dialog>
 
+<dialog class="dialog" id="canvas-dialog" aria-labelledby="canvas-title">
+  <form method="dialog" id="canvas-form">
+    <h2 id="canvas-title">Canvas size</h2>
+    <div class="field-row">
+      <div>
+        <label class="field" for="canvas-width">Width</label>
+        <input id="canvas-width" type="number" min="1" max="8192" step="1" required>
+      </div>
+      <div>
+        <label class="field" for="canvas-height">Height</label>
+        <input id="canvas-height" type="number" min="1" max="8192" step="1" required>
+      </div>
+    </div>
+    <fieldset class="anchor-fieldset">
+      <legend>Anchor</legend>
+      <div class="anchor-grid">
+        <label><input type="radio" name="canvas-anchor" value="top-left" aria-label="Top left"></label>
+        <label><input type="radio" name="canvas-anchor" value="top" aria-label="Top"></label>
+        <label><input type="radio" name="canvas-anchor" value="top-right" aria-label="Top right"></label>
+        <label><input type="radio" name="canvas-anchor" value="left" aria-label="Left"></label>
+        <label><input type="radio" name="canvas-anchor" value="center" aria-label="Center" checked></label>
+        <label><input type="radio" name="canvas-anchor" value="right" aria-label="Right"></label>
+        <label><input type="radio" name="canvas-anchor" value="bottom-left" aria-label="Bottom left"></label>
+        <label><input type="radio" name="canvas-anchor" value="bottom" aria-label="Bottom"></label>
+        <label><input type="radio" name="canvas-anchor" value="bottom-right" aria-label="Bottom right"></label>
+      </div>
+    </fieldset>
+    <p class="dialog-note">Existing artwork keeps its pixels; new area is transparent. Selections are cleared.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" id="canvas-cancel" type="button" data-close>Cancel</button>
+      <button class="btn btn-primary" id="canvas-confirm" type="submit" value="canvas">Apply</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="dialog" id="transform-dialog" aria-labelledby="transform-title">
+  <form method="dialog" id="transform-form">
+    <h2 id="transform-title">Transform layer</h2>
+    <div class="field-row">
+      <div>
+        <label class="field" for="transform-scale-x">Scale X (%)</label>
+        <input id="transform-scale-x" type="number" min="1" max="1000" step="1" value="100">
+      </div>
+      <div>
+        <label class="field" for="transform-scale-y">Scale Y (%)</label>
+        <input id="transform-scale-y" type="number" min="1" max="1000" step="1" value="100">
+      </div>
+    </div>
+    <label class="field" for="transform-rotation">Rotation <output id="transform-rotation-value" for="transform-rotation">0</output>°</label>
+    <input id="transform-rotation" type="range" min="-180" max="180" step="1" value="0">
+    <label class="check"><input id="transform-flip-h" type="checkbox"> Flip horizontal</label>
+    <label class="check"><input id="transform-flip-v" type="checkbox"> Flip vertical</label>
+    <p class="dialog-note">Transforms around the layer's visible content bounds. Pixels outside the canvas are clipped.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" id="transform-cancel" type="button" data-close>Cancel</button>
+      <button class="btn btn-primary" id="transform-confirm" type="submit" value="transform">Apply</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="dialog" id="restore-dialog" aria-labelledby="restore-title">
+  <h2 id="restore-title">Restore your last session?</h2>
+  <p class="dialog-note" id="restore-summary">A local autosave is available.</p>
+  <div class="dialog-actions">
+    <button class="btn btn-ghost" id="restore-discard" type="button">Start fresh</button>
+    <button class="btn btn-primary" id="restore-confirm" type="button">Restore</button>
+  </div>
+</dialog>
+
 <dialog class="dialog" id="help-dialog" aria-labelledby="help-title">
   <h2 id="help-title">Keyboard shortcuts</h2>
   <dl class="shortcut-list">
-    <div><dt>V, B, E, C, T</dt><dd>Move, brush, eraser, crop, text</dd></div>
-    <div><dt>R, O, L, I, H, Z</dt><dd>Rectangle, ellipse, line, eyedropper, hand, zoom</dd></div>
+    <div><dt>V, B, E, C, M, T</dt><dd>Move, brush, eraser, crop, marquee, text</dd></div>
+    <div><dt>R, O, L, G, I, H, Z</dt><dd>Rectangle, ellipse, line, gradient, eyedropper, hand, zoom</dd></div>
+    <div><dt>Ctrl / Cmd + A, D</dt><dd>Select all, deselect</dd></div>
+    <div><dt>Shift + I</dt><dd>Invert the selection</dd></div>
+    <div><dt>Delete</dt><dd>Clear the selected pixels</dd></div>
+    <div><dt>Ctrl / Cmd + C, X, V</dt><dd>Copy, cut, paste selection or layer</dd></div>
+    <div><dt>Ctrl / Cmd + J, Shift + J</dt><dd>Layer via copy, layer via cut</dd></div>
     <div><dt>Ctrl / Cmd + Z</dt><dd>Undo</dd></div>
     <div><dt>Ctrl / Cmd + Shift + Z</dt><dd>Redo</dd></div>
     <div><dt>Ctrl / Cmd + S</dt><dd>Save project</dd></div>

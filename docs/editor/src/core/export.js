@@ -1,3 +1,5 @@
+import { boundedDimensions } from "./project.js";
+
 export const EXPORT_FORMATS = Object.freeze({
   png: Object.freeze({ mime: "image/png", extension: "png", quality: false, label: "PNG" }),
   jpeg: Object.freeze({ mime: "image/jpeg", extension: "jpg", quality: true, label: "JPEG" }),
@@ -38,4 +40,20 @@ export function formatBytes(bytes) {
   const value = number / 1024 ** exponent;
   const digits = value >= 10 || exponent === 0 ? 0 : 1;
   return `${value.toFixed(digits)} ${units[exponent]}`;
+}
+
+export function normalizeExportScale(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return 1;
+  return Math.min(4, Math.max(0.1, number));
+}
+
+export function exportDimensions(width, height, scale) {
+  const safeWidth = Math.max(1, Math.round(Number(width) || 1));
+  const safeHeight = Math.max(1, Math.round(Number(height) || 1));
+  const factor = normalizeExportScale(scale);
+  return boundedDimensions(
+    Math.max(1, Math.round(safeWidth * factor)),
+    Math.max(1, Math.round(safeHeight * factor)),
+  );
 }

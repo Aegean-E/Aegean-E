@@ -1,77 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "live-iris-shots",
+    "task_id": "editor-live-0111",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793351200.188847,
-    "owner": "kilo:iris",
-    "started_by": "kilo:iris",
+    "updated_at": 1793398789.7024622,
+    "owner": "opencode:editor-live",
+    "started_by": "opencode:editor-live",
     "continuations": [],
-    "completed_at": 1793351260.9526622
+    "completed_at": 1793398911.092017
   },
   "checkpoints": [
-    {
-      "task_id": "dossier-cache-v19",
-      "phase": "in_progress",
-      "phase_num": 4,
-      "description": "[1/1] Version the dossier assets to v19 and rebuild the slider from old markup: project.html requests styles.css/app.js/project.js with ?v=19; renderGallery recreates the slider via createElement when #gallery-slider is missing and removes legacy #gallery-grid; 87 Python tests, 20 live, 88 project, 67 atlas and 58 verifier assertions; 0 media problems; 4/4 gates; checklists: passed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793312197.229109,
-      "timestamp_str": "2026-10-30 01:16:37",
-      "agent": "opencode:main",
-      "impact_assessment": {
-        "why": "A returning visitor could receive the new project.html with the old cache-first project.js and see no gallery",
-        "benefits": "Cache transitions no longer break the dossier; the old grid markup upgrades itself to the slider",
-        "risks": "contract: project.html/project.js/sw.js and shell v19; dependency: none; concurrency: docs/live/tessera is another session's untracked work; state: none",
-        "mitigation": "Reproduced old markup plus new renderer in a browser (7 dots, image loaded, no errors) and ran every suite and gate; staging is explicit so Tessera is not committed"
-      }
-    },
-    {
-      "task_id": "dossier-cache-v19",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'dossier-cache-v19' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793312197.3543167,
-      "timestamp_str": "2026-10-30 01:16:37",
-      "agent": "opencode:main"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 28",
-      "phase_num": 3,
-      "description": "Reforge stage 28: run resumed",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793312291.0934389,
-      "timestamp_str": "2026-10-30 01:18:11",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 29",
-      "phase_num": 3,
-      "description": "Reforge stage 29: window 131, 2 commit(s), 9 file(s) reviewed (unreviewed), 0 finding(s), 0 repaired",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793312304.4288845,
-      "timestamp_str": "2026-10-30 01:18:24",
-      "agent": "opencode"
-    },
-    {
-      "task_id": "reforge:run-1",
-      "phase": "reforge stage 29",
-      "phase_num": 3,
-      "description": "Reforge stage 29: run stopped at stage 29; resume it with `reforge resume`",
-      "files_affected": [],
-      "status": "suspended",
-      "timestamp": 1793312329.7974274,
-      "timestamp_str": "2026-10-30 01:18:49",
-      "agent": "opencode"
-    },
     {
       "task_id": "reforge-run-1-stage29",
       "phase": "in_progress",
@@ -294,6 +234,77 @@
       "timestamp": 1793351260.9526637,
       "timestamp_str": "2026-10-30 12:07:40",
       "agent": "kilo:iris"
+    },
+    {
+      "task_id": "editor-v0110",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "Completed [1/2] and [2/2]: vendored Palette 0.11.0 into docs/editor/ (20 files, build.json hash 5b31327b78fbbdf2), restored gradient/histogram/autosave/bounds service-worker entries after the concurrent Meridian commit, bumped every page and shell marker to v31, and refreshed the Editor copy. AegeanWorks is fully green: 94/94 tests, gates 4/4, sync_editor --check current; an integrated iframe run confirms a 50% content-centred layer scale and undo with shell v31. checklists: passed (test, hygiene, guidelines, secrets; G-001 declines a UI review, so automated proof is the UI evidence).",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793396864.4509823,
+      "timestamp_str": "2026-10-31 00:47:44",
+      "agent": "kilo:palette",
+      "handoff": {
+        "state": "docs/editor/ synced with 20 files, shell v31 coherent, 94/94 site tests and 4/4 gates, integrated iframe transform check passes",
+        "next": "review and commit the 0.11.0 editor release",
+        "open": "site changes are uncommitted, UI-contract warning intentionally ignored under G-001",
+        "evidence": "docs/editor/build.json, docs/sw.js, tests/test_profile.py, README.md."
+      }
+    },
+    {
+      "task_id": "editor-v0110",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'editor-v0110' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793396864.82793,
+      "timestamp_str": "2026-10-31 00:47:44",
+      "agent": "kilo:palette"
+    },
+    {
+      "task_id": "editor-live-0111",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/4] Plan: fix Palette 0.11.1 resize/export bounds and selection-aware auto levels, re-vendor, move Palette into the Live catalog and out of the top nav, then verify and push.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793397627.9228723,
+      "timestamp_str": "2026-10-31 01:00:27",
+      "agent": "opencode:editor-live",
+      "impact_assessment": {
+        "why": "The editor release is complete but uncommitted; analysis found an uncapped resize path and an export scale that can exceed browser canvas limits; Palette is also a top-level 'Editor' destination instead of a Live app.",
+        "benefits": "Prevents memory blowups and failed exports on large documents, keeps monochrome auto levels usable, and surfaces Palette where the other runnable apps live.",
+        "risks": "contract: live.json gains a local-build entry with its own path rule; dependency: none; concurrency: uncommitted 0.11.0 vendoring must stay intact; state: autosave/project formats unchanged.",
+        "mitigation": "Extend sync_live_apps with a local app branch and tests, keep the Editor page reachable, re-run both suites and gates, and commit the editor release first."
+      }
+    },
+    {
+      "task_id": "editor-live-0111",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "Completed [1/4]-[3/4]: vendored Palette 0.11.1 (20 files, source hash 4a0786144873795e) with bounded resize/export and selection-aware Auto levels; extended sync_live_apps with a local-build entry (digest over declared runtime files, no duplicate copy), added Palette to docs/live.json and the home/play Live surfaces, removed Editor from every primary and noscript nav, moved footer links to play.html?app=palette, bumped the shell to v32, documented ADR-058, and fixed the missing Meridian CI checkout. Evidence: 94/94 site tests, 4/4 gates, sync_editor --check, sync_live_apps --check, headless Edge run where play.html?app=palette booted Palette 1280x800 and the home grid showed the Palette card with no Editor nav link. checklists: passed (test, hygiene, guidelines, secrets); UI contract warning intentionally ignored under G-001.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793398789.7024622,
+      "timestamp_str": "2026-10-31 01:19:49",
+      "agent": "opencode:editor-live",
+      "handoff": {
+        "state": "editor 0.11.1 released into Live, nav moved, all checks green",
+        "next": "commit and push main",
+        "open": "Palette source_url stays empty until its repo is published",
+        "evidence": "docs/editor/build.json, docs/live.json, tests/test_profile.py."
+      }
+    },
+    {
+      "task_id": "editor-live-0111",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'editor-live-0111' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793398911.0920188,
+      "timestamp_str": "2026-10-31 01:21:51",
+      "agent": "opencode:editor-live"
     }
   ]
 }

@@ -46,6 +46,12 @@ jobs:
           repository: AegeanWorks/Tessera
           path: .app-src/tessera
           fetch-depth: 1
+      - name: Check out Meridian
+        uses: actions/checkout@v4
+        with:
+          repository: AegeanWorks/Meridian
+          path: .app-src/meridian
+          fetch-depth: 1
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

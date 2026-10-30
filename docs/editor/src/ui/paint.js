@@ -1,5 +1,6 @@
 import { clamp, rgbaString } from "../core/color.js";
 import { normalizeRect } from "../core/geometry.js";
+import { gradientRadius, gradientStops, normalizeGradientType } from "../core/gradient.js";
 import { cloneCanvas, context2d, createCanvas } from "./canvas.js";
 
 export const FONT_STACKS = Object.freeze({
@@ -39,11 +40,99 @@ export function brushStamp({ size = 32, hardness = 0.7, color = "#22d3ee", opaci
   return { canvas, radius, spacing: Math.max(0.8, diameter * 0.16) };
 }
 
-export function strokeBrush(canvas, from, to, stamp, erase = false) {
+function appendSelectionShape(context, selection) {
+  const { kind, rect } = selection;
+  if (kind === "ellipse") {
+    context.ellipse(
+      rect.x + rect.w / 2,
+      rect.y + rect.h / 2,
+      Math.max(0.01, rect.w / 2),
+      Math.max(0.01, rect.h / 2),
+      0,
+      0,
+      Math.PI * 2,
+    );
+  } else {
+    context.rect(rect.x, rect.y, rect.w, rect.h);
+  }
+}
+
+export function addSelectionPath(context, selection) {
+  if (!selection || !selection.rect) return false;
+  context.beginPath();
+  appendSelectionShape(context, selection);
+  context.closePath();
+  return true;
+}
+
+export function clipToSelection(context, selection) {
+  if (!selection || !selection.rect) return false;
+  context.beginPath();
+  if (selection.invert) context.rect(0, 0, context.canvas.width, context.canvas.height);
+  appendSelectionShape(context, selection);
+  context.closePath();
+  context.clip(selection.invert ? "evenodd" : "nonzero");
+  return true;
+}
+
+export function clearSelectionArea(canvas, selection) {
+  if (!selection) return;
+  const context = context2d(canvas);
+  context.save();
+  if (clipToSelection(context, selection)) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  context.restore();
+}
+
+export function extractSelection(source, selection) {
+  const output = createCanvas(source.width, source.height);
+  if (!selection) return output;
+  const context = context2d(output);
+  context.save();
+  if (clipToSelection(context, selection)) {
+    context.drawImage(source, 0, 0);
+  }
+  context.restore();
+  return output;
+}
+
+export function redrawSelectedMove(base, patch, selection, dx, dy, target = cloneCanvas(base)) {
+  const context = context2d(target);
+  context.clearRect(0, 0, target.width, target.height);
+  context.drawImage(base, 0, 0);
+  context.save();
+  if (clipToSelection(context, selection)) {
+    context.clearRect(0, 0, target.width, target.height);
+  }
+  context.restore();
+  context.drawImage(patch, dx, dy);
+  return target;
+}
+
+export function replaceInsideSelection(original, replacement, selection) {
+  const output = cloneCanvas(original);
+  if (!selection) return output;
+  const context = context2d(output);
+  context.save();
+  if (clipToSelection(context, selection)) {
+    context.clearRect(0, 0, output.width, output.height);
+  }
+  context.restore();
+  context.save();
+  if (clipToSelection(context, selection)) {
+    context.drawImage(replacement, 0, 0);
+  }
+  context.restore();
+  return output;
+}
+
+export function strokeBrush(canvas, from, to, stamp, erase = false, selection = null) {
   const context = context2d(canvas);
   const distance = Math.hypot(to.x - from.x, to.y - from.y);
   const steps = Math.max(1, Math.ceil(distance / stamp.spacing));
   context.save();
+  clipToSelection(context, selection);
   context.globalCompositeOperation = erase ? "destination-out" : "source-over";
   context.imageSmoothingEnabled = true;
   for (let step = 0; step <= steps; step += 1) {
@@ -66,9 +155,11 @@ export function drawShape(context, shape) {
     outline = true,
     width = 4,
     opacity = 1,
+    selection = null,
   } = shape;
   const thickness = Math.max(0, Number(width) || 0);
   context.save();
+  clipToSelection(context, selection);
   context.globalAlpha = clamp(opacity, 0, 1);
   context.lineJoin = "round";
   context.lineCap = "round";
@@ -96,11 +187,12 @@ export function drawShape(context, shape) {
   context.restore();
 }
 
-export function drawTextOn(context, { x, y, text, color = "#e9eefb", size = 48, weight = 600, family = "system" }) {
+export function drawTextOn(context, { x, y, text, color = "#e9eefb", size = 48, weight = 600, family = "system", selection = null }) {
   const value = String(text ?? "");
   if (!value.trim()) return;
   const fontSize = Math.max(1, Math.round(size));
   context.save();
+  clipToSelection(context, selection);
   context.fillStyle = color;
   context.font = `${weight} ${fontSize}px ${FONT_STACKS[family] ?? FONT_STACKS.system}`;
   context.textBaseline = "top";
@@ -115,6 +207,24 @@ export function drawTextOn(context, { x, y, text, color = "#e9eefb", size = 48, 
 
 export function drawText(canvas, options) {
   drawTextOn(context2d(canvas), options);
+}
+
+export function drawGradient(context, shape) {
+  const type = normalizeGradientType(shape.type);
+  const radius = gradientRadius(shape.start, shape.end);
+  const gradient =
+    type === "radial"
+      ? context.createRadialGradient(shape.start.x, shape.start.y, 0, shape.start.x, shape.start.y, radius)
+      : context.createLinearGradient(shape.start.x, shape.start.y, shape.end.x, shape.end.y);
+  for (const stop of gradientStops({ from: shape.from, to: shape.to, fade: shape.fade })) {
+    gradient.addColorStop(stop.offset, rgbaString(stop.color, stop.alpha));
+  }
+  context.save();
+  clipToSelection(context, shape.selection);
+  context.globalAlpha = clamp(shape.opacity ?? 1, 0, 1);
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, shape.width, shape.height);
+  context.restore();
 }
 
 export function cropCanvas(source, rect) {
@@ -166,3 +276,9 @@ export function shiftedCanvas(source, dx, dy) {
 }
 
 export { cloneCanvas };
+
+export function placeCanvas(source, width, height, x, y) {
+  const output = createCanvas(width, height);
+  context2d(output).drawImage(source, x, y);
+  return output;
+}

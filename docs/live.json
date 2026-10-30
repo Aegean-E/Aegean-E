@@ -112,6 +112,27 @@
       ],
       "logo": "media/Meridian/logo.webp",
       "dossier": "project.html?repo=Meridian"
+    },
+    {
+      "slug": "palette",
+      "repo": "Palette",
+      "title": "Palette",
+      "description": "A local-first image editor in the browser: layers, blend modes, selections, gradients, filters, local autosave recovery and scaled PNG, JPEG or WebP export. Images never leave the device.",
+      "available": true,
+      "mode": "browser",
+      "path": "editor/index.html",
+      "source_url": "",
+      "version": "0.11.1",
+      "commit": "f31e54b1c554aa4ccff822735d52953f5d714e45",
+      "updated": "2026-10-31",
+      "license": "AL-1.1",
+      "license_path": "editor/LICENSE",
+      "digest": "sha256:7f443454be8c0e7902fad0c32574f5e6a3a71c5408da781aee8879dc74a11997",
+      "builds": [
+        "editor/index.html"
+      ],
+      "logo": "editor/assets/favicon.svg",
+      "dossier": ""
     }
   ]
 }

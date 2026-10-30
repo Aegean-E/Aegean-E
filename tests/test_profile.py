@@ -355,7 +355,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["schema"], 2)
         apps = {app["slug"]: app for app in manifest["apps"]}
-        self.assertEqual(set(apps), {"prism-relay", "weft", "iris", "tessera", "meridian"})
+        self.assertEqual(set(apps), {"prism-relay", "weft", "iris", "tessera", "meridian", "palette"})
 
         prism = apps["prism-relay"]
         self.assertTrue(prism["available"])
@@ -577,12 +577,21 @@ class ProfileIntegrityTests(unittest.TestCase):
             "Weft",
             "Iris",
             "Tessera",
+            "Meridian",
             "sync_live_apps.py",
             "--check-source",
             "actions/checkout@v4",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, workflow)
+
+        catalog = json.loads((ROOT / "docs" / "live.json").read_text(encoding="utf-8"))
+        palette = next(app for app in catalog["apps"] if app.get("slug") == "palette")
+        self.assertTrue(palette["available"])
+        self.assertEqual(palette["path"], "editor/index.html")
+        self.assertEqual(palette["builds"], ["editor/index.html"])
+        self.assertEqual(palette["license"], "AL-1.1")
+        self.assertTrue((ROOT / "docs" / palette["path"]).is_file())
 
     def test_editor_page_is_wired_and_synced(self):
         docs = ROOT / "docs"
@@ -631,7 +640,9 @@ class ProfileIntegrityTests(unittest.TestCase):
             "accessibility.html",
         ):
             with self.subTest(page=name):
-                self.assertIn('href="editor.html"', (docs / name).read_text(encoding="utf-8"))
+                self.assertIn('href="play.html?app=palette"', (docs / name).read_text(encoding="utf-8"))
+                primary = re.search(r'<nav class="site-nav".*?</nav>', (docs / name).read_text(encoding="utf-8"), re.S)
+                self.assertNotIn(">Editor</a>", primary.group(0))
         sitemap = (docs / "sitemap.xml").read_text(encoding="utf-8")
         self.assertIn("https://aegeanworks.github.io/AegeanWorks/editor.html", sitemap)
         webmanifest = json.loads((docs / "site.webmanifest").read_text(encoding="utf-8"))

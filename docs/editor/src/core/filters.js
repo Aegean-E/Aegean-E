@@ -143,3 +143,22 @@ export function applyPixelate(pixels, blockSize = 8) {
   }
   return { width, height, data: out };
 }
+
+export function applyLevels(pixels, { black = 0, white = 255, gamma = 1 } = {}) {
+  const low = clamp(Math.round(Number(black) || 0), 0, 254);
+  const high = clamp(Math.round(Number(white) || 255), low + 1, 255);
+  const power = clamp(Number(gamma) || 1, 0.1, 3);
+  if (low === 0 && high === 255 && power === 1) return clonePixels(pixels);
+  const { width, height, data } = pixels;
+  const out = new Uint8ClampedArray(data.length);
+  const range = high - low;
+  const exponent = 1 / power;
+  for (let index = 0; index < data.length; index += 4) {
+    for (let channel = 0; channel < 3; channel += 1) {
+      const normalized = clamp((data[index + channel] - low) / range, 0, 1);
+      out[index + channel] = Math.round(Math.pow(normalized, exponent) * 255);
+    }
+    out[index + 3] = data[index + 3];
+  }
+  return { width, height, data: out };
+}

@@ -88,6 +88,22 @@ APPS = (
         "logo": "media/Meridian/logo.webp",
         "dossier": "project.html?repo=Meridian",
     },
+    {
+        "slug": "palette",
+        "repo": "Palette",
+        "source": "palette",
+        "title": "Palette",
+        "description": "A local-first image editor in the browser: layers, blend modes, selections, gradients, filters, local autosave recovery and scaled PNG, JPEG or WebP export. Images never leave the device.",
+        "license": "AL-1.1",
+        "mode": "browser",
+        "runtime": ("index.html", "src", "assets", "LICENSE"),
+        "version_file": "package.json",
+        "local": True,
+        "optional": True,
+        "path": "editor/index.html",
+        "logo": "editor/assets/favicon.svg",
+        "dossier": "",
+    },
 )
 
 MANIFEST_REL = "docs/live.json"
@@ -419,6 +435,65 @@ def _browser_entry(game: dict, source_root: Path) -> dict:
     }
 
 
+def _runtime_entry_files(root: Path, entries: tuple[str, ...]) -> list[Path]:
+    files: list[Path] = []
+    for entry in entries:
+        path = root / entry
+        if path.is_dir():
+            files.extend(child for child in path.rglob("*") if child.is_file())
+        elif path.is_file():
+            files.append(path)
+    return files
+
+
+def _local_entry(game: dict, source_root: Path) -> dict:
+    """Describe a build that is already vendored inside docs/ (no copy)."""
+    source = source_root / game["source"]
+    if not source.is_dir():
+        raise SyncError(
+            f"The {game['repo']} source is missing at {source}.",
+            "the live catalog cannot prove the vendored build is current.",
+            "check out the app beside AegeanWorks or pass --source-root, then retry.",
+        )
+    commit = _git(source, "rev-parse", "HEAD")
+    if not COMMIT_RE.match(commit):
+        raise SyncError(
+            f"The {game['repo']} commit is not a git SHA: {commit}",
+            "the live page would show an unverifiable version.",
+            "check the source checkout, then retry.",
+        )
+    updated = _git(source, "show", "-s", "--format=%cs", "HEAD")
+    relative = str(game["path"])
+    target = DOCS / relative
+    if not target.is_file():
+        raise SyncError(
+            f"The vendored {game['repo']} build is missing: {relative}",
+            "the live page would open a broken frame.",
+            "run `python tools/sync_editor.py --write`, then retry.",
+        )
+    root = target.parent
+    files = _runtime_entry_files(root, tuple(game["runtime"]))
+    return {
+        "slug": game["slug"],
+        "repo": game["repo"],
+        "title": game["title"],
+        "description": game["description"],
+        "available": True,
+        "mode": "browser",
+        "path": relative,
+        "source_url": game.get("source_url", ""),
+        "version": _version(source, game["version_file"]),
+        "commit": commit,
+        "updated": updated,
+        "license": game["license"],
+        "license_path": (root.relative_to(DOCS) / "LICENSE").as_posix(),
+        "digest": _digest(files, root),
+        "builds": [relative],
+        "logo": game["logo"],
+        "dossier": game.get("dossier", ""),
+    }
+
+
 def build_manifest(source_root: Path) -> dict:
     previous = _read_manifest().get("apps", []) if (PROJECT_ROOT / MANIFEST_REL).is_file() else []
     recorded = {
@@ -432,7 +507,10 @@ def build_manifest(source_root: Path) -> dict:
             if game["slug"] in recorded:
                 apps.append(recorded[game["slug"]])
             continue
-        apps.append(_browser_entry(game, source_root))
+        if game.get("local"):
+            apps.append(_local_entry(game, source_root))
+        else:
+            apps.append(_browser_entry(game, source_root))
     return {"schema": 2, "apps": apps}
 
 
@@ -479,7 +557,11 @@ def check_manifest() -> list[str]:
             problems.append(f"{spec['slug']} is not marked available")
             continue
         relative = str(game.get("path", ""))
-        if not re.match(rf"^live/{spec['slug']}/[0-9a-f]{{7,40}}/index\.html$", relative):
+        if spec.get("local"):
+            if relative != spec["path"]:
+                problems.append(f"{spec['slug']} has an unsafe or unstable path")
+                continue
+        elif not re.match(rf"^live/{spec['slug']}/[0-9a-f]{{7,40}}/index\.html$", relative):
             problems.append(f"{spec['slug']} has an unsafe or unstable path")
             continue
         target = DOCS / relative
@@ -491,12 +573,20 @@ def check_manifest() -> list[str]:
             problems.append(f"{spec['slug']} license is missing")
         if not (PROJECT_ROOT / "LICENSES" / f"LicenseRef-{spec['license']}.txt").is_file():
             problems.append(f"the pinned {spec['license']} license is missing")
-        actual = _digest(_runtime_files(target.parent), target.parent)
+        files = (
+            _runtime_entry_files(target.parent, tuple(spec["runtime"]))
+            if spec.get("local")
+            else _runtime_files(target.parent)
+        )
+        actual = _digest(files, target.parent)
         if actual != game.get("digest"):
             problems.append(f"{spec['slug']} digest does not match the copied build")
         builds = game.get("builds")
         if not isinstance(builds, list) or not builds:
             problems.append(f"{spec['slug']} has no retained-build list")
+        elif spec.get("local"):
+            if builds != [relative]:
+                problems.append(f"{spec['slug']} must list exactly its vendored build")
         else:
             if len(builds) > KEEP_BUILDS:
                 problems.append(f"{spec['slug']} retains more than {KEEP_BUILDS} builds")

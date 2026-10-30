@@ -1,4 +1,5 @@
 import { clamp } from "./color.js";
+import { normalizeBlendMode } from "./document.js";
 import { clampAdjustments } from "./filters.js";
 
 export const PROJECT_FORMAT = "palette-project";
@@ -17,12 +18,20 @@ export function cleanDimension(value, fallback = 1) {
   return Math.min(MAX_DIMENSION, Math.max(1, number));
 }
 
+export function requestedDimension(value, fallback = 1) {
+  const number = Math.round(Number(value));
+  if (!Number.isFinite(number) || number < 1) return cleanDimension(fallback);
+  return number;
+}
+
 export function boundedDimensions(width, height) {
-  const safeWidth = cleanDimension(width);
-  const safeHeight = cleanDimension(height);
-  const pixels = safeWidth * safeHeight;
-  if (pixels <= MAX_PIXELS) return { width: safeWidth, height: safeHeight };
-  const scale = Math.sqrt(MAX_PIXELS / pixels);
+  const requestedWidth = Math.round(Number(width));
+  const requestedHeight = Math.round(Number(height));
+  const safeWidth = Number.isFinite(requestedWidth) ? Math.max(1, requestedWidth) : 1;
+  const safeHeight = Number.isFinite(requestedHeight) ? Math.max(1, requestedHeight) : 1;
+  let scale = Math.min(1, MAX_DIMENSION / safeWidth, MAX_DIMENSION / safeHeight);
+  const scaledPixels = safeWidth * scale * safeHeight * scale;
+  if (scaledPixels > MAX_PIXELS) scale *= Math.sqrt(MAX_PIXELS / scaledPixels);
   return {
     width: Math.max(1, Math.floor(safeWidth * scale)),
     height: Math.max(1, Math.floor(safeHeight * scale)),
@@ -42,6 +51,8 @@ export function serializeProject(doc, images) {
       name: layer.name,
       visible: layer.visible,
       opacity: layer.opacity,
+      blendMode: normalizeBlendMode(layer.blendMode),
+      locked: Boolean(layer.locked),
       adjustments: clampAdjustments(layer.adjustments),
       image: images[layer.id] ?? "",
     })),
@@ -80,6 +91,8 @@ export function parseProject(source) {
       name: cleanDocumentName(layer.name, `Layer ${index + 1}`),
       visible: layer.visible !== false,
       opacity: clamp(layer.opacity ?? 1, 0, 1),
+      blendMode: normalizeBlendMode(layer.blendMode),
+      locked: layer.locked === true,
       adjustments: clampAdjustments(layer.adjustments),
       image: layer.image,
     };

@@ -49,6 +49,24 @@ export function constrainSquare(start, end) {
   };
 }
 
+export function constrainAspect(start, end, ratio) {
+  const value = Number(ratio);
+  if (!Number.isFinite(value) || value <= 0) return end;
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const width = Math.abs(dx);
+  const height = Math.abs(dy);
+  if (width === 0 && height === 0) return end;
+  let nextWidth = Math.max(width, 1);
+  let nextHeight = Math.max(height, 1);
+  if (nextWidth / nextHeight > value) nextHeight = nextWidth / value;
+  else nextWidth = nextHeight * value;
+  return {
+    x: start.x + Math.sign(dx || 1) * nextWidth,
+    y: start.y + Math.sign(dy || 1) * nextHeight,
+  };
+}
+
 export function constrainAngle(start, end) {
   const dx = end.x - start.x;
   const dy = end.y - start.y;
@@ -64,6 +82,29 @@ export function fitScale(width, height, viewportWidth, viewportHeight, padding =
   const availableWidth = Math.max(1, viewportWidth - padding * 2);
   const availableHeight = Math.max(1, viewportHeight - padding * 2);
   return clampScale(Math.min(availableWidth / Math.max(1, width), availableHeight / Math.max(1, height)));
+}
+
+export function selectionFromDrag(kind, start, end, width, height, constrain = false) {
+  const finish = constrain ? constrainSquare(start, end) : end;
+  const clamped = clampRect(normalizeRect(start, finish), width, height);
+  if (clamped.w < 1 || clamped.h < 1) return null;
+  return { kind: kind === "ellipse" ? "ellipse" : "rect", rect: roundRect(clamped) };
+}
+
+export function containRect(sourceWidth, sourceHeight, boxWidth, boxHeight, allowUpscale = false) {
+  const sourceW = Math.max(1, Number(sourceWidth) || 1);
+  const sourceH = Math.max(1, Number(sourceHeight) || 1);
+  const boxW = Math.max(1, Number(boxWidth) || 1);
+  const boxH = Math.max(1, Number(boxHeight) || 1);
+  const scale = Math.min(boxW / sourceW, boxH / sourceH, allowUpscale ? Number.POSITIVE_INFINITY : 1);
+  const width = Math.max(1, Math.round(sourceW * scale));
+  const height = Math.max(1, Math.round(sourceH * scale));
+  return {
+    x: Math.round((boxW - width) / 2),
+    y: Math.round((boxH - height) / 2),
+    w: width,
+    h: height,
+  };
 }
 
 export function screenToDoc(point, view) {
@@ -110,4 +151,12 @@ export function roundRect(rect) {
     w: Math.max(1, Math.round(rect.w)),
     h: Math.max(1, Math.round(rect.h)),
   };
+}
+
+export function anchorOffset(oldWidth, oldHeight, newWidth, newHeight, anchor = "center") {
+  const dx = Math.round((Number(newWidth) || 1) - (Number(oldWidth) || 1));
+  const dy = Math.round((Number(newHeight) || 1) - (Number(oldHeight) || 1));
+  const horizontal = anchor.includes("left") ? 0 : anchor.includes("right") ? dx : dx / 2;
+  const vertical = anchor.includes("top") ? 0 : anchor.includes("bottom") ? dy : dy / 2;
+  return { x: Math.round(horizontal), y: Math.round(vertical) };
 }

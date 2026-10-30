@@ -1,4 +1,4 @@
-const VERSION = "aegeanworks-shell-v20";
+const VERSION = "aegeanworks-shell-v32";
 const SHELL_CACHE = VERSION;
 const API_CACHE = "aegeanworks-api-v1";
 const PRECACHE = [
@@ -36,13 +36,17 @@ const PRECACHE = [
   "editor/assets/favicon.svg",
   "editor/src/theme.css",
   "editor/src/styles.css",
+  "editor/src/core/bounds.js",
   "editor/src/core/color.js",
   "editor/src/core/document.js",
   "editor/src/core/export.js",
   "editor/src/core/filters.js",
   "editor/src/core/geometry.js",
+  "editor/src/core/gradient.js",
+  "editor/src/core/histogram.js",
   "editor/src/core/history.js",
   "editor/src/core/project.js",
+  "editor/src/ui/autosave.js",
   "editor/src/ui/canvas.js",
   "editor/src/ui/editor.js",
   "editor/src/ui/main.js",

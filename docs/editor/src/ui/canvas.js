@@ -1,3 +1,4 @@
+import { blendOperation } from "../core/document.js";
 import { buildCssFilter } from "../core/filters.js";
 
 const thumbnails = new WeakMap();
@@ -51,6 +52,7 @@ export function compositeDocument(doc, { background = null } = {}) {
     if (!layer.visible || layer.opacity <= 0 || !layer.canvas) continue;
     context.save();
     context.globalAlpha = layer.opacity;
+    context.globalCompositeOperation = blendOperation(layer.blendMode);
     context.filter = buildCssFilter(layer.adjustments);
     context.drawImage(layer.canvas, 0, 0);
     context.restore();

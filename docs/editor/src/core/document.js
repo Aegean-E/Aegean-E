@@ -1,6 +1,34 @@
 import { clamp } from "./color.js";
 import { clampAdjustments } from "./filters.js";
 
+export const BLEND_MODES = Object.freeze({
+  normal: "Normal",
+  multiply: "Multiply",
+  screen: "Screen",
+  overlay: "Overlay",
+  darken: "Darken",
+  lighten: "Lighten",
+  "color-dodge": "Color dodge",
+  "color-burn": "Color burn",
+  "hard-light": "Hard light",
+  "soft-light": "Soft light",
+  difference: "Difference",
+  exclusion: "Exclusion",
+  hue: "Hue",
+  saturation: "Saturation",
+  color: "Color",
+  luminosity: "Luminosity",
+});
+
+export function normalizeBlendMode(value) {
+  return typeof value === "string" && Object.hasOwn(BLEND_MODES, value) ? value : "normal";
+}
+
+export function blendOperation(value) {
+  const mode = normalizeBlendMode(value);
+  return mode === "normal" ? "source-over" : mode;
+}
+
 let sequence = 0;
 
 export function uid(prefix = "layer") {
@@ -17,6 +45,8 @@ export function createLayer({
   name = "Layer",
   visible = true,
   opacity = 1,
+  blendMode = "normal",
+  locked = false,
   canvas = null,
   adjustments = {},
 } = {}) {
@@ -25,6 +55,8 @@ export function createLayer({
     name: String(name || "Layer").slice(0, 80),
     visible: visible !== false,
     opacity: clamp(opacity, 0, 1),
+    blendMode: normalizeBlendMode(blendMode),
+    locked: Boolean(locked),
     canvas,
     adjustments: clampAdjustments(adjustments),
   };

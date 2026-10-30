@@ -8,9 +8,9 @@
 ## 📊 Codebase Metrics
 - **Total Python Modules**: `6`
 - **Total Classes**: `6`
-- **Total Top-Level Functions**: `77`
+- **Total Top-Level Functions**: `79`
 - **Total Class Methods**: `96`
-- **Total Source Lines**: `3571`
+- **Total Source Lines**: `3713`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1753` lines (`81701` bytes)
+**Size**: `1792` lines (`83988` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -225,7 +225,7 @@
 ### [`tools/sync_live_apps.py`](tools/sync_live_apps.py)
 > *Sync the live browser apps and their catalog.*
 
-**Size**: `590` lines (`23523` bytes)
+**Size**: `693` lines (`27662` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
@@ -247,6 +247,8 @@
 - `def _build_path_ok(slug, relative)`
 - `def _retained_paths(game, base, current)` - *The current build plus the predecessors the previous catalog recorded.*
 - `def _browser_entry(game, source_root)`
+- `def _runtime_entry_files(root, entries)`
+- `def _local_entry(game, source_root)` - *Describe a build that is already vendored inside docs/ (no copy).*
 - `def build_manifest(source_root)`
 - `def _read_manifest()`
 - `def check_manifest()`

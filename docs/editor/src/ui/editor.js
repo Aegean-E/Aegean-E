@@ -1,7 +1,9 @@
+import { findContentBounds } from "../core/bounds.js";
 import { clamp, normalizeHex, rgbToHex } from "../core/color.js";
 import {
   activeLayer,
   addLayer,
+  blendOperation,
   createDocument,
   createLayer,
   duplicateLayerRecord,
@@ -16,36 +18,45 @@ import {
 } from "../core/document.js";
 import {
   downloadName,
+  exportDimensions,
   exportFormat,
   formatBytes,
+  normalizeExportScale,
   normalizeQuality,
   safeFileName,
 } from "../core/export.js";
 import {
   DEFAULT_ADJUSTMENTS,
+  applyLevels,
   applyPixelate,
   applySharpen,
   applyVignette,
   buildCssFilter,
 } from "../core/filters.js";
 import {
+  anchorOffset,
   clampRect,
   constrainAngle,
+  constrainAspect,
   constrainSquare,
+  containRect,
   docToScreen,
   fitView,
   isUsableRect,
   normalizeRect,
   roundRect,
   screenToDoc,
+  selectionFromDrag,
   zoomAt,
 } from "../core/geometry.js";
+import { isUsableGradient, normalizeGradientOptions } from "../core/gradient.js";
+import { autoLevelsRange, buildHistogram, percentileRange } from "../core/histogram.js";
 import { History, createCommand } from "../core/history.js";
 import {
   boundedDimensions,
-  cleanDimension,
   cleanDocumentName,
   parseProject,
+  requestedDimension,
   serializeProject,
 } from "../core/project.js";
 import {
@@ -65,12 +76,28 @@ import {
   samplePixel,
 } from "./canvas.js";
 import {
+  autosaveAvailable,
+  captureSession,
+  clearAutosave,
+  formatSavedAt,
+  readAutosave,
+  validateSessionRecord,
+  writeAutosave,
+} from "./autosave.js";
+import {
+  addSelectionPath,
   brushStamp,
+  clearSelectionArea,
   cropCanvas,
+  drawGradient,
   drawShape,
   drawText,
   drawTextOn,
+  extractSelection,
   flipCanvas,
+  placeCanvas,
+  redrawSelectedMove,
+  replaceInsideSelection,
   rotateCanvas,
   scaleCanvas,
   shiftedCanvas,
@@ -82,10 +109,12 @@ const TOOL_META = Object.freeze({
   brush: { label: "Brush", cursor: "crosshair", hint: "Paint on the active layer." },
   eraser: { label: "Eraser", cursor: "crosshair", hint: "Erase pixels from the active layer." },
   crop: { label: "Crop", cursor: "crosshair", hint: "Drag a region, then confirm." },
+  marquee: { label: "Marquee", cursor: "crosshair", hint: "Drag to select a region. Ctrl+A selects all; Ctrl+D deselects." },
   text: { label: "Text", cursor: "text", hint: "Click the canvas, type a line, then press Add." },
   rect: { label: "Rectangle", cursor: "crosshair", hint: "Drag to draw a rectangle. Shift keeps it square." },
   ellipse: { label: "Ellipse", cursor: "crosshair", hint: "Drag to draw an ellipse. Shift keeps it circular." },
   line: { label: "Line", cursor: "crosshair", hint: "Drag to draw a line. Shift snaps to 45°." },
+  gradient: { label: "Gradient", cursor: "crosshair", hint: "Drag to fill the active layer with a gradient." },
   eyedropper: { label: "Eyedropper", cursor: "eyedropper", hint: "Click a pixel to make it the active colour." },
   hand: { label: "Hand", cursor: "grab", hint: "Drag to pan. Space also pans from any tool." },
   zoom: { label: "Zoom", cursor: "zoom-in", hint: "Click to zoom in. Alt-click to zoom out." },
@@ -104,28 +133,42 @@ const ADJUSTMENTS = [
 
 const IDS = [
   "doc-name", "doc-size", "btn-new", "btn-open", "btn-open-project", "btn-save", "btn-export",
-  "btn-undo", "btn-redo", "btn-help", "file-image", "file-project", "stage-wrap", "doc-frame",
+  "btn-undo", "btn-redo", "btn-help", "file-image", "file-layer", "file-project", "stage-wrap", "doc-frame",
   "stage", "overlay", "text-editor", "text-input", "text-commit", "text-cancel", "drop-hint",
   "stage-note", "btn-zoom-out", "btn-fit", "btn-zoom-in", "color-row", "color-input", "color-hex",
-  "tool-hint", "options-brush", "options-eraser", "options-shape", "options-text", "options-crop",
-  "options-move", "brush-size", "brush-size-value", "brush-hardness", "brush-hardness-value",
-  "brush-opacity", "brush-opacity-value", "eraser-size", "eraser-size-value", "eraser-hardness",
-  "eraser-hardness-value", "eraser-opacity", "eraser-opacity-value", "shape-fill", "shape-outline",
-  "shape-outline-color", "shape-outline-hex", "shape-width", "shape-width-value", "text-font",
-  "text-size", "text-size-value", "text-weight", "crop-apply", "crop-cancel", "btn-layer-add",
-  "btn-layer-duplicate", "btn-layer-up", "btn-layer-down", "btn-layer-delete", "layer-opacity",
-  "layer-opacity-value", "layer-list", "btn-resize", "btn-flip-h", "btn-flip-v", "btn-rotate",
-  "adjust-reset", "adj-brightness", "adj-brightness-value", "adj-contrast", "adj-contrast-value",
+  "tool-hint", "options-brush", "options-eraser", "options-shape", "options-text", "options-gradient",
+  "options-marquee", "options-crop", "options-move", "marquee-shape", "crop-aspect", "btn-select-all", "btn-deselect",
+  "btn-crop-selection", "btn-invert-selection", "btn-copy", "btn-cut", "btn-paste",
+  "btn-layer-via-copy", "btn-layer-via-cut", "brush-size", "brush-size-value", "brush-hardness",
+  "brush-hardness-value", "brush-opacity", "brush-opacity-value", "eraser-size", "eraser-size-value",
+  "eraser-hardness", "eraser-hardness-value", "eraser-opacity", "eraser-opacity-value", "shape-fill",
+  "shape-outline", "shape-outline-color", "shape-outline-hex", "shape-width", "shape-width-value",
+  "text-font", "text-size", "text-size-value", "text-weight", "gradient-type", "gradient-end",
+  "gradient-end-hex", "gradient-fade", "gradient-opacity", "gradient-opacity-value", "crop-apply",
+  "crop-cancel", "btn-layer-add", "btn-layer-image", "btn-layer-duplicate", "btn-layer-merge",
+  "btn-layer-lock", "btn-layer-up", "btn-layer-down", "btn-layer-delete", "layer-opacity",
+  "layer-opacity-value", "layer-blend", "layer-list",
+  "btn-resize", "btn-canvas-size", "btn-transform", "btn-flip-h", "btn-flip-v", "btn-rotate",
+  "btn-flatten",
+  "adjust-reset", "histogram", "histogram-range", "btn-auto-levels", "adj-brightness",
+  "adj-brightness-value", "adj-contrast", "adj-contrast-value",
   "adj-saturation", "adj-saturation-value", "adj-hue", "adj-hue-value", "adj-grayscale",
   "adj-grayscale-value", "adj-sepia", "adj-sepia-value", "adj-invert", "adj-invert-value",
   "adj-blur", "adj-blur-value", "filter-blur-radius", "filter-blur-value", "btn-filter-blur",
   "filter-pixel-size", "filter-pixel-value", "btn-filter-pixelate", "btn-filter-sharpen",
-  "btn-filter-vignette", "status-tool", "status-message", "status-cursor", "status-zoom",
+  "btn-filter-vignette", "level-black", "level-black-value", "level-white", "level-white-value",
+  "level-gamma", "level-gamma-value", "btn-filter-levels", "status-tool", "status-message",
+  "status-cursor", "status-zoom",
   "btn-actual", "new-dialog", "new-form", "new-name", "new-width", "new-height", "new-color",
   "new-cancel", "new-create", "export-dialog", "export-form", "export-name", "export-format",
-  "export-quality-row", "export-quality", "export-quality-value", "export-size", "export-cancel",
-  "export-confirm", "resize-dialog", "resize-form", "resize-width", "resize-height",
-  "resize-lock", "resize-cancel", "resize-confirm", "help-dialog", "help-close",
+  "export-quality-row", "export-quality", "export-quality-value", "export-scale", "export-size",
+  "export-cancel", "export-confirm", "resize-dialog", "resize-form", "resize-width", "resize-height",
+  "resize-lock", "resize-cancel", "resize-confirm", "canvas-dialog", "canvas-form", "canvas-width",
+  "canvas-height", "canvas-cancel", "canvas-confirm", "transform-dialog", "transform-form",
+  "transform-scale-x", "transform-scale-y", "transform-rotation", "transform-rotation-value",
+  "transform-flip-h", "transform-flip-v", "transform-cancel", "transform-confirm",
+  "help-dialog", "help-close",
+  "restore-dialog", "restore-summary", "restore-confirm", "restore-discard", "status-autosave",
 ];
 
 function cacheIds(root, ids) {
@@ -148,6 +191,19 @@ function historyLimitFor(doc) {
 
 function fileBaseName(name) {
   return String(name ?? "").replace(/\.[^.]+$/, "").trim() || "Image";
+}
+
+function cloneSelection(selection) {
+  if (!selection) return null;
+  return {
+    kind: selection.kind,
+    rect: { ...selection.rect },
+    ...(selection.invert ? { invert: true } : {}),
+  };
+}
+
+function fullDocumentSelection(doc) {
+  return { kind: "rect", rect: { x: 0, y: 0, w: doc.width, h: doc.height } };
 }
 
 function isTypingTarget(target) {
@@ -262,7 +318,17 @@ export class PaletteEditor {
     this.pointer = null;
     this.action = null;
     this.cropRect = null;
+    this.selection = null;
+    this.clipboard = null;
     this.textDraft = null;
+    this.autosaveArmed = false;
+    this.autosaveHasContent = false;
+    this.autosaveInFlight = false;
+    this.autosavePending = false;
+    this.autosaveTimer = null;
+    this.histogramTimer = null;
+    this.pendingRestore = null;
+    this.restoreResolved = false;
     this.adjustStart = null;
     this.opacityStart = null;
     this.renderQueued = false;
@@ -274,6 +340,9 @@ export class PaletteEditor {
       brush: { size: 32, hardness: 0.7, opacity: 1 },
       eraser: { size: 40, hardness: 0.6, opacity: 1 },
       shape: { fill: true, outline: true, width: 4, outlineColor: "#e9eefb" },
+      gradient: { type: "linear", to: "#a78bfa", fade: true, opacity: 1 },
+      marquee: { kind: "rect" },
+      crop: { aspect: "free" },
       text: { family: "system", size: 48, weight: 600 },
     };
   }
@@ -287,24 +356,31 @@ export class PaletteEditor {
     this.setDocument(welcomeDocument(), {
       reset: true,
       fit: true,
+      autosave: false,
       status: "Welcome to Palette. Open an image, drop one here, or press New for a blank canvas.",
     });
+    this.initAutosave();
     setTimeout(() => this.el.stageNote?.setAttribute("data-hidden", "true"), 9000);
   }
 
-  setDocument(doc, { reset = false, fit = false, status = "" } = {}) {
+  setDocument(doc, { reset = false, fit = false, autosave = true, status = "" } = {}) {
     this.doc = doc;
     this.history.setLimit(historyLimitFor(doc));
     if (reset) this.history.clear();
     this.action = null;
     this.cancelText();
     this.cropRect = null;
+    this.selection = null;
     this.adjustStart = null;
     this.opacityStart = null;
     this.autoFit = true;
     this.refreshUI();
     if (fit) this.fitView();
     else this.scheduleRender();
+    if (autosave) {
+      this.autosaveHasContent = true;
+      this.scheduleAutosave();
+    }
     if (status) this.announce(status);
   }
 
@@ -317,12 +393,15 @@ export class PaletteEditor {
     if (limit !== this.history.limit) this.history.setLimit(limit);
     this.action = null;
     this.cropRect = null;
+    if (dimensionsChanged) this.selection = null;
     this.adjustStart = null;
     this.opacityStart = null;
     this.cancelText();
     this.refreshUI();
     if (dimensionsChanged && this.autoFit) this.fitView();
     else this.scheduleRender();
+    this.autosaveHasContent = true;
+    this.scheduleAutosave();
   }
 
   commit(beforeDoc, label) {
@@ -343,6 +422,8 @@ export class PaletteEditor {
     );
     this.refreshUI();
     this.scheduleRender();
+    this.autosaveHasContent = true;
+    this.scheduleAutosave();
   }
 
   announce(message, { error = false } = {}) {
@@ -380,6 +461,47 @@ export class PaletteEditor {
     this.updateZoomLabel();
     this.el.cropApply.disabled = !isUsableRect(this.cropRect);
     this.el.cropCancel.disabled = !this.cropRect;
+    this.el.btnDeselect.disabled = !this.selection;
+    this.el.btnCropSelection.disabled = !this.selection || Boolean(this.selection.invert);
+    this.el.btnInvertSelection.setAttribute("aria-pressed", this.selection?.invert ? "true" : "false");
+    this.el.btnPaste.disabled = !this.clipboard;
+    this.scheduleHistogram();
+  }
+
+  scheduleHistogram(delay = 100) {
+    clearTimeout(this.histogramTimer);
+    this.histogramTimer = setTimeout(() => this.drawHistogram(), Math.max(0, delay));
+  }
+
+  drawHistogram() {
+    if (!this.doc) return;
+    const layer = activeLayer(this.doc);
+    const canvas = this.el.histogram;
+    if (!layer?.canvas || !canvas) return;
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    if (!layer.canvas.width) return;
+    const histogram = buildHistogram(getPixels(layer.canvas), 256);
+    const range = percentileRange(histogram, 0.005, 0.005);
+    this.histogramRange = range;
+    const max = Math.max(1, ...histogram.luma);
+    context.fillStyle = "rgba(103, 232, 249, 0.78)";
+    for (let index = 0; index < histogram.luma.length; index += 1) {
+      const height = Math.round((histogram.luma[index] / max) * canvas.height);
+      if (height > 0) context.fillRect(index, canvas.height - height, 1, height);
+    }
+    this.el.histogramRange.textContent = `${range.black}–${range.white}`;
+  }
+
+  autoLevels() {
+    const layer = this.requireActiveLayer();
+    if (!layer) return;
+    const source = this.selection ? extractSelection(layer.canvas, this.selection) : layer.canvas;
+    const range = autoLevelsRange(getPixels(source), 0.005, 0.005);
+    this.applyPixelsToActive("Auto levels", (pixels) =>
+      applyLevels(pixels, { black: range.black, white: range.white, gamma: 1 }),
+    );
+    this.announce(`Auto levels (${range.black}–${range.white}) applied.`);
   }
 
   syncActiveLayer() {
@@ -388,11 +510,15 @@ export class PaletteEditor {
     const percent = Math.round(layer.opacity * 100);
     if (this.root.activeElement !== this.el.layerOpacity) this.el.layerOpacity.value = String(percent);
     this.el.layerOpacityValue.textContent = `${percent}%`;
+    if (this.root.activeElement !== this.el.layerBlend) this.el.layerBlend.value = layer.blendMode;
+    this.el.btnLayerLock.setAttribute("aria-pressed", layer.locked ? "true" : "false");
+    this.el.btnLayerLock.title = layer.locked ? "Unlock layer" : "Lock layer";
     for (const key of ADJUSTMENTS) {
       const input = this.el[`adj${key[0].toUpperCase()}${key.slice(1)}`];
       const output = this.el[`adj${key[0].toUpperCase()}${key.slice(1)}Value`];
       if (!input || !output) continue;
       const value = layer.adjustments[key];
+      input.disabled = layer.locked;
       if (this.root.activeElement !== input) input.value = String(value);
       output.textContent = formatAdjustment(key, value);
     }
@@ -404,11 +530,13 @@ export class PaletteEditor {
       eraser: this.el.optionsEraser,
       shape: this.el.optionsShape,
       text: this.el.optionsText,
+      gradient: this.el.optionsGradient,
+      marquee: this.el.optionsMarquee,
       crop: this.el.optionsCrop,
       move: this.el.optionsMove,
     };
     for (const [name, node] of Object.entries(groups)) node.hidden = name !== this.tool && !(name === "shape" && ["rect", "ellipse", "line"].includes(this.tool));
-    const usesColor = ["brush", "text", "rect", "ellipse", "line", "eyedropper"].includes(this.tool);
+    const usesColor = ["brush", "text", "rect", "ellipse", "line", "gradient", "eyedropper"].includes(this.tool);
     this.el.colorRow.hidden = !usesColor;
     const meta = TOOL_META[this.tool] ?? TOOL_META.move;
     this.el.toolHint.textContent = meta.hint;
@@ -420,7 +548,7 @@ export class PaletteEditor {
   }
 
   syncOptionControls() {
-    const { brush, eraser, shape, text } = this.options;
+    const { brush, eraser, shape, gradient, text } = this.options;
     this.el.brushSize.value = String(brush.size);
     this.el.brushSizeValue.textContent = String(brush.size);
     this.el.brushHardness.value = String(Math.round(brush.hardness * 100));
@@ -439,6 +567,14 @@ export class PaletteEditor {
     this.el.shapeWidthValue.textContent = String(shape.width);
     this.el.shapeOutlineColor.value = shape.outlineColor;
     this.el.shapeOutlineHex.textContent = shape.outlineColor;
+    this.el.gradientType.value = gradient.type;
+    this.el.gradientEnd.value = gradient.to;
+    this.el.gradientEndHex.textContent = gradient.to;
+    this.el.gradientFade.checked = gradient.fade;
+    this.el.gradientOpacity.value = String(Math.round(gradient.opacity * 100));
+    this.el.gradientOpacityValue.textContent = String(Math.round(gradient.opacity * 100));
+    this.el.marqueeShape.value = this.options.marquee.kind;
+    this.el.cropAspect.value = this.options.crop.aspect;
     this.el.textFont.value = text.family;
     this.el.textSize.value = String(text.size);
     this.el.textSizeValue.textContent = String(text.size);
@@ -456,6 +592,7 @@ export class PaletteEditor {
       const item = this.root.createElement("li");
       item.className = "layer-item";
       item.dataset.active = layer.id === this.doc.activeLayerId ? "true" : "false";
+      item.dataset.locked = layer.locked ? "true" : "false";
 
       const visibility = this.root.createElement("button");
       visibility.type = "button";
@@ -488,8 +625,15 @@ export class PaletteEditor {
         this.beginRename(layer.id, name);
       });
 
+      const lock = this.root.createElement("span");
+      lock.className = "layer-lock";
+      lock.title = layer.locked ? "Locked" : "";
+      if (layer.locked) {
+        lock.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+      }
+
       item.addEventListener("click", () => this.selectLayer(layer.id));
-      item.append(visibility, thumb, name);
+      item.append(visibility, thumb, name, lock);
       list.append(item);
     }
   }
@@ -616,6 +760,7 @@ export class PaletteEditor {
       if (!layer.visible || layer.opacity <= 0 || !layer.canvas) continue;
       context.save();
       context.globalAlpha = layer.opacity;
+      context.globalCompositeOperation = blendOperation(layer.blendMode);
       context.filter = buildCssFilter(layer.adjustments);
       if (moving && moving.layerId === layer.id) context.translate(moving.dx, moving.dy);
       context.drawImage(layer.canvas, 0, 0);
@@ -675,6 +820,67 @@ export class PaletteEditor {
       context.restore();
     }
 
+    let marquee = this.selection;
+    if (this.action?.type === "marquee") {
+      marquee = selectionFromDrag(
+        this.options.marquee.kind,
+        this.action.start,
+        this.action.end,
+        this.doc.width,
+        this.doc.height,
+        this.action.shift,
+      );
+    } else if (this.action?.type === "move-selection") {
+      marquee = {
+        ...this.action.selection,
+        rect: {
+          ...this.action.selection.rect,
+          x: this.action.selection.rect.x + this.action.dx,
+          y: this.action.selection.rect.y + this.action.dy,
+        },
+      };
+    }
+    if (marquee) {
+      context.save();
+      context.translate(this.view.offsetX, this.view.offsetY);
+      context.scale(this.view.scale, this.view.scale);
+      addSelectionPath(context, marquee);
+      context.lineWidth = 3 / this.view.scale;
+      context.strokeStyle = "rgba(2, 6, 14, 0.9)";
+      context.stroke();
+      addSelectionPath(context, marquee);
+      context.lineWidth = 1 / this.view.scale;
+      context.strokeStyle = "rgba(103, 232, 249, 0.95)";
+      context.setLineDash([6 / this.view.scale, 4 / this.view.scale]);
+      context.stroke();
+      if (marquee.invert) {
+        context.beginPath();
+        context.rect(0, 0, this.doc.width, this.doc.height);
+        context.lineWidth = 1 / this.view.scale;
+        context.stroke();
+      }
+      context.restore();
+    }
+
+    if (this.action?.type === "gradient") {
+      context.save();
+      context.translate(this.view.offsetX, this.view.offsetY);
+      context.scale(this.view.scale, this.view.scale);
+      drawGradient(context, {
+        type: this.options.gradient.type,
+        start: this.action.start,
+        end: this.action.end,
+        from: this.options.color,
+        to: this.options.gradient.to,
+        fade: this.options.gradient.fade,
+        opacity: this.options.gradient.opacity,
+        width: this.doc.width,
+        height: this.doc.height,
+        selection: this.selection,
+      });
+      context.restore();
+    }
+
     if (this.action?.type === "shape") {
       context.save();
       context.translate(this.view.offsetX, this.view.offsetY);
@@ -689,6 +895,7 @@ export class PaletteEditor {
         outline: this.options.shape.outline,
         width: this.options.shape.width,
         opacity: 0.92,
+        selection: this.selection,
       });
       context.restore();
     }
@@ -705,6 +912,7 @@ export class PaletteEditor {
         size: this.options.text.size,
         weight: this.options.text.weight,
         family: this.options.text.family,
+        selection: this.selection,
       });
       context.restore();
     }
@@ -785,16 +993,35 @@ export class PaletteEditor {
     }
     if (this.tool === "crop") {
       this.cropRect = null;
-      this.action = { type: "crop", pointerId: event.pointerId, start: point, end: point };
+      this.action = {
+        type: "crop",
+        pointerId: event.pointerId,
+        start: point,
+        end: point,
+        aspect: this.options.crop.aspect,
+      };
       this.el.stage.setPointerCapture(event.pointerId);
+      this.scheduleOverlay();
+      return;
+    }
+    if (this.tool === "marquee") {
+      this.selection = null;
+      this.action = {
+        type: "marquee",
+        pointerId: event.pointerId,
+        start: point,
+        end: point,
+        shift: event.shiftKey,
+      };
+      this.el.stage.setPointerCapture(event.pointerId);
+      this.refreshUI();
       this.scheduleOverlay();
       return;
     }
     const layer = this.requireActiveLayer();
     if (!layer) return;
     if (this.tool === "move") {
-      this.action = { type: "move", pointerId: event.pointerId, layerId: layer.id, before: this.doc, start: point, dx: 0, dy: 0 };
-      this.el.stage.setPointerCapture(event.pointerId);
+      this.beginMove(point, event.pointerId);
       return;
     }
     if (this.tool === "brush" || this.tool === "eraser") {
@@ -814,7 +1041,53 @@ export class PaletteEditor {
       };
       this.el.stage.setPointerCapture(event.pointerId);
       this.scheduleRender();
+      return;
     }
+    if (this.tool === "gradient") {
+      this.action = {
+        type: "gradient",
+        pointerId: event.pointerId,
+        before: this.doc,
+        layerId: layer.id,
+        start: point,
+        end: point,
+      };
+      this.el.stage.setPointerCapture(event.pointerId);
+      this.scheduleOverlay();
+    }
+  }
+
+  beginMove(point, pointerId) {
+    const layer = this.requireActiveLayer();
+    if (!layer) return;
+    if (this.selection?.invert) {
+      this.announce("Deselect inversion before moving selected pixels.", { error: true });
+      return;
+    }
+    if (!this.selection) {
+      this.action = { type: "move", pointerId, layerId: layer.id, before: this.doc, start: point, dx: 0, dy: 0 };
+      this.el.stage.setPointerCapture(pointerId);
+      return;
+    }
+    const before = this.doc;
+    const patch = extractSelection(layer.canvas, this.selection);
+    const preview = redrawSelectedMove(layer.canvas, patch, this.selection, 0, 0);
+    this.doc = updateLayer(this.doc, layer.id, { canvas: preview });
+    this.action = {
+      type: "move-selection",
+      pointerId,
+      layerId: layer.id,
+      before,
+      base: layer.canvas,
+      patch,
+      preview,
+      selection: this.selection,
+      start: point,
+      dx: 0,
+      dy: 0,
+    };
+    this.el.stage.setPointerCapture(pointerId);
+    this.scheduleRender();
   }
 
   beginBrush(point, pointerId) {
@@ -832,7 +1105,7 @@ export class PaletteEditor {
       color: this.options.color,
       erase,
     });
-    strokeBrush(working, point, point, stamp, erase);
+    strokeBrush(working, point, point, stamp, erase, this.selection);
     this.action = {
       type: "brush",
       pointerId,
@@ -842,6 +1115,7 @@ export class PaletteEditor {
       last: point,
       stamp,
       erase,
+      selection: this.selection,
     };
     this.el.stage.setPointerCapture(pointerId);
     this.scheduleRender();
@@ -874,14 +1148,30 @@ export class PaletteEditor {
       this.scheduleRender();
       return;
     }
+    if (action.type === "move-selection") {
+      action.dx = Math.round(point.x - action.start.x);
+      action.dy = Math.round(point.y - action.start.y);
+      redrawSelectedMove(action.base, action.patch, action.selection, action.dx, action.dy, action.preview);
+      this.scheduleRender();
+      return;
+    }
+    if (action.type === "marquee") {
+      action.shift = event.shiftKey;
+      action.end = point;
+      this.scheduleOverlay();
+      return;
+    }
     if (action.type === "brush") {
-      strokeBrush(action.canvas, action.last, point, action.stamp, action.erase);
+      strokeBrush(action.canvas, action.last, point, action.stamp, action.erase, action.selection);
       action.last = point;
       this.scheduleRender();
       return;
     }
     if (action.type === "crop") {
-      action.end = point;
+      action.end =
+        action.aspect && action.aspect !== "free"
+          ? constrainAspect(action.start, point, Number(action.aspect))
+          : point;
       this.scheduleOverlay();
       return;
     }
@@ -892,6 +1182,11 @@ export class PaletteEditor {
           ? constrainAngle(action.start, point)
           : constrainSquare(action.start, point)
         : point;
+      this.scheduleOverlay();
+      return;
+    }
+    if (action.type === "gradient") {
+      action.end = event.shiftKey ? constrainAngle(action.start, point) : point;
       this.scheduleOverlay();
     }
   }
@@ -919,6 +1214,49 @@ export class PaletteEditor {
         }
       } else {
         this.scheduleRender();
+      }
+      return;
+    }
+    if (action.type === "move-selection") {
+      this.action = null;
+      if (action.dx !== 0 || action.dy !== 0) {
+        const shifted = clampRect(
+          {
+            x: action.selection.rect.x + action.dx,
+            y: action.selection.rect.y + action.dy,
+            w: action.selection.rect.w,
+            h: action.selection.rect.h,
+          },
+          this.doc.width,
+          this.doc.height,
+        );
+        const rect = roundRect(shifted);
+        this.selection = isUsableRect(rect) ? { kind: action.selection.kind, rect } : null;
+        this.commit(action.before, "Move selection");
+      } else {
+        this.doc = action.before;
+        this.refreshUI();
+        this.scheduleRender();
+      }
+      return;
+    }
+    if (action.type === "marquee") {
+      const selection = selectionFromDrag(
+        this.options.marquee.kind,
+        action.start,
+        action.end,
+        this.doc.width,
+        this.doc.height,
+        action.shift,
+      );
+      this.action = null;
+      this.selection = selection;
+      this.refreshUI();
+      this.scheduleRender();
+      if (selection) {
+        this.announce("Selection ready. Paint, shapes, text, gradients and filters follow it.");
+      } else {
+        this.announce("Selection cleared.");
       }
       return;
     }
@@ -953,10 +1291,36 @@ export class PaletteEditor {
           outline: this.options.shape.outline,
           width: this.options.shape.width,
           opacity: 1,
+          selection: this.selection,
         });
         this.doc = updateLayer(this.doc, layer.id, { canvas });
         this.commit(action.before, `Draw ${action.tool}`);
       } else {
+        this.scheduleRender();
+      }
+      return;
+    }
+    if (action.type === "gradient") {
+      this.action = null;
+      const layer = layerById(this.doc, action.layerId);
+      if (layer && isUsableGradient(action.start, action.end)) {
+        const canvas = cloneCanvas(layer.canvas);
+        drawGradient(context2d(canvas), {
+          type: this.options.gradient.type,
+          start: action.start,
+          end: action.end,
+          from: this.options.color,
+          to: this.options.gradient.to,
+          fade: this.options.gradient.fade,
+          opacity: this.options.gradient.opacity,
+          width: this.doc.width,
+          height: this.doc.height,
+          selection: this.selection,
+        });
+        this.doc = updateLayer(this.doc, layer.id, { canvas });
+        this.commit(action.before, "Gradient fill");
+      } else {
+        this.announce("Drag across the canvas to define the gradient.", { error: true });
         this.scheduleRender();
       }
     }
@@ -965,7 +1329,7 @@ export class PaletteEditor {
   onPointerCancel() {
     const action = this.action;
     if (!action) return;
-    if (action.type === "brush" || action.type === "move") {
+    if (action.type === "brush" || action.type === "move" || action.type === "move-selection") {
       this.doc = action.before;
     }
     this.action = null;
@@ -1007,6 +1371,7 @@ export class PaletteEditor {
     );
     this.doc = { ...resizeDocument(this.doc, rounded.w, rounded.h), layers };
     this.cropRect = null;
+    this.selection = null;
     this.commit(before, "Crop image");
     this.fitView();
     this.announce(`Cropped to ${rounded.w} × ${rounded.h}.`);
@@ -1023,7 +1388,7 @@ export class PaletteEditor {
   cancelAction() {
     const action = this.action;
     if (!action) return;
-    if (action.type === "brush" || action.type === "move") {
+    if (action.type === "brush" || action.type === "move" || action.type === "move-selection") {
       this.doc = action.before;
     }
     if (action.type === "crop") this.cropRect = null;
@@ -1031,6 +1396,165 @@ export class PaletteEditor {
     this.refreshUI();
     this.scheduleRender();
     this.announce("Cancelled.");
+  }
+
+  selectAll() {
+    if (!this.doc) return;
+    this.selection = { kind: "rect", rect: { x: 0, y: 0, w: this.doc.width, h: this.doc.height } };
+    this.refreshUI();
+    this.scheduleOverlay();
+    this.announce("Selected the whole document.");
+  }
+
+  deselect() {
+    if (!this.selection) return;
+    this.selection = null;
+    this.refreshUI();
+    this.scheduleOverlay();
+    this.announce("Selection cleared.");
+  }
+
+  invertSelection() {
+    if (!this.doc) return;
+    if (!this.selection) {
+      this.selectAll();
+      this.announce("Selected the whole document; invert again to make a hole.");
+      return;
+    }
+    const base = { kind: this.selection.kind, rect: { ...this.selection.rect } };
+    this.selection = this.selection.invert ? base : { ...base, invert: true };
+    this.refreshUI();
+    this.scheduleOverlay();
+    this.announce(this.selection.invert ? "Selection inverted." : "Selection restored.");
+  }
+
+  cropToSelection() {
+    if (!this.doc || !this.selection) return;
+    if (this.selection.invert) {
+      this.announce("Deselect inversion before cropping to a selection.", { error: true });
+      return;
+    }
+    this.cropRect = roundRect(clampRect(this.selection.rect, this.doc.width, this.doc.height));
+    this.applyCrop();
+  }
+
+  clearSelectedPixels() {
+    if (!this.selection) return;
+    const layer = this.requireActiveLayer();
+    if (!layer) return;
+    const before = this.doc;
+    const canvas = cloneCanvas(layer.canvas);
+    clearSelectionArea(canvas, this.selection);
+    this.doc = updateLayer(this.doc, layer.id, { canvas });
+    this.commit(before, "Clear selection");
+    this.announce("Selected pixels cleared.");
+  }
+
+  clipboardSelection() {
+    return cloneSelection(this.selection) ?? fullDocumentSelection(this.doc);
+  }
+
+  storeClipboard(layer, selection, displaySelection = selection) {
+    this.clipboard = {
+      canvas: extractSelection(layer.canvas, selection),
+      width: this.doc.width,
+      height: this.doc.height,
+      selection: cloneSelection(displaySelection),
+    };
+  }
+
+  copySelection() {
+    if (!this.doc) return;
+    const layer = activeLayer(this.doc);
+    if (!layer) {
+      this.announce("Select a layer first.", { error: true });
+      return;
+    }
+    const selection = this.clipboardSelection();
+    this.storeClipboard(layer, selection, this.selection);
+    this.refreshUI();
+    this.announce(this.selection ? "Copied the selection." : "Copied the active layer.");
+  }
+
+  cutSelection() {
+    if (!this.doc) return;
+    const layer = this.requireActiveLayer();
+    if (!layer) return;
+    const selection = this.clipboardSelection();
+    this.storeClipboard(layer, selection, this.selection);
+    const before = this.doc;
+    const canvas = cloneCanvas(layer.canvas);
+    clearSelectionArea(canvas, selection);
+    this.doc = updateLayer(this.doc, layer.id, { canvas });
+    this.commit(before, "Cut selection");
+    this.announce(this.selection ? "Cut the selection." : "Cut the active layer.");
+  }
+
+  pasteClipboard() {
+    if (!this.doc || !this.clipboard) {
+      this.announce("Copy a selection or layer first.", { error: true });
+      return;
+    }
+    const before = this.doc;
+    const patch = this.clipboard.canvas;
+    let canvas;
+    let selection;
+    if (patch.width === this.doc.width && patch.height === this.doc.height) {
+      canvas = cloneCanvas(patch);
+      selection = cloneSelection(this.clipboard.selection);
+    } else {
+      const rect = containRect(patch.width, patch.height, this.doc.width, this.doc.height);
+      canvas = createCanvas(this.doc.width, this.doc.height);
+      const context = context2d(canvas);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
+      context.drawImage(patch, rect.x, rect.y, rect.w, rect.h);
+      selection = { kind: "rect", rect };
+    }
+    const layer = createLayer({ name: "Pasted", canvas });
+    const at = indexOfLayer(this.doc, this.doc.activeLayerId) + 1;
+    this.doc = addLayer(this.doc, layer, at);
+    this.selection = selection;
+    this.commit(before, "Paste");
+    this.announce("Pasted as a new layer.");
+  }
+
+  layerViaCopy() {
+    if (!this.doc) return;
+    const layer = activeLayer(this.doc);
+    if (!layer) {
+      this.announce("Select a layer first.", { error: true });
+      return;
+    }
+    const selection = this.clipboardSelection();
+    const before = this.doc;
+    const copy = createLayer({
+      name: `${layer.name} copy`,
+      canvas: extractSelection(layer.canvas, selection),
+    });
+    const at = indexOfLayer(this.doc, layer.id) + 1;
+    this.doc = addLayer(this.doc, copy, at);
+    this.commit(before, "Layer via copy");
+    this.announce(`Copied ${layer.name} to a new layer.`);
+  }
+
+  layerViaCut() {
+    if (!this.doc) return;
+    const layer = this.requireActiveLayer();
+    if (!layer) return;
+    const selection = this.clipboardSelection();
+    const before = this.doc;
+    const index = indexOfLayer(this.doc, layer.id);
+    const patch = extractSelection(layer.canvas, selection);
+    const cleared = cloneCanvas(layer.canvas);
+    clearSelectionArea(cleared, selection);
+    const cut = createLayer({ name: `${layer.name} cut`, canvas: patch });
+    const layers = this.doc.layers.slice();
+    layers[index] = createLayer({ ...layer, canvas: cleared });
+    layers.splice(index + 1, 0, cut);
+    this.doc = { ...this.doc, layers, activeLayerId: cut.id };
+    this.commit(before, "Layer via cut");
+    this.announce(`Cut ${layer.name} to a new layer.`);
   }
 
   requireActiveLayer() {
@@ -1045,6 +1569,10 @@ export class PaletteEditor {
     }
     if (!layer.visible) {
       this.announce(`${layer.name} is hidden. Show it before drawing.`, { error: true });
+      return null;
+    }
+    if (layer.locked) {
+      this.announce(`${layer.name} is locked. Unlock it in the Layers panel.`, { error: true });
       return null;
     }
     return layer;
@@ -1123,6 +1651,7 @@ export class PaletteEditor {
       size: this.options.text.size,
       weight: this.options.text.weight,
       family: this.options.text.family,
+      selection: this.selection,
     });
     this.doc = updateLayer(this.doc, layer.id, { canvas });
     this.commit(draft.before, "Add text");
@@ -1147,6 +1676,7 @@ export class PaletteEditor {
     this.doc = setActiveLayer(this.doc, id);
     this.refreshUI();
     this.scheduleRender();
+    this.scheduleAutosave();
   }
 
   toggleLayerVisibility(id) {
@@ -1225,9 +1755,51 @@ export class PaletteEditor {
     }
     const layer = activeLayer(this.doc);
     if (!layer) return;
+    if (layer.locked) {
+      this.announce(`${layer.name} is locked. Unlock it before deleting.`, { error: true });
+      return;
+    }
     const before = this.doc;
     this.doc = removeLayer(this.doc, layer.id);
     this.commit(before, "Delete layer");
+  }
+
+  mergeActiveLayerDown() {
+    if (!this.doc) return;
+    this.finishText();
+    const index = indexOfLayer(this.doc, this.doc.activeLayerId);
+    if (index <= 0) {
+      this.announce("There is no layer below to merge into.", { error: true });
+      return;
+    }
+    const lower = this.doc.layers[index - 1];
+    const upper = this.doc.layers[index];
+    if (!lower.visible || !upper.visible) {
+      this.announce("Show both layers before merging.", { error: true });
+      return;
+    }
+    if (lower.locked || upper.locked) {
+      this.announce("Unlock both layers before merging.", { error: true });
+      return;
+    }
+    const before = this.doc;
+    const canvas = createCanvas(this.doc.width, this.doc.height);
+    const context = context2d(canvas);
+    for (const layer of [lower, upper]) {
+      if (!layer.canvas) continue;
+      context.save();
+      context.globalAlpha = layer.opacity;
+      context.globalCompositeOperation = layer === lower ? "source-over" : blendOperation(upper.blendMode);
+      context.filter = buildCssFilter(layer.adjustments);
+      context.drawImage(layer.canvas, 0, 0);
+      context.restore();
+    }
+    const merged = createLayer({ name: lower.name, canvas, blendMode: lower.blendMode });
+    const layers = this.doc.layers.slice();
+    layers.splice(index - 1, 2, merged);
+    this.doc = { ...this.doc, layers, activeLayerId: merged.id };
+    this.commit(before, "Merge layer down");
+    this.announce(`Merged ${upper.name} into ${lower.name}.`);
   }
 
   reorderActiveLayer(delta) {
@@ -1240,12 +1812,28 @@ export class PaletteEditor {
     this.commit(before, delta > 0 ? "Move layer up" : "Move layer down");
   }
 
+  toggleLayerLock() {
+    if (!this.doc) return;
+    const layer = activeLayer(this.doc);
+    if (!layer) return;
+    const before = this.doc;
+    this.doc = updateLayer(this.doc, layer.id, { locked: !layer.locked });
+    this.commit(before, layer.locked ? "Unlock layer" : "Lock layer");
+  }
+
   previewAdjustment(key, value) {
     const layer = activeLayer(this.doc);
     if (!layer) return;
+    if (layer.locked) {
+      this.announce(`${layer.name} is locked. Unlock it to adjust.`, { error: true });
+      return;
+    }
     if (!this.adjustStart) {
       this.finishText();
       this.adjustStart = this.doc;
+      if (this.selection) {
+        this.announce("Adjustments apply to the whole layer; selections limit paint, shapes, text, gradients and filters.");
+      }
     }
     const adjustments = { ...layer.adjustments, [key]: value };
     this.doc = updateLayer(this.doc, layer.id, { adjustments });
@@ -1257,6 +1845,10 @@ export class PaletteEditor {
   resetAdjustments() {
     const layer = activeLayer(this.doc);
     if (!layer) return;
+    if (layer.locked) {
+      this.announce(`${layer.name} is locked. Unlock it before resetting adjustments.`, { error: true });
+      return;
+    }
     this.finishText();
     const before = this.doc;
     this.adjustStart = null;
@@ -1282,8 +1874,9 @@ export class PaletteEditor {
     const layer = this.requireActiveLayer();
     if (!layer) return;
     const before = this.doc;
-    const canvas = createCanvas(layer.canvas.width, layer.canvas.height);
-    putPixels(canvas, transform(getPixels(layer.canvas)));
+    const filtered = createCanvas(layer.canvas.width, layer.canvas.height);
+    putPixels(filtered, transform(getPixels(layer.canvas)));
+    const canvas = this.selection ? replaceInsideSelection(layer.canvas, filtered, this.selection) : filtered;
     this.doc = updateLayer(this.doc, layer.id, { canvas });
     this.commit(before, label);
     this.announce(`${label} applied.`);
@@ -1295,10 +1888,11 @@ export class PaletteEditor {
     if (!layer) return;
     const before = this.doc;
     const radius = clamp(Number(this.el.filterBlurRadius.value) || 3, 1, 30);
-    const canvas = createCanvas(layer.canvas.width, layer.canvas.height);
-    const context = context2d(canvas);
+    const filtered = createCanvas(layer.canvas.width, layer.canvas.height);
+    const context = context2d(filtered);
     context.filter = `blur(${radius}px)`;
     context.drawImage(layer.canvas, 0, 0);
+    const canvas = this.selection ? replaceInsideSelection(layer.canvas, filtered, this.selection) : filtered;
     this.doc = updateLayer(this.doc, layer.id, { canvas });
     this.commit(before, `Blur ${radius}px`);
     this.announce(`Blur ${radius}px applied.`);
@@ -1315,6 +1909,13 @@ export class PaletteEditor {
 
   applyVignetteFilter() {
     this.applyPixelsToActive("Vignette", (pixels) => applyVignette(pixels, 0.6));
+  }
+
+  applyLevelsFilter() {
+    const black = Number(this.el.levelBlack.value);
+    const white = Number(this.el.levelWhite.value);
+    const gamma = Number(this.el.levelGamma.value);
+    this.applyPixelsToActive("Levels", (pixels) => applyLevels(pixels, { black, white, gamma }));
   }
 
   openNewDialog() {
@@ -1337,8 +1938,8 @@ export class PaletteEditor {
 
   createNewDocument() {
     if (!this.confirmDiscard("create a new document")) return;
-    const requestedWidth = cleanDimension(this.el.newWidth.value, 1280);
-    const requestedHeight = cleanDimension(this.el.newHeight.value, 800);
+    const requestedWidth = requestedDimension(this.el.newWidth.value, 1280);
+    const requestedHeight = requestedDimension(this.el.newHeight.value, 800);
     const { width, height } = boundedDimensions(requestedWidth, requestedHeight);
     const name = cleanDocumentName(this.el.newName.value);
     const selected = this.root.querySelector('input[name="new-background"]:checked')?.value ?? "white";
@@ -1364,27 +1965,38 @@ export class PaletteEditor {
     this.el.exportName.value = this.doc.name;
     this.el.exportFormat.value = "png";
     this.el.exportQuality.value = "92";
+    this.el.exportScale.value = "1";
     this.syncExportFormat();
     this.el.exportDialog.showModal();
   }
 
   syncExportFormat() {
     const format = exportFormat(this.el.exportFormat.value);
+    const scale = normalizeExportScale(this.el.exportScale.value);
+    const output = exportDimensions(this.doc.width, this.doc.height, scale);
+    const percent = Math.round((output.width / this.doc.width) * 100);
     this.el.exportQualityRow.hidden = !format.quality;
     this.el.exportQualityValue.textContent = this.el.exportQuality.value;
-    this.el.exportSize.textContent = `${this.doc.width} × ${this.doc.height} pixels, ${
-      format.mime === "image/jpeg" ? "white background" : "transparent background"
-    }.`;
+    const limit = percent < Math.round(scale * 100) ? " (capped to the pixel budget)" : "";
+    this.el.exportSize.textContent = `${output.width} × ${output.height} pixels (${percent}% of ${
+      this.doc.width
+    } × ${this.doc.height}${limit}), ${format.mime === "image/jpeg" ? "white background" : "transparent background"}.`;
   }
 
   async exportImage() {
     const format = exportFormat(this.el.exportFormat.value);
     const quality = format.quality ? normalizeQuality(Number(this.el.exportQuality.value) / 100) : undefined;
+    const scale = normalizeExportScale(this.el.exportScale.value);
     const name = this.el.exportName.value.trim() || this.doc.name;
     this.el.exportDialog.close();
     this.announce("Exporting image…");
     try {
-      const canvas = compositeDocument(this.doc, { background: format.mime === "image/jpeg" ? "#ffffff" : null });
+      const base = compositeDocument(this.doc, { background: format.mime === "image/jpeg" ? "#ffffff" : null });
+      const output = exportDimensions(this.doc.width, this.doc.height, scale);
+      const canvas =
+        output.width === this.doc.width && output.height === this.doc.height
+          ? base
+          : scaleCanvas(base, output.width, output.height);
       const blob = await canvasToBlob(canvas, format.mime, quality);
       downloadBlob(blob, downloadName(name, this.el.exportFormat.value));
       this.announce(`Exported ${format.label} (${formatBytes(blob.size)}).`);
@@ -1406,6 +2018,45 @@ export class PaletteEditor {
       this.announce(`Saved ${name} (${formatBytes(blob.size)}).`);
     } catch (error) {
       this.announce(error.message || "The project could not be saved.", { error: true });
+    }
+  }
+
+  async addImageLayer(file) {
+    if (!file) return;
+    if (!String(file.type).startsWith("image/")) {
+      this.announce("That file is not an image.", { error: true });
+      this.el.fileLayer.value = "";
+      return;
+    }
+    const target = this.doc;
+    if (!target) return;
+    this.finishText();
+    this.announce("Placing image…");
+    let url = "";
+    try {
+      url = URL.createObjectURL(file);
+      const image = await loadImage(url);
+      if (this.doc !== target) {
+        this.announce("The document changed while the image loaded. Try again.");
+        return;
+      }
+      const rect = containRect(image.naturalWidth, image.naturalHeight, target.width, target.height);
+      const canvas = createCanvas(target.width, target.height);
+      const context = context2d(canvas);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
+      context.drawImage(image, rect.x, rect.y, rect.w, rect.h);
+      const before = this.doc;
+      const layer = createLayer({ name: fileBaseName(file.name), canvas });
+      const at = indexOfLayer(this.doc, this.doc.activeLayerId) + 1;
+      this.doc = addLayer(this.doc, layer, at);
+      this.commit(before, "Place image layer");
+      this.announce(`Placed ${file.name} as ${layer.name}.`);
+    } catch (error) {
+      this.announce(error.message || "That image could not be placed.", { error: true });
+    } finally {
+      if (url) URL.revokeObjectURL(url);
+      this.el.fileLayer.value = "";
     }
   }
 
@@ -1482,9 +2133,91 @@ export class PaletteEditor {
     this.el.resizeDialog.showModal();
   }
 
+  openCanvasDialog() {
+    if (this.isDialogOpen()) return;
+    this.finishText();
+    this.el.canvasWidth.value = String(this.doc.width);
+    this.el.canvasHeight.value = String(this.doc.height);
+    const center = this.root.querySelector('input[name="canvas-anchor"][value="center"]');
+    if (center) center.checked = true;
+    this.el.canvasDialog.showModal();
+  }
+
+  openTransformDialog() {
+    if (this.isDialogOpen()) return;
+    this.finishText();
+    if (!this.requireActiveLayer()) return;
+    this.el.transformScaleX.value = "100";
+    this.el.transformScaleY.value = "100";
+    this.el.transformRotation.value = "0";
+    this.el.transformRotationValue.textContent = "0";
+    this.el.transformFlipH.checked = false;
+    this.el.transformFlipV.checked = false;
+    this.el.transformDialog.showModal();
+  }
+
+  applyLayerTransform() {
+    const layer = this.requireActiveLayer();
+    if (!layer) return;
+    const scaleX = clamp(Number(this.el.transformScaleX.value) / 100, 0.01, 10);
+    const scaleY = clamp(Number(this.el.transformScaleY.value) / 100, 0.01, 10);
+    const rotation = clamp(Number(this.el.transformRotation.value), -180, 180);
+    const flipH = this.el.transformFlipH.checked;
+    const flipV = this.el.transformFlipV.checked;
+    this.el.transformDialog.close();
+    if (scaleX === 1 && scaleY === 1 && rotation === 0 && !flipH && !flipV) return;
+    const bounds = findContentBounds(getPixels(layer.canvas), 8);
+    if (!bounds) {
+      this.announce("This layer has no visible pixels to transform.", { error: true });
+      return;
+    }
+    const before = this.doc;
+    const output = createCanvas(this.doc.width, this.doc.height);
+    const context = context2d(output);
+    const centerX = bounds.x + bounds.w / 2;
+    const centerY = bounds.y + bounds.h / 2;
+    context.save();
+    context.translate(centerX, centerY);
+    context.rotate((rotation * Math.PI) / 180);
+    context.scale(scaleX * (flipH ? -1 : 1), scaleY * (flipV ? -1 : 1));
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(layer.canvas, -centerX, -centerY);
+    context.restore();
+    this.doc = updateLayer(this.doc, layer.id, { canvas: output });
+    this.selection = null;
+    this.commit(before, "Transform layer");
+    this.announce("Layer transformed.");
+  }
+
+  applyCanvasSize() {
+    const requestedWidth = requestedDimension(this.el.canvasWidth.value, this.doc.width);
+    const requestedHeight = requestedDimension(this.el.canvasHeight.value, this.doc.height);
+    const { width, height } = boundedDimensions(requestedWidth, requestedHeight);
+    this.el.canvasDialog.close();
+    if (width === this.doc.width && height === this.doc.height) return;
+    const anchor = this.root.querySelector('input[name="canvas-anchor"]:checked')?.value ?? "center";
+    const offset = anchorOffset(this.doc.width, this.doc.height, width, height, anchor);
+    const before = this.doc;
+    const layers = this.doc.layers.map((layer) =>
+      createLayer({ ...layer, canvas: placeCanvas(layer.canvas, width, height, offset.x, offset.y) }),
+    );
+    this.doc = { ...resizeDocument(this.doc, width, height), layers };
+    this.selection = null;
+    this.commit(before, "Canvas size");
+    this.fitView();
+    const limited = width !== requestedWidth || height !== requestedHeight;
+    this.announce(
+      limited
+        ? `Canvas size set to ${width} × ${height} (capped to keep the editor responsive).`
+        : `Canvas size set to ${width} × ${height}.`,
+    );
+  }
+
   applyResize() {
-    const width = cleanDimension(this.el.resizeWidth.value, this.doc.width);
-    const height = cleanDimension(this.el.resizeHeight.value, this.doc.height);
+    const requestedWidth = requestedDimension(this.el.resizeWidth.value, this.doc.width);
+    const requestedHeight = requestedDimension(this.el.resizeHeight.value, this.doc.height);
+    const { width, height } = boundedDimensions(requestedWidth, requestedHeight);
     this.el.resizeDialog.close();
     if (width === this.doc.width && height === this.doc.height) return;
     const before = this.doc;
@@ -1492,14 +2225,21 @@ export class PaletteEditor {
       createLayer({ ...layer, canvas: scaleCanvas(layer.canvas, width, height) }),
     );
     this.doc = { ...resizeDocument(this.doc, width, height), layers };
+    this.selection = null;
     this.commit(before, "Resize image");
     this.fitView();
-    this.announce(`Resized to ${width} × ${height}.`);
+    const limited = width !== requestedWidth || height !== requestedHeight;
+    this.announce(
+      limited
+        ? `Resized to ${width} × ${height} (capped to keep the editor responsive).`
+        : `Resized to ${width} × ${height}.`,
+    );
   }
 
   flipDocument(axis) {
     if (!this.doc) return;
     this.finishText();
+    this.selection = null;
     const before = this.doc;
     const layers = this.doc.layers.map((layer) =>
       createLayer({ ...layer, canvas: flipCanvas(layer.canvas, axis) }),
@@ -1511,6 +2251,7 @@ export class PaletteEditor {
   rotateDocument() {
     if (!this.doc) return;
     this.finishText();
+    this.selection = null;
     const before = this.doc;
     const layers = this.doc.layers.map((layer) =>
       createLayer({ ...layer, canvas: rotateCanvas(layer.canvas) }),
@@ -1520,6 +2261,21 @@ export class PaletteEditor {
     this.fitView();
   }
 
+  flattenImage() {
+    if (!this.doc) return;
+    this.finishText();
+    const visible = this.doc.layers.some((layer) => layer.visible);
+    if (!visible) {
+      this.announce("Show at least one layer before flattening.", { error: true });
+      return;
+    }
+    const before = this.doc;
+    const layer = createLayer({ name: "Flattened", canvas: compositeDocument(this.doc) });
+    this.doc = { ...this.doc, layers: [layer], activeLayerId: layer.id };
+    this.commit(before, "Flatten image");
+    this.announce("Flattened all visible layers into one.");
+  }
+
   setDocumentName(value) {
     if (!this.doc) return;
     const name = cleanDocumentName(value, this.doc.name);
@@ -1527,6 +2283,147 @@ export class PaletteEditor {
     if (name === this.doc.name) return;
     this.doc = { ...this.doc, name };
     this.announce("Document renamed.");
+    this.scheduleAutosave();
+  }
+
+  setAutosaveStatus(text, tone = "muted") {
+    const node = this.el.statusAutosave;
+    if (!node) return;
+    node.textContent = text;
+    node.dataset.tone = tone;
+    node.title = text;
+  }
+
+  async initAutosave() {
+    if (!autosaveAvailable()) {
+      this.autosaveArmed = true;
+      this.setAutosaveStatus("Autosave unavailable", "muted");
+      return;
+    }
+    this.setAutosaveStatus("Checking autosave…", "muted");
+    try {
+      const record = validateSessionRecord(await readAutosave());
+      if (!record) {
+        this.autosaveArmed = true;
+        this.setAutosaveStatus("Autosave ready", "muted");
+        return;
+      }
+      this.pendingRestore = record;
+      const saved = formatSavedAt(record.savedAt);
+      this.el.restoreSummary.textContent = saved
+        ? `A local autosave of "${record.name}" from ${saved} is available.`
+        : `A local autosave of "${record.name}" is available.`;
+      this.el.restoreDialog.showModal();
+    } catch {
+      this.autosaveArmed = true;
+      this.setAutosaveStatus("Autosave unavailable", "error");
+    }
+  }
+
+  scheduleAutosave(delay = 800) {
+    if (!this.autosaveArmed || !this.autosaveHasContent || !this.doc || this.action) return;
+    clearTimeout(this.autosaveTimer);
+    this.autosaveTimer = setTimeout(() => this.runAutosave(), Math.max(0, delay));
+  }
+
+  async runAutosave() {
+    if (!this.autosaveArmed || !this.autosaveHasContent || !this.doc || this.action) return;
+    if (this.autosaveInFlight) {
+      this.autosavePending = true;
+      return;
+    }
+    this.autosaveInFlight = true;
+    const snapshot = this.doc;
+    try {
+      this.setAutosaveStatus("Saving locally…", "muted");
+      const record = await captureSession(snapshot);
+      await writeAutosave(record);
+      if (this.doc === snapshot) {
+        this.setAutosaveStatus(`Saved locally ${formatSavedAt(record.savedAt)}`, "ok");
+      }
+    } catch (error) {
+      const full = error?.name === "QuotaExceededError";
+      this.setAutosaveStatus(full ? "Local save: storage full" : "Local save failed", "error");
+    } finally {
+      this.autosaveInFlight = false;
+      if (this.autosavePending) {
+        this.autosavePending = false;
+        this.scheduleAutosave(0);
+      }
+    }
+  }
+
+  async restoreSession(record) {
+    if (!record) return;
+    this.restoreResolved = true;
+    this.pendingRestore = null;
+    if (this.el.restoreDialog.open) this.el.restoreDialog.close();
+    this.announce("Restoring your last local session…");
+    try {
+      const layers = [];
+      for (const entry of record.layers) {
+        const url = URL.createObjectURL(entry.image);
+        try {
+          const image = await loadImage(url);
+          const canvas = createCanvas(record.width, record.height);
+          context2d(canvas).drawImage(image, 0, 0);
+          layers.push(
+            createLayer({
+              id: entry.id,
+              name: entry.name,
+              visible: entry.visible,
+              opacity: entry.opacity,
+              blendMode: entry.blendMode,
+              locked: entry.locked,
+              adjustments: entry.adjustments,
+              canvas,
+            }),
+          );
+        } finally {
+          URL.revokeObjectURL(url);
+        }
+      }
+      const doc = createDocument({
+        width: record.width,
+        height: record.height,
+        name: record.name,
+        layers,
+        activeLayerId: record.activeLayerId,
+      });
+      this.autosaveArmed = true;
+      this.autosaveHasContent = true;
+      this.setDocument(doc, {
+        reset: true,
+        fit: true,
+        autosave: false,
+        status: "Restored your last local session.",
+      });
+      this.setAutosaveStatus("Saved locally", "ok");
+      this.scheduleAutosave(0);
+    } catch (error) {
+      this.autosaveArmed = true;
+      this.setAutosaveStatus("Autosave restore failed", "error");
+      this.announce(error.message || "The local autosave could not be restored.", { error: true });
+      clearAutosave().catch(() => {});
+    }
+  }
+
+  discardAutosave() {
+    this.restoreResolved = true;
+    this.pendingRestore = null;
+    if (this.el.restoreDialog.open) this.el.restoreDialog.close();
+    this.autosaveArmed = true;
+    this.setAutosaveStatus("Autosave ready", "muted");
+    clearAutosave().catch(() => {});
+    this.announce("Started fresh; the previous autosave was discarded.");
+  }
+
+  handleRestoreClose() {
+    if (this.restoreResolved) return;
+    this.restoreResolved = true;
+    this.pendingRestore = null;
+    this.autosaveArmed = true;
+    this.setAutosaveStatus("Autosave ready", "muted");
   }
 
   adjustBrushSize(delta) {
@@ -1587,6 +2484,9 @@ export class PaletteEditor {
       } else if (this.action) {
         event.preventDefault();
         this.cancelAction();
+      } else if (this.selection) {
+        event.preventDefault();
+        this.deselect();
       }
       return;
     }
@@ -1617,7 +2517,31 @@ export class PaletteEditor {
       } else if (key === "e") {
         event.preventDefault();
         this.openExportDialog();
+      } else if (key === "a") {
+        event.preventDefault();
+        this.selectAll();
+      } else if (key === "d") {
+        event.preventDefault();
+        this.deselect();
+      } else if (key === "c") {
+        event.preventDefault();
+        this.copySelection();
+      } else if (key === "x") {
+        event.preventDefault();
+        this.cutSelection();
+      } else if (key === "v" && this.clipboard) {
+        event.preventDefault();
+        this.pasteClipboard();
+      } else if (key === "j") {
+        event.preventDefault();
+        if (event.shiftKey) this.layerViaCut();
+        else this.layerViaCopy();
       }
+      return;
+    }
+    if (event.shiftKey && event.key.toLowerCase() === "i" && !event.altKey) {
+      event.preventDefault();
+      this.invertSelection();
       return;
     }
     const shortcuts = {
@@ -1625,10 +2549,12 @@ export class PaletteEditor {
       b: "brush",
       e: "eraser",
       c: "crop",
+      m: "marquee",
       t: "text",
       r: "rect",
       o: "ellipse",
       l: "line",
+      g: "gradient",
       i: "eyedropper",
       h: "hand",
       z: "zoom",
@@ -1657,6 +2583,11 @@ export class PaletteEditor {
     if (event.key === "Enter" && this.tool === "crop" && this.cropRect) {
       event.preventDefault();
       this.applyCrop();
+      return;
+    }
+    if ((event.key === "Delete" || event.key === "Backspace") && this.selection) {
+      event.preventDefault();
+      this.clearSelectedPixels();
       return;
     }
     if (event.key.startsWith("Arrow") && this.tool === "move") {
@@ -1737,21 +2668,37 @@ export class PaletteEditor {
     this.el.btnFit.addEventListener("click", () => this.fitView());
     this.el.btnActual.addEventListener("click", () => this.actualSize());
     this.el.btnLayerAdd.addEventListener("click", () => this.addNewLayer());
+    this.el.btnLayerImage.addEventListener("click", () => this.el.fileLayer.click());
     this.el.btnLayerDuplicate.addEventListener("click", () => this.duplicateActiveLayer());
+    this.el.btnLayerMerge.addEventListener("click", () => this.mergeActiveLayerDown());
+    this.el.btnLayerLock.addEventListener("click", () => this.toggleLayerLock());
     this.el.btnLayerDelete.addEventListener("click", () => this.deleteActiveLayer());
     this.el.btnLayerUp.addEventListener("click", () => this.reorderActiveLayer(1));
     this.el.btnLayerDown.addEventListener("click", () => this.reorderActiveLayer(-1));
+    this.el.layerBlend.addEventListener("change", () => {
+      const layer = activeLayer(this.doc);
+      if (!layer) return;
+      this.finishText();
+      const before = this.doc;
+      this.doc = updateLayer(this.doc, layer.id, { blendMode: this.el.layerBlend.value });
+      this.commit(before, "Layer blend mode");
+    });
     this.el.btnResize.addEventListener("click", () => this.openResizeDialog());
+    this.el.btnCanvasSize.addEventListener("click", () => this.openCanvasDialog());
+    this.el.btnTransform.addEventListener("click", () => this.openTransformDialog());
     this.el.btnFlipH.addEventListener("click", () => this.flipDocument("horizontal"));
     this.el.btnFlipV.addEventListener("click", () => this.flipDocument("vertical"));
     this.el.btnRotate.addEventListener("click", () => this.rotateDocument());
+    this.el.btnFlatten.addEventListener("click", () => this.flattenImage());
     this.el.adjustReset.addEventListener("click", () => this.resetAdjustments());
+    this.el.btnAutoLevels.addEventListener("click", () => this.autoLevels());
     this.el.cropApply.addEventListener("click", () => this.applyCrop());
     this.el.cropCancel.addEventListener("click", () => this.cancelCrop());
     this.el.btnFilterBlur.addEventListener("click", () => this.applyBlurFilter());
     this.el.btnFilterPixelate.addEventListener("click", () => this.applyPixelateFilter());
     this.el.btnFilterSharpen.addEventListener("click", () => this.applySharpenFilter());
     this.el.btnFilterVignette.addEventListener("click", () => this.applyVignetteFilter());
+    this.el.btnFilterLevels.addEventListener("click", () => this.applyLevelsFilter());
 
     this.el.colorInput.addEventListener("input", () => this.setColor(this.el.colorInput.value));
     this.el.brushSize.addEventListener("input", () => {
@@ -1794,6 +2741,40 @@ export class PaletteEditor {
       this.options.shape.outlineColor = normalizeHex(this.el.shapeOutlineColor.value, "#e9eefb");
       this.el.shapeOutlineHex.textContent = this.options.shape.outlineColor;
     });
+    this.el.gradientType.addEventListener("change", () => {
+      this.options.gradient.type = this.el.gradientType.value;
+      this.scheduleOverlay();
+    });
+    this.el.gradientEnd.addEventListener("input", () => {
+      this.options.gradient.to = normalizeHex(this.el.gradientEnd.value, "#a78bfa");
+      this.el.gradientEndHex.textContent = this.options.gradient.to;
+      this.scheduleOverlay();
+    });
+    this.el.gradientFade.addEventListener("change", () => {
+      this.options.gradient.fade = this.el.gradientFade.checked;
+      this.scheduleOverlay();
+    });
+    this.el.gradientOpacity.addEventListener("input", () => {
+      this.options.gradient.opacity = Number(this.el.gradientOpacity.value) / 100;
+      this.el.gradientOpacityValue.textContent = this.el.gradientOpacity.value;
+      this.scheduleOverlay();
+    });
+    this.el.marqueeShape.addEventListener("change", () => {
+      this.options.marquee.kind = this.el.marqueeShape.value === "ellipse" ? "ellipse" : "rect";
+      this.scheduleOverlay();
+    });
+    this.el.cropAspect.addEventListener("change", () => {
+      this.options.crop.aspect = this.el.cropAspect.value;
+    });
+    this.el.btnSelectAll.addEventListener("click", () => this.selectAll());
+    this.el.btnDeselect.addEventListener("click", () => this.deselect());
+    this.el.btnInvertSelection.addEventListener("click", () => this.invertSelection());
+    this.el.btnCropSelection.addEventListener("click", () => this.cropToSelection());
+    this.el.btnCopy.addEventListener("click", () => this.copySelection());
+    this.el.btnCut.addEventListener("click", () => this.cutSelection());
+    this.el.btnPaste.addEventListener("click", () => this.pasteClipboard());
+    this.el.btnLayerViaCopy.addEventListener("click", () => this.layerViaCopy());
+    this.el.btnLayerViaCut.addEventListener("click", () => this.layerViaCut());
     this.el.textFont.addEventListener("change", () => {
       this.options.text.family = this.el.textFont.value;
       this.scheduleRender();
@@ -1856,6 +2837,15 @@ export class PaletteEditor {
     this.el.filterPixelSize.addEventListener("input", () => {
       this.el.filterPixelValue.textContent = this.el.filterPixelSize.value;
     });
+    this.el.levelBlack.addEventListener("input", () => {
+      this.el.levelBlackValue.textContent = this.el.levelBlack.value;
+    });
+    this.el.levelWhite.addEventListener("input", () => {
+      this.el.levelWhiteValue.textContent = this.el.levelWhite.value;
+    });
+    this.el.levelGamma.addEventListener("input", () => {
+      this.el.levelGammaValue.textContent = Number(this.el.levelGamma.value).toFixed(1);
+    });
 
     this.el.docName.addEventListener("change", () => this.setDocumentName(this.el.docName.value));
     this.el.docName.addEventListener("keydown", (event) => {
@@ -1867,6 +2857,10 @@ export class PaletteEditor {
     this.el.fileImage.addEventListener("change", (event) => {
       const file = event.target.files?.[0];
       if (file) this.openImageFile(file);
+    });
+    this.el.fileLayer.addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (file) this.addImageLayer(file);
     });
     this.el.fileProject.addEventListener("change", (event) => {
       const file = event.target.files?.[0];
@@ -1882,6 +2876,7 @@ export class PaletteEditor {
       if (radio) radio.checked = true;
     });
     this.el.exportFormat.addEventListener("change", () => this.syncExportFormat());
+    this.el.exportScale.addEventListener("change", () => this.syncExportFormat());
     this.el.exportQuality.addEventListener("input", () => {
       this.el.exportQualityValue.textContent = this.el.exportQuality.value;
     });
@@ -1892,6 +2887,17 @@ export class PaletteEditor {
     this.el.resizeForm.addEventListener("submit", (event) => {
       event.preventDefault();
       this.applyResize();
+    });
+    this.el.canvasForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.applyCanvasSize();
+    });
+    this.el.transformForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.applyLayerTransform();
+    });
+    this.el.transformRotation.addEventListener("input", () => {
+      this.el.transformRotationValue.textContent = this.el.transformRotation.value;
     });
     this.el.resizeWidth.addEventListener("input", () => {
       if (!this.el.resizeLock.checked || !this.resizeAspect) return;
@@ -1906,6 +2912,19 @@ export class PaletteEditor {
     for (const button of this.root.querySelectorAll("[data-close]")) {
       button.addEventListener("click", () => button.closest("dialog")?.close());
     }
+    this.el.restoreConfirm.addEventListener("click", () => this.restoreSession(this.pendingRestore));
+    this.el.restoreDiscard.addEventListener("click", () => this.discardAutosave());
+    this.el.restoreDialog.addEventListener("close", () => this.handleRestoreClose());
+    const flushAutosave = () => {
+      if (this.autosaveArmed && this.autosaveHasContent && !this.autosaveInFlight && this.doc) {
+        clearTimeout(this.autosaveTimer);
+        this.runAutosave();
+      }
+    };
+    window.addEventListener("pagehide", flushAutosave);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") flushAutosave();
+    });
 
     this.el.stage.addEventListener("pointerdown", (event) => this.onPointerDown(event));
     this.el.stage.addEventListener("pointermove", (event) => this.onPointerMove(event));
