@@ -30,18 +30,18 @@
       "description": "A zero-dependency thread-routing puzzle: connect matching spools, fill every cell of the loom, and restore the tapestry across eighteen chambers.",
       "available": true,
       "mode": "browser",
-      "path": "live/weft/fdc00280760e/index.html",
+      "path": "live/weft/3054f2794206/index.html",
       "source_url": "https://github.com/AegeanWorks/Weft",
       "version": "0.5.0",
-      "commit": "fdc00280760ebfde8ee6cf58138e511e21726e63",
+      "commit": "3054f27942069f523b77c432bab8fbe0ed70e9c6",
       "updated": "2026-10-30",
       "license": "AGL-1.1",
       "license_path": "live/weft/LICENSE",
       "digest": "sha256:ce5b9b00d9f780893a6f67e5dce989a5f037b00abd20bfcef4d030d466338324",
       "builds": [
+        "live/weft/3054f2794206/index.html",
         "live/weft/fdc00280760e/index.html",
-        "live/weft/964c8e59be75/index.html",
-        "live/weft/f93d4f8c96fb/index.html"
+        "live/weft/964c8e59be75/index.html"
       ],
       "logo": "live/weft/logo.webp",
       "dossier": ""
@@ -53,15 +53,16 @@
       "description": "A neon color-mixing puzzle: route red, green and blue beams through rotating mirrors and dye cells, blend exact hues, and light every receiver across three episodes.",
       "available": true,
       "mode": "browser",
-      "path": "live/iris/b1255ec3ea30/index.html",
+      "path": "live/iris/65c26d1e9b83/index.html",
       "source_url": "https://github.com/AegeanWorks/Iris",
       "version": "0.1.0",
-      "commit": "b1255ec3ea30112834a02e57f52ea40131c78079",
+      "commit": "65c26d1e9b839880c63c93c1c5d14404e2c4b380",
       "updated": "2026-10-30",
       "license": "AGL-1.1",
       "license_path": "live/iris/LICENSE",
       "digest": "sha256:f1f205937598d82552c661cf4941b159577d8ac531453e4aa69dbeac76a4cc2b",
       "builds": [
+        "live/iris/65c26d1e9b83/index.html",
         "live/iris/b1255ec3ea30/index.html",
         "live/iris/fa020321803d/index.html"
       ],
