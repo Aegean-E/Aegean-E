@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">ModelDuck logo</title>
+  <desc id="desc">The ModelDuck duck: a friendly yellow duck on a deep navy badge, the same mark the app uses; AegeanWorks identity.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101a2e"/>
+      <stop offset="1" stop-color="#070b13"/>
+    </linearGradient>
+    <linearGradient id="duck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#f7c63d"/>
+    </linearGradient>
+    <linearGradient id="beak" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb52e"/>
+      <stop offset="1" stop-color="#f08a12"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <clipPath id="badge">
+      <rect width="512" height="512" rx="116"/>
+    </clipPath>
+  </defs>
+
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <g clip-path="url(#badge)">
+    <circle cx="404" cy="92" r="118" fill="#ffd447" opacity=".07"/>
+    <circle cx="96" cy="430" r="140" fill="#5eead4" opacity=".05"/>
+  </g>
+
+  <ellipse cx="256" cy="430" rx="154" ry="26" fill="#000" opacity=".28" filter="url(#soft)"/>
+
+  <path d="M149 329c0-72 48-121 111-121 64 0 111 49 111 121v13c0 43-49 73-111 73s-111-30-111-73z" fill="url(#duck)"/>
+  <path d="M158 344c18 31 55 49 99 49 43 0 80-18 99-49 4 50-42 78-99 78s-103-28-99-78z" fill="#eeb92f" opacity=".55"/>
+
+  <path d="M170 305c-31 6-53 28-56 59 22 15 55 10 74-10 13-14 17-34 9-49z" fill="#eeb92f" opacity=".9"/>
+  <path d="M176 314c-20 8-34 24-38 43 16 5 34-1 45-14 8-10 8-21 3-29z" fill="#f7d45c" opacity=".7"/>
+
+  <path d="M245 109c-14-21 2-41 25-35 0 10 8 15 16 10 5 23-19 38-41 25z" fill="#f7c63d"/>
+
+  <circle cx="269" cy="198" r="96" fill="url(#duck)"/>
+  <circle cx="269" cy="198" r="96" fill="none" stroke="#e7b52c" stroke-opacity=".35" stroke-width="4"/>
+
+  <path d="M346 193c44-10 81 6 85 28 4 21-27 39-69 33-14-2-24-11-26-23-2-16-1-28 10-38z" fill="url(#beak)"/>
+  <path d="M352 222c27 8 56 8 77 2-9 12-31 20-53 18-14-2-23-9-24-20z" fill="#dc7b0b"/>
+  <path d="M346 193c20-4 40-3 57 3-21 2-41 8-57 17z" fill="#ffd08a" opacity=".55"/>
+
+  <circle cx="307" cy="171" r="13" fill="#0b1220"/>
+  <circle cx="311" cy="166" r="4.5" fill="#fffdf6"/>
+  <circle cx="329" cy="220" r="13" fill="#ff9f1c" opacity=".3"/>
+
+  <path d="M207 286c34 20 89 20 124 0" fill="none" stroke="#0b1220" stroke-opacity=".12" stroke-width="12" stroke-linecap="round"/>
+
+  <g fill="#ffe9a3">
+    <path d="M105 150l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" opacity=".95"/>
+    <path d="M399 326l4 11 11 4-11 4-4 11-4-11-11-4 11-4z" opacity=".75"/>
+    <circle cx="389" cy="121" r="5" opacity=".55"/>
+  </g>
+</svg>

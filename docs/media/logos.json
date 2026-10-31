@@ -31,6 +31,11 @@
       "width": 256,
       "height": 256
     },
+    "Cairn": {
+      "src": "media/Cairn/logo.svg",
+      "width": 512,
+      "height": 512
+    },
     "Chronos": {
       "src": "media/Chronos/logo.webp",
       "width": 256,
@@ -43,6 +48,21 @@
     },
     "Cyberpulse": {
       "src": "media/Cyberpulse/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Driftwood": {
+      "src": "media/Driftwood/logo.svg",
+      "width": 512,
+      "height": 512
+    },
+    "Dupefinder": {
+      "src": "media/Dupefinder/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Dustline": {
+      "src": "media/Dustline/logo.webp",
       "width": 256,
       "height": 256
     },
@@ -60,6 +80,11 @@
       "src": "media/Gauge/logo.webp",
       "width": 256,
       "height": 256
+    },
+    "Iris": {
+      "src": "media/Iris/logo.svg",
+      "width": 512,
+      "height": 512
     },
     "Lacon": {
       "src": "media/Lacon/logo.webp",
@@ -85,6 +110,11 @@
       "src": "media/Mnemo/logo.webp",
       "width": 256,
       "height": 256
+    },
+    "Modelduck": {
+      "src": "media/Modelduck/logo.svg",
+      "width": 512,
+      "height": 512
     },
     "Muse": {
       "src": "media/Muse/logo.webp",
@@ -156,6 +186,11 @@
       "width": 256,
       "height": 256
     },
+    "Pocket-Planner": {
+      "src": "media/Pocket-Planner/logo.svg",
+      "width": 512,
+      "height": 512
+    },
     "Primordia": {
       "src": "media/Primordia/logo.webp",
       "width": 256,
@@ -181,6 +216,11 @@
       "width": 256,
       "height": 256
     },
+    "Tessera": {
+      "src": "media/Tessera/logo.svg",
+      "width": 1024,
+      "height": 1024
+    },
     "UI-Sandbox": {
       "src": "media/UI-Sandbox/logo.webp",
       "width": 256,
@@ -191,50 +231,10 @@
       "width": 256,
       "height": 256
     },
-    "Cairn": {
-      "src": "media/Cairn/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Driftwood": {
-      "src": "media/Driftwood/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Dupefinder": {
-      "src": "media/Dupefinder/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Dustline": {
-      "src": "media/Dustline/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Iris": {
-      "src": "media/Iris/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Modelduck": {
-      "src": "media/Modelduck/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Pocket-Planner": {
-      "src": "media/Pocket-Planner/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Tessera": {
-      "src": "media/Tessera/logo.webp",
-      "width": 256,
-      "height": 256
-    },
     "Weft": {
-      "src": "media/Weft/logo.webp",
-      "width": 256,
-      "height": 256
+      "src": "media/Weft/logo.svg",
+      "width": 512,
+      "height": 512
     }
   }
 }

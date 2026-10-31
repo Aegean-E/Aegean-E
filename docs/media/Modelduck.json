@@ -2,24 +2,37 @@
   "schema": 2,
   "repo": "Modelduck",
   "logo": {
-    "src": "media/Modelduck/logo.webp",
+    "src": "media/Modelduck/logo.svg",
     "alt": "Modelduck logo",
-    "width": 256,
-    "height": 256,
-    "digest": "sha256:6bd91c3d34da939bf933a95eeed64d5139c8911bb5c713f84d03be95b97db9c6",
-    "commit": "5396c3077edb50f03ac34d8e7a24c5beea330bc2",
+    "width": 512,
+    "height": 512,
+    "digest": "sha256:de74f5bd2344a2bd7fb06894ea3bd95567b30f8418b8239006c384f4c80b881d",
+    "commit": "274800844a2155a2531be9a64e1de4a70cca2c41",
     "taken_at": "2026-10-31",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Modelduck/5396c3077edb50f03ac34d8e7a24c5beea330bc2/assets/logo.svg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Modelduck/274800844a2155a2531be9a64e1de4a70cca2c41/assets/logo.svg"
   },
   "preview": {
-    "src": "media/Modelduck/social-preview.webp",
+    "src": "media/Modelduck/social-preview.svg",
     "alt": "Modelduck social preview",
-    "width": 1200,
-    "height": 600,
-    "digest": "sha256:828dfee55b2941d9c1e95677b0c03bbc44e9938a934a049a44fcee99bf480e7e",
-    "commit": "5396c3077edb50f03ac34d8e7a24c5beea330bc2",
+    "width": 1280,
+    "height": 640,
+    "digest": "sha256:6da16f4fddd0abe4aaa01633d91c85042b61fef5dba569b1aa4e0822e509578f",
+    "commit": "274800844a2155a2531be9a64e1de4a70cca2c41",
     "taken_at": "2026-10-31",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Modelduck/5396c3077edb50f03ac34d8e7a24c5beea330bc2/assets/social-preview.svg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Modelduck/274800844a2155a2531be9a64e1de4a70cca2c41/assets/social-preview.svg"
   },
-  "screenshots": []
+  "screenshots": [
+    {
+      "src": "media/Modelduck/2026-10-31-home.webp",
+      "alt": "Modelduck screenshot",
+      "caption": "Modelduck — 2026 10 31 Home",
+      "commit": "274800844a2155a2531be9a64e1de4a70cca2c41",
+      "taken_at": "2026-10-31",
+      "viewport": "",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:a7963978315e87e96e73204305529da6c4343c42b639b851f03f399efd1c2b8c",
+      "source": "Modelduck:assets/screenshots/2026-10-31-home.png"
+    }
+  ]
 }

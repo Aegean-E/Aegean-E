@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Tessera social preview</title>
+  <desc id="desc">Tessera, a seamless pattern studio: compose geometric tiles in the browser and export crisp SVG.</desc>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1120"/>
+      <stop offset="0.55" stop-color="#05070d"/>
+      <stop offset="1" stop-color="#080b16"/>
+    </linearGradient>
+    <radialGradient id="washCyan" cx="0.12" cy="0.08" r="0.62">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="washViolet" cx="0.86" cy="0.1" r="0.55">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="washPink" cx="0.62" cy="1" r="0.6">
+      <stop offset="0" stop-color="#f472b6" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#f472b6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="weave" width="96" height="96" patternUnits="userSpaceOnUse">
+      <path d="M0 24C12 16 24 32 36 24C48 16 60 32 72 24C84 16 96 32 108 24" fill="none" stroke="#22d3ee" stroke-opacity="0.16" stroke-width="2"/>
+      <path d="M0 56C12 48 24 64 36 56C48 48 60 64 72 56C84 48 96 64 108 56" fill="none" stroke="#a78bfa" stroke-opacity="0.16" stroke-width="2"/>
+      <path d="M0 88C12 80 24 96 36 88C48 80 60 96 72 88C84 80 96 96 108 88" fill="none" stroke="#f472b6" stroke-opacity="0.12" stroke-width="2"/>
+    </pattern>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#67e8f9"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <clipPath id="panelClip">
+      <rect width="316" height="376" rx="26"/>
+    </clipPath>
+  </defs>
+  <rect width="1280" height="640" fill="url(#field)"/>
+  <rect width="1280" height="640" fill="url(#weave)"/>
+  <rect width="1280" height="640" fill="url(#washCyan)"/>
+  <rect width="1280" height="640" fill="url(#washViolet)"/>
+  <rect width="1280" height="640" fill="url(#washPink)"/>
+  <g transform="translate(96 84)">
+    <path d="M0 0H38V38H0Z" fill="url(#accent)"/>
+    <path d="M46 0H84V38H46Z" fill="#a78bfa"/>
+    <path d="M92 0H130V38H92Z" fill="#f472b6"/>
+    <path d="M138 0H176V38H138Z" fill="#e6edf7"/>
+    <text x="200" y="28" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="8" fill="#e6edf7">TESSERA</text>
+  </g>
+  <text x="96" y="268" font-family="Segoe UI, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-1.5" fill="#e6edf7">A tile that never ends.</text>
+  <text x="96" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#b6c4d8">Compose seamless geometric patterns in the browser,</text>
+  <text x="96" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#b6c4d8">tune every line, and export crisp editable SVG.</text>
+  <g font-family="Cascadia Code, Consolas, monospace" font-size="18">
+    <rect x="96" y="444" width="196" height="48" rx="24" fill="#0b1220" fill-opacity="0.72" stroke="#94a3b8" stroke-opacity="0.35"/>
+    <text x="194" y="474" text-anchor="middle" fill="#67e8f9">6 MOTIFS</text>
+    <rect x="310" y="444" width="212" height="48" rx="24" fill="#0b1220" fill-opacity="0.72" stroke="#94a3b8" stroke-opacity="0.35"/>
+    <text x="416" y="474" text-anchor="middle" fill="#67e8f9">6 PALETTES</text>
+    <rect x="540" y="444" width="238" height="48" rx="24" fill="#0b1220" fill-opacity="0.72" stroke="#94a3b8" stroke-opacity="0.35"/>
+    <text x="659" y="474" text-anchor="middle" fill="#67e8f9">ZERO NETWORK</text>
+  </g>
+  <g transform="translate(892 132)">
+    <rect width="316" height="376" rx="26" fill="#070b14" stroke="#94a3b8" stroke-opacity="0.22"/>
+    <g clip-path="url(#panelClip)">
+      <g>
+        <path d="M0 40C26 22 52 58 78 40C104 22 130 58 156 40C182 22 208 58 234 40C260 22 286 58 312 40" fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+        <path d="M0 106C26 88 52 124 78 106C104 88 130 124 156 106C182 88 208 124 234 106C260 88 286 124 312 106" fill="none" stroke="#a78bfa" stroke-width="4" stroke-linecap="round"/>
+        <path d="M0 172C26 154 52 190 78 172C104 154 130 190 156 172C182 154 208 190 234 172C260 154 286 190 312 172" fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+        <path d="M0 238C26 220 52 256 78 238C104 220 130 256 156 238C182 220 208 256 234 238C260 220 286 256 312 238" fill="none" stroke="#a78bfa" stroke-width="4" stroke-linecap="round"/>
+        <path d="M0 304C26 286 52 322 78 304C104 286 130 322 156 304C182 286 208 322 234 304C260 286 286 322 312 304" fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+        <path d="M0 370C26 352 52 388 78 370C104 352 130 388 156 370C182 352 208 388 234 370C260 352 286 388 312 370" fill="none" stroke="#a78bfa" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <g fill="#f472b6" opacity="0.8">
+        <circle cx="52" cy="40" r="3"/><circle cx="130" cy="40" r="3"/><circle cx="208" cy="40" r="3"/><circle cx="286" cy="40" r="3"/>
+        <circle cx="52" cy="172" r="3"/><circle cx="130" cy="172" r="3"/><circle cx="208" cy="172" r="3"/><circle cx="286" cy="172" r="3"/>
+        <circle cx="52" cy="304" r="3"/><circle cx="130" cy="304" r="3"/><circle cx="208" cy="304" r="3"/><circle cx="286" cy="304" r="3"/>
+      </g>
+    </g>
+    <rect x="20" y="20" width="146" height="34" rx="17" fill="#05070d" fill-opacity="0.78" stroke="#94a3b8" stroke-opacity="0.3"/>
+    <text x="93" y="43" text-anchor="middle" font-family="Cascadia Code, Consolas, monospace" font-size="13" letter-spacing="2" fill="#b6c4d8">LIVE PREVIEW</text>
+  </g>
+  <text x="96" y="580" font-family="Cascadia Code, Consolas, monospace" font-size="18" letter-spacing="6" fill="#5f7189">AEGEANWORKS · DESIGN TOOL</text>
+  <text x="1184" y="580" text-anchor="end" font-family="Cascadia Code, Consolas, monospace" font-size="18" fill="#67e8f9">github.com/AegeanWorks/Tessera</text>
+</svg>

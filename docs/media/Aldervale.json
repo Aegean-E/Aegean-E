@@ -18,10 +18,10 @@
     "alt": "Aldervale logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:7aebdfee76d8bb91f6704e8ff6964aee27343e267b64ea402fe5d4d5c20cacf1",
-    "commit": "3c0ef2d4116e658687e9f00dc2473a1321f54e30",
+    "digest": "sha256:ae71a73cc8fc7915e8765f49ad154699dc85bb3383b500b432a46b85ecad9748",
+    "commit": "d769838fce4373f1f6c82f604eb010828e6c1718",
     "taken_at": "2026-10-31",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/3c0ef2d4116e658687e9f00dc2473a1321f54e30/assets/logo.jpg"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/d769838fce4373f1f6c82f604eb010828e6c1718/assets/logo.jpg"
   },
   "preview": {
     "src": "media/Aldervale/social-preview.webp",
@@ -29,8 +29,8 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:3daaacd7a3791c922bb14123d18f73fecb772d95ad3adb2c7eaebc879573f8c8",
-    "commit": "3c0ef2d4116e658687e9f00dc2473a1321f54e30",
-    "taken_at": "2026-10-30",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/3c0ef2d4116e658687e9f00dc2473a1321f54e30/assets/social-preview.png"
+    "commit": "d769838fce4373f1f6c82f604eb010828e6c1718",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Aldervale/d769838fce4373f1f6c82f604eb010828e6c1718/assets/social-preview.png"
   }
 }

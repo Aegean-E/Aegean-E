@@ -6,7 +6,7 @@
     "alt": "Dupefinder logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:c37eb941fbdc143d50e7d24cabc14c5da69793847bf332e0d98828c459c21a9d",
+    "digest": "sha256:76baf22f51e193d173975a3857178cef918d77e7f09e3c7da9b8cba38fc076d7",
     "commit": "fef79320161fc374ebb37040164836bc8cbde006",
     "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Dupefinder/fef79320161fc374ebb37040164836bc8cbde006/assets/logo.svg"
@@ -16,10 +16,10 @@
     "alt": "Dupefinder social preview",
     "width": 1200,
     "height": 600,
-    "digest": "sha256:87684905f6e0924b1e0dbbcb79ed958fdbc722da5d3187e6adaf7021b2bfa2fe",
+    "digest": "sha256:27a0caec05aeacfdeb0227fc171c37624f3a61eca53c27bbae2ec9c45e28a260",
     "commit": "fef79320161fc374ebb37040164836bc8cbde006",
     "taken_at": "2026-10-31",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Dupefinder/fef79320161fc374ebb37040164836bc8cbde006/assets/social-preview.svg"
+    "generated": true
   },
   "screenshots": []
 }
