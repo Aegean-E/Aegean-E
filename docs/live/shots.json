@@ -138,6 +138,10 @@
         {
           "src": "media/Palette/2026-10-31-palette-home.webp",
           "alt": "Palette welcome screen"
+        },
+        {
+          "src": "live/shots/palette/01-editor.png",
+          "alt": "Palette editor workspace"
         }
       ]
     }
