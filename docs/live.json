@@ -132,8 +132,8 @@
       "builds": [
         "editor/index.html"
       ],
-      "logo": "editor/assets/favicon.svg",
-      "dossier": ""
+      "logo": "media/Palette/logo.webp",
+      "dossier": "project.html?repo=Palette"
     }
   ]
 }

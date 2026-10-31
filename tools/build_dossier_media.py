@@ -137,27 +137,30 @@ def _pillow():
 
 def optimize(data: bytes, kind: str) -> tuple[bytes, str, int, int]:
     Image = _pillow()
-    # hygiene: allow in-memory Pillow decode, not a filesystem open
-    with Image.open(io.BytesIO(data)) as image:
-        image.load()
-        if kind == "logo":
-            canvas = Image.new("RGBA", (LOGO_SIZE, LOGO_SIZE), (0, 0, 0, 0))
-            copy = image.convert("RGBA")
-            copy.thumbnail((LOGO_SIZE, LOGO_SIZE), Image.LANCZOS)
-            canvas.alpha_composite(
-                copy,
-                ((LOGO_SIZE - copy.width) // 2, (LOGO_SIZE - copy.height) // 2),
-            )
-            out = canvas
-        else:
-            out = image.convert("RGB")
-            if out.width > PREVIEW_MAX_WIDTH:
-                height = round(out.height * PREVIEW_MAX_WIDTH / out.width)
-                out = out.resize((PREVIEW_MAX_WIDTH, height), Image.LANCZOS)
-        buffer = io.BytesIO()
-        out.save(buffer, format="WEBP", quality=84, method=6)
-        payload = buffer.getvalue()
-    return payload, "webp", out.width, out.height
+    try:
+        # hygiene: allow in-memory Pillow decode, not a filesystem open
+        with Image.open(io.BytesIO(data)) as image:
+            image.load()
+            if kind == "logo":
+                canvas = Image.new("RGBA", (LOGO_SIZE, LOGO_SIZE), (0, 0, 0, 0))
+                copy = image.convert("RGBA")
+                copy.thumbnail((LOGO_SIZE, LOGO_SIZE), Image.LANCZOS)
+                canvas.alpha_composite(
+                    copy,
+                    ((LOGO_SIZE - copy.width) // 2, (LOGO_SIZE - copy.height) // 2),
+                )
+                out = canvas
+            else:
+                out = image.convert("RGB")
+                if out.width > PREVIEW_MAX_WIDTH:
+                    height = round(out.height * PREVIEW_MAX_WIDTH / out.width)
+                    out = out.resize((PREVIEW_MAX_WIDTH, height), Image.LANCZOS)
+            buffer = io.BytesIO()
+            out.save(buffer, format="WEBP", quality=84, method=6)
+            payload = buffer.getvalue()
+        return payload, "webp", out.width, out.height
+    except Exception as error:
+        raise MediaError(f"could not optimize image: {error}") from error
 
 
 def _font(size: int, bold: bool = True):
@@ -289,8 +292,8 @@ def fetch(url: str) -> bytes | None:
         if error.code == 404:
             return None
         raise MediaError(f"{url} returned HTTP {error.code}") from error
-    except urllib.error.URLError as error:
-        raise MediaError(f"{url} could not be reached: {error.reason}") from error
+    except (urllib.error.URLError, OSError):
+        return None
     if len(data) > MAX_BYTES:
         raise MediaError(f"{url} is larger than {MAX_BYTES} bytes")
     return data
@@ -307,12 +310,32 @@ def resolve_commit(name: str, branch: str) -> str:
                 timeout=30,
                 check=False,
             )
+            for line in (result.stdout or "").splitlines():
+                sha = line.split("	", 1)[0].strip()
+                if COMMIT.fullmatch(sha):
+                    return sha
         except (OSError, subprocess.TimeoutExpired):
-            return ""
-        for line in (result.stdout or "").splitlines():
-            sha = line.split("\t", 1)[0].strip()
-            if COMMIT.fullmatch(sha):
-                return sha
+            pass
+    local_roots = [
+        ROOT.parent / name,
+        ROOT.parent / name.lower(),
+    ]
+    if name == "AIKit":
+        local_roots.append(ROOT.parent.parent)
+    for local_root in local_roots:
+        if (local_root / ".git").exists():
+            try:
+                res = subprocess.run(
+                    ["git", "-C", str(local_root), "rev-parse", "HEAD"],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                sha = (res.stdout or "").strip()
+                if COMMIT.fullmatch(sha):
+                    return sha
+            except OSError:
+                pass
     return ""
 
 
@@ -331,8 +354,10 @@ def load_repos() -> list[dict]:
     return sorted(repos, key=lambda repo: repo["name"].lower())
 
 
-def previous_local_logo(folder: str) -> Path | None:
+def previous_local_logo(folder: str, manifest: dict | None = None) -> Path | None:
     """The approved logo art already committed for this repository, if any."""
+    if manifest and (manifest.get("logo") or {}).get("generated"):
+        return None
     directory = MEDIA / folder
     if not directory.is_dir():
         return None
@@ -477,7 +502,24 @@ def fetch_asset(name: str, ref: str, candidates: tuple[str, ...]) -> tuple[bytes
         url = raw_url(name, ref, path)
         data = fetch(url)
         if data is None:
-            continue
+            local_roots = [
+                ROOT.parent / name,
+                ROOT.parent / name.lower(),
+            ]
+            if name == "AIKit":
+                local_roots.append(ROOT.parent.parent)
+            for local_root in local_roots:
+                local_file = local_root / path
+                if local_file.is_file():
+                    try:
+                        candidate_data = local_file.read_bytes()
+                        image_facts(candidate_data)
+                        data = candidate_data
+                        break
+                    except (OSError, MediaError):
+                        pass
+            if data is None:
+                continue
         try:
             image_facts(data)
         except MediaError:
@@ -503,18 +545,18 @@ def build_repo(repo: dict, force: bool) -> list[str]:
     for kind, candidates in (("logo", LOGO_CANDIDATES), ("preview", PREVIEW_CANDIDATES)):
         fetched = fetch_asset(name, ref, candidates)
         if fetched is None:
-            payload, fmt, width, height = fallback_card(repo, kind)
-            manifest[kind] = asset_entry(folder, name, kind, payload, fmt, width, height, commit, None, True)
-            notes.append(f"{name}: generated {kind} (no assets/ file)")
-            continue
-
-        raw, url, _path = fetched
-        # The reviewed full-size art stays in the project repository; the site
-        # stores only a 256px derivative for the portfolio card.
-        kept = previous_local_logo(folder) if kind == "logo" else None
-        if kept is not None:
-            raw = kept.read_bytes()
-            notes.append(f"{name}: downscaled reviewed logo {kept.name}")
+            kept = previous_local_logo(folder, manifest) if kind == "logo" else None
+            if kept is not None:
+                raw = kept.read_bytes()
+                url = (manifest.get(kind) or {}).get("source")
+                commit = (manifest.get(kind) or {}).get("commit") or commit
+            else:
+                payload, fmt, width, height = fallback_card(repo, kind)
+                manifest[kind] = asset_entry(folder, name, kind, payload, fmt, width, height, commit, None, True)
+                notes.append(f"{name}: generated {kind} (no assets/ file)")
+                continue
+        else:
+            raw, url, _path = fetched
 
         previous_entry = manifest.get(kind) or {}
         try:

@@ -6,20 +6,20 @@
     "alt": "Afterimage logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:d9fe35e3c08d1fdfcd049a5f5441d27765db1a66631f2a13b6fc706f2852e1ee",
-    "commit": "2c7b00e0cc7c5c758591ad4dbfe6b0db06cfc272",
+    "digest": "sha256:6b9c18777b91bdd8c1fd85c6ac09a0631bf477ddc699c104703dd6d003ad45cc",
+    "commit": "4a6270bac7a7d81f05af89f432829462c5e93b01",
     "taken_at": "2026-10-31",
-    "generated": true
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Afterimage/4a6270bac7a7d81f05af89f432829462c5e93b01/assets/logo.png"
   },
   "preview": {
-    "src": "media/Afterimage/social-preview.webp",
+    "src": "media/Afterimage/social-preview.svg",
     "alt": "Afterimage social preview",
-    "width": 1200,
-    "height": 600,
-    "digest": "sha256:10b604169b397ffcdf5e7566e08b02f44f19dbe9bd7f52027d87385da1752b73",
-    "commit": "2c7b00e0cc7c5c758591ad4dbfe6b0db06cfc272",
+    "width": 1280,
+    "height": 640,
+    "digest": "sha256:d1066379fbd7832ba5ea1fa7a21e108d3490a3349b7e7c4b68fb4eb8658a4f15",
+    "commit": "4a6270bac7a7d81f05af89f432829462c5e93b01",
     "taken_at": "2026-10-31",
-    "generated": true
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Afterimage/4a6270bac7a7d81f05af89f432829462c5e93b01/assets/social-preview.svg"
   },
   "screenshots": []
 }

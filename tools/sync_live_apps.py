@@ -102,8 +102,8 @@ APPS = (
         "optional": True,
         "path": "editor/index.html",
         "source_url": "https://github.com/AegeanWorks/Palette",
-        "logo": "editor/assets/favicon.svg",
-        "dossier": "",
+        "logo": "media/Palette/logo.webp",
+        "dossier": "project.html?repo=Palette",
     },
 )
 
