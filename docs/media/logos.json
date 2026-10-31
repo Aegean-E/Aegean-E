@@ -11,6 +11,11 @@
       "width": 256,
       "height": 256
     },
+    "Afterimage": {
+      "src": "media/Afterimage/logo.webp",
+      "width": 256,
+      "height": 256
+    },
     "AIKit": {
       "src": "media/AIKit/logo.webp",
       "width": 256,
@@ -183,11 +188,6 @@
     },
     "Voidfarer": {
       "src": "media/Voidfarer/logo.webp",
-      "width": 256,
-      "height": 256
-    },
-    "Afterimage": {
-      "src": "media/Afterimage/logo.webp",
       "width": 256,
       "height": 256
     }

@@ -18,7 +18,7 @@
     "alt": "PNN logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:881add7e4f38737a9d001f3b3090c9b78ffe96d4c39a86a9b5fcc14ae49491ef",
+    "digest": "sha256:a25b0387f0835fa30738bd29e1b3f9cab0ad4c2f5f3afd1ee578bad89cb0e75e",
     "commit": "9ea9e591130468252dec0b8e06774c413a38c5db",
     "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/PNN/9ea9e591130468252dec0b8e06774c413a38c5db/assets/logo.jpg"
