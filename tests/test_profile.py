@@ -591,6 +591,7 @@ class ProfileIntegrityTests(unittest.TestCase):
         self.assertEqual(palette["path"], "editor/index.html")
         self.assertEqual(palette["builds"], ["editor/index.html"])
         self.assertEqual(palette["license"], "AL-1.1")
+        self.assertEqual(palette["source_url"], "https://github.com/AegeanWorks/Palette")
         self.assertTrue((ROOT / "docs" / palette["path"]).is_file())
 
     def test_editor_page_is_wired_and_synced(self):

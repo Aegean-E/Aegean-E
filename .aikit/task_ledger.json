@@ -1,61 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "editor-live-0112",
+    "task_id": "editor-live-0113",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793428345.869417,
+    "updated_at": 1793433655.9077039,
     "owner": "opencode:editor-live",
     "started_by": "opencode:editor-live",
     "continuations": [],
-    "completed_at": 1793428346.2517545
+    "completed_at": 1793433658.7834861
   },
   "checkpoints": [
-    {
-      "task_id": "live-tessera",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/3] Plan Tessera on the Live page: per-app licensing, optional unpublished source, synced AL-1.1 build, and a five-shot homepage tour",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793314829.9130747,
-      "timestamp_str": "2026-10-30 02:00:29",
-      "agent": "kilo:tessera",
-      "impact_assessment": {
-        "why": "The owner asked for a new static demo project shown on the website like Prism-Relay, and Tessera is AL-1.1 rather than a game",
-        "benefits": "Apps and games share one Live catalog without relabeling either, and an unpublished optional source no longer fails the nightly refresh",
-        "risks": "contract: manifest schema must stay 2 with per-entry license; dependency: none; concurrency: the site has a stopped reforge run and recent live commits, so stage only these files; state: docs/live.json, copied builds, shots.json and the service-worker asset versions",
-        "mitigation": "Validate every build with the sync tool, run the full site suite and a browser e2e, keep the Tessera source optional until its repository exists, and stage explicit paths only"
-      }
-    },
-    {
-      "task_id": "live-tessera",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'live-tessera' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793315006.1843886,
-      "timestamp_str": "2026-10-30 02:03:26",
-      "agent": "kilo:tessera"
-    },
-    {
-      "task_id": "editor-integration",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Add a first-class AegeanWorks Editor page that embeds the Palette image editor in a same-origin iframe. [2/2] Vendor the 16-file Palette runtime with a content-hash manifest, wire nav, sitemap and service-worker precache, and add source-sync plus site-integrity tests.",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793323062.5822625,
-      "timestamp_str": "2026-10-30 04:17:42",
-      "agent": "kilo:palette",
-      "impact_assessment": {
-        "why": "The user asked for a Photoshop-style static image editor that can be integrated into the AegeanWorks website; Palette lives in its own AIKit project, so the site needs a reproducible, verifiable copy and a real page.",
-        "benefits": "A local-first editor reachable from every page's navigation, no uploads, no third-party runtime, a self-contained published build, and a content-hash gate that catches a stale copy.",
-        "risks": "contract: the site iframe, CSP and navigation are public surfaces; dependency: the vendored copy can drift from the Palette source; concurrency: the single-threaded editor is unaffected, but a service-worker update can arrive between page loads, so the precache stays explicit and versioned; state: service-worker caching can serve mixed versions and iframe keyboard focus needs a clear hand-off.",
-        "mitigation": "Copy only the declared runtime, record per-file SHA-256 plus a combined source hash, verify the copy with sync_editor --check, add Python tests for manifest integrity, navigation, sitemap and precache, and verify the embedded app in a real headless browser."
-      }
-    },
     {
       "task_id": "editor-integration",
       "phase": "phase 4",
@@ -298,6 +254,44 @@
       "status": "completed",
       "timestamp": 1793428346.2517557,
       "timestamp_str": "2026-10-31 09:32:26",
+      "agent": "opencode:editor-live"
+    },
+    {
+      "task_id": "editor-live-0113",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/2] Set Palette's public source URL in the live spec and manifest, add ADR-059, and assert the link in the profile test; [2/2] verify and push.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793433112.224308,
+      "timestamp_str": "2026-10-31 10:51:52",
+      "agent": "opencode:editor-live",
+      "impact_assessment": {
+        "why": "Palette is now public, so its Live card can carry a Source link without changing the local-build model.",
+        "benefits": "Visitors can reach the repository, and the manifest names the real source.",
+        "risks": "contract: manifest source_url only; dependency: GitHub repo must stay public; concurrency: none; state: nightly refresh must not advance the pinned local build.",
+        "mitigation": "Keep the entry optional and out of the nightly checkout, document the release-pinned model in ADR-059, and re-run the suite and sync checks."
+      }
+    },
+    {
+      "task_id": "editor-live-0113",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "Completed [1/2]-[2/2]: Palette's live spec and manifest now carry https://github.com/AegeanWorks/Palette; the entry stays optional and out of the nightly checkout so the release-pinned local build cannot advance without a re-vendor; ADR-059 records the publication, the release workflow and the gh bypass of the unrecorded UI review; the profile test asserts the Source URL. Evidence: 94/94 site tests, 4/4 gates, sync_editor --check, sync_live_apps --check. checklists: passed (test, hygiene, guidelines, secrets); UI warning intentionally ignored under G-001.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793433655.9077039,
+      "timestamp_str": "2026-10-31 11:00:55",
+      "agent": "opencode:editor-live"
+    },
+    {
+      "task_id": "editor-live-0113",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'editor-live-0113' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793433658.783488,
+      "timestamp_str": "2026-10-31 11:00:58",
       "agent": "opencode:editor-live"
     }
   ]

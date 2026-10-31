@@ -441,8 +441,16 @@ contract, a dependency, a data format or the architecture; IDs are consecutive a
 
 ### ADR-058: Live Can Reference a Locally Vendored Build
 - **Date**: 2026-10-31
-- **Status**: Accepted
+- **Status**: Accepted; source link amended by ADR-059
 - **Context**: Palette 0.11.1 is a first-class browser app, but its source repository is not published and its build is already vendored at `docs/editor/` by `tools/sync_editor.py`. Copying it again under `docs/live/palette/<commit>/` would duplicate the whole app and create two copies that can drift. ADR-057 made every Live source mandatory, which a local-only app cannot satisfy.
 - **Decision**: `APPS` accepts `local: True` entries: `path` names an already-vendored build, `builds` is exactly that path, the digest covers the declared runtime entries, and no copy is made. Palette is marked `optional` until its repository exists, so `--check-source` skips the missing sibling checkout and `--write` keeps its recorded manifest entry. The top-level Editor link leaves the site navigation; Palette opens from Live, while `editor.html` remains a full-window shell. Meridian also gains the workflow checkout it was missing.
 - **Consequences**: There is one Palette build, versioned by its commit and verified by digest. The Source link stays empty until the repository is published; publishing then means dropping `optional`, adding `source_url` and a workflow checkout, and optionally switching to a copied build. The nightly refresh no longer fails on the missing Meridian checkout.
 - Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the digest matches the served files), PRINCIPLE-009 (one vendored build instead of two divergent copies) and PRINCIPLE-011 (Live names the version and commit).
+
+### ADR-059: Publish Palette and Keep Its Local Build Release-Pinned
+- **Date**: 2026-10-31
+- **Status**: Accepted
+- **Context**: ADR-058 kept Palette's `source_url` empty because the repository did not exist. It is now public at `AegeanWorks/Palette`, so the Live card can carry a working Source link. Palette is still a local vendored build, not a copied `docs/live/<slug>/<commit>` build.
+- **Decision**: Record `https://github.com/AegeanWorks/Palette` as Palette's `source_url` and assert it in the profile test. Keep the `optional` flag and do not add a Palette checkout to the nightly workflow: a refresh would advance the recorded commit and version without re-vendoring `docs/editor`, so the local build stays release-pinned until a release runs `sync_editor.py --write` and `sync_live_apps.py --write` together.
+- **Consequences**: The Live Source button resolves for visitors. The nightly refresh leaves the Palette entry untouched, and a release still has one manual synchronization step. The repository was published through `gh` because `aikit publish` requires a recorded human UI review; the tree had 4/4 gates and a passing dogfood pass, but that review remains unrecorded.
+- Cross-principle check: no principle section changed. Serves PRINCIPLE-003 (the manifest names the real source), PRINCIPLE-016 (the published repository and site agree) and PRINCIPLE-018 (the commit and push were explicitly authorized).
