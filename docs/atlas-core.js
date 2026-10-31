@@ -104,6 +104,7 @@ export const REPO_LICENSES = Object.freeze({
   "aegean-reforge": "AL",
   aikit: "AL",
   aldervale: "AGL",
+  afterimage: "AGL",
   assay: "AL",
   chronos: "AL",
   "crypt-crawler": "AGL",

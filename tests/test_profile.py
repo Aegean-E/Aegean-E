@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC_REPOS = {
     "Aegean-Licensing",
     "Aegean-Reforge",
+    "Afterimage",
     "AIKit",
     "Aldervale",
     "Assay",

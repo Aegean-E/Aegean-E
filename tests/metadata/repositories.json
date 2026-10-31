@@ -930,6 +930,27 @@
       "homepage": "https://aegeanworks.github.io/AegeanWorks/play.html?app=palette",
       "archived": false,
       "default_branch": "master"
+    },
+    {
+      "id": 1440999999,
+      "name": "Afterimage",
+      "description": "A visual perception gauntlet with a daily challenge: one tile in every grid is a shade, a size, or an angle off. Installable, offline-capable PWA.",
+      "topics": [
+        "aikit",
+        "browser-game",
+        "game",
+        "javascript",
+        "perception",
+        "puzzle",
+        "pwa",
+        "source-available"
+      ],
+      "language": "JavaScript",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-31T09:30:53Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
     }
   ]
 }
