@@ -106,7 +106,7 @@
       "updated": "2026-10-30",
       "license": "AL-1.1",
       "license_path": "live/meridian/LICENSE",
-      "digest": "sha256:af5bd298a514dc59f0b121d8c35dc61e8f5e2a47363227d1bd74a28e21f24c19",
+      "digest": "sha256:ecad6fe0186d7bedb8feb73d0b09bafc4d15e31517f6139d64796bc9fded3b64",
       "builds": [
         "live/meridian/615e040fc881/index.html"
       ],
@@ -127,7 +127,7 @@
       "updated": "2026-10-31",
       "license": "AL-1.1",
       "license_path": "editor/LICENSE",
-      "digest": "sha256:1c62135068ba7f3588daf4370b6647e48610db98edd3640798fc66ba606db060",
+      "digest": "sha256:cdca8546b3f2f6a8526fee9305fe2693ea8065f573014db35d5ac12d1fa62726",
       "builds": [
         "editor/index.html"
       ],

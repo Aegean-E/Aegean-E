@@ -113,6 +113,16 @@
         }
       ]
     },
+    "meridian": {
+      "commit": "615e040fc88127bbbd269baa0ba5342ad3cb4b08",
+      "taken_at": "2026-10-31",
+      "screenshots": [
+        {
+          "src": "live/shots/meridian/01-home.png",
+          "alt": "Meridian interface at 1440x900"
+        }
+      ]
+    },
     "palette": {
       "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
       "taken_at": "2026-10-31",

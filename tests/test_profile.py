@@ -553,6 +553,12 @@ class ProfileIntegrityTests(unittest.TestCase):
                 with self.subTest(slug=slug, shot=shot["src"]):
                     self.assertTrue(shot.get("alt"))
                     self.assertTrue((ROOT / "docs" / shot["src"]).is_file())
+        meridian = shots["apps"]["meridian"]
+        self.assertGreaterEqual(len(meridian["screenshots"]), 1)
+        for shot in meridian["screenshots"]:
+            with self.subTest(slug="meridian", shot=shot["src"]):
+                self.assertTrue(shot.get("alt"))
+                self.assertTrue((ROOT / "docs" / shot["src"]).is_file())
         home_script = (ROOT / "docs" / "live-home.js").read_text(encoding="utf-8")
         self.assertNotIn("slice(0, 3)", home_script)
         for token in ("live-home-slider", "live-home-nav", "live/shots.json", "Dossier", "app.dossier"):
@@ -581,7 +587,7 @@ class ProfileIntegrityTests(unittest.TestCase):
             "Meridian",
             "sync_live_apps.py",
             "--check-source",
-            "actions/checkout@v4",
+            "actions/checkout@v7",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, workflow)
@@ -735,6 +741,31 @@ class ProfileIntegrityTests(unittest.TestCase):
             (Path(temp) / "optional").mkdir()
             problems = module.source_problems(Path(temp))
         self.assertTrue(any("no root index.html" in problem for problem in problems), problems)
+
+    def test_build_digest_is_stable_across_platforms(self):
+        import importlib.util
+        import tempfile
+
+        tool = ROOT / "tools" / "sync_live_apps.py"
+        spec = importlib.util.spec_from_file_location("sync_live_apps_digest", tool)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "assets").mkdir()
+            (root / "index.html").write_text("<!doctype html>\n", encoding="utf-8", newline="\n")
+            (root / "LICENSE").write_text("# Aegean License 1.1\n", encoding="utf-8", newline="\n")
+            (root / "assets" / "logo.svg").write_text("<svg/>\n", encoding="utf-8", newline="\n")
+            files = module._runtime_files(root)
+            expected = hashlib.sha256()
+            for name in sorted(
+                ["assets/logo.svg", "index.html", "LICENSE"]
+            ):
+                expected.update(name.encode("utf-8"))
+                expected.update(b"\0")
+                expected.update((root / name).read_bytes())
+                expected.update(b"\0")
+            self.assertEqual(module._digest(files, root), "sha256:" + expected.hexdigest())
 
     def test_portfolio_cards_use_repository_logos(self):
         index = (ROOT / "docs" / "media" / "logos.json").read_text(encoding="utf-8")

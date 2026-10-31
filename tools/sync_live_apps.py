@@ -166,7 +166,11 @@ def _version(source: Path, relative: str) -> str:
 
 def _digest(files: list[Path], root: Path) -> str:
     digest = hashlib.sha256()
-    for path in sorted(files):
+    # Order by the served relative path, never by the Path object: Windows sorts
+    # Path objects case-insensitively while Linux sorts them byte-wise, so a build
+    # holding both LICENSE and index.html hashed in a different order per platform
+    # and the Linux check rejected a digest Windows had just written (ADR-294).
+    for path in sorted(files, key=lambda item: item.relative_to(root).as_posix()):
         digest.update(path.relative_to(root).as_posix().encode("utf-8"))
         digest.update(b"\0")
         data = path.read_bytes()

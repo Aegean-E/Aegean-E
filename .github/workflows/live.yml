@@ -21,39 +21,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the website
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Check out Prism-Relay
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: AegeanWorks/Prism-Relay
           path: .app-src/prism-relay
           fetch-depth: 1
       - name: Check out Weft
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: AegeanWorks/Weft
           path: .app-src/weft
           fetch-depth: 1
       - name: Check out Iris
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: AegeanWorks/Iris
           path: .app-src/iris
           fetch-depth: 1
       - name: Check out Tessera
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: AegeanWorks/Tessera
           path: .app-src/tessera
           fetch-depth: 1
       - name: Check out Meridian
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: AegeanWorks/Meridian
           path: .app-src/meridian
           fetch-depth: 1
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Validate the live app contract
