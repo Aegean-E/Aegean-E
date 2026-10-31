@@ -120,6 +120,14 @@
         {
           "src": "live/shots/meridian/01-home.png",
           "alt": "Meridian interface at 1440x900"
+        },
+        {
+          "src": "live/shots/meridian/02-multi-city.png",
+          "alt": "Meridian with Istanbul, New York, London and Tokyo"
+        },
+        {
+          "src": "live/shots/meridian/03-six-cities.png",
+          "alt": "Meridian comparing six cities side by side"
         }
       ]
     },
