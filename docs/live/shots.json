@@ -136,6 +136,14 @@
         {
           "src": "live/shots/meridian/05-five-zones.png",
           "alt": "Meridian with five zones on a new date"
+        },
+        {
+          "src": "live/shots/meridian/06-work-bands.png",
+          "alt": "Meridian with staggered work-hour bands"
+        },
+        {
+          "src": "live/shots/meridian/07-weekend.png",
+          "alt": "Meridian on a weekend with Tokyo and Sydney"
         }
       ]
     },
