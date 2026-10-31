@@ -202,7 +202,7 @@
 ### [`tools/sync_editor.py`](tools/sync_editor.py)
 > *Vendor the Palette image editor into the AegeanWorks site.*
 
-**Size**: `215` lines (`8000` bytes)
+**Size**: `215` lines (`8012` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*
