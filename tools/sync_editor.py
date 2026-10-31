@@ -27,7 +27,7 @@ DESTINATION = DOCS / "editor"
 DEFAULT_SOURCE = PROJECT_ROOT.parent / "palette"
 MANIFEST_NAME = "build.json"
 SCHEMA = 1
-RUNTIME_ROOTS = ("index.html", "LICENSE", "assets", "src")
+RUNTIME_ROOTS = ("index.html", "LICENSE", "assets/favicon.svg", "src")
 REQUIRED = ("index.html", "src/ui/main.js", "src/ui/editor.js", "src/core/history.js")
 
 
