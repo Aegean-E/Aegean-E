@@ -2,7 +2,7 @@
   "use strict";
 
   var root = document.documentElement;
-  root.dataset.appVersion = "32";
+  root.dataset.appVersion = "33";
 
   var header = document.querySelector(".site-header");
   var navToggle = document.querySelector(".nav-toggle");

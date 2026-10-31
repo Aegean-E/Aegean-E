@@ -1,0 +1,37 @@
+{
+  "schema": 2,
+  "repo": "Palette",
+  "logo": {
+    "src": "media/Palette/logo.webp",
+    "alt": "Palette logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:62d65598ed27fee2ad8f84367a2ecf8d9dde40f744d4f3aefa6a2b3fbbb94c64",
+    "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Palette/e0a9275e9ec4089d732f4d5eff603883efb2a8bc/assets/logo.png"
+  },
+  "preview": {
+    "src": "media/Palette/social-preview.webp",
+    "alt": "Palette social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:bdc9fa8e683798cbfeb6c2b73ef132af7857e578d0fc716c9c260e970a229954",
+    "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Palette/e0a9275e9ec4089d732f4d5eff603883efb2a8bc/assets/social-preview.png"
+  },
+  "screenshots": [
+    {
+      "src": "media/Palette/2026-10-31-palette-home.webp",
+      "alt": "Palette image editor showing the welcome document, layer stack and adjustments",
+      "caption": "Palette welcome screen",
+      "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
+      "taken_at": "2026-10-31",
+      "viewport": "1440x900",
+      "width": 1200,
+      "height": 750,
+      "digest": "sha256:f584a432211f39fcbf6f55be8894f0b6ac3a33bcaaa2f480bfceba535349cff1"
+    }
+  ]
+}

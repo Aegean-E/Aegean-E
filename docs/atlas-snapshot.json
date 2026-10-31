@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-27",
+  "generated_at": "2026-10-31",
   "profile": {
     "name": "AegeanWorks",
     "description": "AegeanWorks - an independent studio building local-first AI systems, cognitive tooling, and computational research.",
@@ -905,6 +905,29 @@
       "license": "NOASSERTION",
       "pushed_at": "2026-10-27T16:53:12Z",
       "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1440627706,
+      "name": "Palette",
+      "description": "A local-first, zero-dependency image editor for the browser: layers, blend modes, selections, gradients, filters, autosave recovery and PNG/JPEG/WebP export.",
+      "topics": [
+        "aegean-license",
+        "aikit",
+        "aikit-integrated",
+        "browser-app",
+        "canvas",
+        "commercial-license",
+        "image-editor",
+        "photoshop-alternative",
+        "source-available",
+        "vanilla-javascript"
+      ],
+      "language": "JavaScript",
+      "license": "NOASSERTION",
+      "pushed_at": "2026-10-31T08:30:02Z",
+      "homepage": "https://aegeanworks.github.io/AegeanWorks/play.html?app=palette",
       "archived": false,
       "default_branch": "master"
     }

@@ -112,6 +112,16 @@
           "alt": "Tessera pinwheel motif in the Nocturne palette with tile guides"
         }
       ]
+    },
+    "palette": {
+      "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
+      "taken_at": "2026-10-31",
+      "screenshots": [
+        {
+          "src": "media/Palette/2026-10-31-palette-home.webp",
+          "alt": "Palette welcome screen"
+        }
+      ]
     }
   }
 }

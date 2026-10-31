@@ -40,6 +40,7 @@ PUBLIC_REPOS = {
     "NobetWizard",
     "NoMoreClutter",
     "Orrery",
+    "Palette",
     "Pebble",
     "Photo-Harbor",
     "PNN",

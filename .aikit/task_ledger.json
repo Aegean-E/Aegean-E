@@ -1,61 +1,17 @@
 {
   "version": 1,
   "active_task": {
-    "task_id": "editor-live-0113",
+    "task_id": "palette-portfolio",
     "last_phase": "phase 4",
     "active_phase": 5,
     "status": "completed",
-    "updated_at": 1793433655.9077039,
+    "updated_at": 1793435827.1873147,
     "owner": "opencode:editor-live",
     "started_by": "opencode:editor-live",
     "continuations": [],
-    "completed_at": 1793433658.7834861
+    "completed_at": 1793435827.5188406
   },
   "checkpoints": [
-    {
-      "task_id": "editor-integration",
-      "phase": "phase 4",
-      "phase_num": 4,
-      "description": "Completed [1/2] and [2/2]: docs/editor.html embeds Palette behind the site header/CSP; docs/editor/ holds the 16-file vendored build with build.json per-file and combined SHA-256; Editor is in every header/noscript/footer nav, sitemap and service-worker precache; tools/sync_editor.py supports --write/--check. Site tests 89/89 and a headless iframe boot check pass. checklists: passed (test, hygiene, guidelines, secrets; G-001 declines a UI review, so automated browser/site proof is the UI evidence).",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793323075.7929862,
-      "timestamp_str": "2026-10-30 04:17:55",
-      "agent": "kilo:palette",
-      "handoff": {
-        "state": "AegeanWorks tests 89/89, sync_editor --check current, aikit check 4/4, embedded Palette iframe boot verified with no page errors",
-        "next": "review the diff and commit or publish",
-        "open": "site changes are uncommitted and the UI-contract warning is intentionally ignored under G-001",
-        "evidence": "docs/editor/build.json, tools/sync_editor.py, tests/test_profile.py, docs/editor.html."
-      }
-    },
-    {
-      "task_id": "editor-integration",
-      "phase": "completed",
-      "phase_num": 5,
-      "description": "Task 'editor-integration' completed successfully.",
-      "status": "completed",
-      "timestamp": 1793323076.1571236,
-      "timestamp_str": "2026-10-30 04:17:56",
-      "agent": "kilo:palette"
-    },
-    {
-      "task_id": "live-iris",
-      "phase": "phase 2",
-      "phase_num": 2,
-      "description": "[1/2] Add Iris to the Live app catalog, workflow checkout, no-script list and tests. [2/2] Sync the commit-named build with its license and logo, verify the site suites and the in-page boot, then push the catalog refresh.",
-      "files_affected": [],
-      "status": "in_progress",
-      "timestamp": 1793349049.5104394,
-      "timestamp_str": "2026-10-30 11:30:49",
-      "agent": "kilo:iris",
-      "impact_assessment": {
-        "why": "Iris is now published at AegeanWorks/Iris and must appear and run on the AegeanWorks Live page through the same commit-named, contract-checked build pipeline as its siblings.",
-        "benefits": "A fourth playable title on the Live page, with version, commit and digest shown, plus a reproducible sync path and regression tests covering the card, copied runtime and license.",
-        "risks": "contract: validate_source now covers a fourth runtime tree; dependency: the daily workflow gains an Iris checkout; concurrency: the live sync also refreshes Tessera from its newer commit; state: docs/live.json and the copied builds change together.",
-        "mitigation": "Run --check-source before --write, keep only three builds per app, assert the manifest and copied files in test_profile.py, run all five suites, and boot the Live page in a headless browser before pushing."
-      }
-    },
     {
       "task_id": "live-iris",
       "phase": "phase 4",
@@ -292,6 +248,44 @@
       "status": "completed",
       "timestamp": 1793433658.783488,
       "timestamp_str": "2026-10-31 11:00:58",
+      "agent": "opencode:editor-live"
+    },
+    {
+      "task_id": "palette-portfolio",
+      "phase": "phase 2",
+      "phase_num": 2,
+      "description": "[1/3] Add Palette to the GitHub metadata snapshot and build its schema-2 dossier media (camera logo, social preview, 1440x900 capture); [2/3] add the portfolio card, README row, AL-1.1 ledger entry, JSON-LD item and Live slider shot; [3/3] bump the shell and verify.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793435639.3673928,
+      "timestamp_str": "2026-10-31 11:33:59",
+      "agent": "opencode:editor-live",
+      "impact_assessment": {
+        "why": "Palette is public and runs in Live, but it has no portfolio dossier, atlas card or license row, so visitors cannot browse it like the other projects.",
+        "benefits": "One consistent identity across the Live card, atlas card and dossier, with commit-stamped media and a working Source link.",
+        "risks": "contract: JSON-LD/CSP hash, 37-card count, metadata snapshot equality; dependency: Pillow for dossier media; concurrency: none; state: media digests are commit-stamped.",
+        "mitigation": "Derive media with the dossier builder, update every pinned count and CSP hash together, and run the full suite plus media check."
+      }
+    },
+    {
+      "task_id": "palette-portfolio",
+      "phase": "phase 4",
+      "phase_num": 4,
+      "description": "Completed [1/3]-[3/3]: Palette is the 37th atlas project with GitHub metadata in the fallback snapshot, a schema-2 dossier (256px camera logo, 1200x600 social preview, commit-stamped 1440x900 welcome capture and digest), an AL-1.1 license row, a tools card, README atlas row, JSON-LD item and a one-shot Live slider entry; CSP hash and shell v33 updated together. Evidence: 94/94 site tests, 4/4 gates, build_dossier_media check 0 problems, headless Edge confirms the dossier logo/preview/screenshot and Open in browser link plus the Palette card on the atlas. checklists: passed (test, hygiene, guidelines, secrets); UI warning intentionally ignored under G-001.",
+      "files_affected": [],
+      "status": "in_progress",
+      "timestamp": 1793435827.1873147,
+      "timestamp_str": "2026-10-31 11:37:07",
+      "agent": "opencode:editor-live"
+    },
+    {
+      "task_id": "palette-portfolio",
+      "phase": "completed",
+      "phase_num": 5,
+      "description": "Task 'palette-portfolio' completed successfully.",
+      "status": "completed",
+      "timestamp": 1793435827.5188417,
+      "timestamp_str": "2026-10-31 11:37:07",
       "agent": "opencode:editor-live"
     }
   ]

@@ -126,6 +126,7 @@ export const REPO_LICENSES = Object.freeze({
   nobetwizard: "AL",
   nomoreclutter: "AL",
   orrery: "ASL",
+  palette: "AL",
   pebble: "AL",
   "photo-harbor": "AL",
   pnn: "ASL",

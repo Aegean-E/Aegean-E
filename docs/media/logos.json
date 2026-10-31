@@ -131,6 +131,11 @@
       "width": 256,
       "height": 256
     },
+    "Palette": {
+      "src": "media/Palette/logo.webp",
+      "width": 256,
+      "height": 256
+    },
     "Pebble": {
       "src": "media/Pebble/logo.webp",
       "width": 256,
