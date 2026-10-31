@@ -122,12 +122,12 @@
       "mode": "browser",
       "path": "editor/index.html",
       "source_url": "",
-      "version": "0.11.1",
-      "commit": "f31e54b1c554aa4ccff822735d52953f5d714e45",
+      "version": "0.11.2",
+      "commit": "90f44657c3ddddf46f42e2f8bb4d4a09f62c8e4c",
       "updated": "2026-10-31",
       "license": "AL-1.1",
       "license_path": "editor/LICENSE",
-      "digest": "sha256:7f443454be8c0e7902fad0c32574f5e6a3a71c5408da781aee8879dc74a11997",
+      "digest": "sha256:1c62135068ba7f3588daf4370b6647e48610db98edd3640798fc66ba606db060",
       "builds": [
         "editor/index.html"
       ],

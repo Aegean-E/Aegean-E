@@ -49,7 +49,7 @@ import {
   selectionFromDrag,
   zoomAt,
 } from "../core/geometry.js";
-import { isUsableGradient, normalizeGradientOptions } from "../core/gradient.js";
+import { isUsableGradient } from "../core/gradient.js";
 import { autoLevelsRange, buildHistogram, percentileRange } from "../core/histogram.js";
 import { History, createCommand } from "../core/history.js";
 import {
@@ -326,6 +326,7 @@ export class PaletteEditor {
     this.autosaveInFlight = false;
     this.autosavePending = false;
     this.autosaveTimer = null;
+    this.documentDirty = false;
     this.histogramTimer = null;
     this.pendingRestore = null;
     this.restoreResolved = false;
@@ -363,8 +364,9 @@ export class PaletteEditor {
     setTimeout(() => this.el.stageNote?.setAttribute("data-hidden", "true"), 9000);
   }
 
-  setDocument(doc, { reset = false, fit = false, autosave = true, status = "" } = {}) {
+  setDocument(doc, { reset = false, fit = false, autosave = true, status = "", dirty = false } = {}) {
     this.doc = doc;
+    this.documentDirty = dirty;
     this.history.setLimit(historyLimitFor(doc));
     if (reset) this.history.clear();
     this.action = null;
@@ -391,6 +393,7 @@ export class PaletteEditor {
     this.doc = doc;
     const limit = historyLimitFor(doc);
     if (limit !== this.history.limit) this.history.setLimit(limit);
+    this.documentDirty = true;
     this.action = null;
     this.cropRect = null;
     if (dimensionsChanged) this.selection = null;
@@ -413,6 +416,7 @@ export class PaletteEditor {
     const afterDoc = this.doc;
     const limit = historyLimitFor(afterDoc);
     if (limit !== this.history.limit) this.history.setLimit(limit);
+    this.documentDirty = true;
     this.history.push(
       createCommand(
         label,
@@ -960,6 +964,7 @@ export class PaletteEditor {
     if (!this.doc) return;
     if (event.button !== 0 && event.button !== 1) return;
     event.preventDefault();
+    this.finishText();
     this.dismissNote();
     this.el.stage.focus({ preventScroll: true });
     const screen = this.eventPoint(event);
@@ -1642,6 +1647,11 @@ export class PaletteEditor {
       this.scheduleRender();
       return;
     }
+    if (layer.locked || !layer.visible) {
+      this.announce(`${layer.name} can no longer accept text. Unlock and show it first.`, { error: true });
+      this.scheduleRender();
+      return;
+    }
     const canvas = cloneCanvas(layer.canvas);
     drawText(canvas, {
       x: draft.point.x,
@@ -1927,7 +1937,7 @@ export class PaletteEditor {
   }
 
   hasUnsavedChanges() {
-    return this.history.canUndo || this.history.canRedo;
+    return this.documentDirty;
   }
 
   confirmDiscard(action) {
@@ -2015,6 +2025,7 @@ export class PaletteEditor {
       const blob = new Blob([serializeProject(this.doc, images)], { type: "application/json" });
       const name = `${safeFileName(this.doc.name)}.palette`;
       downloadBlob(blob, name);
+      this.documentDirty = false;
       this.announce(`Saved ${name} (${formatBytes(blob.size)}).`);
     } catch (error) {
       this.announce(error.message || "The project could not be saved.", { error: true });
@@ -2085,6 +2096,7 @@ export class PaletteEditor {
       this.setDocument(doc, {
         reset: true,
         fit: true,
+        dirty: true,
         status: limited
           ? `Opened ${file.name} at ${width} × ${height} (scaled to fit the editor).`
           : `Opened ${file.name} at ${width} × ${height}.`,
@@ -2115,7 +2127,7 @@ export class PaletteEditor {
         layers.push(createLayer({ ...entry, canvas }));
       }
       const doc = createDocument({ ...project, layers });
-      this.setDocument(doc, { reset: true, fit: true, status: `Opened ${file.name}.` });
+      this.setDocument(doc, { reset: true, fit: true, dirty: true, status: `Opened ${file.name}.` });
     } catch (error) {
       this.announce(error.message || "That project could not be opened.", { error: true });
     } finally {
@@ -2282,6 +2294,7 @@ export class PaletteEditor {
     this.el.docName.value = name;
     if (name === this.doc.name) return;
     this.doc = { ...this.doc, name };
+    this.documentDirty = true;
     this.announce("Document renamed.");
     this.scheduleAutosave();
   }
@@ -2396,6 +2409,7 @@ export class PaletteEditor {
         reset: true,
         fit: true,
         autosave: false,
+        dirty: true,
         status: "Restored your last local session.",
       });
       this.setAutosaveStatus("Saved locally", "ok");

@@ -538,7 +538,7 @@
     <input id="transform-rotation" type="range" min="-180" max="180" step="1" value="0">
     <label class="check"><input id="transform-flip-h" type="checkbox"> Flip horizontal</label>
     <label class="check"><input id="transform-flip-v" type="checkbox"> Flip vertical</label>
-    <p class="dialog-note">Transforms around the layer's visible content bounds. Pixels outside the canvas are clipped.</p>
+    <p class="dialog-note">Transforms around the layer's visible content bounds; the whole layer moves and any selection is cleared. Pixels outside the canvas are clipped.</p>
     <div class="dialog-actions">
       <button class="btn btn-ghost" id="transform-cancel" type="button" data-close>Cancel</button>
       <button class="btn btn-primary" id="transform-confirm" type="submit" value="transform">Apply</button>

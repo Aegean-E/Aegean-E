@@ -2,7 +2,7 @@
   "files": {
     "LICENSE": "7e3473af99b8e2f157de2689adf5ab9d0d480bf08d58af3d3f151c7700c481e5",
     "assets/favicon.svg": "9ab9f262d574ca9eac7970f5c80dfd50a7ad9e3a7b0192995adc681f6363dc96",
-    "index.html": "a079b0252c93e10cd7bca56bdbdeadb8a65638e5142b8cff96e6c2e45461e715",
+    "index.html": "dc67706de67f3d669b7bd7ed2be465b67518daec558bb8a42233e46947eaedcd",
     "src/core/bounds.js": "51e4bd6a29a00a4dec884528f9e0e31ef80e5edfddbd4682039bf271f89cf0fd",
     "src/core/color.js": "bdf14bf3dafe9218a47d749a91236a22d97a7dfb21912f2d4b9882034bf38c5d",
     "src/core/document.js": "100507848a159c1d3b496cd9014ac50d46053d18d45e61a4bbb3b157b68dcfab",
@@ -10,19 +10,19 @@
     "src/core/filters.js": "e4c33b7ada37fe34b6bb8397c1f5413b680f754ac1280e9d271f57aa6c0fafcd",
     "src/core/geometry.js": "2093402d20ba2470309bb54b86d1173305a15c8b5d2215ad9ddf392f58ea90a5",
     "src/core/gradient.js": "f671b12dbd1e4433f40b4ee2d358f2e1209e511e7941f950b8f632327754d5ae",
-    "src/core/histogram.js": "77a5e83c574f3d43e0b0fb8ab596f5b65bc4f8e2fc96ae21ff005c08472e812a",
+    "src/core/histogram.js": "3c4b2337315a08f22b6093604de97607193c66aa63f3facc07b12585e562e631",
     "src/core/history.js": "7351ef707f87006fe259f84a447c85df086ad2c6a8ccb723a9e7037b552a8e01",
     "src/core/project.js": "850a61bd57ac301b233200333d0d255f9359a0fe4fa679a7540f6f046c4f2fa8",
     "src/styles.css": "a5e8ed9bc50b5510ec7763f91f4820e87a65e81cdced0f46b43d640690ba7ffb",
     "src/theme.css": "d4ca849c04e7e49031e62c2eebf713c90d6998bbce997b0190757655ec079643",
     "src/ui/autosave.js": "6ea5b5ffa790d8dda0c7576026f26cbc22f82e5ed0d1bc9569ee2ea2a4ca8307",
     "src/ui/canvas.js": "211ec7e709eec15c5fb6fc293ce03009aa8a3db1f097fb83ef2cd06baec23059",
-    "src/ui/editor.js": "ea5430de3cef4a70c390a0d88cfbcdad170ed357328214ad268ba29d5674e8e1",
+    "src/ui/editor.js": "58a98c744ca1813798647ae42a260772f0a1f77ce37af2152d554a5863c8b907",
     "src/ui/main.js": "ad50ea5c00250e5497186e99b114d5ab678da60e8bf736b614309b6db2320253",
     "src/ui/paint.js": "47edcc010c4f5abf1c9d7750532c46d16dc9cbb4772fee59dfe77ed0740449f5"
   },
   "name": "palette",
   "schema": 1,
-  "source_sha256": "4a0786144873795e4490965948b25c843ef9924186fc65bdcff7ab1898d0b2b8",
-  "version": "0.11.1"
+  "source_sha256": "cdca8546b3f2f6a8526fee9305fe2693ea8065f573014db35d5ac12d1fa62726",
+  "version": "0.11.2"
 }

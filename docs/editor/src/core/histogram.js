@@ -49,6 +49,10 @@ export function percentileRange(histogram, lowClip = 0.005, highClip = 0.005) {
   }
   const black = Math.round((lowIndex / (bins - 1)) * 255);
   const white = Math.round((highIndex / (bins - 1)) * 255);
+  if (highIndex <= lowIndex) {
+    const value = Math.round((lowIndex / (bins - 1)) * 255);
+    return { black: Math.max(0, value - 1), white: Math.min(255, value + 1) };
+  }
   return { black: Math.min(black, 254), white: Math.max(white, black + 1) };
 }
 
