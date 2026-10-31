@@ -951,6 +951,198 @@
       "homepage": "",
       "archived": false,
       "default_branch": "master"
+    },
+    {
+      "id": 1438910678,
+      "name": "Cairn",
+      "description": "An agent-first systems language with its own x86-64 backend. Cairn compiles straight to a Windows PE executable: no C compiler, no assembler, no linker, no libc, no runtime library.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-license",
+        "commercial-license",
+        "programming-language",
+        "compiler",
+        "ai-agents",
+        "systems-programming",
+        "language-design"
+      ],
+      "language": "C",
+      "license": "AL-1.1",
+      "pushed_at": "2026-10-29T20:12:56Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1437561576,
+      "name": "Driftwood",
+      "description": "Offline CLI that ranks code hotspots by combining git churn history with file complexity, so maintainers know where refactoring pays off.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-license",
+        "commercial-license",
+        "git",
+        "static-analysis",
+        "cli",
+        "developer-tools"
+      ],
+      "language": "Python",
+      "license": "AL-1.1",
+      "pushed_at": "2026-10-29T16:44:57Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1438052895,
+      "name": "Dupefinder",
+      "description": "Read-only duplicate file finder that groups byte-identical files by size and SHA-256 and reports reclaimable space.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-license",
+        "commercial-license",
+        "cli",
+        "developer-tools",
+        "file-deduplication"
+      ],
+      "language": "Python",
+      "license": "AL-1.1",
+      "pushed_at": "2026-10-29T07:38:24Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1437579529,
+      "name": "Dustline",
+      "description": "Dustline is a fast top-down 2D Counter-Strike style arena shooter demo: wave-based bot combat, recoil-driven gunplay and a Dust-inspired map in plain HTML5 canvas.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-game-license",
+        "drm-free",
+        "commercial-license",
+        "game",
+        "canvas",
+        "shooter"
+      ],
+      "language": "JavaScript",
+      "license": "AGL-1.1",
+      "pushed_at": "2026-10-31T08:26:48Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1439420371,
+      "name": "Iris",
+      "description": "A neon color-mixing puzzle: route red, green and blue beams through rotating mirrors and dye cells, blend exact hues, and light every receiver across three episodes.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-game-license",
+        "drm-free",
+        "commercial-license",
+        "puzzle",
+        "browser-game",
+        "vanilla-javascript",
+        "light",
+        "color"
+      ],
+      "language": "JavaScript",
+      "license": "AGL-1.1",
+      "pushed_at": "2026-10-30T15:04:14Z",
+      "homepage": "https://aegeanworks.github.io/AegeanWorks/play.html?app=iris",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1440764591,
+      "name": "Modelduck",
+      "description": "A local GGUF chat studio: load a model, talk to it, and serve an OpenAI-compatible API. Runs on the CPU or a Vulkan GPU; no cloud account, no telemetry. Chats, prompts and settings stay on your computer; the only network requests are model downloads you start (the inference runtime is never downloaded or built on demand).",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-license",
+        "commercial-license",
+        "local-llm",
+        "gguf",
+        "desktop",
+        "ai"
+      ],
+      "language": "JavaScript",
+      "license": "AL-1.1",
+      "pushed_at": "2026-10-31T14:26:56Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1440842627,
+      "name": "Pocket-Planner",
+      "description": "A local-first task manager for capturing, prioritizing, and completing work from a fast terminal workflow.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-license",
+        "commercial-license",
+        "productivity",
+        "cli",
+        "local-first",
+        "developer-tools"
+      ],
+      "language": "Python",
+      "license": "AL-1.1",
+      "pushed_at": "2026-10-31T12:37:38Z",
+      "homepage": "",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1439051680,
+      "name": "Tessera",
+      "description": "A seamless pattern studio: compose geometric tiles in the browser and export crisp SVG.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-license",
+        "commercial-license",
+        "design-tool",
+        "generative-art",
+        "svg",
+        "zero-dependency",
+        "creative-coding"
+      ],
+      "language": "JavaScript",
+      "license": "AL-1.1",
+      "pushed_at": "2026-10-30T12:13:11Z",
+      "homepage": "https://aegeanworks.github.io/AegeanWorks/play.html?app=tessera",
+      "archived": false,
+      "default_branch": "master"
+    },
+    {
+      "id": 1438804321,
+      "name": "Weft",
+      "description": "A zero-dependency thread-routing puzzle: draw glowing threads between matching spools, fill every cell of the loom, and restore the tapestry across eighteen chambers, with a fresh 7×7 daily weave. The whole game is static HTML, CSS and ES modules, so it runs from any static host — including the AegeanWorks Play page.",
+      "topics": [
+        "aikit",
+        "source-available",
+        "aegean-game-license",
+        "drm-free",
+        "commercial-license",
+        "puzzle",
+        "browser-game",
+        "vanilla-javascript"
+      ],
+      "language": "JavaScript",
+      "license": "AGL-1.1",
+      "pushed_at": "2026-10-30T12:14:10Z",
+      "homepage": "https://aegeanworks.github.io/AegeanWorks/play.html?app=weft",
+      "archived": false,
+      "default_branch": "master"
     }
   ]
 }

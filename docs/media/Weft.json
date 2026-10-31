@@ -1,0 +1,25 @@
+{
+  "schema": 2,
+  "repo": "Weft",
+  "logo": {
+    "src": "media/Weft/logo.webp",
+    "alt": "Weft logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:61f88766a2a6fc6c572f44a78bf1aef6595e8515917f0f020cc199cd7ec9d3d8",
+    "commit": "cc1f5877e1d29578696aa86f40ce6629dade98a7",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Weft/cc1f5877e1d29578696aa86f40ce6629dade98a7/assets/logo.svg"
+  },
+  "preview": {
+    "src": "media/Weft/social-preview.webp",
+    "alt": "Weft social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:e7f938a4304a4b815d14fd92d9c91ad5c68e8075a0b97aa8673ab186c8dd1744",
+    "commit": "cc1f5877e1d29578696aa86f40ce6629dade98a7",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Weft/cc1f5877e1d29578696aa86f40ce6629dade98a7/assets/social-preview.svg"
+  },
+  "screenshots": []
+}

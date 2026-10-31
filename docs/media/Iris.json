@@ -1,0 +1,25 @@
+{
+  "schema": 2,
+  "repo": "Iris",
+  "logo": {
+    "src": "media/Iris/logo.webp",
+    "alt": "Iris logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:a1e039133f88e8a52bca92a6ed234200bb5c9cbc7f107d3090f352623239c99a",
+    "commit": "279fa6c27b350fc65d656dfe13f26aa948d8cc39",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Iris/279fa6c27b350fc65d656dfe13f26aa948d8cc39/assets/logo.svg"
+  },
+  "preview": {
+    "src": "media/Iris/social-preview.webp",
+    "alt": "Iris social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:5e4cc3f056c480086638d14e33ec5373d55ed340ad74cc64a26519e6934e128f",
+    "commit": "279fa6c27b350fc65d656dfe13f26aa948d8cc39",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Iris/279fa6c27b350fc65d656dfe13f26aa948d8cc39/assets/social-preview.svg"
+  },
+  "screenshots": []
+}

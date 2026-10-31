@@ -54,6 +54,8 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
+| [Modelduck](https://github.com/AegeanWorks/Modelduck) | A local GGUF chat studio: load a model, talk to it, and serve an OpenAI-compatible API. Runs on the CPU or a Vulkan GPU; no cloud account, no telemetry. Chats, prompts and settings stay on your computer; the only network requests are model downloads you start (the inference runtime is never downloaded or built on demand). |
+| [Cairn](https://github.com/AegeanWorks/Cairn) | An agent-first systems language with its own x86-64 backend. Cairn compiles straight to a Windows PE executable: no C compiler, no assembler, no linker, no libc, no runtime library. |
 | [NeuroCore](https://github.com/AegeanWorks/NeuroCore) | A self-hosted, modular AI agent framework for persistent, tool-using autonomous systems: workflows, long-term memory, RAG and a plugin architecture in one platform. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 | [AIKit](https://github.com/AegeanWorks/AIKit) | Crash-resilient governance and delivery gates for AI coding agents: versioned task ledger, commit-level verification, secret scanning and per-project gates. Free for personal use under AL-1.1; commercial use under ACL-1.0. |
 | [Lacon](https://github.com/AegeanWorks/Lacon) | An AI that thinks in as few letters as possible, recursively over a long context: its own alphabet, budget, thinker and recursive engine. No network, no API key, no model weights; the core is standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0. |
@@ -100,6 +102,10 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
+| [Tessera](https://github.com/AegeanWorks/Tessera) | A seamless pattern studio: compose geometric tiles in the browser and export crisp SVG. |
+| [Pocket-Planner](https://github.com/AegeanWorks/Pocket-Planner) | A local-first task manager for capturing, prioritizing, and completing work from a fast terminal workflow. |
+| [Dupefinder](https://github.com/AegeanWorks/Dupefinder) | Read-only duplicate file finder that groups byte-identical files by size and SHA-256 and reports reclaimable space. |
+| [Driftwood](https://github.com/AegeanWorks/Driftwood) | Offline CLI that ranks code hotspots by combining git churn history with file complexity, so maintainers know where refactoring pays off. |
 | [Chronos](https://github.com/AegeanWorks/Chronos) | A lightweight, local-first focus and session orchestrator for developers: track deep-work sessions, micro-milestones and interruptions, and get productivity insights. Python standard library only. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 | [Gauge](https://github.com/AegeanWorks/Gauge) | A zero-dependency terminal ruler for numeric series: read numbers from arguments, a file or a pipe and draw a sparkline, signed bars, a histogram, a box plot or a statistics block. stats --json feeds other tools. Free personal use under AL-1.1; commercial use under ACL-1.0. |
 | [Tally](https://github.com/AegeanWorks/Tally) | A dependency-free, local-first expense ledger for the terminal: record what you spend, list it and see where the money went, all in one readable JSON file on your machine. Free personal use under AL-1.1; commercial use under ACL-1.0. |
@@ -117,6 +123,9 @@ Every project repository below is public. Browse the full set on [GitHub](https:
 
 | Project | Description |
 |---|---|
+| [Weft](https://github.com/AegeanWorks/Weft) | A zero-dependency thread-routing puzzle: draw glowing threads between matching spools, fill every cell of the loom, and restore the tapestry across eighteen chambers, with a fresh 7×7 daily weave. The whole game is static HTML, CSS and ES modules, so it runs from any static host — including the AegeanWorks Play page. |
+| [Iris](https://github.com/AegeanWorks/Iris) | A neon color-mixing puzzle: route red, green and blue beams through rotating mirrors and dye cells, blend exact hues, and light every receiver across three episodes. |
+| [Dustline](https://github.com/AegeanWorks/Dustline) | Dustline is a fast top-down 2D Counter-Strike style arena shooter demo: wave-based bot combat, recoil-driven gunplay and a Dust-inspired map in plain HTML5 canvas. |
 | [Aldervale](https://github.com/AegeanWorks/Aldervale) | A 2.5D medieval RPG drawn in tiny ASCII cells: low-poly 3D models baked into shaded sprites, voxel terrain, fog, day and night, water, quests, combat, loot, shops and saves. Python standard library only: no dependencies, no assets, no build step. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
 | [MemoryReconstruction](https://github.com/AegeanWorks/MemoryReconstruction) | A top-down action roguelike about rebuilding a shattered world from lost memories: expeditions from the Sanctuary through sixteen procedurally generated sections, built with TypeScript and PixiJS. Free personal play under AGL-1.1; commercial use under ACL-1.0. |
 | [Crypt-Crawler](https://github.com/AegeanWorks/Crypt-Crawler) | A tactical turn-based dungeon crawler for the browser: procedural levels, inventory, combat and headless browser inspection. Free personal play under AGL-1.1; commercial use under ACL-1.0. |

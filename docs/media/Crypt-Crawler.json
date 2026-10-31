@@ -44,6 +44,17 @@
       "width": 1440,
       "height": 900,
       "digest": "sha256:8006593683d08ab3791838279bb049f696665d26f3222bff47e74c6e62008d3a"
+    },
+    {
+      "src": "media/Crypt-Crawler/2026-10-31-2026-10-31-index.webp",
+      "alt": "Crypt-Crawler tactical dungeon crawler interface",
+      "caption": "Crypt-Crawler tactical dungeon crawler gameplay",
+      "commit": "1b9f612ba4d4950d0025aaff349d8e1ccc2bce53",
+      "taken_at": "2026-10-31",
+      "viewport": "",
+      "width": 1200,
+      "height": 750,
+      "digest": "sha256:33b814841391c08e4318f7a33b3c6f6cde5a8c05103d1043f124adc60390233f"
     }
   ],
   "logo": {

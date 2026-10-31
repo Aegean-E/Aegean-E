@@ -1,0 +1,25 @@
+{
+  "schema": 2,
+  "repo": "Modelduck",
+  "logo": {
+    "src": "media/Modelduck/logo.webp",
+    "alt": "Modelduck logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:6bd91c3d34da939bf933a95eeed64d5139c8911bb5c713f84d03be95b97db9c6",
+    "commit": "5396c3077edb50f03ac34d8e7a24c5beea330bc2",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Modelduck/5396c3077edb50f03ac34d8e7a24c5beea330bc2/assets/logo.svg"
+  },
+  "preview": {
+    "src": "media/Modelduck/social-preview.webp",
+    "alt": "Modelduck social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:828dfee55b2941d9c1e95677b0c03bbc44e9938a934a049a44fcee99bf480e7e",
+    "commit": "5396c3077edb50f03ac34d8e7a24c5beea330bc2",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Modelduck/5396c3077edb50f03ac34d8e7a24c5beea330bc2/assets/social-preview.svg"
+  },
+  "screenshots": []
+}

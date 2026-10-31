@@ -314,7 +314,7 @@ def resolve_commit(name: str, branch: str) -> str:
                 sha = line.split("	", 1)[0].strip()
                 if COMMIT.fullmatch(sha):
                     return sha
-        except (OSError, subprocess.TimeoutExpired):
+        except (OSError, subprocess.TimeoutExpired):  # hygiene: allow best-effort remote probe
             pass
     local_roots = [
         ROOT.parent / name,
@@ -329,12 +329,13 @@ def resolve_commit(name: str, branch: str) -> str:
                     ["git", "-C", str(local_root), "rev-parse", "HEAD"],
                     capture_output=True,
                     text=True,
+                    timeout=10,
                     check=False,
                 )
                 sha = (res.stdout or "").strip()
                 if COMMIT.fullmatch(sha):
                     return sha
-            except OSError:
+            except OSError:  # hygiene: allow best-effort local git check
                 pass
     return ""
 
@@ -516,7 +517,7 @@ def fetch_asset(name: str, ref: str, candidates: tuple[str, ...]) -> tuple[bytes
                         image_facts(candidate_data)
                         data = candidate_data
                         break
-                    except (OSError, MediaError):
+                    except (OSError, MediaError):  # hygiene: allow candidate check
                         pass
             if data is None:
                 continue

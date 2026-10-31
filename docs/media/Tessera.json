@@ -1,0 +1,25 @@
+{
+  "schema": 2,
+  "repo": "Tessera",
+  "logo": {
+    "src": "media/Tessera/logo.webp",
+    "alt": "Tessera logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:9518df1966b9199ca781ac4e4172fe9fab216d06b748655ef7249e19c335da31",
+    "commit": "e1cfce7af19baf547d05732e664ad5f7e3fe0bf1",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tessera/e1cfce7af19baf547d05732e664ad5f7e3fe0bf1/assets/logo.svg"
+  },
+  "preview": {
+    "src": "media/Tessera/social-preview.webp",
+    "alt": "Tessera social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:809401438be30329494b95612e1ee1b76bc72a67519bdade162271cb49a41472",
+    "commit": "e1cfce7af19baf547d05732e664ad5f7e3fe0bf1",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Tessera/e1cfce7af19baf547d05732e664ad5f7e3fe0bf1/assets/social-preview.svg"
+  },
+  "screenshots": []
+}

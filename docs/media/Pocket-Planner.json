@@ -1,0 +1,25 @@
+{
+  "schema": 2,
+  "repo": "Pocket-Planner",
+  "logo": {
+    "src": "media/Pocket-Planner/logo.webp",
+    "alt": "Pocket-Planner logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:4242e90d1678a56828042840a281ebd5f9ebeaa5326f54221f0b6402c294cc61",
+    "commit": "b6679cf5ddc26755f93ab60e22d854339dd340b6",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Pocket-Planner/b6679cf5ddc26755f93ab60e22d854339dd340b6/assets/logo.svg"
+  },
+  "preview": {
+    "src": "media/Pocket-Planner/social-preview.webp",
+    "alt": "Pocket-Planner social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:8267464486734d0f351d6ad52824ea4c96dea76d1183fa40d25bd6ed1f491669",
+    "commit": "b6679cf5ddc26755f93ab60e22d854339dd340b6",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Pocket-Planner/b6679cf5ddc26755f93ab60e22d854339dd340b6/assets/social-preview.svg"
+  },
+  "screenshots": []
+}

@@ -17,7 +17,7 @@ export const CATEGORY_LABELS = {
   play: "Games & Experiments",
 };
 export const BOILERPLATE_TOPICS = new Set(["aikit", "python", "source-available"]);
-export const IGNORED_REPOS = new Set(["aegeanworks", ".github"]);
+export const IGNORED_REPOS = new Set(["aegeanworks", ".github", "idea-catcher"]);
 
 const NAME = /^[A-Za-z0-9._-]{1,100}$/;
 /* hygiene: allow canonical public API page, not a loaded resource */
@@ -101,6 +101,15 @@ export const LICENSE_FAMILIES = Object.freeze({
 
 export const REPO_LICENSES = Object.freeze({
   "aegean-licensing": "AL",
+  "weft": "AGL",
+  "tessera": "AL",
+  "pocket-planner": "AL",
+  "modelduck": "AL",
+  "iris": "AGL",
+  "dustline": "AGL",
+  "dupefinder": "AL",
+  "driftwood": "AL",
+  "cairn": "AL",
   "aegean-reforge": "AL",
   aikit: "AL",
   aldervale: "AGL",

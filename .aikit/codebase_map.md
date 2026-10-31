@@ -9,8 +9,8 @@
 - **Total Python Modules**: `6`
 - **Total Classes**: `6`
 - **Total Top-Level Functions**: `79`
-- **Total Class Methods**: `96`
-- **Total Source Lines**: `3716`
+- **Total Class Methods**: `97`
+- **Total Source Lines**: `3813`
 
 ---
 
@@ -19,7 +19,7 @@
 ### [`tests/test_profile.py`](tests/test_profile.py)
 > *Regression tests for the AegeanWorks profile, site and licensing integrity.*
 
-**Size**: `1794` lines (`84093` bytes)
+**Size**: `1842` lines (`86289` bytes)
 
 **Classes:**
 - `class ProfileIntegrityTests` - *Guard the profile structure, links, voice and configuration.*
@@ -39,6 +39,7 @@
   - Method `.test_editor_page_is_wired_and_synced()`
   - Method `.test_source_validator_covers_every_runtime_file()`
   - Method `.test_optional_live_source_can_be_absent()`
+  - Method `.test_build_digest_is_stable_across_platforms()`
   - Method `.test_portfolio_cards_use_repository_logos()`
   - Method `.test_dossier_media_manifests_are_consistent()`
   - Method `.test_dossier_media_manifest_is_documented()`
@@ -152,7 +153,7 @@
 ### [`tools/build_dossier_media.py`](tools/build_dossier_media.py)
 > *Build and verify the dossier media (logo, social preview, screenshots).*
 
-**Size**: `908` lines (`34935` bytes)
+**Size**: `953` lines (`36848` bytes)
 
 **Classes:**
 - `class MediaError`
@@ -172,7 +173,7 @@
 - `def resolve_commit(name, branch)`
 - `def raw_url(name, ref, path)`
 - `def load_repos()`
-- `def previous_local_logo(folder)` - *The approved logo art already committed for this repository, if any.*
+- `def previous_local_logo(folder, manifest)` - *The approved logo art already committed for this repository, if any.*
 - `def exact_path(relative)` - *True when every segment matches on-disk case, which Windows would hide.*
 - `def manifest_path(name)` - *Existing manifests keep their original file name, which may differ in case.*
 - `def media_folder(name, manifest)` - *Reuse the folder an existing logo points at so paths never churn.*
@@ -225,7 +226,7 @@
 ### [`tools/sync_live_apps.py`](tools/sync_live_apps.py)
 > *Sync the live browser apps and their catalog.*
 
-**Size**: `694` lines (`27726` bytes)
+**Size**: `698` lines (`28128` bytes)
 
 **Classes:**
 - `class SyncError` - *A user-facing sync failure with a Why/Fix pair.*

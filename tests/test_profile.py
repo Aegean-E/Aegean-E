@@ -15,6 +15,15 @@ ROOT = Path(__file__).resolve().parent.parent
 
 PUBLIC_REPOS = {
     "Aegean-Licensing",
+    "Pocket-Planner",
+    "Modelduck",
+    "Dustline",
+    "Dupefinder",
+    "Driftwood",
+    "Cairn",
+    "Iris",
+    "Tessera",
+    "Weft",
     "Aegean-Reforge",
     "Afterimage",
     "AIKit",

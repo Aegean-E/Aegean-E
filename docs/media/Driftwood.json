@@ -1,0 +1,25 @@
+{
+  "schema": 2,
+  "repo": "Driftwood",
+  "logo": {
+    "src": "media/Driftwood/logo.webp",
+    "alt": "Driftwood logo",
+    "width": 256,
+    "height": 256,
+    "digest": "sha256:b25320f688e482d9db699bb747276a3a11719eb78fc533a79763ded8aa1a6ed2",
+    "commit": "f2395b85110cf84594f316356628c78be36e9182",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Driftwood/f2395b85110cf84594f316356628c78be36e9182/assets/logo.svg"
+  },
+  "preview": {
+    "src": "media/Driftwood/social-preview.webp",
+    "alt": "Driftwood social preview",
+    "width": 1200,
+    "height": 600,
+    "digest": "sha256:80112c1d55ea56f25b537af3d98f0c7fb6fceff12203e0bb8e5e7e7ab40946dc",
+    "commit": "f2395b85110cf84594f316356628c78be36e9182",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Driftwood/f2395b85110cf84594f316356628c78be36e9182/assets/social-preview.svg"
+  },
+  "screenshots": []
+}

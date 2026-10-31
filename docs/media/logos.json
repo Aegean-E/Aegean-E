@@ -190,6 +190,51 @@
       "src": "media/Voidfarer/logo.webp",
       "width": 256,
       "height": 256
+    },
+    "Cairn": {
+      "src": "media/Cairn/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Driftwood": {
+      "src": "media/Driftwood/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Dupefinder": {
+      "src": "media/Dupefinder/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Dustline": {
+      "src": "media/Dustline/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Iris": {
+      "src": "media/Iris/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Modelduck": {
+      "src": "media/Modelduck/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Pocket-Planner": {
+      "src": "media/Pocket-Planner/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Tessera": {
+      "src": "media/Tessera/logo.webp",
+      "width": 256,
+      "height": 256
+    },
+    "Weft": {
+      "src": "media/Weft/logo.webp",
+      "width": 256,
+      "height": 256
     }
   }
 }
