@@ -7,9 +7,9 @@
     "alt": "Pebble logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:b9768b919cbaba0dca2452f152a24c19ba2c565153752d37377cf2f6e91d73aa",
+    "digest": "sha256:de415c7ba6d740af9758f5e0de3b7131e777320224ef53027ae625957c56ed35",
     "commit": "cf91ac7e4b28e120c0333cb4fd3b5cbe157ea9f2",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Pebble/cf91ac7e4b28e120c0333cb4fd3b5cbe157ea9f2/assets/logo.jpg"
   },
   "preview": {

@@ -7,9 +7,9 @@
     "alt": "Lattice logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:219a4d0cc90e6457aaed094efd6fa36cbaef522969fe9472bf53acbf17aa90bb",
+    "digest": "sha256:5c2f369d953de2266aa0723e4817bc9226dc417cdaac4a13a0b01c8a2c01f7f6",
     "commit": "d967a92238d9f23568fc8f50e0283cc0d022bac1",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Lattice/d967a92238d9f23568fc8f50e0283cc0d022bac1/assets/logo.jpg"
   },
   "preview": {

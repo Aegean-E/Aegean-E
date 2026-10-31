@@ -7,9 +7,9 @@
     "alt": "Assay logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:e33e303879c613e0ef66a29304021055775e8b043035729e077e74fcd0c3644e",
+    "digest": "sha256:73b876cb3a26313cb97d26031aa56ae807dd5822fc79dfb22462f927f41e4277",
     "commit": "61fc0ab2a4df85f732e65c0d8dd28d5747da61c7",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Assay/61fc0ab2a4df85f732e65c0d8dd28d5747da61c7/assets/logo.jpg"
   },
   "preview": {

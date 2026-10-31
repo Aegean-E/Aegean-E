@@ -7,9 +7,9 @@
     "alt": "Tempo logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:253c950f72084a0c4ab3ba977090e54e6509ef8bc070a154d8b9b46527942475",
+    "digest": "sha256:e4376cb820fe266268dd19192245c11e415f190764944d0d2f72e1838625ab0c",
     "commit": "d93bb373f884672ef429986a0c4a0f417a6699ac",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Tempo/d93bb373f884672ef429986a0c4a0f417a6699ac/assets/logo.jpg"
   },
   "preview": {

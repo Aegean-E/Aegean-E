@@ -7,9 +7,9 @@
     "alt": "Muse logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:4307000ba9558e3e6f31fbf880280fc9207e71608faf2cd94860483fb60963a4",
+    "digest": "sha256:67165b74d1b154f8bb215399f5670def2c785f454ca85bacb8d02236e3bde93c",
     "commit": "d499cbe18905ef340be3b1469b08a3a53bd224a6",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Muse/d499cbe18905ef340be3b1469b08a3a53bd224a6/assets/logo.jpg"
   },
   "preview": {

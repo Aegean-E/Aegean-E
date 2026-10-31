@@ -6,10 +6,10 @@
     "alt": "Meridian logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:8295432afc8c60d7444eac7b19917081b9fa2ef93303b57880ce6fff2b4b6795",
-    "commit": "615e040fc88127bbbd269baa0ba5342ad3cb4b08",
-    "taken_at": "2026-10-30",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Meridian/615e040fc88127bbbd269baa0ba5342ad3cb4b08/assets/logo.png"
+    "digest": "sha256:55b70903f74d5ca3d6c23d77373ac64da36fcd17f281fa37421fe7b3d5df0e4c",
+    "commit": "981454d94acc1e3e3665acc1fe4f1f836f2bc9dd",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Meridian/981454d94acc1e3e3665acc1fe4f1f836f2bc9dd/assets/logo.png"
   },
   "preview": {
     "src": "media/Meridian/social-preview.webp",
@@ -17,9 +17,9 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:5206a19841d0687c4f29d63dce012f0ec997cc2d6cd825457e6dcd36f2d89c7a",
-    "commit": "615e040fc88127bbbd269baa0ba5342ad3cb4b08",
-    "taken_at": "2026-10-30",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Meridian/615e040fc88127bbbd269baa0ba5342ad3cb4b08/assets/social-preview.png"
+    "commit": "981454d94acc1e3e3665acc1fe4f1f836f2bc9dd",
+    "taken_at": "2026-10-31",
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Meridian/981454d94acc1e3e3665acc1fe4f1f836f2bc9dd/assets/social-preview.png"
   },
   "screenshots": [
     {

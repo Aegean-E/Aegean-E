@@ -41,9 +41,9 @@
     "alt": "UI-Sandbox logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:c9782620c0dbbc19cab30e33f85352829fb43b74ccb9e7c7760d88e6576a3771",
+    "digest": "sha256:40007645b446cfb485e2de91a00093313d018602164598fd239e6c1927b09d5d",
     "commit": "bb5c6e7709d96038ef10c734887b0b592f9aef7d",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/UI-Sandbox/bb5c6e7709d96038ef10c734887b0b592f9aef7d/assets/logo.jpg"
   },
   "preview": {

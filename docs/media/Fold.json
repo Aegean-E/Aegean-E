@@ -41,9 +41,9 @@
     "alt": "Fold logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:dea2115e9bf0dce4bfdceafbe3e4f73b8a7805dda284f78408fe63fa959eb955",
+    "digest": "sha256:9a1851a7a4dc9f54794b3ec688e285f70c310ec78f77d0043102835c096a5abb",
     "commit": "5510b1f41b626fe964f8bcfc105e50e3d729b7a3",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Fold/5510b1f41b626fe964f8bcfc105e50e3d729b7a3/assets/logo.jpg"
   },
   "preview": {

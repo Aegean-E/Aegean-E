@@ -6,10 +6,10 @@
     "alt": "Palette logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:62d65598ed27fee2ad8f84367a2ecf8d9dde40f744d4f3aefa6a2b3fbbb94c64",
-    "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
+    "digest": "sha256:31106b89deeadbc571abdbab0e4fbbee44db7c291eadf6513050c420b4db5add",
+    "commit": "fee4919fad391b1675a9a254032d422536ce700a",
     "taken_at": "2026-10-31",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Palette/e0a9275e9ec4089d732f4d5eff603883efb2a8bc/assets/logo.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Palette/fee4919fad391b1675a9a254032d422536ce700a/assets/logo.png"
   },
   "preview": {
     "src": "media/Palette/social-preview.webp",
@@ -17,9 +17,9 @@
     "width": 1200,
     "height": 600,
     "digest": "sha256:bdc9fa8e683798cbfeb6c2b73ef132af7857e578d0fc716c9c260e970a229954",
-    "commit": "e0a9275e9ec4089d732f4d5eff603883efb2a8bc",
+    "commit": "fee4919fad391b1675a9a254032d422536ce700a",
     "taken_at": "2026-10-31",
-    "source": "https://raw.githubusercontent.com/AegeanWorks/Palette/e0a9275e9ec4089d732f4d5eff603883efb2a8bc/assets/social-preview.png"
+    "source": "https://raw.githubusercontent.com/AegeanWorks/Palette/fee4919fad391b1675a9a254032d422536ce700a/assets/social-preview.png"
   },
   "screenshots": [
     {
@@ -32,6 +32,18 @@
       "width": 1200,
       "height": 750,
       "digest": "sha256:f584a432211f39fcbf6f55be8894f0b6ac3a33bcaaa2f480bfceba535349cff1"
+    },
+    {
+      "src": "media/Palette/2026-10-31-home.webp",
+      "alt": "Palette screenshot",
+      "caption": "Palette — 2026 10 31 Home",
+      "commit": "fee4919fad391b1675a9a254032d422536ce700a",
+      "taken_at": "2026-10-31",
+      "viewport": "",
+      "width": 1440,
+      "height": 900,
+      "digest": "sha256:ae5568780169d80c7110bbb87335f8413df4f555503a60ae566c8705afd076d1",
+      "source": "Palette:assets/screenshots/2026-10-31-home.png"
     }
   ]
 }

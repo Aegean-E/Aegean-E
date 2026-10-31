@@ -7,9 +7,9 @@
     "alt": "Mnemo logo",
     "width": 256,
     "height": 256,
-    "digest": "sha256:3106a31ff603b0c17c96f5edf0bb94d20603c89c27c7ba15860c21ad19904a82",
+    "digest": "sha256:3557d52ee7c251a91f324b5d153afded2620275b72b809e1db027320543832fe",
     "commit": "eb689f5659d75c5a96f20c52bf0bc8d01377ff97",
-    "taken_at": "2026-10-30",
+    "taken_at": "2026-10-31",
     "source": "https://raw.githubusercontent.com/AegeanWorks/Mnemo/eb689f5659d75c5a96f20c52bf0bc8d01377ff97/assets/logo.jpg"
   },
   "preview": {
