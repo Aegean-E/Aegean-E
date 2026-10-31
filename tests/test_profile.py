@@ -776,6 +776,13 @@ class ProfileIntegrityTests(unittest.TestCase):
         for name, entry in data["logos"].items():
             with self.subTest(repo=name):
                 self.assertTrue((ROOT / "docs" / entry["src"]).is_file(), entry["src"])
+                manifest_file = ROOT / "docs" / "media" / f"{name}.json"
+                if manifest_file.is_file():
+                    manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+                    self.assertFalse(
+                        bool((manifest.get("logo") or {}).get("generated")),
+                        f"{name} logo is a fallback placeholder card; authentic project artwork is required",
+                    )
         script = (ROOT / "docs" / "app.js").read_text(encoding="utf-8")
         self.assertIn('window.fetch("media/logos.json"', script)
         self.assertIn("applyCardLogos", script)

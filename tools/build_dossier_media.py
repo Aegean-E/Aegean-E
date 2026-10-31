@@ -802,6 +802,8 @@ def command_check(args: argparse.Namespace) -> int:
                 problems.append(f"{name}: {kind} commit is not a SHA: {entry['commit']!r}")
             if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(entry.get("taken_at", ""))):
                 problems.append(f"{name}: {kind} taken_at is not a date")
+            if kind == "logo" and entry.get("generated"):
+                problems.append(f"{name}: logo is a fallback placeholder card, not authentic project artwork")
         for index, shot in enumerate(manifest.get("screenshots", [])):
             src = shot.get("src", "") if isinstance(shot, dict) else ""
             if (
